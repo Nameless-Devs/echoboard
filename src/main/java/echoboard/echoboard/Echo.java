@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @ToString
-public class Discussion {
+public class Echo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Discussion {
     private int downvotes;
     private LocalDateTime created;
 
-    public Discussion(String title, String content, String author) {
+    public Echo(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -31,7 +31,7 @@ public class Discussion {
         this.downvotes = 0;
     }
 
-    protected Discussion() {
+    protected Echo() {
     }
 
     @PrePersist

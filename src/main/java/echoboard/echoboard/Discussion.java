@@ -2,10 +2,13 @@ package echoboard.echoboard;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@ToString
 public class Discussion {
 
     @Id

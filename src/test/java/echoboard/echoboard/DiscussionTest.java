@@ -26,4 +26,8 @@ class DiscussionTest {
         assertEquals(0, discussion.getDownvotes());
     }
 
+    @Test
+    void discussionFieldsAreTheSame() {
+        assertEquals(discussion.toString(), "Discussion(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=null)");
+    }
 }

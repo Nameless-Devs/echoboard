@@ -30,7 +30,7 @@ public class EchoController {
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<Echo> getEcho(@PathVariable String id) {
-        System.out.println(echoService.getEchoById(id));
+        System.out.println("echoService.getEchoById(id)");
         return ResponseEntity.of(echoService.getEchoById(id));
     }
 

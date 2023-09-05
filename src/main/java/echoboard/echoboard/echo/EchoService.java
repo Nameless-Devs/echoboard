@@ -16,11 +16,11 @@ public class EchoService {
         this.echoRepository = echoRepository;
     }
 
-    public ArrayList<Echo> getAllEchoes() {
-        ArrayList<Echo> allEchoes = new ArrayList<>();
-        echoRepository.getAllEchoes().forEach(allEchoes::add);
-        return allEchoes;
-    }
+//    public ArrayList<Echo> getAllEchoes() {
+//        ArrayList<Echo> allEchoes = new ArrayList<>();
+//        echoRepository.getAllEchoes().forEach(allEchoes::add);
+//        return allEchoes;
+//    }
 
     public Echo saveEcho(Echo echo) {
         return echoRepository.save(echo);

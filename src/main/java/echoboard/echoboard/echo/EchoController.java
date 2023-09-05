@@ -3,9 +3,8 @@ package echoboard.echoboard.echo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
-import java.util.ArrayList;
+
 
 @RestController
 @RequestMapping("/api")
@@ -22,10 +21,10 @@ public class EchoController {
         return ResponseEntity.ok().body("Server is up and running!");
     }
 
-    @GetMapping("/echoes")
-    public ResponseEntity<ArrayList<Echo>> getAllEchoes() {
-        return ResponseEntity.ok().body(echoService.getAllEchoes());
-    }
+//    @GetMapping("/echoes")
+//    public ResponseEntity<ArrayList<Echo>> getAllEchoes() {
+//        return ResponseEntity.ok().body(echoService.getAllEchoes());
+//    }
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<Echo> getEcho(@PathVariable long id) {

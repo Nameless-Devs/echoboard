@@ -1,6 +1,8 @@
-package echoboard.echoboard;
+package echoboard.echoboard.echo;
 
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public class EchoRepository {
@@ -15,7 +17,11 @@ public class EchoRepository {
         return repo.findAll();
     }
 
-    public void save(Echo echo) {
-        repo.save(echo);
+    public Echo save(Echo echo) {
+        return repo.save(echo);
+    }
+
+    public Optional<Echo> getEchoById(long id) {
+        return repo.findById(id);
     }
 }

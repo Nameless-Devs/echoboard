@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.UUID;
 
 
 @RestController
@@ -27,13 +28,14 @@ public class EchoController {
 //    }
 
     @GetMapping("/echoes/{id}")
-    public ResponseEntity<Echo> getEcho(@PathVariable long id) {
+    public ResponseEntity<Echo> getEcho(@PathVariable String id) {
+        System.out.println(echoService.getEchoById(id));
         return ResponseEntity.of(echoService.getEchoById(id));
     }
 
     @PostMapping("/echoes")
     public ResponseEntity<Void> saveEcho(@RequestBody Echo echo) {
-        long echoId = echoService.saveEcho(echo).getId();
+        String echoId = echoService.saveEcho(echo).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

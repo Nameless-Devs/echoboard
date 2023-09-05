@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -26,7 +27,7 @@ public class EchoService {
         return echoRepository.save(echo);
     }
 
-    public Optional<Echo> getEchoById(long id) {
+    public Optional<Echo> getEchoById(String id) {
         return echoRepository.getEchoById(id);
     }
 }

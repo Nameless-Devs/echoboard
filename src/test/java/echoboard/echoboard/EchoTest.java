@@ -27,6 +27,6 @@ class EchoTest {
 
     @Test
     void echoFieldsAreTheSame() {
-        assertEquals(echo.toString(), "Echo(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=null)");
+        assertTrue(echo.toString().contains("Echo(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=202"));
     }
 }

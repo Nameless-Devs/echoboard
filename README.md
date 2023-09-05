@@ -52,6 +52,12 @@ It aims to bridge the gap between employees and upper management by providing a 
 	- Solutions are labeled with their status.
 	- Successful solutions mark associated problems as solved.
 
+
+<p align="center">
+<img width="658" alt="Screenshot 2023-09-05 at 11 47 12" src="https://github.com/Nameless-Devs/echoboard/assets/125829513/d2cee98b-142a-470f-97c4-f3e4ee6ba119">
+</p>
+
+
 - **Extra features and ideas**
 	- Archive and Current Sections: 
 		- Organise problems and solutions into archived and current sections for easy reference.

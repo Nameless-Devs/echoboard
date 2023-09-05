@@ -34,7 +34,6 @@ public class Echo {
         this.upvotes = 0;
         this.downvotes = 0;
         this.created = LocalDateTime.now().toString();
-
     }
 
     public Echo() {
@@ -61,8 +60,12 @@ public class Echo {
         this.upvotes = upvotes;
     }
 
-    public void setDownvotes(int downvote) {
+    public void setDownvotes(int downvotes) {
         this.downvotes = downvotes;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
     }
 
 }

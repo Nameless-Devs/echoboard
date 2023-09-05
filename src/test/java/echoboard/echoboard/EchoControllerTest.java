@@ -11,6 +11,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -40,20 +42,18 @@ public class EchoControllerTest {
                 .andExpect(content().string("Server is up and running!"));
     }
 
-//    @Test
-//    public void testGetAllEchoes() throws Exception {
-//        ArrayList<Echo> someEchoList = new ArrayList<>(Arrays.asList(
-//                new Echo("Title1", "Content1", "Author1"),
-//                new Echo("Title2", "Content2", "Author2")
-//        ));
-//
-//        String expectedJson = objectMapper.writeValueAsString(someEchoList);
-//
-//        when(echoService.getAllEchoes()).thenReturn(someEchoList);
-//
-//        mockMvc.perform(get("/api/echoes"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(expectedJson));
-//    }
+    @Test
+    public void testGetAllEchoes() throws Exception {
+
+        Echo echo = new Echo("Title1", "Content1", "Author1");
+
+        String expectedJson = objectMapper.writeValueAsString(echo);
+
+        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(Optional.of(echo));
+
+        mockMvc.perform(get("/api/echoes/45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson));
+    }
 
 }

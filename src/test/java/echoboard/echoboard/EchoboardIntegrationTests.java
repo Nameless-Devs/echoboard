@@ -2,7 +2,6 @@ package echoboard.echoboard;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import echoboard.echoboard.echo.Echo;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,13 +16,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class EchoboardApplicationTests {
+public class EchoboardIntegrationTests {
 
 	private final MockMvc mockMvc;
 	private final ObjectMapper objectMapper;
 
 	@Autowired
-	public EchoboardApplicationTests(MockMvc mockMvc, ObjectMapper objectMapper) {
+	public EchoboardIntegrationTests(MockMvc mockMvc, ObjectMapper objectMapper) {
 		this.mockMvc = mockMvc;
 		this.objectMapper = objectMapper;
 	}

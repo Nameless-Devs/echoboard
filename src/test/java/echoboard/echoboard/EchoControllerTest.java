@@ -35,7 +35,7 @@ public class EchoControllerTest {
 
     @Test
     public void testGetStatus() throws Exception {
-        mockMvc.perform(get("/status"))
+        mockMvc.perform(get("/api/status"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Server is up and running!"));
     }
@@ -51,7 +51,7 @@ public class EchoControllerTest {
 
         when(echoService.getAllEchoes()).thenReturn(someEchoList);
 
-        mockMvc.perform(get("/echoes"))
+        mockMvc.perform(get("/api/echoes"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }

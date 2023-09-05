@@ -32,17 +32,17 @@ public class EchoboardApplicationTests {
 
 		String jsonRequest = objectMapper.writeValueAsString(echo);
 		System.out.println(jsonRequest);
-		mockMvc.perform(post("/echoes")
+		mockMvc.perform(post("/api/echoes")
 						.contentType("application/json")
 						.content(jsonRequest))
-				.andExpect(status().isOk());
+				.andExpect(status().isCreated());
 	}
 
 	@Test
 	@Order(2)
 	void testGetEcho() throws Exception {
 
-		mockMvc.perform(get("/echoes"))
+		mockMvc.perform(get("/api/echoes"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$[0].title").value("Test Title"))
 				.andExpect(jsonPath("$[0].content").value("Test Content"))

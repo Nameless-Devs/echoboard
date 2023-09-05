@@ -18,7 +18,7 @@ target/
 *.iws
 *.iml
 *.ipr
-
+secrets.yml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 src/main/resources/secrets.yml
+/src/main/resources/secrets.yml

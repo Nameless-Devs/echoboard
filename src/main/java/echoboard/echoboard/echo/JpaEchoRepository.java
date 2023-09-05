@@ -1,9 +1,8 @@
-package echoboard.echoboard.echo;
-
-import echoboard.echoboard.echo.Echo;
-import org.springframework.data.repository.CrudRepository;
-
-import java.util.Optional;
-
-public interface JpaEchoRepository extends CrudRepository<Echo, Long> {
-}
+//package echoboard.echoboard.echo;
+//
+//import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
+//import org.springframework.data.repository.CrudRepository;
+//
+//@EnableScan
+//public interface JpaEchoRepository extends CrudRepository<Echo, UUID> {
+//}

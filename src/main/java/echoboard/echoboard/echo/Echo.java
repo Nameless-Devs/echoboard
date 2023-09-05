@@ -61,7 +61,7 @@ public class Echo {
         this.upvotes = upvotes;
     }
 
-    public void setDownvotes(int downvotes) {
+    public void setDownvotes(int downvote) {
         this.downvotes = downvotes;
     }
 

@@ -1,4 +1,4 @@
-package echoboard.echoboard;
+package echoboard.echoboard.echo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -38,7 +38,6 @@ public class Echo {
     private void onCreate() {
         this.created = LocalDateTime.now();
     }
-
 
     public void setTitle(String title) {
         this.title = title;

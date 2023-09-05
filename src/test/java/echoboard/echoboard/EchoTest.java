@@ -1,5 +1,6 @@
 package echoboard.echoboard;
 
+import echoboard.echoboard.echo.Echo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,6 @@ class DiscussionTest {
 
     @Test
     void discussionFieldsAreTheSame() {
-        assertEquals(echo.toString(), "Discussion(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=null)");
+        assertEquals(echo.toString(), "Echo(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=null)");
     }
 }

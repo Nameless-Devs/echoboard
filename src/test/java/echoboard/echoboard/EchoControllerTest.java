@@ -49,9 +49,9 @@ public class EchoControllerTest {
 
         String expectedJson = objectMapper.writeValueAsString(echo);
 
-        when(echoService.getEchoById("87cd7c4d-f284-4d22-838f-d95ec94e34dc")).thenReturn(Optional.of(echo));
+        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(Optional.of(echo));
 
-        mockMvc.perform(get("/api/echoes"))
+        mockMvc.perform(get("/api/echoes/45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }

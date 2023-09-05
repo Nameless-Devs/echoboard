@@ -4,5 +4,5 @@
 //import org.springframework.data.repository.CrudRepository;
 //
 //@EnableScan
-//public interface JpaEchoRepository extends CrudRepository<Echo, Long> {
+//public interface JpaEchoRepository extends CrudRepository<Echo, UUID> {
 //}

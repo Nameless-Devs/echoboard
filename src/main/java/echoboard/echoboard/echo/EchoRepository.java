@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class EchoRepository {
@@ -24,7 +25,7 @@ public class EchoRepository {
         return echo;
     }
 
-    public Optional<Echo> getEchoById(long id) {
+    public Optional<Echo> getEchoById(String id) {
         return Optional.ofNullable(dynamoDBMapper.load(Echo.class, id));
     }
 }

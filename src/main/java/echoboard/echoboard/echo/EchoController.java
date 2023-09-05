@@ -1,11 +1,14 @@
-package echoboard.echoboard;
+package echoboard.echoboard.echo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.ArrayList;
 
 @RestController
+@RequestMapping("/api")
 public class EchoController {
 
     private final EchoService echoService;
@@ -15,18 +18,30 @@ public class EchoController {
     }
 
     @GetMapping("/status")
-    public String getStatus() {
-        return "Server is up and running!";
+    public ResponseEntity<String> getStatus() {
+        return ResponseEntity.ok().body("Server is up and running!");
     }
 
     @GetMapping("/echoes")
-    public Iterable<Echo> getAllEchoes() {
-        return echoService.getAllEchoes();
+    public ResponseEntity<ArrayList<Echo>> getAllEchoes() {
+        return ResponseEntity.ok().body(echoService.getAllEchoes());
+    }
+
+    @GetMapping("/echoes/{id}")
+    public ResponseEntity<Echo> getEcho(@PathVariable long id) {
+        return ResponseEntity.of(echoService.getEchoById(id));
     }
 
     @PostMapping("/echoes")
-    public void saveEcho(@RequestBody Echo echo) {
-        echoService.saveEcho(echo);
+    public ResponseEntity<Void> saveEcho(@RequestBody Echo echo) {
+        long echoId = echoService.saveEcho(echo).getId();
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(echoId)
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
 }

@@ -16,7 +16,7 @@ class EchoTest {
     }
 
     @Test
-    void testCreateDiscussion() {
+    void testCreateEcho() {
         assertNotNull(echo);
         assertEquals("Test title", echo.getTitle());
         assertEquals("Test content", echo.getContent());
@@ -26,7 +26,7 @@ class EchoTest {
     }
 
     @Test
-    void discussionFieldsAreTheSame() {
+    void echoFieldsAreTheSame() {
         assertEquals(echo.toString(), "Echo(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=null)");
     }
 }

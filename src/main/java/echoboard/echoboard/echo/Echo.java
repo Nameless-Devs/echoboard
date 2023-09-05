@@ -1,7 +1,6 @@
 package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 import java.time.LocalDateTime;
@@ -34,27 +33,16 @@ public class Echo {
         this.author = author;
         this.upvotes = 0;
         this.downvotes = 0;
+        this.created = LocalDateTime.now().toString();
+
     }
 
-//    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S)
-//    public String getId() {
-//        return id != null ? id : null;
-//    }
-
     public Echo() {
+        created = LocalDateTime.now().toString();
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    @PrePersist
-    private void onCreate() {
-        this.created = LocalDateTime.now().toString();
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
     }
 
     public void setTitle(String title) {

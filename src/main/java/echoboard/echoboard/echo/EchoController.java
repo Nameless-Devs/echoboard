@@ -44,6 +44,16 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
+    @PostMapping("/echoes/")
+    public ResponseEntity<Void> saveComments(@RequestBody Comment comment) {
+        String CommentId = echoService.saveComment(comment).getId();
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand()
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
 
 }
 

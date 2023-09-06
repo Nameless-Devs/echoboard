@@ -20,7 +20,7 @@ public class EchoController {
 
     @GetMapping("/status")
     public ResponseEntity<String> getStatus() {
-        return ResponseEntity.ok().body("Server is up and running this time as well!");
+        return ResponseEntity.ok().body("Server is up and running!");
     }
 
 //    @GetMapping("/echoes")

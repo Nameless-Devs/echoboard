@@ -1,9 +1,9 @@
 version: 0.0
 os: linux
 hooks:
-  ApplicationStop:
-    - location: scripts/stop_server.sh
-      timeout: 300
+#  ApplicationStop:
+#    - location: scripts/stop_server.sh
+#      timeout: 300
   BeforeInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300

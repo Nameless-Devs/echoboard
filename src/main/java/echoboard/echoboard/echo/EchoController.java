@@ -1,5 +1,6 @@
 package echoboard.echoboard.echo;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -35,7 +36,7 @@ public class EchoController {
     }
 
     @PostMapping("/echoes")
-    public ResponseEntity<Void> saveEcho(@RequestBody Echo echo) {
+    public ResponseEntity<String> saveEcho(@RequestBody Echo echo) {
         String echoId = echoService.saveEcho(echo).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -43,7 +44,9 @@ public class EchoController {
                 .buildAndExpand(echoId)
                 .toUri();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("Location", location.toString())
+                .body("Your response message or data here");
     }
 
 }

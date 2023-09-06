@@ -28,7 +28,7 @@ public class Comment {
     private String comment;
 
     @DynamoDBAttribute
-    private int upvote;
+    private Long upvote;
 
     @DynamoDBAttribute
     private Instant created;
@@ -36,7 +36,7 @@ public class Comment {
     public Comment(String author, String comment) {
         this.author = author;
         this.comment = comment;
-        this.upvote = 0;
+        this.upvote = 0L;
         this.created = Instant.now();
     }
 }

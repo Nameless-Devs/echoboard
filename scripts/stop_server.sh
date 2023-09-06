@@ -1,5 +1,4 @@
 echo "Checking if echoboard is running..."
-
 if pgrep -f echoboard-0.0.1-SNAPSHOT.jar > /dev/null; then
     echo "Echoboard is running. Attempting to stop..."
     sudo pkill -f echoboard-0.0.1-SNAPSHOT.jar

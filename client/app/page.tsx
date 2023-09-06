@@ -54,8 +54,8 @@ console.log("this is data " + data);
       },
       body: JSON.stringify(problemPost),
     })
-      .then((response) => response.json())
-      .then(data => console.log(data))
+      .then((response) => console.log(response))
+   
   }
 
   return (

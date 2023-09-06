@@ -7,24 +7,8 @@ type ProblemPostData = {
   author: string;
 };
 export default function Home() {
-  const [problemPost, setProblemPost] = useState<ProblemPostData>({
-    title: "",
-    content: "", 
-    author: "Anonymous" //change it later when we have user authentication
-  });
 
-  const [isProblemSubmited, setProblemSubmited] = useState<boolean>(false);
-
-
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProblemPost({ ...problemPost, title: event.target.value });
-  };
-
-  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setProblemPost({ ...problemPost, content: event.target.value });
-  };
-
-
+  /*This is just to test the connection */
   const [data, setData] = useState("")
   useEffect(() => {
     fetch('http://localhost:8080/api/status')
@@ -40,13 +24,56 @@ export default function Home() {
       });
   }, []);
 console.log("this is data " + data);
+  /* Connection testing ends here*/
+
+
+  const [problemPost, setProblemPost] = useState<ProblemPostData>({
+    title: "",
+    content: "", 
+    author: "Anonymous" //change it later when we have user authentication
+  });
+
+ // const [isProblemSubmited, setProblemSubmited] = useState<boolean>(false);
+
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProblemPost({ ...problemPost, title: event.target.value });
+  };
+
+  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setProblemPost({ ...problemPost, content: event.target.value });
+  };
+
+  const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    fetch("http://localhost:8080/api/echoes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(problemPost),
+    })
+      .then((response) => response.json())
+      .then(data => console.log(data))
+  }
+
   return (
     <main>
       <p>Hello</p>
       <p>{data}</p>
-      <form>
-        <input placeholder="Title" type="text" onChange={handleTitleChange} /> 
-        <textarea placeholder="Descride your problem" onChange={handleContentChange} /> 
+      <form onSubmit={handleProblemPost}>
+        <input 
+        placeholder="Title" 
+        type="text" 
+        value={problemPost.title} 
+        onChange={handleTitleChange} /> 
+        <textarea 
+        placeholder="Descride your problem" 
+        cols={50}
+        rows={5}
+        value={problemPost.content} 
+        onChange={handleContentChange} /> 
         <input type="submit" />
       </form>
     </main>

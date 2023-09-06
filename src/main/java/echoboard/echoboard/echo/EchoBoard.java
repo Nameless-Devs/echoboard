@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.ArrayList;
 
 @Getter
 @ToString
@@ -18,15 +19,22 @@ public class EchoBoard {
 
     @DynamoDBAttribute
     private String title;
+
     @DynamoDBAttribute
     private String content;
+
     @DynamoDBAttribute
     private String author;
+
     @DynamoDBAttribute
     private Long upvote;
+
     @DynamoDBAttribute
     @DynamoDBTypeConverted(converter = InstantConverter.class)
     private Instant created;
+
+    @DynamoDBAttribute
+    private final ArrayList<Comment> comments;
 
     public EchoBoard(String title, String content, String author) {
         this.title = title;
@@ -34,10 +42,12 @@ public class EchoBoard {
         this.author = author;
         this.upvote = 0L;
         this.created = Instant.now();
+        this.comments = new ArrayList<>();
     }
 
     public EchoBoard() {
         created = Instant.now();
+        comments = new ArrayList<>();
     }
 
     public void setId(String id) {

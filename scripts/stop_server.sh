@@ -1,1 +1,1 @@
-pkill -f echoboard-0.0.1-SNAPSHOT.jar
+sudo pkill -f echoboard-0.0.1-SNAPSHOT.jar

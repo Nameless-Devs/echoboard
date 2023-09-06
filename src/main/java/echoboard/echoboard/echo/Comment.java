@@ -31,10 +31,14 @@ public class Comment {
     @DynamoDBTypeConverted(converter = InstantConverter.class)
     private Instant created;
 
-    public Comment(String author, String comment) {
+    @DynamoDBAttribute
+    private String echoBoardId;
+
+    public Comment(String author, String comment, String echoBoardId) {
         this.author = author;
         this.comment = comment;
         this.upvote = 0L;
         this.created = Instant.now();
+        this.echoBoardId = echoBoardId;
     }
 }

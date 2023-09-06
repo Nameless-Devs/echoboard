@@ -5,10 +5,10 @@ cd /opt/codedeploy-agent/deployment-root/ff76af6c-87aa-4059-89ac-8e079c93601e/ |
 echo "Attempting find the latest directory..."
 cd "$(ls -td */ | head -n 1)" || exit
 cd deployment-archive/ || exit
-sudo mkdir "target"
-echo "Attempting to copy secrets..."
-cd target || exit
+cd /src/main/resources
 cp $SOURCE_FILE ./
+cd ..
+cd ..
 cd ..
 echo "Attempting to create the package..."
 sudo mvn clean package

@@ -1,7 +1,7 @@
 SOURCE_FILE="/home/ec2-user/env/secrets.yml"
 
 echo "Attempting to Start server..."
-cd /opt/codedeploy-agent/deployment-root/24553424-6f4c-4566-940a-5dcf5b9ca470/ || exit
+cd /opt/codedeploy-agent/deployment-root/ff76af6c-87aa-4059-89ac-8e079c93601e/ || exit
 echo "Attempting find the latest directory..."
 cd "$(ls -td */ | head -n 1)" || exit
 cd deployment-archive/ || exit

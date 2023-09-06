@@ -23,8 +23,6 @@ public class Echo {
     @DynamoDBAttribute
     private int upvotes;
     @DynamoDBAttribute
-    private int downvotes;
-    @DynamoDBAttribute
     private String created;
 
     public Echo(String title, String content, String author) {
@@ -32,7 +30,6 @@ public class Echo {
         this.content = content;
         this.author = author;
         this.upvotes = 0;
-        this.downvotes = 0;
         this.created = LocalDateTime.now().toString();
     }
 
@@ -58,10 +55,6 @@ public class Echo {
 
     public void setUpvotes(int upvotes) {
         this.upvotes = upvotes;
-    }
-
-    public void setDownvotes(int downvotes) {
-        this.downvotes = downvotes;
     }
 
     public void setCreated(String created) {

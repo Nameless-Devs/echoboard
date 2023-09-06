@@ -3,12 +3,14 @@ package echoboard.echoboard.echo;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import echoboard.echoboard.configuration.InstantConverter;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
 import java.util.ArrayList;
 
 @Getter
+@Setter
 @ToString
 @DynamoDBTable(tableName = "EchoBoardDevelopment")
 public class EchoBoard {
@@ -34,7 +36,7 @@ public class EchoBoard {
     private Instant created;
 
     @DynamoDBAttribute
-    private final ArrayList<Comment> comments;
+    private ArrayList<Comment> comments;
 
     public EchoBoard(String title, String content, String author) {
         this.title = title;
@@ -49,30 +51,5 @@ public class EchoBoard {
         created = Instant.now();
         comments = new ArrayList<>();
     }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setUpvote(Long upvote) {
-        this.upvote = upvote;
-    }
-
-    public void setCreated(Instant created) {
-        this.created = created;
-    }
-
 }
 

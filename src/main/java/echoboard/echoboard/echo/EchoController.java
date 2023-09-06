@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.Optional;
 
 
 @RestController
@@ -22,11 +23,6 @@ public class EchoController {
         return ResponseEntity.ok().body("Server is up and running!");
     }
 
-//    @GetMapping("/echoes")
-//    public ResponseEntity<ArrayList<EchoBoard>> getAllEchoes() {
-//        return ResponseEntity.ok().body(echoService.getAllEchoes());
-//    }
-
     @GetMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
         System.out.println("echoService.getEchoById(id)");
@@ -44,16 +40,28 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("/echoes/")
-    public ResponseEntity<Void> saveComments(@RequestBody Comment comment) {
+    @PostMapping("/echoes/{echoId}/comments")
+    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody Comment comment) {
+
+        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
+
+        if (optionalEchoBoard.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        EchoBoard echoBoard = optionalEchoBoard.get();
+
+        comment.setEchoBoardId(echoId);
+
+        echoBoard.getComments().add(comment);
+
         String CommentId = echoService.saveComment(comment).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand()
+                .buildAndExpand(CommentId)
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-
 }
 

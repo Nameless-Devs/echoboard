@@ -14,10 +14,6 @@ public class EchoRepository {
         this.dynamoDBMapper = dynamoDBMapper;
     }
 
-//    public Iterable<EchoBoard> getAllEchoes() {
-//        return dynamoDBMapper.
-//    }
-
     public EchoBoard save(EchoBoard echoBoard) {
         dynamoDBMapper.save(echoBoard);
         return echoBoard;

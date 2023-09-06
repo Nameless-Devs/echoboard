@@ -13,7 +13,18 @@ export default function Home() {
     author: "Anonymous" //change it later when we have user authentication
   });
 
-  
+  const [isProblemSubmited, setProblemSubmited] = useState<boolean>(false);
+
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProblemPost({ ...problemPost, title: event.target.value });
+  };
+
+  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setProblemPost({ ...problemPost, content: event.target.value });
+  };
+
+
   const [data, setData] = useState("")
   useEffect(() => {
     fetch('http://localhost:8080/api/status')
@@ -34,8 +45,8 @@ console.log("this is data " + data);
       <p>Hello</p>
       <p>{data}</p>
       <form>
-        <input placeholder="Title" type="text" /> 
-        <input placeholder="Descride your problem" type="text" /> 
+        <input placeholder="Title" type="text" onChange={handleTitleChange} /> 
+        <textarea placeholder="Descride your problem" onChange={handleContentChange} /> 
         <input type="submit" />
       </form>
     </main>

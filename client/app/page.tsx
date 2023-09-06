@@ -54,8 +54,18 @@ console.log("this is data " + data);
       },
       body: JSON.stringify(problemPost),
     })
-      .then((response) => console.log(response))
-   
+      .then((response) => {
+        if (response.ok) {
+          setProblemPost({
+            title: "",
+            content: "",
+            author: "Anonymous",
+          });
+        }
+      console.log(response); 
+      });
+      
+
   }
 
   return (

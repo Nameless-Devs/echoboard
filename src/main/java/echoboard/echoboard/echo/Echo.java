@@ -1,8 +1,11 @@
 package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import echoboard.echoboard.configuration.InstantConverter;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -21,20 +24,21 @@ public class Echo {
     @DynamoDBAttribute
     private String author;
     @DynamoDBAttribute
-    private int upvotes;
+    private Long upvote;
     @DynamoDBAttribute
-    private String created;
+    @DynamoDBTypeConverted(converter = InstantConverter.class)
+    private Instant created;
 
     public Echo(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.upvotes = 0;
-        this.created = LocalDateTime.now().toString();
+        this.upvote = 0L;
+        this.created = Instant.now();
     }
 
     public Echo() {
-        created = LocalDateTime.now().toString();
+        created = Instant.now();
     }
 
     public void setId(String id) {
@@ -53,11 +57,11 @@ public class Echo {
         this.author = author;
     }
 
-    public void setUpvotes(int upvotes) {
-        this.upvotes = upvotes;
+    public void setUpvote(Long upvote) {
+        this.upvote = upvote;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Instant created) {
         this.created = created;
     }
 

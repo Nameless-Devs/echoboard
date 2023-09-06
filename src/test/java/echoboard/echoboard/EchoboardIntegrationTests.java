@@ -1,7 +1,7 @@
 package echoboard.echoboard;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import echoboard.echoboard.echo.Echo;
+import echoboard.echoboard.echo.EchoBoard;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,9 +29,9 @@ public class EchoboardIntegrationTests {
 
 	@Test
 	public void testSaveEcho() throws Exception {
-		Echo echo = new Echo("Test Title", "Test Content", "Test Author");
+		EchoBoard echoBoard = new EchoBoard("Test Title", "Test Content", "Test Author");
 
-		String jsonRequest = objectMapper.writeValueAsString(echo);
+		String jsonRequest = objectMapper.writeValueAsString(echoBoard);
 
 		MvcResult postResult = mockMvc.perform(post("/api/echoes")
 						.contentType("application/json")

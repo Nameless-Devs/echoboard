@@ -1,11 +1,9 @@
 package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public class EchoRepository {
@@ -16,16 +14,21 @@ public class EchoRepository {
         this.dynamoDBMapper = dynamoDBMapper;
     }
 
-//    public Iterable<Echo> getAllEchoes() {
+//    public Iterable<EchoBoard> getAllEchoes() {
 //        return dynamoDBMapper.
 //    }
 
-    public Echo save(Echo echo) {
-        dynamoDBMapper.save(echo);
-        return echo;
+    public EchoBoard save(EchoBoard echoBoard) {
+        dynamoDBMapper.save(echoBoard);
+        return echoBoard;
     }
 
-    public Optional<Echo> getEchoById(String id) {
-        return Optional.ofNullable(dynamoDBMapper.load(Echo.class, id));
+    public Comment saveComment(Comment comment) {
+        dynamoDBMapper.save(comment);
+        return comment;
+    }
+
+    public Optional<EchoBoard> getEchoById(String id) {
+        return Optional.ofNullable(dynamoDBMapper.load(EchoBoard.class, id));
     }
 }

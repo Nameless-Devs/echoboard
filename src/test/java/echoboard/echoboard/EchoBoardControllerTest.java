@@ -1,7 +1,7 @@
 package echoboard.echoboard;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import echoboard.echoboard.echo.Echo;
+import echoboard.echoboard.echo.EchoBoard;
 import echoboard.echoboard.echo.EchoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -19,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class EchoControllerTest {
+public class EchoBoardControllerTest {
 
     private final MockMvc mockMvc;
 
@@ -29,7 +28,7 @@ public class EchoControllerTest {
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public EchoControllerTest(MockMvc mockMvc, EchoService echoService, ObjectMapper objectMapper) {
+    public EchoBoardControllerTest(MockMvc mockMvc, EchoService echoService, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.echoService = echoService;
         this.objectMapper = objectMapper;
@@ -45,11 +44,11 @@ public class EchoControllerTest {
     @Test
     public void testGetAllEchoes() throws Exception {
 
-        Echo echo = new Echo("Title1", "Content1", "Author1");
+        EchoBoard echoBoard = new EchoBoard("Title1", "Content1", "Author1");
 
-        String expectedJson = objectMapper.writeValueAsString(echo);
+        String expectedJson = objectMapper.writeValueAsString(echoBoard);
 
-        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(Optional.of(echo));
+        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(Optional.of(echoBoard));
 
         mockMvc.perform(get("/api/echoes/45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1"))
                 .andExpect(status().isOk())

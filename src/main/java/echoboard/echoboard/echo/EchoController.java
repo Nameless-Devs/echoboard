@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
-import java.util.UUID;
 
 
 @RestController
@@ -24,28 +23,27 @@ public class EchoController {
     }
 
 //    @GetMapping("/echoes")
-//    public ResponseEntity<ArrayList<Echo>> getAllEchoes() {
+//    public ResponseEntity<ArrayList<EchoBoard>> getAllEchoes() {
 //        return ResponseEntity.ok().body(echoService.getAllEchoes());
 //    }
 
     @GetMapping("/echoes/{id}")
-    public ResponseEntity<Echo> getEcho(@PathVariable String id) {
+    public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
         System.out.println("echoService.getEchoById(id)");
         return ResponseEntity.of(echoService.getEchoById(id));
     }
 
     @PostMapping("/echoes")
-    public ResponseEntity<Void> saveEcho(@RequestBody Echo echo) {
-        String echoId = echoService.saveEcho(echo).getId();
+    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard) {
+        String echoId = echoService.saveEcho(echoBoard).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(echoId)
                 .toUri();
-
         return ResponseEntity.created(location).build();
     }
 
+
 }
 
-// Random

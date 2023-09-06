@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -30,12 +31,12 @@ public class Comment {
     private int upvote;
 
     @DynamoDBAttribute
-    private String created;
+    private Instant created;
 
     public Comment(String author, String comment) {
         this.author = author;
         this.comment = comment;
         this.upvote = 0;
-        this.created = LocalDateTime.now().toString();
+        this.created = Instant.now();
     }
 }

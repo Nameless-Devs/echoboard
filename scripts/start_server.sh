@@ -20,6 +20,7 @@ cd "$LATEST_DIR" || exit
 
 cd deployment-archive/ || exit
 
+echo "Attempting to copy secrets to correct directory..."
 cp "$SOURCE_FILE" src/main/resources/
 
 echo "Attempting to create the package..."

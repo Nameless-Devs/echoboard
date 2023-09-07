@@ -57,5 +57,17 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
+    @PatchMapping("/echoes/{echoId}/upvote")
+    public ResponseEntity<Long> upvoteEcho(@PathVariable String echoId) {
+        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
+        if (optionalEchoBoard.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Long upvote =  optionalEchoBoard.get().getUpvote() + 1L;
+        optionalEchoBoard.get().setUpvote(upvote);
+        echoService.saveEcho(optionalEchoBoard.get());
+        return ResponseEntity.accepted().body(upvote);
+    }
+
 }
 

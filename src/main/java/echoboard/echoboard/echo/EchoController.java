@@ -50,10 +50,8 @@ public class EchoController {
         }
 
         EchoBoard echoBoard = optionalEchoBoard.get();
-
-        comment.setEchoBoardId(echoId);
-
         echoBoard.getComments().add(comment);
+        echoService.saveEcho(echoBoard);
 
         String CommentId = echoService.saveComment(comment).getId();
 
@@ -63,5 +61,6 @@ public class EchoController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
+
 }
 

@@ -31,6 +31,9 @@ public class InstantConverter implements DynamoDBTypeConverter<String, Instant> 
      */
     @Override
     public Instant unconvert(String stringValue) {
+        if (stringValue != null && stringValue.length() > 27) {
+            stringValue = stringValue.substring(0, 26) + 'Z';
+        }
         return Instant.parse(stringValue);
     }
 }

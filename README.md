@@ -1,3 +1,5 @@
+![Tests Workflow]https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg
+
 # Echoboard
 
 **EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 

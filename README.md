@@ -1,4 +1,4 @@
-![Tests Workflow]https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg
+![Tests Workflow](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg)
 
 # Echoboard
 

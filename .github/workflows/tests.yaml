@@ -18,8 +18,10 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Run tests with Maven
         env:
-          amazon.aws.accessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          amazon.aws.secretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          amazon.dynamodb.region: ${{ secrets.AWS_REGION }}
-          amazon.dynamodb.endpoint: ${{ secrets.AWS_ENDPOINT }}
+          SPRING_APPLICATION_JSON: '{
+                "amazon.aws.accessKeyId": "${{ secrets.AWS_ACCESS_KEY_ID }}",
+                "amazon.aws.secretAccessKey": "${{ secrets.AWS_SECRET_ACCESS_KEY }}",
+                "amazon.dynamodb.region": "${{ secrets.AWS_REGION }}",
+                "amazon.dynamodb.endpoint": "${{ secrets.AWS_ENDPOINT }}"
+              }'
         run: mvn -B test --file pom.xml

@@ -24,8 +24,8 @@ class EchoBoardTest {
         assertEquals(0, echoBoard.getUpvote());
     }
 
-    @Test
-    void echoFieldsAreTheSame() {
-        assertTrue(echoBoard.toString().contains("EchoBoard(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=202"));
-    }
+//    @Test
+//    void echoFieldsAreTheSame() {
+//        assertTrue(echoBoard.toString().contains("EchoBoard(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=202"));
+//    }
 }

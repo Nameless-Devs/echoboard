@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @ToString
-@DynamoDBTable(tableName = "EchoBoardDevelopment")
+@DynamoDBTable(tableName = "EchoBoard")
 public class Echo {
 
     @DynamoDBHashKey

@@ -23,4 +23,3 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           DYNAMODB_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
         run: mvn -B test --file pom.xml
-

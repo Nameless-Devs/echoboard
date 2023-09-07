@@ -16,12 +16,16 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Print environment variables
+        env:
+          amazon.aws.accessKeyId: ${{ secrets.AWS_REGION }}
+        run: | 
+          echo "${{ secrets.AWS_REGION }}"
+          echo "amazon.dynamodb.endpoint: $amazon.dynamodb.endpoint
       - name: Run tests with Maven
         env:
-          SPRING_APPLICATION_JSON: '{
-                "amazon.aws.accessKeyId": "${{ secrets.AWS_ACCESS_KEY_ID }}",
-                "amazon.aws.secretAccessKey": "${{ secrets.AWS_SECRET_ACCESS_KEY }}",
-                "amazon.dynamodb.region": "${{ secrets.AWS_REGION }}",
-                "amazon.dynamodb.endpoint": "${{ secrets.AWS_ENDPOINT }}"
-              }'
+          amazon.aws.accessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          amazon.aws.secretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          amazon.dynamodb.region: ${{ secrets.AWS_REGION }}
+          amazon.dynamodb.endpoint: ${{ secrets.AWS_ENDPOINT }}
         run: mvn -B test --file pom.xml

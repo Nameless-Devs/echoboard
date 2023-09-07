@@ -33,11 +33,11 @@
 @REM ----------------------------------------------------------------------------
 
 @REM Begin all REM lines with '@' in case MAVEN_BATCH_ECHO is 'on'
-@echo off
+@echoBoard off
 @REM set title of command window
 title %0
 @REM enable echoing by setting MAVEN_BATCH_ECHO to 'on'
-@if "%MAVEN_BATCH_ECHO%" == "on"  echo %MAVEN_BATCH_ECHO%
+@if "%MAVEN_BATCH_ECHO%" == "on"  echoBoard %MAVEN_BATCH_ECHO%
 
 @REM set %HOME% to equivalent of $HOME
 if "%HOME%" == "" (set "HOME=%HOMEDRIVE%%HOMEPATH%")
@@ -59,22 +59,22 @@ set ERROR_CODE=0
 @REM ==== START VALIDATION ====
 if not "%JAVA_HOME%" == "" goto OkJHome
 
-echo.
-echo Error: JAVA_HOME not found in your environment. >&2
-echo Please set the JAVA_HOME variable in your environment to match the >&2
-echo location of your Java installation. >&2
-echo.
+echoBoard.
+echoBoard Error: JAVA_HOME not found in your environment. >&2
+echoBoard Please set the JAVA_HOME variable in your environment to match the >&2
+echoBoard location of your Java installation. >&2
+echoBoard.
 goto error
 
 :OkJHome
 if exist "%JAVA_HOME%\bin\java.exe" goto init
 
-echo.
-echo Error: JAVA_HOME is set to an invalid directory. >&2
-echo JAVA_HOME = "%JAVA_HOME%" >&2
-echo Please set the JAVA_HOME variable in your environment to match the >&2
-echo location of your Java installation. >&2
-echo.
+echoBoard.
+echoBoard Error: JAVA_HOME is set to an invalid directory. >&2
+echoBoard JAVA_HOME = "%JAVA_HOME%" >&2
+echoBoard Please set the JAVA_HOME variable in your environment to match the >&2
+echoBoard location of your Java installation. >&2
+echoBoard.
 goto error
 
 @REM ==== END VALIDATION ====
@@ -129,15 +129,15 @@ FOR /F "usebackq tokens=1,2 delims==" %%A IN ("%MAVEN_PROJECTBASEDIR%\.mvn\wrapp
 @REM This allows using the maven wrapper in projects that prohibit checking in binary data.
 if exist %WRAPPER_JAR% (
     if "%MVNW_VERBOSE%" == "true" (
-        echo Found %WRAPPER_JAR%
+        echoBoard Found %WRAPPER_JAR%
     )
 ) else (
     if not "%MVNW_REPOURL%" == "" (
         SET WRAPPER_URL="%MVNW_REPOURL%/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar"
     )
     if "%MVNW_VERBOSE%" == "true" (
-        echo Couldn't find %WRAPPER_JAR%, downloading it ...
-        echo Downloading from: %WRAPPER_URL%
+        echoBoard Couldn't find %WRAPPER_JAR%, downloading it ...
+        echoBoard Downloading from: %WRAPPER_URL%
     )
 
     powershell -Command "&{"^
@@ -148,7 +148,7 @@ if exist %WRAPPER_JAR% (
 		"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $webclient.DownloadFile('%WRAPPER_URL%', '%WRAPPER_JAR%')"^
 		"}"
     if "%MVNW_VERBOSE%" == "true" (
-        echo Finished downloading %WRAPPER_JAR%
+        echoBoard Finished downloading %WRAPPER_JAR%
     )
 )
 @REM End of extension

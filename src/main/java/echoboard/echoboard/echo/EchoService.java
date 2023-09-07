@@ -3,9 +3,7 @@ package echoboard.echoboard.echo;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -17,11 +15,15 @@ public class EchoService {
         this.echoRepository = echoRepository;
     }
 
-    public Echo saveEcho(Echo echo) {
-        return echoRepository.save(echo);
+    public EchoBoard saveEcho(EchoBoard echoBoard) {
+        return echoRepository.save(echoBoard);
     }
 
-    public Optional<Echo> getEchoById(String id) {
+    public Comment saveComment(Comment comment) {
+        return echoRepository.saveComment(comment);
+    }
+
+    public Optional<EchoBoard> getEchoById(String id) {
         return echoRepository.getEchoById(id);
     }
 }

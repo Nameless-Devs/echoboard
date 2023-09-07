@@ -44,20 +44,15 @@ public class EchoController {
     public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody Comment comment) {
 
         Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
-
         if (optionalEchoBoard.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        EchoBoard echoBoard = optionalEchoBoard.get();
-        echoBoard.getComments().add(comment);
-        echoService.saveEcho(echoBoard);
-
-        String CommentId = echoService.saveComment(comment).getId();
+        String commentId = echoService.addCommentToEcho(optionalEchoBoard.get(), comment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(CommentId)
+                .buildAndExpand(commentId)
                 .toUri();
         return ResponseEntity.created(location).build();
     }

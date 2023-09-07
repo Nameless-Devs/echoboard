@@ -3,7 +3,7 @@
 **EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, propose solutions, and collaborate on addressing issues that impact the organisation.**
 
-![Tests Workflow](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg)
+[![tests](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg)](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml)
 
 #
 

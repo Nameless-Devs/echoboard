@@ -17,4 +17,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run tests with Maven
+        env:
+          accessKeyId: ${{secrets.AWS_ACCESS_KEY_ID}}
+          secretAccessKey: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          region: ${{secrets.AWS_REGION}}
+          endpoint: ${{secrets.AWS_ENDPOINT}}
         run: mvn -B test --file pom.xml
+

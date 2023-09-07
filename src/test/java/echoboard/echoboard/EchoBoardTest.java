@@ -3,7 +3,7 @@ package echoboard.echoboard;
 import echoboard.echoboard.echo.EchoBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EchoBoardTest {
@@ -22,10 +22,8 @@ class EchoBoardTest {
         assertEquals("Test content", echoBoard.getContent());
         assertEquals("Author Name", echoBoard.getAuthor());
         assertEquals(0, echoBoard.getUpvote());
+        assertNotNull(echoBoard.getCreated());
+        assertEquals(new ArrayList<>(),echoBoard.getComments());
     }
 
-//    @Test
-//    void echoFieldsAreTheSame() {
-//        assertTrue(echoBoard.toString().contains("EchoBoard(id=null, title=Test title, content=Test content, author=Author Name, upvotes=0, downvotes=0, created=202"));
-//    }
 }

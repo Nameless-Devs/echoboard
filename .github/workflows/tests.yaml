@@ -18,7 +18,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Run tests with Maven
         env:
-          accessKeyId: ${{secrets.AWS_ACCESS_KEY_ID}}
+          amazon.aws.accessKeyId: ${{secrets.AWS_ACCESS_KEY_ID}}
           secretAccessKey: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           region: ${{secrets.AWS_REGION}}
           endpoint: ${{secrets.AWS_ENDPOINT}}

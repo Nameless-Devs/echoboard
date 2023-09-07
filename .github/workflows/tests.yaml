@@ -21,7 +21,7 @@ jobs:
           amazon.aws.accessKeyId: ${{ secrets.AWS_REGION }}
         run: | 
           echo "${{ secrets.AWS_REGION }}"
-          echo "amazon.dynamodb.endpoint: $amazon.dynamodb.endpoint
+          echo "amazon.dynamodb.endpoint: $amazon.dynamodb.endpoint"
       - name: Run tests with Maven
         env:
           amazon.aws.accessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}

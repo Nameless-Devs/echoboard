@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,10 +29,9 @@ public class EchoboardIntegrationTests {
     }
 
     @Test
-    public void testSaveEcho() throws Exception {
-        EchoBoard echo = new EchoBoard("Test Title", "Test Content", "Test Author");
-
-        String jsonRequest = objectMapper.writeValueAsString(echo);
+    public void testPublishEchoBoard() throws Exception {
+        EchoBoard expectedEcho = new EchoBoard("Test Title", "Test Content", "Test Author");
+        String jsonRequest = objectMapper.writeValueAsString(expectedEcho);
 
         MvcResult postResult = mockMvc.perform(post("/api/echoes")
                         .contentType("application/json")
@@ -42,16 +42,17 @@ public class EchoboardIntegrationTests {
         String locationUrl = postResult.getResponse().getHeader("Location");
         assertNotNull(locationUrl, "Location URL should not be null!");
 
-        mockMvc.perform(get(locationUrl))
+        MvcResult getResult = mockMvc.perform(get(locationUrl))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("title").value("Test Title"))
-                .andExpect(jsonPath("content").value("Test Content"))
-                .andExpect(jsonPath("author").value("Test Author"))
-                .andExpect(jsonPath("upvote").value(0))
-                .andExpect(jsonPath("id").value(locationUrl.split("/")[5]))
-                .andExpect(jsonPath("created").isNotEmpty())
-        ;
+                .andReturn();
 
+        EchoBoard actualEcho = objectMapper.readValue(getResult.getResponse().getContentAsString(), EchoBoard.class);
+
+        expectedEcho.setId(actualEcho.getId());
+        expectedEcho.setCreated(actualEcho.getCreated());
+
+        assertEquals(expectedEcho.toString(), actualEcho.toString());
     }
+
 }
 

@@ -13,7 +13,6 @@ export const Upvote: React.FC<UpvoteProps> = ({ upvote, echoBoardId })  => {
             throw new Error(`HTTP Error! Status: ${response.status}`);
           }
     }
-
   return (
     <div>
         <button onClick={increaseUpvoteNumber}>upvotes:{currentUpvote}</button>

@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import { ProblemPostData } from '../Types';
+import { PostEchoBoardData } from '../Types';
 import { postEcho } from '../Functions';
 
 
 const PostEchoBoard = () => {
-    const [problemPost, setProblemPost] = useState<ProblemPostData>({
+    const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
         title: "",
         content: "", 
         author: "" //change it later when we have user authentication
@@ -13,21 +13,21 @@ const PostEchoBoard = () => {
     
     
       const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setProblemPost({ ...problemPost, author: event.target.value });
+        setProblemPost({ ...echoBoardPost, author: event.target.value });
       };
     
       const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setProblemPost({ ...problemPost, title: event.target.value });
+        setProblemPost({ ...echoBoardPost, title: event.target.value });
       };
     
       const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setProblemPost({ ...problemPost, content: event.target.value });
+        setProblemPost({ ...echoBoardPost, content: event.target.value });
       };
     
-      const problemPostToSend: ProblemPostData = {
-        title: problemPost.title,
-        content: problemPost.content, 
-        author: problemPost.author || "Anonymous" 
+      const problemPostToSend: PostEchoBoardData = {
+        title: echoBoardPost.title,
+        content: echoBoardPost.content, 
+        author: echoBoardPost.author || "Anonymous" 
       }
     
       const handleProblemPost = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -56,18 +56,18 @@ const PostEchoBoard = () => {
       <input 
         placeholder="Enter your name" 
         type="text" 
-        value={problemPost.author} 
+        value={echoBoardPost.author} 
         onChange={handleNameChange} /> 
         <input 
         placeholder="Title" 
         type="text" 
-        value={problemPost.title} 
+        value={echoBoardPost.title} 
         onChange={handleTitleChange} /> 
         <textarea 
         placeholder="Descride your problem" 
         cols={50}
         rows={5}
-        value={problemPost.content} 
+        value={echoBoardPost.content} 
         onChange={handleContentChange} /> 
         <input type="submit" />
       </form>

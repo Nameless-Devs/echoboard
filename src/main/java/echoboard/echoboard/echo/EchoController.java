@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -25,8 +26,17 @@ public class EchoController {
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
-        System.out.println("echoService.getEchoById(id)");
         return ResponseEntity.of(echoService.getEchoById(id));
+    }
+
+    @GetMapping("/echoes")
+    public ResponseEntity<List<EchoBoard>> getAllEchoes() {
+        List<EchoBoard> echoes = echoService.getAllEchoes();
+        if (echoes != null && !echoes.isEmpty()) {
+            return ResponseEntity.ok(echoes);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @PostMapping("/echoes")

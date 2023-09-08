@@ -1,7 +1,9 @@
 package echoboard.echoboard.echo;
 
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import org.springframework.stereotype.Service;
-
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -26,5 +28,11 @@ public class EchoService {
 
     public Optional<EchoBoard> getEchoById(String id) {
         return echoRepository.getEchoById(id);
+    }
+
+    public PaginatedScanList<EchoBoard> getAllEchoes(int limit, Map<String, AttributeValue> lastKey) {
+        System.out.println(limit);
+        System.out.println(lastKey);
+        return echoRepository.findAll(limit, lastKey);
     }
 }

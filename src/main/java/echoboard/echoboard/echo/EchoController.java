@@ -1,9 +1,13 @@
 package echoboard.echoboard.echo;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -25,8 +29,20 @@ public class EchoController {
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
-        System.out.println("echoService.getEchoById(id)");
         return ResponseEntity.of(echoService.getEchoById(id));
+    }
+
+    @GetMapping("/echoes")
+    public ResponseEntity<PaginatedScanList<EchoBoard>> getAllEchoes(
+            @RequestParam(name = "limit", defaultValue = "1") int limit,
+            @RequestParam(name = "lastKey", required = false) Map<String, AttributeValue> lastKey) {
+
+        PaginatedScanList<EchoBoard> echoes = echoService.getAllEchoes(limit, lastKey);
+        if (echoes != null && !echoes.isEmpty()) {
+            return ResponseEntity.ok(echoes);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @PostMapping("/echoes")

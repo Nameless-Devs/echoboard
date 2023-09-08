@@ -1,8 +1,10 @@
 package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,5 +28,10 @@ public class EchoRepository {
 
     public Optional<EchoBoard> getEchoById(String id) {
         return Optional.ofNullable(dynamoDBMapper.load(EchoBoard.class, id));
+    }
+
+    public List<EchoBoard> findAll() {
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        return dynamoDBMapper.scan(EchoBoard.class, scanExpression);
     }
 }

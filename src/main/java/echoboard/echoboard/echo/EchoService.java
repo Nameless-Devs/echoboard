@@ -5,6 +5,7 @@ import org.apache.http.HttpException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,9 @@ public class EchoService {
 
     public Optional<EchoBoard> getEchoById(String id) {
         return echoRepository.getEchoById(id);
+    }
+
+    public List<EchoBoard> getAllEchoes() {
+        return echoRepository.findAll();
     }
 }

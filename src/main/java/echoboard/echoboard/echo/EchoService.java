@@ -1,14 +1,12 @@
 package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import jakarta.transaction.Transactional;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class EchoService {
 
     private final EchoRepository echoRepository;

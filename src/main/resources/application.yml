@@ -1,3 +1,11 @@
 spring:
   config:
     import: optional:secrets.yml
+
+amazon:
+  aws:
+    accessKeyId: ${AWS_ACCESS_KEY_ID}
+    secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
+  dynamodb:
+    region: ${AWS_REGION}
+    endpoint: ${AWS_ENDPOINT}

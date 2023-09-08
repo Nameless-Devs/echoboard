@@ -1,6 +1,8 @@
 package echoboard.echoboard.echo;
 
 import jakarta.transaction.Transactional;
+import org.apache.http.HttpException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,8 +21,11 @@ public class EchoService {
         return echoRepository.save(echoBoard);
     }
 
-    public Comment saveComment(Comment comment) {
-        return echoRepository.saveComment(comment);
+    public String addCommentToEcho(EchoBoard echoBoard, Comment comment) {
+
+        echoBoard.getComments().add(comment);
+        saveEcho(echoBoard);
+        return comment.getId();
     }
 
     public Optional<EchoBoard> getEchoById(String id) {

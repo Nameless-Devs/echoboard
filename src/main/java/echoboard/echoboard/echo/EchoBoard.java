@@ -48,6 +48,7 @@ public class EchoBoard {
     }
 
     public EchoBoard() {
+        this.upvote = 0L;
         created = Instant.now();
         comments = new ArrayList<>();
     }

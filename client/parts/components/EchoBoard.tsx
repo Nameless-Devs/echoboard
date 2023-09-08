@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { EchoBoardResponseData, CommentResponseData } from '../Types'
 import { fetchEchoBoards } from '../Functions';
 import { SinglePost } from './SinglePost';
+import Link from 'next/link';
 
 export const EchoBoard = () => {
     const [echoBoards, setEchoBoards] = useState<EchoBoardResponseData[]>([]);
@@ -15,6 +16,7 @@ export const EchoBoard = () => {
   return (
     <div>EchoBoard All Posts
         {echoBoards.map((echoBoard, index) => (
+          <Link href={`/${echoBoard.id}`} >
             <div key={index}>
             <SinglePost 
             id={echoBoard.id} 
@@ -26,7 +28,8 @@ export const EchoBoard = () => {
             comments={echoBoard.comments}  
             />  
             </div>  
-            ))}
+          </Link>
+        ))}
     </div>
   )
 }

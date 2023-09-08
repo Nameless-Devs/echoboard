@@ -46,17 +46,24 @@ console.log("this is data " + data);
     setProblemPost({ ...problemPost, content: event.target.value });
   };
 
+  const problemPostToSend: ProblemPostData = {
+    title: problemPost.title,
+    content: problemPost.content, 
+    author: problemPost.author || "Anonymous" 
+  }
+
   const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
 
     fetch("http://localhost:8080/api/echoes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(problemPost),
+      body: JSON.stringify(problemPostToSend),
     })
-      .then((response) => {
+      .then((response) => { //do we want to do something with the response?
         if (response.ok) {
           setProblemPost({
             title: "",

@@ -2,9 +2,12 @@ package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -30,8 +33,11 @@ public class EchoRepository {
         return Optional.ofNullable(dynamoDBMapper.load(EchoBoard.class, id));
     }
 
-    public List<EchoBoard> findAll() {
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+    public PaginatedScanList<EchoBoard> findAll(int limit, Map<String, AttributeValue> lastKey) {
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withLimit(limit)
+                .withExclusiveStartKey(lastKey);
+
         return dynamoDBMapper.scan(EchoBoard.class, scanExpression);
     }
 }

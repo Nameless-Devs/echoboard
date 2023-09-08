@@ -29,7 +29,7 @@ public class EchoController {
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
-        return ResponseEntity.of(echoService.getEchoById(id));
+        return ResponseEntity.ok(echoService.getEchoById(id));
     }
 
     @GetMapping("/echoes")
@@ -59,12 +59,9 @@ public class EchoController {
     @PostMapping("/echoes/{echoId}/comments")
     public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody Comment comment) {
 
-        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
-        if (optionalEchoBoard.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
 
-        String commentId = echoService.addCommentToEcho(optionalEchoBoard.get(), comment);
+        String commentId = echoService.addCommentToEcho(echoBoard, comment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -75,20 +72,16 @@ public class EchoController {
 
     @PatchMapping("/echoes/{echoId}/upvote")
     public ResponseEntity<Long> upvoteEcho(@PathVariable String echoId) {
-        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
-        if (optionalEchoBoard.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        Long upvote =  optionalEchoBoard.get().getUpvote() + 1L;
-        optionalEchoBoard.get().setUpvote(upvote);
-        echoService.saveEcho(optionalEchoBoard.get());
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+        Long upvote = echoBoard.addUpvote();
+        echoService.saveEcho(echoBoard);
         return ResponseEntity.accepted().body(upvote);
     }
 
     @DeleteMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> deleteEcho(@PathVariable String id) {
         echoService.deleteEcho(id);
-        return ResponseEntity.of(echoService.getEchoById(id));
+        return ResponseEntity.accepted().build();
     }
 
 }

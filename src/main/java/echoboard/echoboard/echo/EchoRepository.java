@@ -29,8 +29,6 @@ public class EchoRepository {
     }
 
     public PaginatedScanList<EchoBoard> findAll(int limit, Map<String, AttributeValue> lastKey) {
-        System.out.println(limit);
-        System.out.println(lastKey);
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
                 .withLimit(limit)
                 .withExclusiveStartKey(lastKey);

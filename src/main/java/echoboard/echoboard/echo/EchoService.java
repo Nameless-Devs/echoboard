@@ -31,8 +31,9 @@ public class EchoService {
         return comment.getId();
     }
 
-    public Optional<EchoBoard> getEchoById(String id) {
-        return echoRepository.getEchoById(id);
+    public EchoBoard getEchoById(String id) {
+        return echoRepository.getEchoById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Echo not found with ID: " + id));
     }
 
     public PaginatedScanList<EchoBoard> getAllEchoes(int limit, Map<String, AttributeValue> lastKey) {
@@ -42,8 +43,6 @@ public class EchoService {
     }
 
     public void deleteEcho(String id) {
-        EchoBoard echo = getEchoById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Echo not found with ID: " + id));
-        echoRepository.deleteEcho(echo);
+        echoRepository.deleteEcho(getEchoById(id));
     }
 }

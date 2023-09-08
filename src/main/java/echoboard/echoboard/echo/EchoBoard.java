@@ -52,5 +52,14 @@ public class EchoBoard {
         created = Instant.now();
         comments = new ArrayList<>();
     }
+
+    /**
+     * Increases the upvote count for the current EchoBoard instance by one.
+     *
+     * @return The updated upvote count.
+     */
+    public Long addUpvote() {
+        return this.upvote += 1;
+    }
 }
 

@@ -1,14 +1,10 @@
 package echoboard.echoboard.echo;
 
-import jakarta.transaction.Transactional;
-import org.apache.http.HttpException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@Transactional
 public class EchoService {
 
     private final EchoRepository echoRepository;

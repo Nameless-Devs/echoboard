@@ -1,6 +1,6 @@
-import { ProblemPostData } from "./Types";
+import { PostEchoBoardData } from "./Types";
 
-export async function postEcho(problemPostToSend: ProblemPostData) {
+export async function postEcho(problemPostToSend: PostEchoBoardData) {
     try {
       const response = await fetch("http://localhost:8080/api/echoes", {
         method: "POST",

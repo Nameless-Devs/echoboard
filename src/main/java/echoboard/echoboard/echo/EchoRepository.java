@@ -37,4 +37,8 @@ public class EchoRepository {
 
         return dynamoDBMapper.scan(EchoBoard.class, scanExpression);
     }
+
+    public void deleteEcho(EchoBoard echo) {
+        dynamoDBMapper.delete(echo);
+    }
 }

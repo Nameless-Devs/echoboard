@@ -2,7 +2,12 @@ package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.awt.*;
 import java.util.Map;
 import java.util.Optional;
 
@@ -34,5 +39,11 @@ public class EchoService {
         System.out.println(limit);
         System.out.println(lastKey);
         return echoRepository.findAll(limit, lastKey);
+    }
+
+    public void deleteEcho(String id) {
+        EchoBoard echo = getEchoById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Echo not found with ID: " + id));
+        echoRepository.deleteEcho(echo);
     }
 }

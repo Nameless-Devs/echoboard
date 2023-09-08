@@ -2,6 +2,7 @@
 import { fetchEchoBoardById } from '@/parts/Functions';
 import { EchoBoardResponseData } from '@/parts/Types';
 import { SinglePost } from '@/parts/components/SinglePost';
+import { Upvote } from '@/parts/components/Upvote';
 import React, { useEffect, useState } from 'react'
 
 type Props = {
@@ -36,6 +37,13 @@ export default function EchoBoardSingleView(props: Props){
         upvote={echoBoardPost.upvote} 
         created={echoBoardPost.created} 
         comments={echoBoardPost.comments} />
+        {echoBoardPost.comments.map((comment, index) => (
+            <div key={index}>
+                <p>{comment.author}</p>
+                <p>{comment.comment}</p>
+                <p>upvotes:{comment.upvote}</p>
+            </div>
+        ))}
     </div>
   )
 }

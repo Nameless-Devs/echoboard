@@ -55,6 +55,17 @@ export async function upvotePost(echoBoardId: string) {
       } catch (error) {
         throw new Error("Fetch error: " + error);
       }
-
 }
 
+export async function fetchEchoBoardById(echoBoardId: string) {
+  try {
+    const response = await fetch(baseURL + `/echoes/${echoBoardId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: EchoBoardResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
+  }
+}

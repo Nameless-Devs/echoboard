@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { ProblemPostData } from '../Types';
+import { postEcho } from '../Functions';
 
 
 const PostEchoBoard = () => {
@@ -29,36 +30,23 @@ const PostEchoBoard = () => {
         author: problemPost.author || "Anonymous" 
       }
     
-      const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
+      const handleProblemPost = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     
-    
-        fetch("http://localhost:8080/api/echoes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(problemPostToSend),
-        })
-          .then((response) => { //do we want to do something with the response?
-            if (response.ok) {
-              setProblemPost({
-                title: "",
-                content: "",
-                author: "",
-              });
-              setErrorMessage("");
-            } else {
-              setErrorMessage("Error: Your post could not be sent.")
-              console.error(`HTTP Error! Status: ${response.status}`);
-            }
-          console.log(response); 
-          
-          })
-          .catch((error) => {
-            console.error("Fetch error:", error);
-            setErrorMessage("Error: There was a network issue. Your post wasn't sent");
+
+        try {
+          const response = await postEcho(problemPostToSend);
+          setProblemPost({
+            title: "",
+            content: "",
+            author: "",
           });
+          setErrorMessage("");
+        } catch (error) {
+          console.error("Error: " + error);
+          setErrorMessage("Error: Your post could not be sent.");
+
+        }
       }
 
   return (

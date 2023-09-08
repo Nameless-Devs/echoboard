@@ -1,10 +1,6 @@
 import React, {useState} from 'react'
+import { ProblemPostData } from '../Types';
 
-type ProblemPostData = {
-    title: string;
-    content: string;
-    author: string;
-  };
 
 const PostEchoBoard = () => {
     const [problemPost, setProblemPost] = useState<ProblemPostData>({

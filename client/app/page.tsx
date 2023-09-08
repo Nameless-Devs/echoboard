@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import PostEchoBoard from "./components/PostEchoBoard";
+import PostEchoBoard from "./parts/components/PostEchoBoard";
 
 
 export default function Home() {

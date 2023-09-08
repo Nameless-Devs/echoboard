@@ -30,11 +30,13 @@ console.log("this is data " + data);
   const [problemPost, setProblemPost] = useState<ProblemPostData>({
     title: "",
     content: "", 
-    author: "Anonymous" //change it later when we have user authentication
+    author: "" //change it later when we have user authentication
   });
 
- // const [isProblemSubmited, setProblemSubmited] = useState<boolean>(false);
 
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProblemPost({ ...problemPost, author: event.target.value });
+  };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProblemPost({ ...problemPost, title: event.target.value });
@@ -59,7 +61,7 @@ console.log("this is data " + data);
           setProblemPost({
             title: "",
             content: "",
-            author: "Anonymous",
+            author: "",
           });
         }
       console.log(response); 
@@ -72,7 +74,12 @@ console.log("this is data " + data);
     <main>
       <p>Hello</p>
       <p>{data}</p>
-      <form onSubmit={handleProblemPost}>
+      <form className="submitProblem__form" onSubmit={handleProblemPost}>
+      <input 
+        placeholder="Enter your name" 
+        type="text" 
+        value={problemPost.author} 
+        onChange={handleNameChange} /> 
         <input 
         placeholder="Title" 
         type="text" 

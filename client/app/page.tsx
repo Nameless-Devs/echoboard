@@ -32,6 +32,7 @@ console.log("this is data " + data);
     content: "", 
     author: "" //change it later when we have user authentication
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,11 +71,18 @@ console.log("this is data " + data);
             content: "",
             author: "",
           });
+          setErrorMessage("");
+        } else {
+          setErrorMessage("Error: Your post could not be sent.")
+          console.error(`HTTP Error! Status: ${response.status}`);
         }
       console.log(response); 
-      });
       
-
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+        setErrorMessage("Error: There was a network issue. Your post wasn't sent");
+      });
   }
 
   return (
@@ -100,6 +108,7 @@ console.log("this is data " + data);
         onChange={handleContentChange} /> 
         <input type="submit" />
       </form>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </main>
   )
 }

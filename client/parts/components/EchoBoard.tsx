@@ -16,8 +16,7 @@ export const EchoBoard = () => {
   return (
     <div>EchoBoard All Posts
         {echoBoards.map((echoBoard, index) => (
-          <Link href={`/${echoBoard.id}`} >
-            <div key={index}>
+          <Link key={index} href={`/${echoBoard.id}`} >
             <SinglePost 
             id={echoBoard.id} 
             title={echoBoard.title} 
@@ -26,8 +25,7 @@ export const EchoBoard = () => {
             upvote={echoBoard.upvote} 
             created={echoBoard.created} 
             comments={echoBoard.comments}  
-            />  
-            </div>  
+            />   
           </Link>
         ))}
     </div>

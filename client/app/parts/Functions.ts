@@ -1,4 +1,4 @@
-import { PostEchoBoardData } from "./Types";
+import { PostEchoBoardData, EchoBoardResponseData } from "./Types";
 
 export async function postEcho(problemPostToSend: PostEchoBoardData) {
     try {
@@ -21,3 +21,16 @@ export async function postEcho(problemPostToSend: PostEchoBoardData) {
       throw new Error("Fetch error: " + error);
     }
   }
+
+  export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
+    try {
+      const response = await fetch('http://localhost:8080/api/echoes');
+      if (!response.ok) {
+        throw new Error(`HTTP Error! Status: ${response.status}`);
+      }
+      const data: EchoBoardResponseData[] = await response.json();
+      return data;
+    } catch (error) {
+        throw new Error("Error fetching data: " + error);
+    }
+}

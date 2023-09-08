@@ -10,9 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Optional;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -43,7 +40,7 @@ public class EchoBoardControllerTest {
     }
 
     @Test
-    public void testGetAllEchoes() throws Exception {
+    public void testGetEchoByEchoId() throws Exception {
 
         EchoBoard echo = new EchoBoard("Title1", "Content1", "Author1");
 

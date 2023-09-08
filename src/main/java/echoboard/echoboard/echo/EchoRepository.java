@@ -19,9 +19,9 @@ public class EchoRepository {
         return echoBoard;
     }
 
-    public Comment saveComment(Comment comment) {
-        dynamoDBMapper.save(comment);
-        return comment;
+    public EchoBoard addComment(EchoBoard echo) {
+        dynamoDBMapper.save(echo);
+        return echo;
     }
 
     public Optional<EchoBoard> getEchoById(String id) {

@@ -24,16 +24,13 @@ public class EchoRepository {
         return echoBoard;
     }
 
-    public EchoBoard addComment(EchoBoard echo) {
-        dynamoDBMapper.save(echo);
-        return echo;
-    }
-
     public Optional<EchoBoard> getEchoById(String id) {
         return Optional.ofNullable(dynamoDBMapper.load(EchoBoard.class, id));
     }
 
     public PaginatedScanList<EchoBoard> findAll(int limit, Map<String, AttributeValue> lastKey) {
+        System.out.println(limit);
+        System.out.println(lastKey);
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
                 .withLimit(limit)
                 .withExclusiveStartKey(lastKey);

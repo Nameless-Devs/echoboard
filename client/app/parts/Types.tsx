@@ -21,3 +21,8 @@ export type CommentResponseData = {
     upvote: number,
     created: string
 }
+
+export type UpvoteProps = {
+    upvote: number,
+    echoBoardId: string
+}

@@ -22,7 +22,7 @@ export async function postEcho(problemPostToSend: PostEchoBoardData) {
     }
   }
 
-  export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
+export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
     try {
       const response = await fetch('http://localhost:8080/api/echoes');
       if (!response.ok) {
@@ -34,3 +34,25 @@ export async function postEcho(problemPostToSend: PostEchoBoardData) {
         throw new Error("Error fetching data: " + error);
     }
 }
+
+export async function upvotePost(echoBoardId: string) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/echoes/${echoBoardId}/upvote`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+    
+        if (response.ok) {
+          console.log(response);
+          return response;
+        } else {
+          throw new Error(`HTTP Error! Status: ${response.status}`);
+        }
+      } catch (error) {
+        throw new Error("Fetch error: " + error);
+      }
+
+}
+

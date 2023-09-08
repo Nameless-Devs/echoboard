@@ -85,5 +85,11 @@ public class EchoController {
         return ResponseEntity.accepted().body(upvote);
     }
 
+    @DeleteMapping("/echoes/{id}")
+    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable String id) {
+        echoService.deleteEcho(id);
+        return ResponseEntity.of(echoService.getEchoById(id));
+    }
+
 }
 

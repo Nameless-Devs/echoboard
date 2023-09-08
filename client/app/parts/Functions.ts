@@ -1,8 +1,10 @@
 import { PostEchoBoardData, EchoBoardResponseData } from "./Types";
 
+const baseURL = "http://localhost:8080/api"; //change it when deploying
+
 export async function postEcho(problemPostToSend: PostEchoBoardData) {
     try {
-      const response = await fetch("http://localhost:8080/api/echoes", {
+      const response = await fetch(baseURL + "/echoes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +26,7 @@ export async function postEcho(problemPostToSend: PostEchoBoardData) {
 
 export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
     try {
-      const response = await fetch('http://localhost:8080/api/echoes');
+      const response = await fetch(baseURL + "/echoes");
       if (!response.ok) {
         throw new Error(`HTTP Error! Status: ${response.status}`);
       }
@@ -37,7 +39,7 @@ export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
 
 export async function upvotePost(echoBoardId: string) {
     try {
-        const response = await fetch(`http://localhost:8080/api/echoes/${echoBoardId}/upvote`, {
+        const response = await fetch(baseURL + `/echoes/${echoBoardId}/upvote`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

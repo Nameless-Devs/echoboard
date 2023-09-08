@@ -49,7 +49,7 @@ public class EchoBoardControllerTest {
 
         String expectedJson = objectMapper.writeValueAsString(echo);
 
-        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(Optional.of(echo));
+        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(echo);
 
         mockMvc.perform(get("/api/echoes/45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1"))
                 .andExpect(status().isOk())

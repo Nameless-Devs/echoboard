@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import PostEchoBoard from "./parts/components/PostEchoBoard";
+import { EchoBoard } from "./parts/components/EchoBoard";
 
 
 export default function Home() {
@@ -29,6 +30,7 @@ console.log("this is data " + data);
       <p>Hello</p>
       <p>{data}</p>
       <PostEchoBoard />
+      <EchoBoard />
     </main>
   )
 }

@@ -3,10 +3,9 @@ package echoboard.echoboard.echo;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
+import java.util.Map;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -46,5 +45,11 @@ public class EchoService {
 
     public void deleteEcho(String id) {
         echoRepository.deleteEcho(getEchoById(id));
+    }
+
+    public String addSolutionToEcho(EchoBoard echoBoard, EchoBoardSolution echoBoardSolution) {
+        echoBoard.getEchoBoardSolutions().add(echoBoardSolution);
+        saveEcho(echoBoard);
+        return echoBoardSolution.getId();
     }
 }

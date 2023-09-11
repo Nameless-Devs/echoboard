@@ -9,7 +9,7 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({ id, title, author,
         <h3>{title}</h3>
         <p>{content}</p>
         <p>comments:{comments.length}</p>
-        <Upvote upvote={upvote} echoBoardId={id} />
+        {/* <Upvote upvote={upvote} echoBoardId={id} /> */}
     </>
   )
 }

@@ -53,22 +53,22 @@ const PostEchoBoard = () => {
     <div>
         <h2>Create post with your problem</h2>
         <form className="submitProblem__form" onSubmit={handleProblemPost}>
-      <input 
-        placeholder="Enter your name" 
-        type="text" 
-        value={echoBoardPost.author} 
-        onChange={handleNameChange} /> 
-        <input 
-        placeholder="Title" 
-        type="text" 
-        value={echoBoardPost.title} 
-        onChange={handleTitleChange} /> 
-        <textarea 
-        placeholder="Descride your problem" 
-        cols={50}
-        rows={5}
-        value={echoBoardPost.content} 
-        onChange={handleContentChange} /> 
+         <input 
+            placeholder="Enter your name" 
+            type="text" 
+            value={echoBoardPost.author} 
+            onChange={handleNameChange} /> 
+            <input 
+            placeholder="Title" 
+            type="text" 
+            value={echoBoardPost.title} 
+            onChange={handleTitleChange} /> 
+            <textarea 
+            placeholder="Descride your problem" 
+            cols={50}
+            rows={5}
+            value={echoBoardPost.content} 
+            onChange={handleContentChange} /> 
         <input type="submit" />
       </form>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}

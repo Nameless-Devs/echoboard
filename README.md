@@ -78,3 +78,14 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 **Conclusion**
 - EchoBoard aims to empower employees by providing a platform for sharing challenges, proposing solutions, and collaborating on problem-solving efforts. By embracing technology and open communication, EchoBoard has the potential to foster a culture of innovation and continuous improvement within your organisation.
+
+#
+
+### 📧 Contact Information
+
+| Contributors           | Socials |
+| ----------------------- | ------- |
+| Nate Arafayne           | [![Github-Nate](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/NateAra) [![LinkedIn-Nate](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nate-tklay-arafayne-20898925a/) |
+| Anastasia Kurayshevich  | [![Github-Anastasia](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnastasiaKurayshevich) [![LinkedIn-Anastasia](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anastasia-kurayshevich/) |
+| Ibrahim Iqbal           | [![Github-Ibrahim](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dIB59) [![LinkedIn-Ibrahim](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/) |
+

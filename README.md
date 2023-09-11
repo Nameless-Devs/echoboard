@@ -3,8 +3,6 @@
 **EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, propose solutions, and collaborate on addressing issues that impact the organisation.**
 
-[![tests](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg)](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml)
-
 #
 
 **The Problem**
@@ -28,20 +26,15 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 #
 
-**Tech Stack**
-- EchoBoard leverages the following technology stack to deliver its functionality:
-	- Java: 
-		- Used for back-end.
-	- Spring Framework: 
-		- Provides the tools necessary for building efficient and scalable applications.
-	- Next JS: 
-		- Powers the front-end user interface. 
-	- TypeScript: 
-		- Enhances JavaScript by adding static typing, improving code quality and developer productivity.
-	- Amazon Web Services (AWS): 
-		- Utilised for hosting, storage, and deployment of the platform.
-	- DynamoDB: 
-		- Used as the database to store user-generated content and platform data.
+### 📱 Tech Stack
+![Java](https://img.shields.io/badge/Java-6F4E37?style=for-the-badge&logo=java&logoColor=white)
+![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![DynamoDB](https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge&logo=amazon-dynamodb&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![React.ts](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 #
 
@@ -88,4 +81,9 @@ It aims to bridge the gap between employees and upper management by providing a 
 | Nate Arafayne           | [![Github-Nate](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/NateAra) [![LinkedIn-Nate](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nate-tklay-arafayne-20898925a/) |
 | Anastasia Kurayshevich  | [![Github-Anastasia](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnastasiaKurayshevich) [![LinkedIn-Anastasia](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anastasia-kurayshevich/) |
 | Ibrahim Iqbal           | [![Github-Ibrahim](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dIB59) [![LinkedIn-Ibrahim](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/) |
+
+#
+
+[![tests](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg)](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml)
+
 

@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.Map;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 @Service
 public class EchoService {
@@ -32,10 +35,12 @@ public class EchoService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Echo not found with ID: " + id));
     }
 
-    public PaginatedScanList<EchoBoard> getAllEchoes(int limit, Map<String, AttributeValue> lastKey) {
+    public List<EchoBoard> getAllEchoes(int limit, Map<String, AttributeValue> lastKey) {
+        List<EchoBoard> echoes = new ArrayList<>(echoRepository.findAll(limit, lastKey));
+        echoes.sort(Comparator.comparing(EchoBoard::getCreated).reversed());
         System.out.println(limit);
         System.out.println(lastKey);
-        return echoRepository.findAll(limit, lastKey);
+        return echoes;
     }
 
     public void deleteEcho(String id) {

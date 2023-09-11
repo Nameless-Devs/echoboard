@@ -40,32 +40,34 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 **Minimum Viable Product (MVP)**
 - The EchoBoard MVP includes the following features:
-	- Employees can submit problems.
-	- Problems can be upvoted to indicate priority.
-	- Commenting on problems is allowed.
-	- Employees can propose solutions for problems.
-	- Solutions are labeled with their status.
-	- Successful solutions mark associated problems as solved.
-
+    - Employees can submit problems.
+    - Problems can be upvoted to indicate priority.
+    - Commenting on problems is allowed.
+    - Employees can propose solutions for problems.
+    - Solutions are labeled with their status.
+    - Successful solutions mark associated problems as solved.
 
 <p align="center">
 <img width="658" alt="Screenshot 2023-09-05 at 11 47 12" src="https://github.com/Nameless-Devs/echoboard/assets/125829513/d2cee98b-142a-470f-97c4-f3e4ee6ba119">
 </p>
 
+<details>
+<summary><strong>Extra features and ideas</strong></summary>
+    
+- Archive and Current Sections: 
+    - Organize problems and solutions into archived and current sections for easy reference.
+- User-Generated Content Management: 
+    - Allow users to update or delete their submitted problems and solutions.
+- Authentication and Authorization:
+    - Implement a login system to ensure the security and privacy of user data.
+- Slack Integration: 
+    - Integrate with Slack to enable messaging capabilities and streamline communication.
+- Rewards and Recognition: 
+    - Introduce a reward system to incentivize employees for their contributions to problem-solving.
+- Google Tasks Integration: 
+    - Connect with Google Tasks to assign and manage tasks related to problem-solving.
+</details>
 
-- **Extra features and ideas**
-	- Archive and Current Sections: 
-		- Organise problems and solutions into archived and current sections for easy reference.
-	- User-Generated Content Management: 
-		- Allow users to update or delete their submitted problems and solutions.
-	- Authentication and Authorisation:
-		- Implement a login system to ensure the security and privacy of user data.
-	- Slack Integration: 
-		- Integrate with Slack to enable messaging capabilities and streamline communication.
-	- Rewards and Recognition: 
-		- Introduce a reward system to incentivise employees for their contributions to problem-solving.
-	- Google Tasks Integration: 
-		- Connect with Google Tasks to assign and manage tasks related to problem-solving.
 
 #
 

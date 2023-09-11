@@ -56,6 +56,32 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
+    @GetMapping("/echoes/{echoId}/echoBoardSolutions/{echoBoardSolutionId}")
+    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable String echoId, @PathVariable String echoBoardSolutionId) {
+
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+        Optional<EchoBoardSolution> echoBoardSolution = echoBoard.getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
+        System.out.println(echoBoardSolution.get());
+        return ResponseEntity.of(echoBoardSolution);
+
+    }
+
+    @PostMapping("/echoes/{echoId}/echoBoardSolutions")
+    public ResponseEntity<String> saveEchoBoardSolution(@PathVariable String echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
+
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+
+        String echoBoardSolutionId = echoService.addSolutionToEcho(echoBoard, echoBoardSolution);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(echoBoardSolutionId)
+                .toUri();
+
+        return ResponseEntity.created(location).body(echoBoardSolutionId);
+
+    }
+
     @PostMapping("/echoes/{echoId}/comments")
     public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody Comment comment) {
 

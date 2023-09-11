@@ -3,6 +3,7 @@ import { EchoBoardResponseData, CommentResponseData } from '../Types'
 import { fetchEchoBoards } from '../Functions';
 import { SinglePost } from './SinglePost';
 import Link from 'next/link';
+import { Upvote } from './Upvote';
 
 export const EchoBoard = () => {
     const [echoBoards, setEchoBoards] = useState<EchoBoardResponseData[]>([]);
@@ -16,17 +17,20 @@ export const EchoBoard = () => {
   return (
     <div>EchoBoard All Posts
         {echoBoards.map((echoBoard, index) => (
-          <Link key={index} href={`/${echoBoard.id}`} >
-            <SinglePost 
-            id={echoBoard.id} 
-            title={echoBoard.title} 
-            content={echoBoard.content} 
-            author={echoBoard.author} 
-            upvote={echoBoard.upvote} 
-            created={echoBoard.created} 
-            comments={echoBoard.comments}  
-            />   
-          </Link>
+          <div key={index}>
+            <Link href={`/${echoBoard.id}`} >
+              <SinglePost 
+              id={echoBoard.id} 
+              title={echoBoard.title} 
+              content={echoBoard.content} 
+              author={echoBoard.author} 
+              upvote={echoBoard.upvote} 
+              created={echoBoard.created} 
+              comments={echoBoard.comments}  
+              />   
+            </Link>
+            <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
+          </div>
         ))}
     </div>
   )

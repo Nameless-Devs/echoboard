@@ -33,11 +33,11 @@ public class EchoController {
     }
 
     @GetMapping("/echoes")
-    public ResponseEntity<PaginatedScanList<EchoBoard>> getAllEchoes(
+    public ResponseEntity<List<EchoBoard>> getAllEchoes(
             @RequestParam(name = "limit", defaultValue = "1") int limit,
             @RequestParam(name = "lastKey", required = false) Map<String, AttributeValue> lastKey) {
 
-        PaginatedScanList<EchoBoard> echoes = echoService.getAllEchoes(limit, lastKey);
+        List<EchoBoard> echoes = echoService.getAllEchoes(limit, lastKey);
         if (echoes != null && !echoes.isEmpty()) {
             return ResponseEntity.ok(echoes);
         } else {

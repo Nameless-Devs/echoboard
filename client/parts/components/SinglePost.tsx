@@ -1,6 +1,5 @@
 import React from "react";
 import { EchoBoardResponseData } from "../Types";
-import { Upvote } from "./Upvote";
 
 export const SinglePost: React.FC<EchoBoardResponseData> = ({
   id,
@@ -16,7 +15,6 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({
       <h3>{title}</h3>
       <p>{content}</p>
       <p>comments:{comments?.length}</p>
-      {/* <Upvote upvote={upvote} echoBoardId={id} /> */}
     </>
   );
 };

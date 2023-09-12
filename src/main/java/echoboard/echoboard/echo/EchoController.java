@@ -1,6 +1,5 @@
 package echoboard.echoboard.echo;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -83,11 +82,11 @@ public class EchoController {
     }
 
     @PostMapping("/echoes/{echoId}/comments")
-    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody Comment comment) {
+    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody EchoBoardComment echoBoardComment) {
 
         EchoBoard echoBoard = echoService.getEchoById(echoId);
 
-        String commentId = echoService.addCommentToEcho(echoBoard, comment);
+        String commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

@@ -1,12 +1,10 @@
 package echoboard.echoboard.echo;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.Map;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -23,11 +21,11 @@ public class EchoService {
         return echoRepository.save(echoBoard);
     }
 
-    public String addCommentToEcho(EchoBoard echoBoard, Comment comment) {
+    public String addCommentToEcho(EchoBoard echoBoard, EchoBoardComment echoBoardComment) {
 
-        echoBoard.getComments().add(comment);
+        echoBoard.getEchoBoardComments().add(echoBoardComment);
         saveEcho(echoBoard);
-        return comment.getId();
+        return echoBoardComment.getId();
     }
 
     public EchoBoard getEchoById(String id) {

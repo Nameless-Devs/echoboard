@@ -23,7 +23,7 @@ class EchoBoardTest {
         assertEquals("Author Name", echoBoard.getAuthor());
         assertEquals(0, echoBoard.getUpvote());
         assertNotNull(echoBoard.getCreated());
-        assertEquals(new ArrayList<>(),echoBoard.getComments());
+        assertEquals(new ArrayList<>(),echoBoard.getEchoBoardComments());
     }
 
 }

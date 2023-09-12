@@ -36,7 +36,7 @@ public class EchoBoard {
     private Instant created;
 
     @DynamoDBAttribute
-    private ArrayList<Comment> comments;
+    private ArrayList<EchoBoardComment> echoBoardComments;
 
     @DynamoDBAttribute
     private ArrayList<EchoBoardSolution> echoBoardSolutions;
@@ -47,14 +47,14 @@ public class EchoBoard {
         this.author = author;
         this.upvote = 0L;
         this.created = Instant.now();
-        this.comments = new ArrayList<>();
+        this.echoBoardComments = new ArrayList<>();
         this.echoBoardSolutions = new ArrayList<>();
     }
 
     public EchoBoard() {
         this.upvote = 0L;
         this.created = Instant.now();
-        this.comments = new ArrayList<>();
+        this.echoBoardComments = new ArrayList<>();
         this.echoBoardSolutions = new ArrayList<>();
     }
 

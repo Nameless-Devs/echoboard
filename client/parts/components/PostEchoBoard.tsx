@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { PostEchoBoardData } from '../Types';
 import { postEcho } from '../Functions';
-
+import { useMutation } from '@tanstack/react-query';
 
 const PostEchoBoard = () => {
     const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({

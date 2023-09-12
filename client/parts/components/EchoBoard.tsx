@@ -7,12 +7,6 @@ import { Upvote } from "./Upvote";
 import { useQuery } from "@tanstack/react-query";
 
 export const EchoBoard = () => {
-  // const [echoBoards, setEchoBoards] = useState<EchoBoardResponseData[]>([]);
-  // useEffect(() => {
-  //   fetchEchoBoards()
-  //     .then((data) => setEchoBoards(data))
-  //     .catch((error) => console.error("Error fetching data", error));
-  // }, []);
 
   const {
     data: echoBoards,
@@ -27,29 +21,13 @@ export const EchoBoard = () => {
       {isError && <p>Error!</p>}
       {echoBoards?.map((echoBoard, index) => (
         <div key={index}>
+          <Link href={`/${echoBoard.id}`}>
           <SinglePost {...echoBoard} />
-          <p>Here are comments number: {echoBoard.echoBoardComments.length}</p>
+          </Link>
+          <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
         </div>
+
       ))}
     </div>
-    // <div>
-    //   EchoBoard All Posts
-    //   {echoBoards.map((echoBoard, index) => (
-    //     <div key={index}>
-    //       <Link href={`/${echoBoard.id}`}>
-    //         <SinglePost
-    //           id={echoBoard.id}
-    //           title={echoBoard.title}
-    //           content={echoBoard.content}
-    //           author={echoBoard.author}
-    //           upvote={echoBoard.upvote}
-    //           created={echoBoard.created}
-    //           comments={echoBoard.comments}
-    //         />
-    //       </Link>
-    //       <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-    //     </div>
-    //   ))}
-    // </div>
   );
 };

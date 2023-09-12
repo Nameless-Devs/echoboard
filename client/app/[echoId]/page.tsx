@@ -36,9 +36,9 @@ export default function EchoBoardSingleView(props: Props){
         author={echoBoardPost.author} 
         upvote={echoBoardPost.upvote} 
         created={echoBoardPost.created} 
-        comments={echoBoardPost.comments} />
+        echoBoardComments={echoBoardPost.echoBoardComments} />
         <Upvote upvote={echoBoardPost.upvote} echoBoardId={echoBoardPost.id} />
-        {echoBoardPost.comments.map((comment, index) => (
+        {echoBoardPost.echoBoardComments.map((comment, index) => (
             <div key={index}>
                 <p>{comment.author}</p>
                 <p>{comment.comment}</p>

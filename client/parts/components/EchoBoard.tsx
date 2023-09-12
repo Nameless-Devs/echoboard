@@ -25,11 +25,12 @@ export const EchoBoard = () => {
       <h1>Echo Board All Posts</h1>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error!</p>}
-      {echoBoards?.map((echoBoard, index) => 
+      {echoBoards?.map((echoBoard, index) => (
         <div key={index}>
-        <SinglePost {...echoBoard} />
+          <SinglePost {...echoBoard} />
+          <p>Here are comments number: {echoBoard.echoBoardComments.length}</p>
         </div>
-        )}
+      ))}
     </div>
     // <div>
     //   EchoBoard All Posts

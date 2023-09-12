@@ -30,29 +30,31 @@ const PostEchoBoard = () => {
         author: echoBoardPost.author || "Anonymous" 
       }
     
-      const handleProblemPost = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+      // const handleProblemPost = async (event: React.FormEvent<HTMLFormElement>) => {
+      //   event.preventDefault();
     
 
-        try {
-          const response = await postEcho(problemPostToSend);
-          setProblemPost({
-            title: "",
-            content: "",
-            author: "",
-          });
-          setErrorMessage("");
-        } catch (error) {
-          console.error("Error: " + error);
-          setErrorMessage("Error: Your post could not be sent.");
+      //   try {
+      //     const response = await postEcho(problemPostToSend);
+      //     setProblemPost({
+      //       title: "",
+      //       content: "",
+      //       author: "",
+      //     });
+      //     setErrorMessage("");
+      //   } catch (error) {
+      //     console.error("Error: " + error);
+      //     setErrorMessage("Error: Your post could not be sent.");
 
-        }
-      }
+      //   }
+      // }
+
+      const {mutate, isLoading, error} = useMutation(postEcho)
 
   return (
     <div>
         <h2>Create post with your problem</h2>
-        <form className="submitProblem__form" onSubmit={handleProblemPost}>
+        <form className="submitProblem__form" onSubmit={() => mutate(echoBoardPost)}>
          <input 
             placeholder="Enter your name" 
             type="text" 

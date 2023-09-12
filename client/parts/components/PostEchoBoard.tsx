@@ -12,9 +12,7 @@ const PostEchoBoard = () => {
       });
 
       const mutation = useMutation(postEcho);
-
-
-      const handleProblemPost = (event) => {
+      const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         mutation.mutate(echoBoardPost, {
             onSuccess: () => {

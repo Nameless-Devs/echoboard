@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { PostEchoBoardData } from '../Types';
 import { postEcho } from '../Functions';
 import { useMutation } from '@tanstack/react-query';
+import { title } from 'process';
 
 const PostEchoBoard = () => {
     const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
@@ -9,71 +10,54 @@ const PostEchoBoard = () => {
         content: "", 
         author: "" //change it later when we have user authentication
       });
-      const [errorMessage, setErrorMessage] = useState("");
-    
-    
-      const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setProblemPost({ ...echoBoardPost, author: event.target.value });
-      };
-    
-      const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setProblemPost({ ...echoBoardPost, title: event.target.value });
-      };
-    
-      const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setProblemPost({ ...echoBoardPost, content: event.target.value });
-      };
-    
-      const problemPostToSend: PostEchoBoardData = {
-        title: echoBoardPost.title,
-        content: echoBoardPost.content, 
-        author: echoBoardPost.author || "Anonymous" 
-      }
-    
-      // const handleProblemPost = async (event: React.FormEvent<HTMLFormElement>) => {
-      //   event.preventDefault();
-    
 
-      //   try {
-      //     const response = await postEcho(problemPostToSend);
-      //     setProblemPost({
-      //       title: "",
-      //       content: "",
-      //       author: "",
-      //     });
-      //     setErrorMessage("");
-      //   } catch (error) {
-      //     console.error("Error: " + error);
-      //     setErrorMessage("Error: Your post could not be sent.");
+      const mutation = useMutation(postEcho);
 
-      //   }
-      // }
 
-      const {mutate, isLoading, error} = useMutation(postEcho)
+      const handleProblemPost = (event) => {
+        event.preventDefault();
+        mutation.mutate(echoBoardPost, {
+            onSuccess: () => {
+                setProblemPost({
+                    title: '',
+                    content: '',
+                    author: ''
+                });
+            },
+            onError: (error) => {
+                console.error("Error:", error);
+            }
+        });
+    };
 
   return (
     <div>
-        <h2>Create post with your problem</h2>
-        <form className="submitProblem__form" onSubmit={() => mutate(echoBoardPost)}>
+      <h2>Create post with your problem</h2>
+        <form onSubmit={handleProblemPost}>
          <input 
             placeholder="Enter your name" 
+            name='author'
             type="text" 
-            value={echoBoardPost.author} 
-            onChange={handleNameChange} /> 
+            value={echoBoardPost.author}
+            onChange={(e) => setProblemPost({...echoBoardPost, author: e.target.value})}
+            /> 
             <input 
             placeholder="Title" 
             type="text" 
-            value={echoBoardPost.title} 
-            onChange={handleTitleChange} /> 
+            value={echoBoardPost.title}
+            onChange={(e) => setProblemPost({...echoBoardPost, title: e.target.value})}
+            /> 
             <textarea 
             placeholder="Descride your problem" 
             cols={50}
             rows={5}
-            value={echoBoardPost.content} 
-            onChange={handleContentChange} /> 
+            name='content'
+            value={echoBoardPost.content}
+            onChange={(e) => setProblemPost({...echoBoardPost, content: e.target.value})}
+            /> 
         <input type="submit" />
       </form>
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      {/* {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>} */}
    
     </div>
   )

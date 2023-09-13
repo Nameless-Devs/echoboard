@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
 import { PostEchoBoardData } from '../Types';
 import { postEcho , fetchEchoBoards } from '../Functions';
-import { useMutation } from '@tanstack/react-query';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const PostEchoBoard = () => {
     const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
@@ -13,7 +12,10 @@ const PostEchoBoard = () => {
         author: "" //change it later when we have user authentication
       });
 
+      const queryClient  = useQueryClient();
+
       const mutation = useMutation(postEcho);
+      
       const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -23,6 +25,7 @@ const PostEchoBoard = () => {
 
         mutation.mutate(echoBoardPost, {
             onSuccess: () => {
+              queryClient.invalidateQueries(["echoBoards"])
                 setProblemPost({
                     title: '',
                     content: '',

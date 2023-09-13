@@ -73,6 +73,19 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 **Conclusion**
 - EchoBoard aims to empower employees by providing a platform for sharing challenges, proposing solutions, and collaborating on problem-solving efforts. By embracing technology and open communication, EchoBoard has the potential to foster a culture of innovation and continuous improvement within your organisation.
+#
+
+### 🚀 Getting Started / Installation
+Follow these steps to get the application up and running in your local environment:
+
+1. Clone the repo SSH
+``` git clone git@github.com:Nameless-Devs/echoboard.git ```
+
+| Steps                            | Front-end                 | Back-end                  |
+| ---------------------------------| ------------------------- | ------------------------- |
+| 2. Navigate into repo            | `cd Client`               | `Inside echoboard`        |
+| 3. Install Dependencies          | `npm install`             | `mvn clean install`       |
+| 4. Run the project               | `npm run dev`             | `mvn start`               |
 
 #
 

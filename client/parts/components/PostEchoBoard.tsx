@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import { PostEchoBoardData } from '../Types';
-import { postEcho } from '../Functions';
+import { postEcho , fetchEchoBoards } from '../Functions';
 import { useMutation } from '@tanstack/react-query';
-import { title } from 'process';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 
 const PostEchoBoard = () => {
     const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
@@ -16,7 +18,6 @@ const PostEchoBoard = () => {
         event.preventDefault();
 
         if (!echoBoardPost.title.trim() || !echoBoardPost.content.trim()) {
-          // throw Error("Title & Content Fields are required.");
           return;
         }
 
@@ -27,6 +28,8 @@ const PostEchoBoard = () => {
                     content: '',
                     author: ''
                 });
+                fetchEchoBoards();
+                
             },
             onError: (error) => {
                 console.error("Error:", error);
@@ -35,35 +38,47 @@ const PostEchoBoard = () => {
     };
 
   return (
-    <div>
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
       <h2>Create post with your problem</h2>
         <form onSubmit={handleProblemPost}>
-         <input 
-            placeholder="Enter your name" 
-            name='author'
-            type="text" 
+          <div>
+          <TextField
+            id="outlined-helperText"
+            label="Name"
+            defaultValue="Anonymous"
             value={echoBoardPost.author}
-            onChange={(e) => setProblemPost({...echoBoardPost, author: e.target.value})}
-            /> 
-            <input 
-            placeholder="Title" 
-            type="text" 
-            value={echoBoardPost.title}
-            onChange={(e) => setProblemPost({...echoBoardPost, title: e.target.value})}
-            /> 
-            <textarea 
-            placeholder="Descride your problem" 
-            cols={50}
-            rows={5}
-            name='content'
+              onChange={(e) => setProblemPost({...echoBoardPost, author: e.target.value})}
+          />
+          </div>
+          <div>
+          <TextField
+          required
+          id="outlined-required"
+          label="Title"
+          value={echoBoardPost.title}
+          onChange={(e) => setProblemPost({...echoBoardPost, title: e.target.value})}
+          />
+          </div>
+          <div>
+          <TextField
+            required
+            id="standard-multiline-flexible"
+            label="Content"
+            multiline
             value={echoBoardPost.content}
             onChange={(e) => setProblemPost({...echoBoardPost, content: e.target.value})}
-            /> 
+          />
+          </div>
         <input type="submit" />
-      </form>
-      {/* {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>} */}
-   
-    </div>
+      </form>   
+    </Box>
   )
 }
 

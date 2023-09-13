@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import { PostEchoBoardData } from '../Types';
 import { postEcho } from '../Functions';
-import { useMutation } from '@tanstack/react-query';
-import { title } from 'process';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const PostEchoBoard = () => {
     const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
@@ -11,17 +10,20 @@ const PostEchoBoard = () => {
         author: "" //change it later when we have user authentication
       });
 
+      const queryClient  = useQueryClient();
+
       const mutation = useMutation(postEcho);
+      
       const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (!echoBoardPost.title.trim() || !echoBoardPost.content.trim()) {
-          // throw Error("Title & Content Fields are required.");
           return;
         }
 
         mutation.mutate(echoBoardPost, {
             onSuccess: () => {
+              queryClient.invalidateQueries(["echoBoards"])
                 setProblemPost({
                     title: '',
                     content: '',

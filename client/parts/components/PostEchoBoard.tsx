@@ -46,7 +46,7 @@ const PostEchoBoard = () => {
       noValidate
       autoComplete="off"
     >
-      <h2>Create post with your problem</h2>
+      <h2>Create post about your problem</h2>
         <form onSubmit={handleProblemPost}>
           <div>
           <TextField

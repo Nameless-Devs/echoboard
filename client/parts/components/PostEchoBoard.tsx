@@ -14,6 +14,12 @@ const PostEchoBoard = () => {
       const mutation = useMutation(postEcho);
       const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        if (!echoBoardPost.title.trim() || !echoBoardPost.content.trim()) {
+          // throw Error("Title & Content Fields are required.");
+          return;
+        }
+
         mutation.mutate(echoBoardPost, {
             onSuccess: () => {
                 setProblemPost({

@@ -26,7 +26,6 @@ export const EchoBoard = () => {
           </Link>
           <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
         </div>
-
       ))}
     </div>
   );

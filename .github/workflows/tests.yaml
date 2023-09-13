@@ -1,5 +1,8 @@
 name: tests
-on: push
+on:
+  push:
+    paths-ignore:
+      - 'client/**'
 jobs:
   run_tests:
     runs-on: ubuntu-latest

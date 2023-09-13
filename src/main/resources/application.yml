@@ -16,8 +16,8 @@ amazon:
   dynamodb:
     region: ${AWS_REGION}
     endpoint: ${AWS_ENDPOINT}
-logging:
-  level:
-    org:
-      springframework:
-        security: TRACE
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: TRACE

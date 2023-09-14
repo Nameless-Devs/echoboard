@@ -22,7 +22,6 @@ export default function Home() {
         console.error('Fetch error:', error);
       });
   }, []);
-console.log("this is data " + data);
   /* Connection testing ends here*/
   
   return (

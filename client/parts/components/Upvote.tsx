@@ -6,7 +6,6 @@ import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
   const queryClient = useQueryClient();
 
-  // Fetching the data for the echo directly in the Upvote component
   const { data: echoData } = useQuery(['echoBoard', echoBoardId], () => fetchEchoBoardById(echoBoardId));
   const upvoteCount = echoData ? echoData.upvote : 0;
 

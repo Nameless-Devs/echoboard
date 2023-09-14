@@ -1,5 +1,7 @@
-import: optional:secrets.yml
+
 spring:
+  config:
+    import: optional:secrets.yml
   security:
     oauth2:
       client:

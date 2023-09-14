@@ -26,11 +26,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         Object principal = authentication.getPrincipal();
+        String BASE_URL = "http://localhost:3000/?token=";
 
         if (principal instanceof OidcUser oidcUser) {
 
             jwtValidation.validateJwt(oidcUser);
-            String redirectUrl = "http://localhost:3000/workspace?token=" +
+            String redirectUrl =  BASE_URL +
                     URLEncoder.encode(oidcUser.getIdToken().getTokenValue(), StandardCharsets.UTF_8);
             response.sendRedirect(redirectUrl);
         }

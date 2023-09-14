@@ -16,11 +16,6 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-
-//    @Override
-//    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-//        AuthenticationSuccessHandler.super.onAuthenticationSuccess(request, response, chain, authentication);
-//    }
     private final JwtValidation jwtValidation;
 
     public CustomAuthenticationSuccessHandler(JwtValidation jwtValidation){
@@ -32,15 +27,15 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         Object principal = authentication.getPrincipal();
 
-        if (principal instanceof OidcUser) {
-            OidcUser oidcUser = (OidcUser) principal;
+        if (principal instanceof OidcUser oidcUser) {
+
             jwtValidation.validateJwt(oidcUser);
-        } else {
-            System.out.println("Principal is not an instance of OidcUser.");
+            String redirectUrl = "http://localhost:3000/workspace?token=" +
+                    URLEncoder.encode(oidcUser.getIdToken().getTokenValue(), StandardCharsets.UTF_8);
+            response.sendRedirect(redirectUrl);
         }
 
-        String redirectUrl = "http://localhost:3000/workspace?token=" + URLEncoder.encode("1", StandardCharsets.UTF_8);
-        response.sendRedirect(redirectUrl);
+        System.out.println("Principal is not an instance of OidcUser.");
 
     }
 

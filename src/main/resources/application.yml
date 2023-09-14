@@ -1,7 +1,12 @@
+import: optional:secrets.yml
 spring:
-  config:
-    import: optional:secrets.yml
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_OAUTH2_CLIENT_ID}
+            client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
 amazon:
   aws:
     accessKeyId: ${AWS_ACCESS_KEY_ID}

@@ -1,6 +1,5 @@
-package echoboard.echoboard.security;
+package echoboard.echoboard.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -12,27 +11,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-@Profile("production")
-public class SecurityConfiguration {
-
-    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-
-    @Autowired
-    public SecurityConfiguration(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
-        this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
-    }
+@Profile("dev")
+public class DevelopmentSecurityConfiguration {
 
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/api/status").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .cors(withDefaults())
-                .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customAuthenticationSuccessHandler)
-                        )
                 .build();
     }
 }

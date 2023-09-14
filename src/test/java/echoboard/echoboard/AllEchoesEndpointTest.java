@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import echoboard.echoboard.echo.EchoBoard;
 import echoboard.echoboard.echo.EchoController;
 import echoboard.echoboard.echo.EchoService;
-import echoboard.echoboard.security.ApplicationNoSecurity;
+import echoboard.echoboard.security.config.ApplicationNoSecurity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

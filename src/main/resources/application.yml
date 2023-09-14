@@ -1,5 +1,7 @@
 
 spring:
+  profiles:
+    default: deploy
   config:
     import: optional:secrets.yml
   security:

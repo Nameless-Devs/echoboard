@@ -49,7 +49,5 @@ public class JwtValidation {
     public void validateJwt(OidcUser oidcUser) {
         String tokenValue = oidcUser.getIdToken().getTokenValue();
         validator.validate(jwtDecoder.decode(tokenValue));
-        System.out.println(tokenValue);
-        System.out.println("validated");
     }
 }

@@ -1,5 +1,6 @@
 package echoboard.echoboard.security;
 
+import echoboard.echoboard.security.JwtValidation;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -27,8 +27,7 @@ export default function EchoBoardSingleView(props: Props){
     }
 
   return (
-    <div>page
-        <p>id of this echo is {props.params.echoId}</p>
+    <div>
         <SinglePost 
         id={echoBoardPost.id} 
         title={echoBoardPost.title} 

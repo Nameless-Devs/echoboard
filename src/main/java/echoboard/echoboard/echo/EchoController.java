@@ -1,6 +1,5 @@
 package echoboard.echoboard.echo;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +32,11 @@ public class EchoController {
     }
 
     @GetMapping("/echoes")
-    public ResponseEntity<PaginatedScanList<EchoBoard>> getAllEchoes(
+    public ResponseEntity<List<EchoBoard>> getAllEchoes(
             @RequestParam(name = "limit", defaultValue = "1") int limit,
             @RequestParam(name = "lastKey", required = false) Map<String, AttributeValue> lastKey) {
 
-        PaginatedScanList<EchoBoard> echoes = echoService.getAllEchoes(limit, lastKey);
+        List<EchoBoard> echoes = echoService.getAllEchoes(limit, lastKey);
         if (echoes != null && !echoes.isEmpty()) {
             return ResponseEntity.ok(echoes);
         } else {
@@ -56,12 +55,38 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("/echoes/{echoId}/comments")
-    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody Comment comment) {
+    @GetMapping("/echoes/{echoId}/echoBoardSolutions/{echoBoardSolutionId}")
+    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable String echoId, @PathVariable String echoBoardSolutionId) {
+
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+        Optional<EchoBoardSolution> echoBoardSolution = echoBoard.getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
+        System.out.println(echoBoardSolution.get());
+        return ResponseEntity.of(echoBoardSolution);
+
+    }
+
+    @PostMapping("/echoes/{echoId}/echoBoardSolutions")
+    public ResponseEntity<String> saveEchoBoardSolution(@PathVariable String echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
 
         EchoBoard echoBoard = echoService.getEchoById(echoId);
 
-        String commentId = echoService.addCommentToEcho(echoBoard, comment);
+        String echoBoardSolutionId = echoService.addSolutionToEcho(echoBoard, echoBoardSolution);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(echoBoardSolutionId)
+                .toUri();
+
+        return ResponseEntity.created(location).body(echoBoardSolutionId);
+
+    }
+
+    @PostMapping("/echoes/{echoId}/comments")
+    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody EchoBoardComment echoBoardComment) {
+
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+
+        String commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

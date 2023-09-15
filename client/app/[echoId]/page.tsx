@@ -27,8 +27,7 @@ export default function EchoBoardSingleView(props: Props){
     }
 
   return (
-    <div>page
-        <p>id of this echo is {props.params.echoId}</p>
+    <div>
         <SinglePost 
         id={echoBoardPost.id} 
         title={echoBoardPost.title} 
@@ -36,8 +35,9 @@ export default function EchoBoardSingleView(props: Props){
         author={echoBoardPost.author} 
         upvote={echoBoardPost.upvote} 
         created={echoBoardPost.created} 
-        comments={echoBoardPost.comments} />
-        {echoBoardPost.comments.map((comment, index) => (
+        echoBoardComments={echoBoardPost.echoBoardComments} />
+        <Upvote upvote={echoBoardPost.upvote} echoBoardId={echoBoardPost.id} />
+        {echoBoardPost.echoBoardComments.map((comment, index) => (
             <div key={index}>
                 <p>{comment.author}</p>
                 <p>{comment.comment}</p>
@@ -47,14 +47,3 @@ export default function EchoBoardSingleView(props: Props){
     </div>
   )
 }
-
-
-// {
-//     id: "",
-//     title: "",
-//     content: "",
-//     author: "",
-//     upvote: 0,
-//     created: "",
-//     comments: []
-//     }

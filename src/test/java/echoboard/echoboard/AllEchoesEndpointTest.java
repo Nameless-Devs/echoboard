@@ -5,16 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import echoboard.echoboard.echo.EchoBoard;
 import echoboard.echoboard.echo.EchoController;
 import echoboard.echoboard.echo.EchoService;
+import echoboard.echoboard.security.config.ApplicationNoSecurity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -24,9 +26,11 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(EchoController.class)
+@ActiveProfiles("test")
+@ContextConfiguration(classes = { EchoboardApplication.class, ApplicationNoSecurity.class })
 public class AllEchoesEndpointTest {
 
-    private MockMvc mockMvc;
+    private final MockMvc mockMvc;
 
     @MockBean
     private EchoService echoService;
@@ -49,7 +53,7 @@ public class AllEchoesEndpointTest {
 
         String expectedJson = objectMapper.writeValueAsString(mockEchoes);
 
-        PaginatedScanList<EchoBoard> mockedScanList = mock(PaginatedScanList.class);
+        PaginatedScanList mockedScanList = mock(PaginatedScanList.class);
         when(mockedScanList.isEmpty()).thenReturn(false);
         when(mockedScanList.iterator()).thenReturn(mockEchoes.iterator());
 
@@ -69,6 +73,8 @@ public class AllEchoesEndpointTest {
 
         mockMvc.perform(get("/api/echoes").param("limit", "1"))
                 .andExpect(status().isNoContent());
+
+
     }
 
 }

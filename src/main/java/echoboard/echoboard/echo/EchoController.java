@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://echoboard.vercel.app/")
 public class EchoController {
 
     private final EchoService echoService;

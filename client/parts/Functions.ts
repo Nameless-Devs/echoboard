@@ -41,6 +41,8 @@ export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
     }
 }
 
+//boo
+
 export async function upvotePost(echoBoardId: string) {
     try {
         const response = await fetch(baseURL + `/echoes/${echoBoardId}/upvote`, {

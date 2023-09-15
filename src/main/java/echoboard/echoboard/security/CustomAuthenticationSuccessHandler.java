@@ -27,7 +27,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         Object principal = authentication.getPrincipal();
-        String BASE_URL = "http://localhost:3000/?token=";
+        String BASE_URL = "https://echoboard.vercel.app/?token=";
 
         if (principal instanceof OidcUser oidcUser) {
 

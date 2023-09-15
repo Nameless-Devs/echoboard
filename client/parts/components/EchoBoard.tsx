@@ -5,9 +5,14 @@ import { SinglePost } from "./SinglePost";
 import Link from "next/link";
 import { Upvote } from "./Upvote";
 import { useQuery } from "@tanstack/react-query";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 export const EchoBoard = () => {
-
   const {
     data: echoBoards,
     isLoading,
@@ -20,13 +25,19 @@ export const EchoBoard = () => {
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error!</p>}
       {echoBoards?.map((echoBoard, index) => (
-        <div key={index}>
-          <Link href={`/${echoBoard.id}`}>
-          <SinglePost {...echoBoard} />
-          </Link>
-          <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-        </div>
-
+        <Card sx={{ maxWidth: 345 }}>
+          <div key={index}>
+            <CardContent>
+              <SinglePost {...echoBoard} />
+            </CardContent>
+            <CardActions>
+              <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
+              <Link href={`/${echoBoard.id}`}>
+                <Button size="small">Comments: {echoBoard.echoBoardComments.length}</Button>
+              </Link>
+            </CardActions>
+          </div>
+        </Card>
       ))}
     </div>
   );

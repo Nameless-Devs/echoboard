@@ -9,16 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Optional;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 public class EchoBoardControllerTest {
 
     private final MockMvc mockMvc;
@@ -43,13 +42,13 @@ public class EchoBoardControllerTest {
     }
 
     @Test
-    public void testGetAllEchoes() throws Exception {
+    public void testGetEchoByEchoId() throws Exception {
 
         EchoBoard echo = new EchoBoard("Title1", "Content1", "Author1");
 
         String expectedJson = objectMapper.writeValueAsString(echo);
 
-        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(Optional.of(echo));
+        when(echoService.getEchoById("45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1")).thenReturn(echo);
 
         mockMvc.perform(get("/api/echoes/45b35e2c-d2be-4d4e-9bc7-c25147f1f4f1"))
                 .andExpect(status().isOk())

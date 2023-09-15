@@ -1,15 +1,18 @@
 package echoboard.echoboard.echo;
 
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://echoboard.vercel.app/")
 public class EchoController {
 
     private final EchoService echoService;
@@ -25,8 +28,20 @@ public class EchoController {
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
-        System.out.println("echoService.getEchoById(id)");
-        return ResponseEntity.of(echoService.getEchoById(id));
+        return ResponseEntity.ok(echoService.getEchoById(id));
+    }
+
+    @GetMapping("/echoes")
+    public ResponseEntity<List<EchoBoard>> getAllEchoes(
+            @RequestParam(name = "limit", defaultValue = "1") int limit,
+            @RequestParam(name = "lastKey", required = false) Map<String, AttributeValue> lastKey) {
+
+        List<EchoBoard> echoes = echoService.getAllEchoes(limit, lastKey);
+        if (echoes != null && !echoes.isEmpty()) {
+            return ResponseEntity.ok(echoes);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @PostMapping("/echoes")
@@ -40,15 +55,38 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
+    @GetMapping("/echoes/{echoId}/echoBoardSolutions/{echoBoardSolutionId}")
+    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable String echoId, @PathVariable String echoBoardSolutionId) {
+
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+        Optional<EchoBoardSolution> echoBoardSolution = echoBoard.getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
+        System.out.println(echoBoardSolution.get());
+        return ResponseEntity.of(echoBoardSolution);
+
+    }
+
+    @PostMapping("/echoes/{echoId}/echoBoardSolutions")
+    public ResponseEntity<String> saveEchoBoardSolution(@PathVariable String echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
+
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+
+        String echoBoardSolutionId = echoService.addSolutionToEcho(echoBoard, echoBoardSolution);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(echoBoardSolutionId)
+                .toUri();
+
+        return ResponseEntity.created(location).body(echoBoardSolutionId);
+
+    }
+
     @PostMapping("/echoes/{echoId}/comments")
-    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody Comment comment) {
+    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody EchoBoardComment echoBoardComment) {
 
-        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
-        if (optionalEchoBoard.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
 
-        String commentId = echoService.addCommentToEcho(optionalEchoBoard.get(), comment);
+        String commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -59,14 +97,16 @@ public class EchoController {
 
     @PatchMapping("/echoes/{echoId}/upvote")
     public ResponseEntity<Long> upvoteEcho(@PathVariable String echoId) {
-        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
-        if (optionalEchoBoard.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        Long upvote =  optionalEchoBoard.get().getUpvote() + 1L;
-        optionalEchoBoard.get().setUpvote(upvote);
-        echoService.saveEcho(optionalEchoBoard.get());
+        EchoBoard echoBoard = echoService.getEchoById(echoId);
+        Long upvote = echoBoard.addUpvote();
+        echoService.saveEcho(echoBoard);
         return ResponseEntity.accepted().body(upvote);
+    }
+
+    @DeleteMapping("/echoes/{id}")
+    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable String id) {
+        echoService.deleteEcho(id);
+        return ResponseEntity.accepted().build();
     }
 
 }

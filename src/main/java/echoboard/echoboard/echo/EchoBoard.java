@@ -36,7 +36,10 @@ public class EchoBoard {
     private Instant created;
 
     @DynamoDBAttribute
-    private ArrayList<Comment> comments;
+    private ArrayList<EchoBoardComment> echoBoardComments;
+
+    @DynamoDBAttribute
+    private ArrayList<EchoBoardSolution> echoBoardSolutions;
 
     public EchoBoard(String title, String content, String author) {
         this.title = title;
@@ -44,13 +47,24 @@ public class EchoBoard {
         this.author = author;
         this.upvote = 0L;
         this.created = Instant.now();
-        this.comments = new ArrayList<>();
+        this.echoBoardComments = new ArrayList<>();
+        this.echoBoardSolutions = new ArrayList<>();
     }
 
     public EchoBoard() {
         this.upvote = 0L;
-        created = Instant.now();
-        comments = new ArrayList<>();
+        this.created = Instant.now();
+        this.echoBoardComments = new ArrayList<>();
+        this.echoBoardSolutions = new ArrayList<>();
+    }
+
+    /**
+     * Increases the upvote count for the current EchoBoard instance by one.
+     *
+     * @return The updated upvote count.
+     */
+    public Long addUpvote() {
+        return this.upvote += 1;
     }
 }
 

@@ -21,25 +21,43 @@ export const EchoBoard = () => {
   } = useQuery<EchoBoardResponseData[]>(["echoBoards"], fetchEchoBoards);
 
   return (
-    <div>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <h1>Echo Board All Posts</h1>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error!</p>}
-      {echoBoards?.map((echoBoard, index) => (
-        <Card sx={{ maxWidth: 345 }}>
-          <div key={index}>
-            <CardContent>
-              <SinglePost {...echoBoard} />
-            </CardContent>
-            <CardActions>
-              <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-              <Link href={`/${echoBoard.id}`}>
-                <Button size="small">Comments: {echoBoard.echoBoardComments.length}</Button>
-              </Link>
-            </CardActions>
-          </div>
-        </Card>
-      ))}
-    </div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: "1rem"
+        }}
+      >
+        {isLoading && <p>Loading...</p>}
+        {isError && <p>Error!</p>}
+        {echoBoards?.map((echoBoard, index) => (
+          <Card sx={{ maxWidth: 345, minWidth: 345}}>
+            <div key={index}>
+              <CardContent>
+                <SinglePost {...echoBoard} />
+              </CardContent>
+              <CardActions>
+                <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
+                <Link href={`/${echoBoard.id}`}>
+                  <Button size="small">
+                    Comments: {echoBoard.echoBoardComments.length}
+                  </Button>
+                </Link>
+              </CardActions>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </main>
   );
 };

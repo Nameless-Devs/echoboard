@@ -20,7 +20,7 @@ export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
 
   return (
     <div>
-      <Button onClick={() => mutation.mutate()}>upvotes: {upvoteCount}</Button>
+      <Button size="small" onClick={() => mutation.mutate()}>upvotes: {upvoteCount}</Button>
       {mutation.isError ? <div>Error: {(mutation.error as Error).message}</div> : null}
     </div>
   );

@@ -14,5 +14,4 @@ public class ApplicationNoSecurity {
         return (web) -> web.ignoring()
                 .requestMatchers("/**");
     }
-    //Delete
 }

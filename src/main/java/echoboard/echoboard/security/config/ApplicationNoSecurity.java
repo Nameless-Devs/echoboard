@@ -15,4 +15,3 @@ public class ApplicationNoSecurity {
                 .requestMatchers("/**");
     }
 }
-//http problems

@@ -26,8 +26,6 @@ export default function Home() {
   
   return (
     <main>
-      <p>Hello</p>
-      <p>{data}</p>
       <PostEchoBoard />
       <EchoBoard />
     </main>

@@ -21,6 +21,7 @@ public class DevelopmentSecurityConfiguration {
                                 .anyRequest().permitAll()
                 )
                 .cors(withDefaults())
+                .csrf().disable()
                 .build();
     }
 }

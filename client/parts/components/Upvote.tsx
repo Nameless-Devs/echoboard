@@ -2,6 +2,8 @@ import React from 'react';
 import { upvotePost, fetchEchoBoardById } from '../Functions';
 import { UpvoteProps } from '../Types';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import Button from '@mui/material/Button';
+
 
 export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
   const queryClient = useQueryClient();
@@ -18,7 +20,7 @@ export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
 
   return (
     <div>
-      <button onClick={() => mutation.mutate()}>upvotes: {upvoteCount}</button>
+      <Button onClick={() => mutation.mutate()}>upvotes: {upvoteCount}</Button>
       {mutation.isError ? <div>Error: {(mutation.error as Error).message}</div> : null}
     </div>
   );

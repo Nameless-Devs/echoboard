@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
-import { EchoBoardResponseData, CommentResponseData } from "./Types";
-import { fetchEchoBoards } from "./Functions";
-import { SinglePost } from "./SinglePost";
+import { EchoBoardResponseData, CommentResponseData } from "./types";
+import { fetchEchoBoards } from "./functions";
+import { SinglePost } from "./singlePost";
 import Link from "next/link";
 import { Upvote } from "./Upvote";
 import { useQuery } from "@tanstack/react-query";

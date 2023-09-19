@@ -1,7 +1,7 @@
 "use client";
-import { fetchEchoBoardById } from "@/components/Functions";
-import { EchoBoardResponseData } from "@/components/Types";
-import { SinglePost } from "@/components/SinglePost";
+import { fetchEchoBoardById } from "@/components/functions";
+import { EchoBoardResponseData } from "@/components/types";
+import { SinglePost } from "@/components/singlePost";
 import { Upvote } from "@/components/Upvote";
 import React, { useEffect, useState } from "react";
 

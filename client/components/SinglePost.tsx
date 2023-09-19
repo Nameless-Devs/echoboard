@@ -1,5 +1,5 @@
 import React from "react";
-import { EchoBoardResponseData } from "./Types";
+import { EchoBoardResponseData } from "./types";
 import Typography from "@mui/material/Typography";
 
 export const SinglePost: React.FC<EchoBoardResponseData> = ({

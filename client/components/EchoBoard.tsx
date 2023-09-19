@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { EchoBoardResponseData, CommentResponseData } from "./types";
+import { EchoBoardResponseData } from "./types";
 import { fetchEchoBoards } from "./functions";
 import { SinglePost } from "./singlePost";
 import Link from "next/link";

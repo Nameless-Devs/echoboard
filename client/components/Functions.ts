@@ -1,4 +1,4 @@
-import { PostEchoBoardData, EchoBoardResponseData } from "./Types";
+import { PostEchoBoardData, EchoBoardResponseData } from "./types";
 
 const baseURL = "http://localhost:8080/api"; //change it when deploying
 

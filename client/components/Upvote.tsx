@@ -1,6 +1,6 @@
 import React from "react";
-import { upvotePost, fetchEchoBoardById } from "./Functions";
-import { UpvoteProps } from "./Types";
+import { upvotePost, fetchEchoBoardById } from "./functions";
+import { UpvoteProps } from "./types";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import Button from "@mui/material/Button";
 

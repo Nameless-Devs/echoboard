@@ -10,7 +10,7 @@ type Props = {
     echoId: string;
   };
 };
-export default function EchoBoardSingleView(props: Props) {
+export function EchoBoardSingleView(props: Props) {
   const [echoBoardPost, setEchoBoardPost] =
     useState<EchoBoardResponseData | null>(null);
   useEffect(() => {

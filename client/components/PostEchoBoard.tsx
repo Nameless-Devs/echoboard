@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { addSyntheticLeadingComment } from "typescript";
 
-const PostEchoBoard = () => {
+export const PostEchoBoard = () => {
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
     title: "",
     content: "",
@@ -109,5 +109,3 @@ const PostEchoBoard = () => {
     </div>
   );
 };
-
-export default PostEchoBoard;

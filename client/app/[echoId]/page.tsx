@@ -2,7 +2,7 @@
 import { fetchEchoBoardById } from "@/components/apiCalls";
 import { EchoBoardResponseData } from "@/components/types";
 import { SinglePost } from "@/components/singlePost";
-import { Upvote } from "@/components/Upvote";
+import { Upvote } from "@/components/upvote";
 import React, { useEffect, useState } from "react";
 
 type Props = {

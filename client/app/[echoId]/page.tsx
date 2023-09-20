@@ -1,8 +1,8 @@
 "use client";
 import { fetchEchoBoardById } from "@/components/apiCalls";
 import { EchoBoardResponseData } from "@/components/types";
-import { SinglePost } from "@/components/singlePost";
-import { Upvote } from "@/components/upvote";
+import { SinglePost } from "@/components/SinglePost";
+import { Upvote } from "@/components/Upvote";
 import React, { useEffect, useState } from "react";
 
 type Props = {

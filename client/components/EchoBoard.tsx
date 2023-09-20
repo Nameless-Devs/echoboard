@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
 import { EchoBoardResponseData } from "./types";
 import { fetchEchoBoards } from "./apiCalls";
-import { SinglePost } from "./singlePost";
+import { SinglePost } from "./SinglePost";
 import Link from "next/link";
-import { Upvote } from "./upvote";
+import { Upvote } from "./Upvote";
 import { useQuery } from "@tanstack/react-query";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

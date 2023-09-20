@@ -1,8 +1,4 @@
-
 spring:
-  profiles:
-    default: deploy
-    active: dev
   config:
     import: optional:secrets.yml
   security:
@@ -12,10 +8,11 @@ spring:
           google:
             client-id: ${GOOGLE_OAUTH2_CLIENT_ID}
             client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
-amazon:
-  aws:
-    accessKeyId: ${AWS_ACCESS_KEY_ID}
-    secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
-  dynamodb:
-    region: ${AWS_REGION}
-    endpoint: ${AWS_ENDPOINT}
+  datasource:
+    url: ${DATABASE_URL}   # JDBC URL for PostgreSQL
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop        # Automatically create/update database schema
+    show-sql: true    # Show SQL queries in logs

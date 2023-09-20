@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-import React, { useEffect, useState } from "react";
 import { EchoBoardResponseData, CommentResponseData } from "../Types";
 import { fetchEchoBoards } from "../Functions";
 import { SinglePost } from "./SinglePost";
@@ -35,26 +34,37 @@ export const EchoBoard = () => {
           flexWrap: "wrap",
           flexDirection: "row",
           justifyContent: "center",
-          gap: "1rem"
+          gap: "1rem",
         }}
       >
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error!</p>}
         {echoBoards?.map((echoBoard, index) => (
-          <Card sx={{ maxWidth: 345, minWidth: 345}}>
-            <div key={index}>
-              <CardContent>
-                <SinglePost {...echoBoard} />
-              </CardContent>
-              <CardActions>
-                <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-                <Link href={`/${echoBoard.id}`}>
-                  <Button size="small">
-                    Comments: {echoBoard.echoBoardComments.length}
-                  </Button>
-                </Link>
-              </CardActions>
-            </div>
+          <Card
+            key={index}
+            sx={{
+              maxWidth: 345,
+              minWidth: 345,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <CardContent
+              sx={{
+                flex: "1 1 auto",
+              }}
+            >
+              <SinglePost {...echoBoard} />
+            </CardContent>
+            <CardActions>
+              <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
+              <Link href={`/${echoBoard.id}`}>
+                <Button size="small">
+                  Comments: {echoBoard.echoBoardComments.length}
+                </Button>
+              </Link>
+            </CardActions>
           </Card>
         ))}
       </div>

@@ -27,6 +27,7 @@ jobs:
         run: |
           echo "DynamoDB Endpoint: $dynamodb_endpoint"
 
+
       - name: Run tests with Maven
         env:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}

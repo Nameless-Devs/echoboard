@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { EchoBoardResponseData } from "./types";
-import { fetchEchoBoards } from "./apiCalls";
+import { fetchEchoBoards } from "./Function";
 import { SinglePost } from "./SinglePost";
 import Link from "next/link";
 import { Upvote } from "./Upvote";

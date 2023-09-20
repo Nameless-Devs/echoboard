@@ -1,5 +1,5 @@
 import React from "react";
-import { upvotePost, fetchEchoBoardById } from "./apiCalls";
+import { upvotePost, fetchEchoBoardById } from "./Function";
 import { UpvoteProps } from "./types";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import Button from "@mui/material/Button";

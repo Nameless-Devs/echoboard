@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PostEchoBoardData } from "./types";
-import { postEcho } from "./apiCalls";
+import { postEcho } from "./Function";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Box,

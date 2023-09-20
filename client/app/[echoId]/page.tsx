@@ -1,5 +1,5 @@
 "use client";
-import { fetchEchoBoardById } from "@/components/apiCalls";
+import { fetchEchoBoardById } from "@/components/Function";
 import { EchoBoardResponseData } from "@/components/types";
 import { SinglePost } from "@/components/SinglePost";
 import { Upvote } from "@/components/Upvote";

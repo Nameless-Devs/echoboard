@@ -1,6 +1,6 @@
 package security;
 
-import echoboard.echoboard.security.JwtValidation;
+import se.salt.echoboard.security.JwtValidation;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.jwt.BadJwtException;

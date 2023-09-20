@@ -1,6 +1,6 @@
 "use client";
 
-import PostEchoBoard from "../components/postEchoBoard";
+import PostEchoBoard from "@/components/PostEchoBoard";
 import { EchoBoard } from "../components/echoBoard";
 
 export default function Home() {

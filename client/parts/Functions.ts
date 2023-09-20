@@ -1,6 +1,10 @@
 import { PostEchoBoardData, EchoBoardResponseData } from "./Types";
 
-const baseURL = "http://localhost:8080/api"; //change it when deploying
+// const baseURL = "http://localhost:8080/api"; //change it when deploying
+
+const baseURL = "http://16.170.226.226:8080/api"
+
+
 
 export async function postEcho(problemPostToSend: PostEchoBoardData) {
     try {

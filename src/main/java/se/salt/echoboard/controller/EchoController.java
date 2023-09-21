@@ -5,6 +5,7 @@ import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -37,6 +38,20 @@ public class EchoController {
             return ResponseEntity.ok(echoes);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/echoes/{echoId}/upvote")
+    public ResponseEntity<Integer> upvoteEcho(@PathVariable Long echoId) {
+        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
+
+        if (optionalEchoBoard.isPresent()) {
+            EchoBoard echoBoard = optionalEchoBoard.get();
+            Integer upvote = echoBoard.addUpvote();
+            echoService.save(echoBoard);
+            return ResponseEntity.accepted().body(upvote);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 //    @PostMapping("/echoes")
@@ -89,13 +104,6 @@ public class EchoController {
 //        return ResponseEntity.created(location).build();
 //    }
 //
-//    @PatchMapping("/echoes/{echoId}/upvote")
-//    public ResponseEntity<Long> upvoteEcho(@PathVariable String echoId) {
-//        EchoBoard echoBoard = echoService.getEchoById(echoId);
-//        Long upvote = echoBoard.addUpvote();
-//        echoService.saveEcho(echoBoard);
-//        return ResponseEntity.accepted().body(upvote);
-//    }
 //
 //    @DeleteMapping("/echoes/{id}")
 //    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable String id) {

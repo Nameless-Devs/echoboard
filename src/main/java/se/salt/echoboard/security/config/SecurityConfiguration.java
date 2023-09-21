@@ -1,5 +1,6 @@
 package se.salt.echoboard.security.config;
 
+import org.springframework.context.annotation.Profile;
 import se.salt.echoboard.security.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@Profile("deploy")
 public class SecurityConfiguration {
 
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;

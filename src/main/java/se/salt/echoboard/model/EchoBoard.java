@@ -3,7 +3,7 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 public class EchoBoard {
 
     @Id
@@ -50,5 +49,16 @@ public class EchoBoard {
 
     public int addUpvote() {
         return this.upvote += 1;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "title = " + title + ", " +
+                "content = " + content + ", " +
+                "author = " + author + ", " +
+                "upvote = " + upvote + ", " +
+                "created = " + created + ")";
     }
 }

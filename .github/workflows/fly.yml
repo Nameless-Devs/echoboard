@@ -1,4 +1,5 @@
 name: Fly Deploy
+
 on:
   push:
     branches:
@@ -11,19 +12,24 @@ on:
 
 jobs:
   user-check:
-    name: Who am i
+    name: Who am I
     runs-on: ubuntu-latest
     steps:
-      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      env:
-      - run: fly auth whoami
+      - name: Check Who am I
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: fly auth whoami
 
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Fly CLI
+        uses: superfly/flyctl-actions/setup-flyctl@v1
+        with:
+          fly-version: latest
+          fly-token: ${{ secrets.FLY_API_TOKEN }}
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only

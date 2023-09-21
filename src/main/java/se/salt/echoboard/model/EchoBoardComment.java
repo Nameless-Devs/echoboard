@@ -7,7 +7,6 @@ import java.time.Instant;
 
 
 @Entity
-@Data
 @ToString
 @Table(name = "echo_board_comment")
 public class EchoBoardComment {

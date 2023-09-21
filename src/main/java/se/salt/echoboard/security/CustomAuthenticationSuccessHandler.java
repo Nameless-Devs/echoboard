@@ -23,18 +23,15 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         Object principal = authentication.getPrincipal();
-        String BASE_URL = "https://echoboard-nameless-dev.vercel.app/?token=";
+        String BASE_URL = "https://echoboard.vercel.app/";
 
         if (principal instanceof OidcUser oidcUser) {
 
             jwtValidation.validateJwt(oidcUser);
-            String redirectUrl =  BASE_URL +
+            String redirectUrl =  BASE_URL + "?token=" +
                     URLEncoder.encode(oidcUser.getIdToken().getTokenValue(), StandardCharsets.UTF_8);
             response.sendRedirect(redirectUrl);
         }
-
-        System.out.println("Principal is not an instance of OidcUser.");
-
     }
 
 }

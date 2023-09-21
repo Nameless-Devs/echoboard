@@ -5,6 +5,7 @@ VALUES
     (2, 'I think my colleges hate me', 'Or maybe they are just jealous?', 'Arnold Vots', 2, NOW()),
     (3, 'Accountant Department', 'I am constantly getting a wrong salary, we need to find a way to fix it', 'Magdalene Von Brue', 5, NOW());
 
+-- Insert sample data into the EchoBoardComment table
 INSERT INTO echo_board_comment (id, echo_board_id, author, comment, upvote)
 VALUES
     (1, 1, 'Mark Zukkerberg', 'Lets fix it quickly', 55),

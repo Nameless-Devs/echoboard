@@ -17,9 +17,9 @@ public class EchoBoardService {
         this.echoBoardRepository = echoBoardRepository;
     }
 
-//    public EchoBoard save(EchoBoard echoBoard) {
-//        return echoBoardRepository.save(echoBoard);
-//    }
+    public EchoBoard save(EchoBoard echoBoard) {
+        return echoBoardRepository.save(echoBoard);
+    }
 
     public Optional<EchoBoard> getEchoById(Long id) {
         return echoBoardRepository.getEchoById(id);

@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, List, ListItem, ListItemText } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData } from "../Types";
+import { Upvote } from "./Upvote";
 import { comment } from "postcss";
 
 interface CommentsModalProps {
@@ -44,6 +45,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             </ListItem>
           ))}
         </List>
+        <Upvote upvote={post.upvote} echoBoardId={post.id} />
       </div>
     </Modal>
   );

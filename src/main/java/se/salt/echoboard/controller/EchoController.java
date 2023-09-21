@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "https://echoboard-nameless-dev.vercel.app")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class EchoController {
 
     private final EchoBoardService echoService;
@@ -23,11 +24,11 @@ public class EchoController {
         return ResponseEntity.ok().body("Server is up and running!");
     }
 
-//    @GetMapping("/echoes/{id}")
-//    public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
-//        return ResponseEntity.ok(echoService.getEchoById(id));
-//    }
-//
+    @GetMapping("/echoes/{id}")
+    public ResponseEntity<EchoBoard> getEcho(@PathVariable long id) {
+        return ResponseEntity.of(echoService.getEchoById(id));
+    }
+
     @GetMapping("/echoes")
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 

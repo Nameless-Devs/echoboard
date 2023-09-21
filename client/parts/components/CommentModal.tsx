@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
 import { comment } from "postcss";
+import { PostComment } from "./PostComment";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -46,6 +47,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           ))}
         </List>
         <Upvote upvote={post.upvote} echoBoardId={post.id} />
+        <PostComment echoBoardId={post.id} />
       </div>
     </Modal>
   );

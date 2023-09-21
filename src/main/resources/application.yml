@@ -23,4 +23,6 @@ spring:
   sql:
     init:
       mode: always
+  profiles:
+    default: deploy
 

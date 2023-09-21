@@ -1,16 +1,29 @@
 import React, { useState } from 'react'
 import { CommentToPost } from '../Types';
 import { Button, TextField } from '@mui/material';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const PostComment = () => {
+type CommentProps = {
+    echoBoardId: string; 
+}
+
+export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
     const [commentToPost, setCommentToPost] = useState<CommentToPost>({
         author: "", 
         comment:""
     });
 
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation(postComment);
+
+    const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+    }
+
   return (
     <>
-    <form>
+    <form onSubmit={handleCommentPost}>
     <TextField
             label="Enter your name"
             variant="outlined"

@@ -1,4 +1,4 @@
-import { PostEchoBoardData, EchoBoardResponseData } from "./Types";
+import { PostEchoBoardData, EchoBoardResponseData, CommentToPost } from "./Types";
 
 const baseURL = "http://localhost:8080/api"; //change it when deploying
 
@@ -72,4 +72,28 @@ export async function fetchEchoBoardById(echoBoardId: string) {
   } catch (error) {
     throw new Error("Error fetching data: " + error);
   }
+}
+
+export async function postComment(echoBoardId: string, comment: CommentToPost) {
+
+  try {
+    const response = await fetch(baseURL + "/echoes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(problemPostToSend),
+    });
+
+    if (response.ok) {
+      console.log(response);
+      //return response.json();
+      //when i try to parse it, in gives me an eeror that it is not a json
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+  
 }

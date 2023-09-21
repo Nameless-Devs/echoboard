@@ -9,6 +9,8 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { PostComment } from "./PostComment";
 import { useState } from "react";
 import CommentsModal from "./CommentModal";
 
@@ -77,6 +79,7 @@ export const EchoBoard = () => {
                 Comments: {echoBoard.echoBoardComments.length}
               </Button>
             </CardActions>
+            <PostComment echoBoardId={echoBoard.id} />
           </Card>
         ))}
       </div>

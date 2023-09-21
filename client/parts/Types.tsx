@@ -26,3 +26,7 @@ export type UpvoteProps = {
   upvote: number;
   echoBoardId: string;
 };
+ export type CommentToPost = {
+  author: string; 
+  comment: string;
+ }

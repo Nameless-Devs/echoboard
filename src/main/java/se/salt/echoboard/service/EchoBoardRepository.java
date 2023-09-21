@@ -35,8 +35,10 @@ public class EchoBoardRepository {
 
 
     public Long saveCommentToPost(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
-        echoBoard.ifPresent(board -> board.getEchoBoardComments().add(echoBoardComment));
-        return echoBoardComment.getId();
-
+        return echoBoard.map(board -> {
+            board.getEchoBoardComments().add(echoBoardComment);
+            echoBoardRepository.save(board); // Explicitly save the board
+            return echoBoardComment.getId();
+        }).orElse(null);
     }
 }

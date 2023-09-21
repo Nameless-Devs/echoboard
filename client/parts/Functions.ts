@@ -74,7 +74,7 @@ export async function fetchEchoBoardById(echoBoardId: string) {
   }
 }
 
-export async function postComment(echoBoardId: string, commentToPost: CommentToPost) {
+export async function postComment(commentToPost: CommentToPost, echoBoardId: string) {
 
   try {
     const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/comments", {

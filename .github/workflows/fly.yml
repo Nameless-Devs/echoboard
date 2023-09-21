@@ -3,10 +3,8 @@ on:
   push:
     branches:
       - main
-      - 91-setup-github-workflow-for-fly-cicd
     paths:
       - 'src/**'
-      - '.github/**'
       - 'Dockerfile'
 
 jobs:

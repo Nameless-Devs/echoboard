@@ -19,3 +19,5 @@ spring:
     hibernate:
       ddl-auto: create-drop        # Automatically create/update database schema
     show-sql: true    # Show SQL queries in logs
+  profiles:
+    default: deploy

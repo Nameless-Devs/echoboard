@@ -5,6 +5,8 @@ import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
 import { comment } from "postcss";
 import { PostComment } from "./PostComment";
+import { useQuery } from "@tanstack/react-query";
+import { fetchEchoBoardById } from "../Functions";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -17,6 +19,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   handleClose,
   isOpen,
 }) => {
+  
   return (
     <Modal open={isOpen} onClose={handleClose}>
       <div

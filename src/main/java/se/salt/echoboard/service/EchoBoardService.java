@@ -21,6 +21,7 @@ public class EchoBoardService {
 //        return echoBoardRepository.save(echoBoard);
 //    }
 
+
     public Optional<EchoBoard> getEchoById(Long id) {
         return echoBoardRepository.getEchoById(id);
     }

@@ -22,7 +22,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
 
         mutation.mutate(commentToPost, {
             onSuccess: () => {
-              queryClient.invalidateQueries(["comment"]);
+              queryClient.invalidateQueries(["echoBoards"]);
               setCommentToPost({
                 author: "",
                 comment: ""

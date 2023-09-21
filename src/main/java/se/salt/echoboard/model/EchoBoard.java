@@ -26,7 +26,7 @@ public class EchoBoard {
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //removed cascade = CascadeType.ALL,
     @JoinColumn(name = "echo_board_id")
     private List<EchoBoardComment> echoBoardComments = new ArrayList<>();
 //

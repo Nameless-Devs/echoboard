@@ -8,9 +8,9 @@ import { useQuery } from "@tanstack/react-query";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import CommentsModal from "./CommentModal";
 
 export const EchoBoard = () => {
   const {
@@ -18,6 +18,20 @@ export const EchoBoard = () => {
     isLoading,
     isError,
   } = useQuery<EchoBoardResponseData[]>(["echoBoards"], fetchEchoBoards);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPost, setSelectedPost] =
+    useState<null | EchoBoardResponseData>(null);
+
+  const handleOpen = (post: EchoBoardResponseData) => {
+    setIsOpen(true);
+    setSelectedPost(post);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setSelectedPost(null);
+  };
 
   return (
     <main
@@ -59,15 +73,20 @@ export const EchoBoard = () => {
             </CardContent>
             <CardActions>
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-              <Link href={`/${echoBoard.id}`}>
-                <Button size="small">
-                  Comments: {echoBoard.echoBoardComments.length}
-                </Button>
-              </Link>
+              <Button size="small" onClick={() => handleOpen(echoBoard)}>
+                Comments: {echoBoard.echoBoardComments.length}
+              </Button>
             </CardActions>
           </Card>
         ))}
       </div>
+      {selectedPost && (
+        <CommentsModal
+          post={selectedPost}
+          handleClose={handleClose}
+          isOpen={isOpen}
+        />
+      )}
     </main>
   );
 };

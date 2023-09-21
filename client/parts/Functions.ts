@@ -74,15 +74,15 @@ export async function fetchEchoBoardById(echoBoardId: string) {
   }
 }
 
-export async function postComment(echoBoardId: string, comment: CommentToPost) {
+export async function postComment(echoBoardId: string, commentToPost: CommentToPost) {
 
   try {
-    const response = await fetch(baseURL + "/echoes", {
+    const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/comments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(problemPostToSend),
+      body: JSON.stringify(commentToPost),
     });
 
     if (response.ok) {

@@ -1,15 +1,21 @@
 package se.salt.echoboard.controller;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.model.EchoBoard;
+import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://echoboard-nameless-dev.vercel.app")
+@CrossOrigin(origins = "https://echoboard.vercel.app/")
+//@CrossOrigin(origins = "http://localhost:3000/")
 public class EchoController {
 
     private final EchoBoardService echoService;
@@ -23,11 +29,11 @@ public class EchoController {
         return ResponseEntity.ok().body("Server is up and running!");
     }
 
-//    @GetMapping("/echoes/{id}")
-//    public ResponseEntity<EchoBoard> getEcho(@PathVariable String id) {
-//        return ResponseEntity.ok(echoService.getEchoById(id));
-//    }
-//
+    @GetMapping("/echoes/{id}")
+    public ResponseEntity<EchoBoard> getEcho(@PathVariable long id) {
+        return ResponseEntity.of(echoService.getEchoById(id));
+    }
+
     @GetMapping("/echoes")
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 
@@ -74,19 +80,19 @@ public class EchoController {
 //
 //    }
 //
-//    @PostMapping("/echoes/{echoId}/comments")
-//    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody EchoBoardComment echoBoardComment) {
-//
-//        EchoBoard echoBoard = echoService.getEchoById(echoId);
-//
-//        String commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(commentId)
-//                .toUri();
-//        return ResponseEntity.created(location).build();
-//    }
+    @PostMapping("/echoes/{echoId}/comments")
+    public ResponseEntity<Void> saveComments(@PathVariable long echoId, @RequestBody EchoBoardComment echoBoardComment) {
+
+        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
+
+        Long commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(commentId)
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
 //
 //    @PatchMapping("/echoes/{echoId}/upvote")
 //    public ResponseEntity<Long> upvoteEcho(@PathVariable String echoId) {
@@ -101,6 +107,7 @@ public class EchoController {
 //        echoService.deleteEcho(id);
 //        return ResponseEntity.accepted().build();
 //    }
+
 
 }
 

@@ -3,7 +3,7 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 public class EchoBoard {
 
     @Id
@@ -27,7 +26,7 @@ public class EchoBoard {
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //removed cascade = CascadeType.ALL,
     @JoinColumn(name = "echo_board_id")
     private List<EchoBoardComment> echoBoardComments = new ArrayList<>();
 //
@@ -50,5 +49,16 @@ public class EchoBoard {
 
     public int addUpvote() {
         return this.upvote += 1;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "title = " + title + ", " +
+                "content = " + content + ", " +
+                "author = " + author + ", " +
+                "upvote = " + upvote + ", " +
+                "created = " + created + ")";
     }
 }

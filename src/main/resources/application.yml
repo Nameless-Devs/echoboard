@@ -1,3 +1,6 @@
+server:
+  address: 0.0.0.0
+  port: 8080
 spring:
   config:
     import: optional:secrets.yml
@@ -16,3 +19,6 @@ spring:
     hibernate:
       ddl-auto: create-drop        # Automatically create/update database schema
     show-sql: true    # Show SQL queries in logs
+  profiles:
+    default: deploy
+

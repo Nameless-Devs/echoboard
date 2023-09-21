@@ -18,7 +18,7 @@ jobs:
       - name: Check Who am I
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        run: fly auth whoami
+        run: flyctl auth whoami
 
   deploy:
     name: Deploy app

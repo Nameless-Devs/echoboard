@@ -5,6 +5,8 @@ import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import se.salt.echoboard.model.EchoBoardComment;
+
 import java.util.Optional;
 
 @Service
@@ -28,6 +30,11 @@ public class EchoBoardService {
     public List<EchoBoard> findAll(int limit) {
         // Adjust this method according to your pagination needs
         return echoBoardRepository.findAll();
+    }
+
+    public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
+
+        return echoBoardRepository.saveCommentToPost(echoBoard, echoBoardComment);
     }
 
 //    public void deleteEcho(Long id) {

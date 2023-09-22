@@ -32,10 +32,15 @@ public class EchoBoardService {
         return echoBoardRepository.findAll();
     }
 
+
     public Optional<EchoBoardComment> findCommentById(EchoBoard echoBoard, Long commentId) {
         return echoBoard.getEchoBoardComments().stream()
                 .filter(comment -> comment.getId().equals(commentId))
                 .findFirst();
+    }
+
+    public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
+        return echoBoardRepository.saveCommentToPost(echoBoard, echoBoardComment);
     }
 
 //    public void deleteEcho(Long id) {

@@ -1,10 +1,13 @@
 package se.salt.echoboard.controller;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,19 +115,19 @@ public class EchoController {
 //
 //    }
 //
-//    @PostMapping("/echoes/{echoId}/comments")
-//    public ResponseEntity<Void> saveComments(@PathVariable String echoId, @RequestBody EchoBoardComment echoBoardComment) {
-//
-//        EchoBoard echoBoard = echoService.getEchoById(echoId);
-//
-//        String commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(commentId)
-//                .toUri();
-//        return ResponseEntity.created(location).build();
-//    }
+    @PostMapping("/echoes/{echoId}/comments")
+    public ResponseEntity<Void> saveComments(@PathVariable long echoId, @RequestBody EchoBoardComment echoBoardComment) {
+
+        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
+
+        Long commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(commentId)
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
 //
 //
 //    @DeleteMapping("/echoes/{id}")
@@ -132,6 +135,7 @@ public class EchoController {
 //        echoService.deleteEcho(id);
 //        return ResponseEntity.accepted().build();
 //    }
+
 
 }
 

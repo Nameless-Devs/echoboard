@@ -7,6 +7,9 @@ import { comment } from "postcss";
 import { PostComment } from "./PostComment";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "../Functions";
+import { upvoteComment } from "../Functions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Button from "@mui/material/Button";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -19,11 +22,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   handleClose,
   isOpen,
 }) => {
-  // const queryClient = useQueryClient();
-  // const { data: updatedPost, isLoading, isError } = useQuery<EchoBoardResponseData>(
-  //   ["echoBoard", post.id], 
-  //   () => fetchEchoBoardById(post.id)
-  // );
 
 
   const { data: updatedPost, isLoading, isError } = useQuery<EchoBoardResponseData>(
@@ -35,12 +33,21 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
       return result;
     }
   );
-  
-  // Add a log to check if the component re-renders
-  console.log("CommentsModal re-rendered");
    const displayPost = updatedPost || post;
 
   
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (commentId: string) => upvoteComment(post.id, commentId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["echoBoards"]);
+        queryClient.invalidateQueries(["echoBoard", post.id]);
+      },
+    }
+  );
+
   return (
     <Modal open={isOpen} onClose={handleClose}>
       <div
@@ -67,11 +74,13 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 secondary={comment.author}
                 primary={comment.comment}
               ></ListItemText>
+              <Button onClick={() => mutation.mutate(comment.id)}>
+                Upvote: {comment.upvote}
+              </Button>
             </ListItem>
           ))}
         </List>
-        <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} /> 
-        {/* Nate, we might have a conflict there */}
+        <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         <PostComment echoBoardId={displayPost.id} />
       </div>
     </Modal>

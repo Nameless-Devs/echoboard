@@ -1,0 +1,22 @@
+spring:
+  config:
+    import: optional:secrets.yml
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_OAUTH2_CLIENT_ID}
+            client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:   # You can set your preferred password
+  h2:
+    console:
+      enabled: true      # Enable H2 console for development
+  jpa:
+    hibernate:
+      ddl-auto: update   # Set to 'update' to create/update database schema
+    show-sql: true      # Show SQL queries in logs

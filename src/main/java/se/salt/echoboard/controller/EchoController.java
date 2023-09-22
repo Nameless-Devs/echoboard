@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "https://echoboard-nameless-dev.vercel.app")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*")
 public class EchoController {
 
     private final EchoBoardService echoService;
@@ -42,6 +42,41 @@ public class EchoController {
             return ResponseEntity.ok(echoes);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/echoes/{echoId}/upvote")
+    public ResponseEntity<Integer> upvoteEcho(@PathVariable Long echoId) {
+        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
+
+        if (optionalEchoBoard.isPresent()) {
+            EchoBoard echoBoard = optionalEchoBoard.get();
+            Integer upvote = echoBoard.addUpvote();
+            echoService.save(echoBoard);
+            return ResponseEntity.accepted().body(upvote);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/echoes/{echoId}/comments/{commentId}/upvote")
+    public ResponseEntity<Integer> upvoteComment(@PathVariable Long echoId, @PathVariable Long commentId) {
+        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
+
+        if (optionalEchoBoard.isPresent()) {
+            EchoBoard echoBoard = optionalEchoBoard.get();
+            Optional<EchoBoardComment> optionalComment = echoService.findCommentById(echoBoard, commentId);
+
+            if (optionalComment.isPresent()) {
+                EchoBoardComment comment = optionalComment.get();
+                Integer upvote = comment.addUpvote();
+                echoService.save(echoBoard);
+                return ResponseEntity.accepted().body(upvote);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 //    @PostMapping("/echoes")
@@ -94,13 +129,6 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 //
-//    @PatchMapping("/echoes/{echoId}/upvote")
-//    public ResponseEntity<Long> upvoteEcho(@PathVariable String echoId) {
-//        EchoBoard echoBoard = echoService.getEchoById(echoId);
-//        Long upvote = echoBoard.addUpvote();
-//        echoService.saveEcho(echoBoard);
-//        return ResponseEntity.accepted().body(upvote);
-//    }
 //
 //    @DeleteMapping("/echoes/{id}")
 //    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable String id) {

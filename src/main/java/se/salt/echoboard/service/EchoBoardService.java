@@ -19,9 +19,9 @@ public class EchoBoardService {
         this.echoBoardRepository = echoBoardRepository;
     }
 
-//    public EchoBoard save(EchoBoard echoBoard) {
-//        return echoBoardRepository.save(echoBoard);
-//    }
+    public EchoBoard save(EchoBoard echoBoard) {
+        return echoBoardRepository.save(echoBoard);
+    }
 
     public Optional<EchoBoard> getEchoById(Long id) {
         return echoBoardRepository.getEchoById(id);
@@ -32,8 +32,14 @@ public class EchoBoardService {
         return echoBoardRepository.findAll();
     }
 
-    public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
 
+    public Optional<EchoBoardComment> findCommentById(EchoBoard echoBoard, Long commentId) {
+        return echoBoard.getEchoBoardComments().stream()
+                .filter(comment -> comment.getId().equals(commentId))
+                .findFirst();
+    }
+
+    public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
         return echoBoardRepository.saveCommentToPost(echoBoard, echoBoardComment);
     }
 

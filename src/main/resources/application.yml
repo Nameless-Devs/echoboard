@@ -1,3 +1,6 @@
+server:
+  address: 0.0.0.0
+  port: 8080
 spring:
   config:
     import: optional:secrets.yml
@@ -20,4 +23,6 @@ spring:
   sql:
     init:
       mode: always
+  profiles:
+    default: deploy
 

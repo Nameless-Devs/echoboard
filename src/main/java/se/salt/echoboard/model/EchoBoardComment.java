@@ -36,6 +36,6 @@ public class EchoBoardComment {
     }
 
     public int addUpvote() {
-        return this.upvote + 1;
+        return this.upvote += 1;
     }
 }

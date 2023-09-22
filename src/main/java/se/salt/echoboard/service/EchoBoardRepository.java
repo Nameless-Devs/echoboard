@@ -33,7 +33,6 @@ public class EchoBoardRepository {
         echoBoardRepository.delete(echo);
     }
 
-
     public Long saveCommentToPost(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
         return echoBoard.map(board -> {
             board.getEchoBoardComments().add(echoBoardComment);

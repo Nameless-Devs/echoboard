@@ -31,5 +31,4 @@ public class EchoBoardRepository {
     public void deleteEcho(EchoBoard echo) {
         echoBoardRepository.delete(echo);
     }
-
 }

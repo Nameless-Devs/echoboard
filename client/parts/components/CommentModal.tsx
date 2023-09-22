@@ -5,10 +5,10 @@ import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
 import { comment } from "postcss";
 import { PostComment } from "./PostComment";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "../Functions";
 import { upvoteComment } from "../Functions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import Button from "@mui/material/Button";
 
 interface CommentsModalProps {

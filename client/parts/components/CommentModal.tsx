@@ -3,7 +3,6 @@ import { Modal, List, ListItem, ListItemText } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
-import { comment } from "postcss";
 import { PostComment } from "./PostComment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "../Functions";
@@ -23,19 +22,15 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   isOpen,
 }) => {
 
-
-  const { data: updatedPost, isLoading, isError } = useQuery<EchoBoardResponseData>(
+  const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id], 
     async () => {
-      console.log("Fetching data for post:", post.id);
       const result = await fetchEchoBoardById(post.id);
-      console.log("Fetched data:", result);
       return result;
     }
   );
-   const displayPost = updatedPost || post;
 
-  
+  const displayPost = updatedPost || post;
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
@@ -80,7 +75,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             </ListItem>
           ))}
         </List>
-        <Upvote upvote={post.upvote} echoBoardId={post.id} />
+        <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         <PostComment echoBoardId={displayPost.id} />
       </div>
     </Modal>

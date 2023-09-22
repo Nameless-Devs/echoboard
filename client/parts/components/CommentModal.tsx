@@ -25,6 +25,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["echoBoards"]);
+        queryClient.invalidateQueries(["echoBoard", post.id]);
       },
     }
   );

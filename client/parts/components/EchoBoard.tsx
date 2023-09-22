@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { EchoBoardResponseData, CommentResponseData } from "../Types";
-import { fetchEchoBoards } from "../Functions";
+import { fetchEchoBoards, fetchEchoBoardById } from "../Functions";
 import { SinglePost } from "./SinglePost";
 import Link from "next/link";
 import { Upvote } from "./Upvote";
@@ -32,6 +32,17 @@ export const EchoBoard = () => {
     setIsOpen(false);
     setSelectedPost(null);
   };
+
+  const { data: echoBoardDetail } = useQuery(
+    ["echoBoard", selectedPost?.id],
+    () => {
+      if (!selectedPost?.id) throw new Error("No post selected");
+      return fetchEchoBoardById(selectedPost.id);
+    },
+    {
+      enabled: !!selectedPost,
+    }
+  );
 
   return (
     <main
@@ -82,7 +93,7 @@ export const EchoBoard = () => {
       </div>
       {selectedPost && (
         <CommentsModal
-          post={selectedPost}
+          post={echoBoardDetail || selectedPost}
           handleClose={handleClose}
           isOpen={isOpen}
         />

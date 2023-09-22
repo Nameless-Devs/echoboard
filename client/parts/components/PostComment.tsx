@@ -3,6 +3,7 @@ import { CommentToPost } from '../Types';
 import { Button, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from '../Functions';
+import "../../app/styles/PostCommentStyles.css"
 
 type CommentProps = {
     echoBoardId: string; 
@@ -42,10 +43,12 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
   return (
     <>
     <form onSubmit={handleCommentPost}>
-    <TextField
+    <TextField className='post-comment__name-input'
             label="Enter your name"
             variant="outlined"
             name="author"
+            size="small"
+            style = {{width: 300}} 
             value={commentToPost.author}
             onChange={(e) =>
               setCommentToPost({ ...commentToPost, author: e.target.value }) }/>
@@ -53,6 +56,11 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
             label="comment"
             variant="outlined"
             name="comment"
+            multiline
+            rows={2}
+            maxRows={4}
+            style = {{width: 300}} 
+            margin='normal'
             value={commentToPost.comment}
             onChange={(e) =>
               setCommentToPost({ ...commentToPost, comment: e.target.value }) }/>

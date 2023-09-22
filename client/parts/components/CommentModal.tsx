@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, List, ListItem, ListItemText } from "@mui/material";
+import { Modal, List, ListItem, ListItemText, Card } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
@@ -9,6 +9,7 @@ import { fetchEchoBoardById } from "../Functions";
 import { upvoteComment } from "../Functions";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
+import "../../app/styles/CommentModalStyles.css"
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -71,27 +72,29 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           </Typography>
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-        <List>
-          {displayPost.echoBoardComments.map((comment, index) => (
-            <ListItem key={index}>
-              <ListItemText
-                primary={
-                  <Typography variant="body2" color="textSecondary">
-                    {comment.author}
-                  </Typography>
-                }
-                secondary={
-                  <Typography variant="body1" color="textPrimary">
-                    {comment.comment}
-                  </Typography>
-                }
-              ></ListItemText>
-              <Button onClick={() => mutation.mutate(comment.id)}>
-                Upvote: {comment.upvote}
-              </Button>
-            </ListItem>
-          ))}
-        </List>
+        <Box className="comment-display" style={{maxHeight: '300px', overflow: 'auto'}}>
+          <List>
+            {displayPost.echoBoardComments.map((comment, index) => (
+              <ListItem className="comment-display__individual-comment" key={index}>
+                <ListItemText
+                  primary={
+                    <Typography variant="body2" color="textSecondary">
+                      {comment.author}
+                    </Typography>
+                  }
+                  secondary={
+                    <Typography variant="body1" color="textPrimary">
+                      {comment.comment}
+                    </Typography>
+                  }
+                ></ListItemText>
+                <Button onClick={() => mutation.mutate(comment.id)}>
+                  Upvote: {comment.upvote}
+                </Button>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
         <PostComment echoBoardId={displayPost.id} />
       </div>
     </Modal>

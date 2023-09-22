@@ -48,7 +48,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
             variant="outlined"
             name="author"
             size="small"
-            style = {{width: 300}} 
+            // style = {{width: 300}} 
             value={commentToPost.author}
             onChange={(e) =>
               setCommentToPost({ ...commentToPost, author: e.target.value }) }/>
@@ -59,7 +59,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
             multiline
             rows={2}
             maxRows={4}
-            style = {{width: 300}} 
+            // style = {{width: 300}} 
             value={commentToPost.comment}
             onChange={(e) =>
               setCommentToPost({ ...commentToPost, comment: e.target.value }) }/>

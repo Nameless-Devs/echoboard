@@ -1,6 +1,7 @@
 .post-comment__name-input, .post-comment__comment{
     background-color: rgb(240, 242, 245);
     margin-bottom: 10px; 
+    width: 90%;
 }
 
 .post-comment__form {

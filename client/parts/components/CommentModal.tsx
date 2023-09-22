@@ -43,7 +43,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["echoBoards"]);
-        queryClient.invalidateQueries(["echoBoard", post.id]);
+        queryClient.invalidateQueries(["comments", post.id]);
       },
     }
   );
@@ -80,7 +80,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             </ListItem>
           ))}
         </List>
-        <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
+        <Upvote upvote={post.upvote} echoBoardId={post.id} />
         <PostComment echoBoardId={displayPost.id} />
       </div>
     </Modal>

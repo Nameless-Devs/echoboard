@@ -20,9 +20,14 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
     const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        if (!commentToPost.author.trim() || !commentToPost.comment.trim()) {
+          return;
+        }
+
         mutation.mutate(commentToPost, {
             onSuccess: () => {
               queryClient.invalidateQueries(["echoBoards"]);
+              queryClient.refetchQueries(['comments', echoBoardId]);
               setCommentToPost({
                 author: "",
                 comment: ""

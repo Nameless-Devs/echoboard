@@ -3,7 +3,9 @@ import { Modal, List, ListItem, ListItemText } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
-import { comment } from "postcss";
+import { upvoteComment } from "../Functions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Button from "@mui/material/Button";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -16,6 +18,17 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   handleClose,
   isOpen,
 }) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (commentId: string) => upvoteComment(post.id, commentId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["echoBoards"]);
+      },
+    }
+  );
+
   return (
     <Modal open={isOpen} onClose={handleClose}>
       <div
@@ -42,6 +55,9 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 secondary={comment.author}
                 primary={comment.comment}
               ></ListItemText>
+              <Button onClick={() => mutation.mutate(comment.id)}>
+                Upvote: {comment.upvote}
+              </Button>
             </ListItem>
           ))}
         </List>

@@ -1,6 +1,7 @@
 package se.salt.echoboard.controller;
 
 import se.salt.echoboard.model.EchoBoard;
+import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "https://echoboard-nameless-dev.vercel.app")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*")
 public class EchoController {
 
     private final EchoBoardService echoService;
@@ -49,6 +50,27 @@ public class EchoController {
             Integer upvote = echoBoard.addUpvote();
             echoService.save(echoBoard);
             return ResponseEntity.accepted().body(upvote);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/echoes/{echoId}/comments/{commentId}/upvote")
+    public ResponseEntity<Integer> upvoteComment(@PathVariable Long echoId, @PathVariable Long commentId) {
+        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
+
+        if (optionalEchoBoard.isPresent()) {
+            EchoBoard echoBoard = optionalEchoBoard.get();
+            Optional<EchoBoardComment> optionalComment = echoService.findCommentById(echoBoard, commentId);
+
+            if (optionalComment.isPresent()) {
+                EchoBoardComment comment = optionalComment.get();
+                Integer upvote = comment.addUpvote();
+                echoService.save(echoBoard);
+                return ResponseEntity.accepted().body(upvote);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         } else {
             return ResponseEntity.notFound().build();
         }

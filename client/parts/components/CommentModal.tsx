@@ -75,7 +75,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         <Box className="comment-display" style={{maxHeight: '300px', overflow: 'auto'}}>
           <List>
             {displayPost.echoBoardComments.map((comment, index) => (
-              <ListItem key={index}>
+              <ListItem className="comment-display__individual-comment" key={index}>
                 <ListItemText
                   primary={
                     <Typography variant="body2" color="textSecondary">

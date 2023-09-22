@@ -1,3 +1,14 @@
-.post-comment__name-input{
-    background-color: blueviolet;
+.post-comment__name-input, .post-comment__comment{
+    background-color: rgb(240, 242, 245);
+    margin-bottom: 10px; 
+}
+
+.post-comment__form {
+    display: flex;
+    flex-direction: column;
+     align-items: center;
+}
+
+.post-comment__button {
+   margin: 10px 0 20px;
 }

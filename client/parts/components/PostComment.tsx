@@ -42,7 +42,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
 
   return (
     <>
-    <form onSubmit={handleCommentPost}>
+    <form className='post-comment__form' onSubmit={handleCommentPost}>
     <TextField className='post-comment__name-input'
             label="Enter your name"
             variant="outlined"
@@ -52,19 +52,18 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
             value={commentToPost.author}
             onChange={(e) =>
               setCommentToPost({ ...commentToPost, author: e.target.value }) }/>
-     <TextField
-            label="comment"
+     <TextField className='post-comment__comment'
+            label="Comment"
             variant="outlined"
             name="comment"
             multiline
             rows={2}
             maxRows={4}
             style = {{width: 300}} 
-            margin='normal'
             value={commentToPost.comment}
             onChange={(e) =>
               setCommentToPost({ ...commentToPost, comment: e.target.value }) }/>
-    <Button variant="outlined" type="submit">
+    <Button className='post-comment__button' variant="outlined" type="submit">
             Comment
           </Button>
             

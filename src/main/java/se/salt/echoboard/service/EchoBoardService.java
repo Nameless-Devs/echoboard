@@ -65,6 +65,13 @@ public class EchoBoardService {
         return comment.map(EchoBoardComment::getUpvote);
     }
 
+    public Optional<Integer> upvoteEcho(long echoId) {
+        Optional<EchoBoard> echoBoard = getEchoById(echoId);
+        echoBoard.map(EchoBoard::addUpvote);
+        echoBoard.map(echoBoardRepository::save);
+        return echoBoard.map(EchoBoard::getUpvote);
+    }
+
 //    public void deleteEcho(Long id) {
 //        echoBoardRepository.deleteById(id);
 //    }

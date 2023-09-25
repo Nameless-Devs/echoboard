@@ -9,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 
 
 @RestController
@@ -38,7 +41,8 @@ public class EchoController {
     @GetMapping("/echoes")
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 
-        List<EchoBoard> echoes = echoService.findAll(5);
+        List<EchoBoard> echoes = echoService.findAll();
+        Collections.reverse(echoes);
         if (echoes != null && !echoes.isEmpty()) {
             return ResponseEntity.ok(echoes);
         }

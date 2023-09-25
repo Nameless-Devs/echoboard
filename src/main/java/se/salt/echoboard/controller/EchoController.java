@@ -1,5 +1,9 @@
 package se.salt.echoboard.controller;
 
+import com.nimbusds.oauth2.sdk.http.HTTPResponse;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
@@ -15,20 +19,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-//@CrossOrigin(origins = "https://echoboard-nameless-dev.vercel.app")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://echoboard-nameless-dev.vercel.app")
+@AllArgsConstructor
+//@CrossOrigin(origins = "*")
 public class EchoController {
 
     private final EchoBoardService echoService;
+    private final JPAEchoBoardRepository jPAEchoBoardRepository;
 
-    public EchoController(EchoBoardService echoService) {
-        this.echoService = echoService;
-    }
-
-    @GetMapping("/status")
-    public ResponseEntity<String> getStatus() {
-        return ResponseEntity.ok().body("Server is up and running!");
-    }
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable long id) {

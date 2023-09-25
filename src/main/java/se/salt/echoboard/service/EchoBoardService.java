@@ -11,14 +11,12 @@ import se.salt.echoboard.model.EchoBoardSolution;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class EchoBoardService {
 
     private final EchoBoardRepository echoBoardRepository;
 
-    @Autowired
-    public EchoBoardService(EchoBoardRepository echoBoardRepository) {
-        this.echoBoardRepository = echoBoardRepository;
-    }
+    private final EchoBoardCommentRepository commentRepository;
 
     public EchoBoard saveEcho(EchoBoard echoBoard) {
         return echoBoardRepository.save(echoBoard);

@@ -10,13 +10,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
+@AllArgsConstructor
 public class EchoBoardRepository {
 
     private final JPAEchoBoardRepository echoBoardRepository;
 
-    public EchoBoardRepository(JPAEchoBoardRepository echoBoardRepository){
-        this.echoBoardRepository = echoBoardRepository;
-    }
+    private final JPAEchoBoardCommentRepository commentRepository;
+
 
     public EchoBoard save(EchoBoard echoBoard) {
         echoBoardRepository.save(echoBoard);

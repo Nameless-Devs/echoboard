@@ -114,6 +114,7 @@ public class EchoController {
                 .buildAndExpand(echoBoardSolutionId)
                 .toUri();
 
+        System.out.printf(String.valueOf(echoBoardSolutionId));
         return ResponseEntity.created(location).body(echoBoardSolutionId);
 
     }

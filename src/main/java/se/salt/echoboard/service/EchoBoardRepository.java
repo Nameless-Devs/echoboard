@@ -7,6 +7,7 @@ import se.salt.echoboard.model.EchoBoardSolution;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class EchoBoardRepository {
@@ -38,7 +39,12 @@ public class EchoBoardRepository {
         return echoBoard.map(board -> {
             board.getEchoBoardComments().add(echoBoardComment);
             echoBoardRepository.save(board);
-            return echoBoardComment.getId();
+            return echoBoard.get().getEchoBoardComments()
+                    .stream()
+                    .filter(comment ->
+                            comment.getAuthor().equals(echoBoardComment.getAuthor())
+                                    && comment.getCreated().equals(echoBoardComment.getCreated()))
+                    .findFirst().get().getId();
         }).orElse(null);
     }
 
@@ -46,7 +52,12 @@ public class EchoBoardRepository {
         return echoBoard.map(board -> {
             board.getEchoBoardSolutions().add(echoBoardSolution);
             echoBoardRepository.save(board);
-            return echoBoardSolution.getId();
+            return echoBoard.get().getEchoBoardSolutions()
+                    .stream()
+                    .filter(solution ->
+                            solution.getAuthor().equals(echoBoardSolution.getAuthor())
+                                    && solution.getCreated().equals(echoBoardSolution.getCreated()))
+                    .findFirst().get().getId();
         }).orElse(null);
     }
 }

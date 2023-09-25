@@ -17,7 +17,7 @@ public class EchoBoardComment {
     private Long id;
 
     private String author;
-    private String comment;
+    private String content;
     private int upvote;
 
     @Column(columnDefinition = "TIMESTAMP")
@@ -28,9 +28,9 @@ public class EchoBoardComment {
         this.created = Instant.now();
     }
 
-    public EchoBoardComment(String author, String comment) {
+    public EchoBoardComment(String author, String content) {
         this.author = author;
-        this.comment = comment;
+        this.content = content;
         this.upvote = 0;
         this.created = Instant.now();
     }

@@ -1,8 +1,9 @@
 import { PostEchoBoardData, EchoBoardResponseData, CommentToPost } from "./Types";
 
-//const baseURL = "http://localhost:8080/api"; //change it when deploying
+//change it when deploying
+const baseURL = "http://localhost:8080/api"; 
 
-const baseURL = "https://echoboard-app.fly.dev/api"
+// const baseURL = "https://echoboard-app.fly.dev/api"
 
 
 

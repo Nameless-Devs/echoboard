@@ -11,7 +11,7 @@ export type EchoBoardResponseData = {
   author: string;
   upvote: number;
   created: string;
-  echoBoardComments: CommentResponseData[];
+  echoBoardComment: CommentResponseData[];
 };
 
 export type CommentResponseData = {

@@ -77,7 +77,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           style={{ maxHeight: "300px", overflow: "auto" }}
         >
           <List>
-            {displayPost.echoBoardComments
+            {displayPost.echoBoardComment
               .sort((a, b) => b.upvote - a.upvote)
               .map((comment, index) => (
                 <ListItem

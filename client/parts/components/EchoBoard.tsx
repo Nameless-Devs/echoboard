@@ -85,7 +85,7 @@ export const EchoBoard = () => {
             <CardActions>
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Comments: {echoBoard.echoBoardComments.length}
+                Comments: {echoBoard.echoBoardComment.length}
               </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} />

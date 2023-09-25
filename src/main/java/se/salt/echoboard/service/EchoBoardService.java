@@ -45,11 +45,17 @@ public class EchoBoardService {
     }
 
     public Optional<Long> addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
-        return echoBoardRepository.addCommentToPost(echoBoard, echoBoardComment);
+        return echoBoard.map(board -> {
+            board.getEchoBoardComment().add(echoBoardComment);
+            return commentRepository.saveComment(echoBoardComment).getId();
+        });
     }
 
     public Optional<Long> addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
-        return echoBoardRepository.addSolutionToPost(echoBoard,echoBoardSolution);
+        return echoBoard.map(board -> {
+            board.getEchoBoardSolutions().add(echoBoardSolution);
+            return solutionRepository.saveSolution(echoBoardSolution).getId();
+        });
     }
 
     public Optional<Integer> upvoteComment (long commentId) {

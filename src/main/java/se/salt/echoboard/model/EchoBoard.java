@@ -29,7 +29,7 @@ public class EchoBoard {
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //removed cascade = CascadeType.ALL,
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "echo_board_id")
     @ToString.Exclude
     private List<EchoBoardComment> echoBoardComment = new ArrayList<>();

@@ -37,17 +37,11 @@ public class EchoController {
     }
 
     @PatchMapping("/echoes/{echoId}/upvote")
-    public ResponseEntity<Integer> upvoteEcho(@PathVariable Long echoId) {
-        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
-
-        if (optionalEchoBoard.isPresent()) {
-            EchoBoard echoBoard = optionalEchoBoard.get();
-            Integer upvote = echoBoard.addUpvote();
-            echoService.saveEcho(echoBoard);
-            return ResponseEntity.accepted().body(upvote);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId) {
+        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
+         echoBoard.map(EchoBoard::addUpvote);
+         echoBoard.map(echoService::saveEcho);
+         return ResponseEntity.of(echoBoard.map(EchoBoard::getUpvote));
     }
 
     @PatchMapping("/echoes/{echoId}/comments/{commentId}/upvote")

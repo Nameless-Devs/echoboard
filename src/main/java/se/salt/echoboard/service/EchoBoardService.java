@@ -44,10 +44,10 @@ public class EchoBoardService {
         return echoBoardRepository.addCommentToPost(echoBoard, echoBoardComment);
     }
 
+    public Optional<Long> addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
+        return echoBoardRepository.addSolutionToPost(echoBoard,echoBoardSolution);
     }
 
-    public Long addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
-        return echoBoardRepository.saveSolutionToPost(echoBoard,echoBoardSolution);
     }
 
 //    public void deleteEcho(Long id) {

@@ -29,7 +29,7 @@ public class EchoController {
     @GetMapping("/echoes")
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 
-        List<EchoBoard> echoes = echoService.findAll(5);
+        List<EchoBoard> echoes = echoService.findAll();
         if (echoes != null && !echoes.isEmpty()) {
             return ResponseEntity.ok(echoes);
         }

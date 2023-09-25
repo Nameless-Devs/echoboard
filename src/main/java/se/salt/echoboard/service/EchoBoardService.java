@@ -32,8 +32,7 @@ public class EchoBoardService {
         return echoBoardRepository.getEchoById(id);
     }
 
-    public List<EchoBoard> findAll(int limit) {
-        // Adjust this method according to your pagination needs
+    public List<EchoBoard> findAll() {
         return echoBoardRepository.findAll();
     }
 

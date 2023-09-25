@@ -1,27 +1,31 @@
 package se.salt.echoboard.service;
 
 
+import lombok.AllArgsConstructor;
 import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.service.repository.EchoBoardCommentRepository;
+import se.salt.echoboard.service.repository.EchoBoardRepository;
 
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class EchoBoardService {
 
     private final EchoBoardRepository echoBoardRepository;
 
-    @Autowired
-    public EchoBoardService(EchoBoardRepository echoBoardRepository) {
-        this.echoBoardRepository = echoBoardRepository;
-    }
+    private final EchoBoardCommentRepository commentRepository;
 
     public EchoBoard saveEcho(EchoBoard echoBoard) {
         return echoBoardRepository.save(echoBoard);
+    }
+
+    public EchoBoardComment saveComment(EchoBoardComment comment) {
+        return commentRepository.saveComment(comment);
     }
 
     public Optional<EchoBoard> getEchoById(Long id) {
@@ -29,23 +33,26 @@ public class EchoBoardService {
     }
 
     public List<EchoBoard> findAll() {
-        // Adjust this method according to your pagination needs
         return echoBoardRepository.findAll();
     }
 
-
-    public Optional<EchoBoardComment> findCommentById(EchoBoard echoBoard, Long commentId) {
-        return echoBoard.getEchoBoardComments().stream()
-                .filter(comment -> comment.getId().equals(commentId))
-                .findFirst();
+    public Optional<EchoBoardComment> findCommentById(long commentId) {
+        return commentRepository.findCommentById(commentId);
     }
 
-    public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
-        return echoBoardRepository.saveCommentToPost(echoBoard, echoBoardComment);
+    public Optional<Long> addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
+        return echoBoardRepository.addCommentToPost(echoBoard, echoBoardComment);
     }
 
-    public Long addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
-        return echoBoardRepository.saveSolutionToPost(echoBoard,echoBoardSolution);
+    public Optional<Long> addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
+        return echoBoardRepository.addSolutionToPost(echoBoard,echoBoardSolution);
+    }
+
+    public Optional<Integer> upvoteComment (long commentId) {
+        var comment = findCommentById(commentId);
+        comment.map(EchoBoardComment::addUpvote);
+        comment.map(this::saveComment);
+        return comment.map(EchoBoardComment::getUpvote);
     }
 
 //    public void deleteEcho(Long id) {

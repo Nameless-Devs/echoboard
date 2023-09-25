@@ -1,8 +1,10 @@
 package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 public class EchoBoard {
 
     @Id
@@ -28,10 +31,12 @@ public class EchoBoard {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //removed cascade = CascadeType.ALL,
     @JoinColumn(name = "echo_board_id")
-    private List<EchoBoardComment> echoBoardComments = new ArrayList<>();
+    @ToString.Exclude
+    private List<EchoBoardComment> echoBoardComment = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "echo_board_id")
+    @ToString.Exclude
     private List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
 
     public EchoBoard(String title, String content, String author) {
@@ -51,14 +56,4 @@ public class EchoBoard {
         return this.upvote += 1;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "title = " + title + ", " +
-                "content = " + content + ", " +
-                "author = " + author + ", " +
-                "upvote = " + upvote + ", " +
-                "created = " + created + ")";
-    }
 }

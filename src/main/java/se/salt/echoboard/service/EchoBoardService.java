@@ -1,12 +1,14 @@
 package se.salt.echoboard.service;
 
 
+import lombok.AllArgsConstructor;
 import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.service.repository.EchoBoardCommentRepository;
+import se.salt.echoboard.service.repository.EchoBoardRepository;
 
 import java.util.Optional;
 

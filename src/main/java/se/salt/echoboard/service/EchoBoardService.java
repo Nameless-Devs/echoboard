@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import se.salt.echoboard.model.EchoBoardComment;
+import se.salt.echoboard.model.EchoBoardSolution;
 
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class EchoBoardService {
         this.echoBoardRepository = echoBoardRepository;
     }
 
-    public EchoBoard save(EchoBoard echoBoard) {
+    public EchoBoard saveEcho(EchoBoard echoBoard) {
         return echoBoardRepository.save(echoBoard);
     }
 
@@ -41,6 +42,10 @@ public class EchoBoardService {
 
     public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
         return echoBoardRepository.saveCommentToPost(echoBoard, echoBoardComment);
+    }
+
+    public Long addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
+        return echoBoardRepository.saveSolutionToPost(echoBoard,echoBoardSolution);
     }
 
 //    public void deleteEcho(Long id) {

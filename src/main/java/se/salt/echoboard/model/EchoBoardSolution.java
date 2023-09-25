@@ -2,6 +2,8 @@ package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import java.time.Instant;
 
@@ -10,6 +12,8 @@ import java.time.Instant;
 //@Data
 @ToString
 @Table(name = "echo_board_solution")
+@Getter
+@Setter
 public class EchoBoardSolution {
 
     @Id

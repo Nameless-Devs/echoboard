@@ -3,6 +3,7 @@ package se.salt.echoboard.controller;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
+import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class EchoController {
         if (optionalEchoBoard.isPresent()) {
             EchoBoard echoBoard = optionalEchoBoard.get();
             Integer upvote = echoBoard.addUpvote();
-            echoService.save(echoBoard);
+            echoService.saveEcho(echoBoard);
             return ResponseEntity.accepted().body(upvote);
         } else {
             return ResponseEntity.notFound().build();
@@ -69,7 +70,7 @@ public class EchoController {
             if (optionalComment.isPresent()) {
                 EchoBoardComment comment = optionalComment.get();
                 Integer upvote = comment.addUpvote();
-                echoService.save(echoBoard);
+                echoService.saveEcho(echoBoard);
                 return ResponseEntity.accepted().body(upvote);
             } else {
                 return ResponseEntity.notFound().build();
@@ -79,42 +80,44 @@ public class EchoController {
         }
     }
 
-//    @PostMapping("/echoes")
-//    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard) {
-//        Long echoId = echoService.saveEcho(echoBoard).getId();
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(echoId)
-//                .toUri();
-//        return ResponseEntity.created(location).build();
-//    }
-//
-//    @GetMapping("/echoes/{echoId}/echoBoardSolutions/{echoBoardSolutionId}")
-//    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable String echoId, @PathVariable String echoBoardSolutionId) {
-//
-//        EchoBoard echoBoard = echoService.getEchoById(echoId);
-//        Optional<EchoBoardSolution> echoBoardSolution = echoBoard.getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
-//        return ResponseEntity.of(echoBoardSolution);
-//
-//    }
-//
-//    @PostMapping("/echoes/{echoId}/echoBoardSolutions")
-//    public ResponseEntity<String> saveEchoBoardSolution(@PathVariable String echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
-//
-//        EchoBoard echoBoard = echoService.getEchoById(echoId);
-//
-//        String echoBoardSolutionId = echoService.addSolutionToEcho(echoBoard, echoBoardSolution);
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(echoBoardSolutionId)
-//                .toUri();
-//
-//        return ResponseEntity.created(location).body(echoBoardSolutionId);
-//
-//    }
-//
+    @PostMapping("/echoes")
+    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard) {
+        Long echoId = echoService.saveEcho(echoBoard).getId();
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(echoId)
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/echoes/{echoId}/echoBoardSolutions/{echoBoardSolutionId}")
+    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId, @PathVariable Long echoBoardSolutionId) {
+
+        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
+        if (echoBoard.isPresent()) {
+            Optional<EchoBoardSolution> echoBoardSolution = echoBoard.get().getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
+            return ResponseEntity.of(echoBoardSolution);
+        }
+        return (ResponseEntity<EchoBoardSolution>) ResponseEntity.notFound();
+    }
+
+    @PostMapping("/echoes/{echoId}/echoBoardSolutions")
+    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
+
+        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
+
+        Long echoBoardSolutionId = echoService.addSolutionToEcho(echoBoard, echoBoardSolution);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(echoBoardSolutionId)
+                .toUri();
+
+        return ResponseEntity.created(location).body(echoBoardSolutionId);
+
+    }
+
     @PostMapping("/echoes/{echoId}/comments")
     public ResponseEntity<Void> saveComments(@PathVariable long echoId, @RequestBody EchoBoardComment echoBoardComment) {
 

@@ -29,10 +29,10 @@ public class EchoBoard {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //removed cascade = CascadeType.ALL,
     @JoinColumn(name = "echo_board_id")
     private List<EchoBoardComment> echoBoardComments = new ArrayList<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "echo_board_id")
-//    private List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "echo_board_id")
+    private List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
 
     public EchoBoard(String title, String content, String author) {
         this.title = title;

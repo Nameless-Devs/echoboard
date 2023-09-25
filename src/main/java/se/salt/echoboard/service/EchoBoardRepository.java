@@ -3,6 +3,7 @@ package se.salt.echoboard.service;
 import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Repository;
 import se.salt.echoboard.model.EchoBoardComment;
+import se.salt.echoboard.model.EchoBoardSolution;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +37,16 @@ public class EchoBoardRepository {
     public Long saveCommentToPost(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
         return echoBoard.map(board -> {
             board.getEchoBoardComments().add(echoBoardComment);
-            echoBoardRepository.save(board); // Explicitly save the board
+            echoBoardRepository.save(board);
             return echoBoardComment.getId();
+        }).orElse(null);
+    }
+
+    public Long saveSolutionToPost(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
+        return echoBoard.map(board -> {
+            board.getEchoBoardSolutions().add(echoBoardSolution);
+            echoBoardRepository.save(board);
+            return echoBoardSolution.getId();
         }).orElse(null);
     }
 }

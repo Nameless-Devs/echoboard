@@ -49,7 +49,6 @@ export async function upvotePost(echoBoardId: string) {
     });
 
     if (response.ok) {
-      console.log(response);
       return response;
     } else {
       throw new Error(`HTTP Error! Status: ${response.status}`);

@@ -2,14 +2,12 @@
 import { EchoBoardResponseData, CommentResponseData } from "../Types";
 import { fetchEchoBoards, fetchEchoBoardById } from "../Functions";
 import { SinglePost } from "./SinglePost";
-import Link from "next/link";
 import { Upvote } from "./Upvote";
 import { useQuery } from "@tanstack/react-query";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { PostComment } from "./PostComment";
 import { useState } from "react";
 import CommentsModal from "./CommentModal";

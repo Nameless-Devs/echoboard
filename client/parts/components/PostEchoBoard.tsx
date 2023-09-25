@@ -100,7 +100,7 @@ const PostEchoBoard = () => {
             }
           />
           <Button variant="outlined" type="submit">
-            Submit Query
+            Make a post
           </Button>
         </Box>
       </form>

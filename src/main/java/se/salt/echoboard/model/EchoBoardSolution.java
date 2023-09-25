@@ -18,7 +18,7 @@ public class EchoBoardSolution {
 
     private String author;
     private String content;
-    private Long upvote;
+    private int upvote;
 
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
@@ -26,12 +26,12 @@ public class EchoBoardSolution {
     public EchoBoardSolution(String author, String content) {
         this.author = author;
         this.content = content;
-        this.upvote = 0L;
+        this.upvote = 0;
         this.created = Instant.now();
     }
 
     public EchoBoardSolution() {
-        this.upvote = 0L;
+        this.upvote = 0;
         this.created = Instant.now();
     }
 }

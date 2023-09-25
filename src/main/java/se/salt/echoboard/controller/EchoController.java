@@ -8,15 +8,17 @@ import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 
+
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://echoboard-nameless-dev.vercel.app")
 @AllArgsConstructor
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class EchoController {
 
     private final EchoBoardService echoService;
@@ -30,6 +32,7 @@ public class EchoController {
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 
         List<EchoBoard> echoes = echoService.findAll();
+        Collections.reverse(echoes);
         if (echoes != null && !echoes.isEmpty()) {
             return ResponseEntity.ok(echoes);
         }

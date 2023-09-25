@@ -28,9 +28,10 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/api/status").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .cors(withDefaults())
+                .csrf().disable()
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler)
                         )

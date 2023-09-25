@@ -1,30 +1,30 @@
 import { PostEchoBoardData, EchoBoardResponseData, CommentToPost } from "./Types";
 
-const baseURL = "http://localhost:8080/api"; //change it when deploying
+//const baseURL = "http://localhost:8080/api"; //change it when deploying
 
-// const baseURL = "http://16.170.226.226:8080/api"
+const baseURL = "https://echoboard-app.fly.dev/api"
+
+
 
 export async function postEcho(problemPostToSend: PostEchoBoardData) {
-  try {
-    const response = await fetch(baseURL + "/echoes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(problemPostToSend),
-    });
-
-    if (response.ok) {
-      console.log(response);
-      //return response.json();
-      //when i try to parse it, in gives me an eeror that it is not a json
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
+    try {
+      const response = await fetch(baseURL + "/echoes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(problemPostToSend),
+      });
+  
+      if (response.ok) {
+        console.log(response);
+      } else {
+        throw new Error(`HTTP Error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      throw new Error("Fetch error: " + error);
     }
-  } catch (error) {
-    throw new Error("Fetch error: " + error);
   }
-}
 
 export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
   try {
@@ -49,7 +49,6 @@ export async function upvotePost(echoBoardId: string) {
     });
 
     if (response.ok) {
-      console.log(response);
       return response;
     } else {
       throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -105,8 +104,6 @@ export async function postComment(commentToPost: CommentToPost, echoBoardId: str
 
     if (response.ok) {
       console.log(response);
-      //return response.json();
-      //when i try to parse it, in gives me an eeror that it is not a json
     } else {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }

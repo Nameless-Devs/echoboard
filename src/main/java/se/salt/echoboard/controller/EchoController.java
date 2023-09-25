@@ -20,8 +20,6 @@ import java.util.Optional;
 public class EchoController {
 
     private final EchoBoardService echoService;
-    private final JPAEchoBoardRepository jPAEchoBoardRepository;
-
 
     @GetMapping("/echoes/{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable long id) {

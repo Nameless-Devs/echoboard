@@ -48,6 +48,11 @@ public class EchoBoardService {
         return echoBoardRepository.addSolutionToPost(echoBoard,echoBoardSolution);
     }
 
+    public Optional<Integer> upvoteComment (long commentId) {
+        var comment = findCommentById(commentId);
+        comment.map(EchoBoardComment::addUpvote);
+        comment.map(this::saveComment);
+        return comment.map(EchoBoardComment::getUpvote);
     }
 
 //    public void deleteEcho(Long id) {

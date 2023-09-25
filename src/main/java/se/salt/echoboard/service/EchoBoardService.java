@@ -21,6 +21,9 @@ public class EchoBoardService {
 
     private final EchoBoardCommentRepository commentRepository;
 
+    private final EchoBoardSolutionRepository solutionRepository;
+
+
     public EchoBoard saveEcho(EchoBoard echoBoard) {
         return echoBoardRepository.save(echoBoard);
     }

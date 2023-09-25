@@ -99,7 +99,7 @@ public class EchoController {
             Optional<EchoBoardSolution> echoBoardSolution = echoBoard.get().getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
             return ResponseEntity.of(echoBoardSolution);
         }
-        return (ResponseEntity<EchoBoardSolution>) ResponseEntity.notFound();
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/echoes/{echoId}/echoBoardSolutions")

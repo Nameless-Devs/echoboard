@@ -32,8 +32,8 @@ public class EchoController {
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 
         List<EchoBoard> echoes = echoService.findAll();
-        Collections.reverse(echoes);
         if (echoes != null && !echoes.isEmpty()) {
+            Collections.reverse(echoes);
             return ResponseEntity.ok(echoes);
         }
         return ResponseEntity.noContent().build();

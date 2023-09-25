@@ -90,7 +90,7 @@ public class EchoController {
 
         Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
 
-        Long commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
+        Optional<Long> commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

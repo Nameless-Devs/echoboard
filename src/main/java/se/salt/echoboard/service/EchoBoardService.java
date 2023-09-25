@@ -22,6 +22,10 @@ public class EchoBoardService {
         return echoBoardRepository.save(echoBoard);
     }
 
+    public EchoBoardComment saveComment(EchoBoardComment comment) {
+        return commentRepository.saveComment(comment);
+    }
+
     public Optional<EchoBoard> getEchoById(Long id) {
         return echoBoardRepository.getEchoById(id);
     }

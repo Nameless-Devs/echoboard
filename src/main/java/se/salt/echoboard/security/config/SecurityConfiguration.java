@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                                 .anyRequest().permitAll()
                 )
                 .cors(withDefaults())
+                .csrf().disable()
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler)
                         )

@@ -36,11 +36,10 @@ public class EchoBoardService {
         return echoBoardRepository.findAll();
     }
 
+    public Optional<EchoBoardComment> findCommentById(long commentId) {
+        return commentRepository.findCommentById(commentId);
+    }
 
-    public Optional<EchoBoardComment> findCommentById(EchoBoard echoBoard, Long commentId) {
-        return echoBoard.getEchoBoardComments().stream()
-                .filter(comment -> comment.getId().equals(commentId))
-                .findFirst();
     }
 
     public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {

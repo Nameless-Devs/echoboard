@@ -45,24 +45,8 @@ public class EchoController {
     }
 
     @PatchMapping("/echoes/{echoId}/comments/{commentId}/upvote")
-    public ResponseEntity<Integer> upvoteComment(@PathVariable Long echoId, @PathVariable Long commentId) {
-        Optional<EchoBoard> optionalEchoBoard = echoService.getEchoById(echoId);
-
-        if (optionalEchoBoard.isPresent()) {
-            EchoBoard echoBoard = optionalEchoBoard.get();
-            Optional<EchoBoardComment> optionalComment = echoService.findCommentById(echoBoard, commentId);
-
-            if (optionalComment.isPresent()) {
-                EchoBoardComment comment = optionalComment.get();
-                Integer upvote = comment.addUpvote();
-                echoService.saveEcho(echoBoard);
-                return ResponseEntity.accepted().body(upvote);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Integer> upvoteComment(@PathVariable long echoId, @PathVariable long commentId) {
+        return ResponseEntity.of(echoService.upvoteComment(commentId));
     }
 
     @PostMapping("/echoes")

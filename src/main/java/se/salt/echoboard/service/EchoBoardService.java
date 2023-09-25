@@ -40,10 +40,10 @@ public class EchoBoardService {
         return commentRepository.findCommentById(commentId);
     }
 
+    public Optional<Long> addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
+        return echoBoardRepository.addCommentToPost(echoBoard, echoBoardComment);
     }
 
-    public Long addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
-        return echoBoardRepository.saveCommentToPost(echoBoard, echoBoardComment);
     }
 
     public Long addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {

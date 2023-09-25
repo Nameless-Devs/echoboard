@@ -41,10 +41,7 @@ public class EchoController {
 
     @PatchMapping("/echoes/{echoId}/upvote")
     public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId) {
-        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
-         echoBoard.map(EchoBoard::addUpvote);
-         echoBoard.map(echoService::saveEcho);
-         return ResponseEntity.of(echoBoard.map(EchoBoard::getUpvote));
+        return ResponseEntity.of(echoService.upvoteEcho(echoId));
     }
 
     @PatchMapping("/echoes/{echoId}/comments/{commentId}/upvote")

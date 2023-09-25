@@ -29,17 +29,5 @@ public class EchoBoardRepository {
         echoBoardRepository.delete(echo);
     }
 
-    public Optional<Long> addCommentToPost(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
-         return echoBoard.map(board -> {
-            board.getEchoBoardComment().add(echoBoardComment);
-             return commentRepository.saveComment(echoBoardComment).getId();
-        });
-    }
 
-    public Optional<Long> addSolutionToPost(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
-        return echoBoard.map(board -> {
-            board.getEchoBoardSolutions().add(echoBoardSolution);
-            return solutionRepository.saveSolution(echoBoardSolution).getId();
-        });
-    }
 }

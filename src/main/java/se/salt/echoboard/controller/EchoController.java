@@ -1,17 +1,12 @@
 package se.salt.echoboard.controller;
 
-import com.nimbusds.oauth2.sdk.http.HTTPResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
-import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;

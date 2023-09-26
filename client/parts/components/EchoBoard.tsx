@@ -102,7 +102,7 @@ export const EchoBoard = () => {
                 Comments: {echoBoard.echoBoardComment.length}
               </Button>
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Solutions: {echoBoard.echoBoardSolution?.length || 0}
+                Solutions: {echoBoard.echoBoardSolutions.length}
               </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} />

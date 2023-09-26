@@ -20,6 +20,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
         author: "",
         content: ""
     });
+    const [isSuccess, setIsSuccess] = useState(false);
 
    const queryClient = useQueryClient();
    const mutation = useMutation((data: SolutionToPost) => postSolution(data, echoBoardId));
@@ -39,6 +40,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
                 author: "",
                 content: ""
             });
+            setIsSuccess(true);
         },
         onError: (error) => {
             console.error("Error:", error);
@@ -58,7 +60,8 @@ export const PostSolution: React.FC<SolutionProps> = ({
             borderRadius: "5px",
           }}
         >
-                <h3>Here you can share your solution ideas</h3>
+                {isSuccess? (<h3 style={{color: 'green'}}>Your solution was successfully posted</h3>) : (
+                    <><h3>Here you can share your solution ideas</h3>
                 <form className='post-comment__form' onSubmit={handleSolutionPost}>
                 <TextField className='post-comment__name-input'
                         label="Enter your name"
@@ -81,6 +84,8 @@ export const PostSolution: React.FC<SolutionProps> = ({
                         Suggest solution
                 </Button>
             </form>
+            </>
+            )}
          </div>
     </Modal>
   )

@@ -12,7 +12,7 @@ export type EchoBoardResponseData = {
   upvote: number;
   created: string;
   echoBoardComment: CommentResponseData[];
-  echoBoardSolution: SolutionResponseData[];
+  echoBoardSolutions: SolutionResponseData[];
 };
 
 export type CommentResponseData = {

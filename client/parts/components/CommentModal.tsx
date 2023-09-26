@@ -92,7 +92,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     }
                     secondary={
                       <Typography variant="body1" color="textPrimary">
-                        {comment.comment}
+                        {comment.content}
                       </Typography>
                     }
                   ></ListItemText>

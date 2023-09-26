@@ -8,7 +8,7 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({
   author,
   content,
   upvote,
-  echoBoardComments: comments,
+  echoBoardComment: comments,
 }) => {
   return (
     <>

@@ -17,7 +17,7 @@ export type EchoBoardResponseData = {
 export type CommentResponseData = {
   id: string;
   author: string;
-  comment: string;
+  content: string;
   upvote: number;
   created: string;
 };
@@ -28,5 +28,5 @@ export type UpvoteProps = {
 };
  export type CommentToPost = {
   author: string; 
-  comment: string;
+  content: string;
  }

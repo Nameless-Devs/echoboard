@@ -12,7 +12,7 @@ type CommentProps = {
 export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
     const [commentToPost, setCommentToPost] = useState<CommentToPost>({
         author: "", 
-        comment:""
+        content:""
     });
 
     const queryClient = useQueryClient();
@@ -21,7 +21,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
     const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!commentToPost.author.trim() || !commentToPost.comment.trim()) {
+        if (!commentToPost.author.trim() || !commentToPost.content.trim()) {
           return;
         }
 
@@ -31,7 +31,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
               queryClient.refetchQueries(['comments', echoBoardId]);
               setCommentToPost({
                 author: "",
-                comment: ""
+                content: ""
               });
             },
             onError: (error) => {
@@ -57,9 +57,9 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
             name="comment"
             multiline
             rows={2}
-            value={commentToPost.comment}
+            value={commentToPost.content}
             onChange={(e) =>
-              setCommentToPost({ ...commentToPost, comment: e.target.value }) }/>
+              setCommentToPost({ ...commentToPost, content: e.target.value }) }/>
     <Button className='post-comment__button' variant="outlined" type="submit">
             Comment
           </Button>

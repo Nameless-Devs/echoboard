@@ -28,7 +28,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         if (principal instanceof OidcUser oidcUser) {
 
-            jwtValidation.validateJwt(oidcUser);
+            jwtValidation.validateJwt(oidcUser.getIdToken().getTokenValue());
             String redirectUrl =  BASE_URL + "?token=" +
                     URLEncoder.encode(oidcUser.getIdToken().getTokenValue(), StandardCharsets.UTF_8);
             response.sendRedirect(redirectUrl);

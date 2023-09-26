@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 
 @Component
-@Profile({"deploy"})
 public class JwtValidation {
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
@@ -48,8 +47,7 @@ public class JwtValidation {
                 .build();
     }
 
-    public void validateJwt(OidcUser oidcUser) {
-        String tokenValue = oidcUser.getIdToken().getTokenValue();
-        validator.validate(jwtDecoder.decode(tokenValue));
+    public void validateJwt(String JWTToken) {
+        validator.validate(jwtDecoder.decode(JWTToken));
     }
 }

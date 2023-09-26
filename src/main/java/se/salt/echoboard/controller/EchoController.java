@@ -8,7 +8,6 @@ import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -59,12 +58,11 @@ public class EchoController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-//
+
 //    @GetMapping("/echoes/{echoId}/echoBoardSolutions/{echoBoardSolutionId}")
-//    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable String echoId, @PathVariable String echoBoardSolutionId) {
+//    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable long echoId, @PathVariable long echoBoardSolutionId) {
 //
-//        EchoBoard echoBoard = echoService.getEchoById(echoId);
-//        Optional<EchoBoardSolution> echoBoardSolution = echoBoard.getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
+//        Optional<EchoBoard> echoBoard = echoService.getSolution(echoBoardSolutionId);
 //        return ResponseEntity.of(echoBoardSolution);
 //
 //    }

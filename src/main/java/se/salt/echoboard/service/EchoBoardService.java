@@ -28,11 +28,11 @@ public class EchoBoardService {
     }
 
     public EchoBoardComment saveComment(EchoBoardComment comment) {
-        return commentRepository.saveComment(comment);
+        return commentRepository.save(comment);
     }
 
     public EchoBoardSolution saveSolution(EchoBoardSolution solution) {
-        return solutionRepository.saveSolution(solution);
+        return solutionRepository.save(solution);
     }
 
 

@@ -22,6 +22,8 @@ public class EchoBoard {
     private long id;
 
     private String title;
+
+    @Column(length = 1000)
     private String content;
     private String author;
     private int upvote;
@@ -44,16 +46,25 @@ public class EchoBoard {
         this.content = content;
         this.author = author;
         this.upvote = 0;
-        this.created = Instant.now();
     }
 
     public EchoBoard() {
         this.upvote = 0;
+    }
+
+    public EchoBoard addUpvote() {
+        this.upvote += 1;
+        return this;
+    }
+
+    @PrePersist
+    private void onCreate() {
         this.created = Instant.now();
     }
 
-    public int addUpvote() {
-        return this.upvote += 1;
-    }
+//    @PreUpdate
+//    private void onUpdate() {
+//        this.updated = Instant.now();
+//    }
 
 }

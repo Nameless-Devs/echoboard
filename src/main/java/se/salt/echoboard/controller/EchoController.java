@@ -60,6 +60,7 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
+
     @GetMapping("/echoes/{echoId}/solutions/{echoBoardSolutionId}")
     public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId, @PathVariable Long echoBoardSolutionId) {
 
@@ -91,12 +92,11 @@ public class EchoController {
         return ResponseEntity.of(echoService.upvoteSolution(solutionId));
     }
 
-    @PostMapping("/echoes/{echoId}/comments")
-    public ResponseEntity<Void> saveComments(@PathVariable long echoId, @RequestBody EchoBoardComment echoBoardComment) {
 
-        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
+    @PostMapping("/echoes/{echoBoardId}/comments")
+    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId, @RequestBody EchoBoardComment echoBoardComment) {
 
-        Optional<Long> commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
+        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

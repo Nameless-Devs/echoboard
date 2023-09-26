@@ -9,7 +9,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { PostComment } from "./PostComment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentsModal from "./CommentModal";
 import { PostSolution } from "./PostSolution";
 
@@ -26,6 +26,12 @@ export const EchoBoard = () => {
   const [isOpenSolution, setIsOpenSolution] = useState(false);
   const [selectedPostForSolution, setSelectedPostForSolution] =
   useState<null | EchoBoardResponseData>(null);
+  const [sortByUpvote, setSortByUpvote] = useState(false);
+
+  const sortedEchoBoards = sortByUpvote
+  ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
+  : [...(echoBoards || [])].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
+
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);
@@ -73,6 +79,11 @@ export const EchoBoard = () => {
       }}
     >
       <h1>Echo Board All Posts</h1>
+      {sortByUpvote ? (
+        <Button onClick={() => setSortByUpvote(false)}>Default</Button>
+      ):(
+        <Button variant="outlined" onClick={() => setSortByUpvote(true)}>Sort</Button>
+      )}
       <div
         style={{
           display: "flex",
@@ -84,7 +95,7 @@ export const EchoBoard = () => {
       >
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error!</p>}
-        {echoBoards?.map((echoBoard, index) => (
+        {sortedEchoBoards?.map((echoBoard, index) => (
           <Card
             key={index}
             sx={{

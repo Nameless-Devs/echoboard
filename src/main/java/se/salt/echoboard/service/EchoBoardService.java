@@ -48,18 +48,22 @@ public class EchoBoardService {
         return commentRepository.findCommentById(commentId);
     }
 
+
     public Optional<EchoBoardSolution> findSolutionById(long solutionId) {
         return solutionRepository.findSolutionById(solutionId);
     }
 
-    public Optional<Long> addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
+    public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment) {
+        Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
+      
         return echoBoard.map(board -> {
             board.getEchoBoardComment().add(echoBoardComment);
             return commentRepository.saveComment(echoBoardComment).getId();
         });
     }
 
-    public Optional<Long> addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
+    public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution) {
+        Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
             board.getEchoBoardSolutions().add(echoBoardSolution);
             return solutionRepository.saveSolution(echoBoardSolution).getId();
@@ -67,17 +71,17 @@ public class EchoBoardService {
     }
 
     public Optional<Integer> upvoteComment (long commentId) {
-        var comment = findCommentById(commentId);
-        comment.map(EchoBoardComment::addUpvote);
-        comment.map(this::saveComment);
-        return comment.map(EchoBoardComment::getUpvote);
+        return findCommentById(commentId)
+                .map(EchoBoardComment::addUpvote)
+                .map(commentRepository::saveComment)
+                .map(EchoBoardComment::getUpvote);
     }
 
     public Optional<Integer> upvoteEcho(long echoId) {
-        Optional<EchoBoard> echoBoard = getEchoById(echoId);
-        echoBoard.map(EchoBoard::addUpvote);
-        echoBoard.map(echoBoardRepository::save);
-        return echoBoard.map(EchoBoard::getUpvote);
+        return getEchoById(echoId)
+                .map(EchoBoard::addUpvote)
+                .map(echoBoardRepository::save)
+                .map(EchoBoard::getUpvote);
     }
 
     public Optional<Integer> upvoteSolution(long solutionId) {

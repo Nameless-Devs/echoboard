@@ -38,7 +38,8 @@ public class EchoBoardComment {
         this.created = Instant.now();
     }
 
-    public int addUpvote() {
-        return this.upvote += 1;
+    public EchoBoardComment addUpvote() {
+        this.upvote += 1;
+        return this;
     }
 }

@@ -47,29 +47,41 @@ export const PostSolution: React.FC<SolutionProps> = ({
    }
   return (
     <Modal open={isOpen} onClose={handleClose} >
-        <form className='post-comment__form' onSubmit={handleSolutionPost}>
-            <TextField className='post-comment__name-input'
-                    label="Enter your name"
-                    variant="outlined"
-                    name="author"
-                    size="small"
-                    value={solutionToPost.author}
-                    onChange={(e) =>
-                    setSolutionToPost({ ...solutionToPost, author: e.target.value }) }/>
-            <TextField className='post-comment__comment'
-                    label="Solution"
-                    variant="outlined"
-                    name="content"
-                    multiline
-                    rows={2}
-                    value={solutionToPost.content}
-                    onChange={(e) =>
-                    setSolutionToPost({ ...solutionToPost, content: e.target.value }) }/>
-            <Button className='post-comment__button' variant="outlined" type="submit">
-                    Suggest solution
-            </Button>
-            
-        </form>
-        </Modal>
+        <div
+          style={{
+            padding: "20px",
+            background: "#fff",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "5px",
+          }}
+        >
+                <h3>Here you can share your solution ideas</h3>
+                <form className='post-comment__form' onSubmit={handleSolutionPost}>
+                <TextField className='post-comment__name-input'
+                        label="Enter your name"
+                        variant="outlined"
+                        name="author"
+                        size="small"
+                        value={solutionToPost.author}
+                        onChange={(e) =>
+                        setSolutionToPost({ ...solutionToPost, author: e.target.value }) }/>
+                <TextField className='post-comment__comment'
+                        label="Solution"
+                        variant="outlined"
+                        name="content"
+                        multiline
+                        rows={4}
+                        value={solutionToPost.content}
+                        onChange={(e) =>
+                        setSolutionToPost({ ...solutionToPost, content: e.target.value }) }/>
+                <Button className='post-comment__button' variant="outlined" type="submit">
+                        Suggest solution
+                </Button>
+            </form>
+         </div>
+    </Modal>
   )
 }

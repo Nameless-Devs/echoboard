@@ -31,7 +31,8 @@ export type UpvoteProps = {
   content: string;
  }
 
- //Solution types are the same as comment type, should we refactor? 
+ //Solution types are the same as Comment types for now, but that will be changed
+ //once we introduce enum labels for solutions
  export type SolutionToPost = {
   author: string; 
   content: string;

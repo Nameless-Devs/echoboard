@@ -1,4 +1,4 @@
-import { PostEchoBoardData, EchoBoardResponseData, CommentToPost } from "./Types";
+import { PostEchoBoardData, EchoBoardResponseData, CommentToPost, SolutionToPost } from "./Types";
 
 //change it when deploying
 const baseURL = "http://localhost:8080/api"; 
@@ -112,4 +112,8 @@ export async function postComment(commentToPost: CommentToPost, echoBoardId: str
     throw new Error("Fetch error: " + error);
   }
   
+}
+
+export async function postSolution(solutionToPost: SolutionToPost, echoBoardId: string) {
+  //will write this function later 
 }

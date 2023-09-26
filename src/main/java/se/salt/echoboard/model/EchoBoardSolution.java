@@ -17,6 +17,8 @@ public class EchoBoardSolution {
     private Long id;
 
     private String author;
+
+    @Column(length = 1000)
     private String content;
     private int upvote;
 

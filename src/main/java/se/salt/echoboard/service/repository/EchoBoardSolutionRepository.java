@@ -16,7 +16,7 @@ public class EchoBoardSolutionRepository {
         return solutionRepository.save(echoBoardSolution);
     }
 
-    public Optional<EchoBoardSolution> findSolutionById(long solutionId) {
+    public Optional<EchoBoardSolution> getSolutionById(long solutionId) {
         return solutionRepository.findById(solutionId);
     }
 }

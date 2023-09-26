@@ -2,7 +2,6 @@ package se.salt.echoboard.service;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
 import java.util.List;

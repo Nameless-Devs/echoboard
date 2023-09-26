@@ -44,13 +44,13 @@ public class EchoBoardService {
         return echoBoardRepository.findAll();
     }
 
-    public Optional<EchoBoardComment> findCommentById(long commentId) {
-        return commentRepository.findCommentById(commentId);
+    public Optional<EchoBoardComment> getCommentById(long commentId) {
+        return commentRepository.getCommentById(commentId);
     }
 
 
-    public Optional<EchoBoardSolution> findSolutionById(long solutionId) {
-        return solutionRepository.findSolutionById(solutionId);
+    public Optional<EchoBoardSolution> getSolutionById(long solutionId) {
+        return solutionRepository.getSolutionById(solutionId);
     }
 
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment) {

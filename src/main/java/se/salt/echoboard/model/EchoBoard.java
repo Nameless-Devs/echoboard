@@ -60,8 +60,9 @@ public class EchoBoard {
         this.created = Instant.now();
     }
 
-    public int addUpvote() {
-        return this.upvote += 1;
-    }
+//    @PreUpdate
+//    private void onUpdate() {
+//        this.updated = Instant.now();
+//    }
 
 }

@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import { SolutionToPost } from '../Types';
-import { Button, TextField } from '@mui/material';
+import { Button, Modal, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postSolution } from '../Functions';
 import { error } from 'console';
 
 type SolutionProps = {
     echoBoardId: string; 
+    handleClose: () => void;
+    isOpen: boolean;
 }
 
-export const PostSolution: React.FC<SolutionProps> = ({echoBoardId}) => {
+export const PostSolution: React.FC<SolutionProps> = ({
+    echoBoardId,
+    handleClose,
+    isOpen
+}) => {
     const [solutionToPost, setSolutionToPost] = useState<SolutionToPost>({
         author: "",
         content: ""
@@ -40,7 +46,7 @@ export const PostSolution: React.FC<SolutionProps> = ({echoBoardId}) => {
     });
    }
   return (
-    <>
+    <Modal open={isOpen} onClose={handleClose} >
         <form className='post-comment__form' onSubmit={handleSolutionPost}>
             <TextField className='post-comment__name-input'
                     label="Enter your name"
@@ -51,19 +57,19 @@ export const PostSolution: React.FC<SolutionProps> = ({echoBoardId}) => {
                     onChange={(e) =>
                     setSolutionToPost({ ...solutionToPost, author: e.target.value }) }/>
             <TextField className='post-comment__comment'
-                    label="Comment"
+                    label="Solution"
                     variant="outlined"
-                    name="comment"
+                    name="content"
                     multiline
                     rows={2}
                     value={solutionToPost.content}
                     onChange={(e) =>
                     setSolutionToPost({ ...solutionToPost, content: e.target.value }) }/>
             <Button className='post-comment__button' variant="outlined" type="submit">
-                    Comment
-                </Button>
+                    Suggest solution
+            </Button>
             
         </form>
-    </>
+        </Modal>
   )
 }

@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import { PostComment } from "./PostComment";
 import { useState } from "react";
 import CommentsModal from "./CommentModal";
+import { PostSolution } from "./PostSolution";
 
 export const EchoBoard = () => {
   const {
@@ -22,6 +23,9 @@ export const EchoBoard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPost, setSelectedPost] =
     useState<null | EchoBoardResponseData>(null);
+  const [isOpenSolution, setIsOpenSolution] = useState(false);
+  const [selectedPostForSolution, setSelectedPostForSolution] =
+  useState<null | EchoBoardResponseData>(null);
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);
@@ -31,6 +35,16 @@ export const EchoBoard = () => {
   const handleClose = () => {
     setIsOpen(false);
     setSelectedPost(null);
+  };
+
+  const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
+    setIsOpenSolution(true);
+    setSelectedPostForSolution(post);
+  }
+
+  const handleCloseSolutionForm = () => {
+    setIsOpenSolution(false);
+    setSelectedPostForSolution(null);
   };
 
   const { data: echoBoardDetail } = useQuery(
@@ -87,8 +101,15 @@ export const EchoBoard = () => {
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
                 Comments: {echoBoard.echoBoardComment.length}
               </Button>
+              <Button size="small" onClick={() => handleOpen(echoBoard)}>
+                Solutions: {echoBoard.echoBoardSolution?.length || 0}
+              </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} />
+            <Button size="medium" onClick={() => handleOpenSolutionForm(echoBoard)} >
+              Suggest solution
+            </Button>
+  
           </Card>
         ))}
       </div>
@@ -97,6 +118,14 @@ export const EchoBoard = () => {
           post={echoBoardDetail || selectedPost}
           handleClose={handleClose}
           isOpen={isOpen}
+        />
+      )}
+
+      {selectedPostForSolution && (
+        <PostSolution 
+        echoBoardId={selectedPostForSolution.id} 
+        handleClose={handleCloseSolutionForm}
+        isOpen={isOpenSolution}
         />
       )}
     </main>

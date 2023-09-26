@@ -12,7 +12,7 @@ public class EchoBoardSolutionRepository {
 
     private final JPAEchoBoardSolutionRepository solutionRepository;
 
-    public EchoBoardSolution saveSolution(EchoBoardSolution echoBoardSolution) {
+    public EchoBoardSolution save(EchoBoardSolution echoBoardSolution) {
         return solutionRepository.save(echoBoardSolution);
     }
 

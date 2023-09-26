@@ -12,11 +12,11 @@ public class EchoBoardCommentRepository {
 
     private final JPAEchoBoardCommentRepository commentRepository;
 
-    public Optional<EchoBoardComment> findCommentById(long commentId) {
+    public Optional<EchoBoardComment> getCommentById(long commentId) {
         return commentRepository.findById(commentId);
     }
 
-    public EchoBoardComment saveComment( EchoBoardComment comment) {
+    public EchoBoardComment save(EchoBoardComment comment) {
         return commentRepository.save(comment);
     }
 

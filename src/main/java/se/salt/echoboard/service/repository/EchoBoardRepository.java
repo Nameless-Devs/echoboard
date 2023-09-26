@@ -25,7 +25,7 @@ public class EchoBoardRepository {
         return echoBoardRepository.findAll();
     }
 
-    public void deleteEchoById(long echoId) {
+    public void deleteById(long echoId) {
         echoBoardRepository.deleteById(echoId);
     }
 

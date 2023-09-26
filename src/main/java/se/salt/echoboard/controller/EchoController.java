@@ -76,8 +76,7 @@ public class EchoController {
     @PostMapping("/echoes/{echoId}/solutions")
     public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
 
-        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
-        Optional<Long> echoBoardSolutionId = echoService.addSolutionToEcho(echoBoard, echoBoardSolution);
+        Optional<Long> echoBoardSolutionId = echoService.addSolutionToEcho(echoId, echoBoardSolution);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

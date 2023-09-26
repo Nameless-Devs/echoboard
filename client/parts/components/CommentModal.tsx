@@ -58,7 +58,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
   const [selectedPostForSolution, setSelectedPostForSolution] =
-  useState<null | EchoBoardResponseData>(null);
+    useState<null | EchoBoardResponseData>(null);
 
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
@@ -210,20 +210,22 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              <Button size="medium" onClick={() => handleOpenSolutionForm(displayPost)} >
-              Suggest solution
-            </Button>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button size="medium" onClick={() => handleOpenSolutionForm(displayPost)} >
+                  Suggest solution
+                </Button>
+              </div>
             </Box>
           </CustomTabPanel>
         </Box>
         {selectedPostForSolution && (
-        <PostSolution 
-        echoBoardId={selectedPostForSolution.id} 
-        handleClose={handleCloseSolutionForm}
-        isOpen={isOpenSolution}
-        onSolutionPosted={handleSolutionPosted}
-        />
-      )}
+          <PostSolution
+            echoBoardId={selectedPostForSolution.id}
+            handleClose={handleCloseSolutionForm}
+            isOpen={isOpenSolution}
+            onSolutionPosted={handleSolutionPosted}
+          />
+        )}
       </div>
     </Modal>
   );

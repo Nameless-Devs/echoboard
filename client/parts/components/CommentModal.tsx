@@ -10,6 +10,7 @@ import { upvoteComment } from "../Functions";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import "../../app/styles/CommentModalStyles.css";
+import { PostSolution } from "./PostSolution";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -55,6 +56,19 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   isOpen,
 }) => {
   const [value, setValue] = useState(0);
+  const [isOpenSolution, setIsOpenSolution] = useState(false);
+  const [selectedPostForSolution, setSelectedPostForSolution] =
+  useState<null | EchoBoardResponseData>(null);
+
+  const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
+    setIsOpenSolution(true);
+    setSelectedPostForSolution(post);
+  }
+
+  const handleCloseSolutionForm = () => {
+    setIsOpenSolution(false);
+    setSelectedPostForSolution(null);
+  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -182,10 +196,19 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              
+              <Button size="medium" onClick={() => handleOpenSolutionForm(displayPost)} >
+              Suggest solution
+            </Button>
             </Box>
           </CustomTabPanel>
         </Box>
+        {selectedPostForSolution && (
+        <PostSolution 
+        echoBoardId={selectedPostForSolution.id} 
+        handleClose={handleCloseSolutionForm}
+        isOpen={isOpenSolution}
+        />
+      )}
       </div>
     </Modal>
   );

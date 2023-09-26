@@ -58,17 +58,17 @@ public class EchoBoardService {
     }
 
     public Optional<Integer> upvoteComment (long commentId) {
-        var comment = findCommentById(commentId);
-        comment.map(EchoBoardComment::addUpvote);
-        comment.map(this::saveComment);
-        return comment.map(EchoBoardComment::getUpvote);
+        return findCommentById(commentId)
+                .map(EchoBoardComment::addUpvote)
+                .map(commentRepository::saveComment)
+                .map(EchoBoardComment::getUpvote);
     }
 
     public Optional<Integer> upvoteEcho(long echoId) {
-        Optional<EchoBoard> echoBoard = getEchoById(echoId);
-        echoBoard.map(EchoBoard::addUpvote);
-        echoBoard.map(echoBoardRepository::save);
-        return echoBoard.map(EchoBoard::getUpvote);
+        return getEchoById(echoId)
+                .map(EchoBoard::addUpvote)
+                .map(echoBoardRepository::save)
+                .map(EchoBoard::getUpvote);
     }
 
 //    public void deleteEcho(Long id) {

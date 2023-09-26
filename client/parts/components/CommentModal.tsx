@@ -5,7 +5,7 @@ import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
 import { PostComment } from "./PostComment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { fetchEchoBoardById } from "../Functions";
+import { fetchEchoBoardById, upvoteSolution } from "../Functions";
 import { upvoteComment } from "../Functions";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -99,6 +99,15 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     }
   );
 
+  const mutation1 = useMutation(
+    (solutionId: string) => upvoteSolution(post.id, solutionId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["echoBoards"]);
+        queryClient.invalidateQueries(["comments", post.id]);
+      },
+    }
+  );
   return (
     <Modal open={isOpen} onClose={handleClose}>
       <div
@@ -195,7 +204,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <Button onClick={() => mutation.mutate(solution.id)}>
+                      <Button onClick={() => mutation1.mutate(solution.id)}>
                         Upvote: {solution.upvote}
                       </Button>
                     </ListItem>

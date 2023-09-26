@@ -29,15 +29,18 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/api/status").permitAll()
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 )
-                .cors(corsCustomizer())
-                .csrf(AbstractHttpConfigurer::disable)
+//                .cors().disable
+//                .csrf().disable
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler)
                         )
+                .cors(corsCustomizer())
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
+
     @Bean
     public Customizer<CorsConfigurer<HttpSecurity>> corsCustomizer() {
         return cors -> cors

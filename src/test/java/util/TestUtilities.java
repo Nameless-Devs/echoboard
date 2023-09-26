@@ -1,9 +1,13 @@
 package util;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
+import org.springframework.test.web.servlet.MvcResult;
 import se.salt.echoboard.model.EchoBoard;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class TestUtilities {
 
@@ -51,6 +55,15 @@ public class TestUtilities {
         try {
             return new ObjectMapper().writeValueAsString(object);
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T getObjectFromResponse(MvcResult getResult, Class<T> inputClass) {
+        try {
+            String content = getResult.getResponse().getContentAsString();
+            return new ObjectMapper().readValue(content, inputClass);
+        } catch (UnsupportedEncodingException | JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }

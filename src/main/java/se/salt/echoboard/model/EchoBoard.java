@@ -22,6 +22,8 @@ public class EchoBoard {
     private long id;
 
     private String title;
+
+    @Column(length = 1000)
     private String content;
     private String author;
     private int upvote;

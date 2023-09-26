@@ -63,14 +63,7 @@ public class EchoController {
 
     @GetMapping("/echoes/{echoId}/solutions/{echoBoardSolutionId}")
     public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId, @PathVariable Long echoBoardSolutionId) {
-
-        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
-        if (echoBoard.isPresent()) {
-            Optional<EchoBoardSolution> echoBoardSolution = echoBoard.get().getEchoBoardSolutions().stream().filter(solution -> solution.getId().equals(echoBoardSolutionId)).findFirst();
-            return ResponseEntity.of(echoBoardSolution);
-        }
-        return ResponseEntity.notFound().build();
-
+        return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId));
     }
 
     @PostMapping("/echoes/{echoId}/solutions")

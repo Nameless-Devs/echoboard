@@ -116,7 +116,7 @@ export async function postComment(commentToPost: CommentToPost, echoBoardId: str
 
 export async function postSolution(solutionToPost: SolutionToPost, echoBoardId: string) {
   try {
-    const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/echoBoardSolutions", {
+    const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/solutions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

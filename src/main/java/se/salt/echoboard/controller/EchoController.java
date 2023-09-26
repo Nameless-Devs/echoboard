@@ -60,7 +60,7 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/echoes/{echoId}/echoBoardSolutions/{echoBoardSolutionId}")
+    @GetMapping("/echoes/{echoId}/solutions/{echoBoardSolutionId}")
     public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId, @PathVariable Long echoBoardSolutionId) {
 
         Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
@@ -72,7 +72,7 @@ public class EchoController {
 
     }
 
-    @PostMapping("/echoes/{echoId}/echoBoardSolutions")
+    @PostMapping("/echoes/{echoId}/solutions")
     public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
 
         Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);

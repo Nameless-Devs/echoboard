@@ -57,6 +57,11 @@ public class EchoBoard {
         return this;
     }
 
+    public EchoBoard addSolution(EchoBoardSolution solution) {
+        this.echoBoardSolutions.add(solution);
+        return this;
+    }
+
     @PrePersist
     private void onCreate() {
         this.created = Instant.now();

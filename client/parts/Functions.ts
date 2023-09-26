@@ -115,5 +115,21 @@ export async function postComment(commentToPost: CommentToPost, echoBoardId: str
 }
 
 export async function postSolution(solutionToPost: SolutionToPost, echoBoardId: string) {
-  //will write this function later 
+  try {
+    const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/echoBoardSolutions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(solutionToPost),
+    });
+
+    if (response.ok) {
+      console.log(response);
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
 }

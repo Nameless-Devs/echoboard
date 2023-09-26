@@ -133,3 +133,22 @@ export async function postSolution(solutionToPost: SolutionToPost, echoBoardId: 
     throw new Error("Fetch error: " + error);
   }
 }
+export async function upvoteSolution(echoBoardId: string, solutionId: string) {
+  try {
+    const response = await fetch(`${baseURL}/echoes/${echoBoardId}/solutions/${solutionId}/upvote`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (response.ok) {
+      console.log(response);
+      return response;
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}

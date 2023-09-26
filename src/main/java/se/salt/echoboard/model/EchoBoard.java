@@ -49,6 +49,12 @@ public class EchoBoard {
 
     public EchoBoard() {
         this.upvote = 0;
+
+    public EchoBoard addUpvote() {
+        this.upvote += 1;
+        return this;
+    }
+
         this.created = Instant.now();
     }
 

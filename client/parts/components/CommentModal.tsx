@@ -1,5 +1,5 @@
-import React from "react";
-import { Modal, List, ListItem, ListItemText, Card } from "@mui/material";
+import React, { useState } from "react";
+import { Modal, List, ListItem, ListItemText, Tabs, Tab } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData } from "../Types";
 import { Upvote } from "./Upvote";
@@ -17,11 +17,48 @@ interface CommentsModalProps {
   isOpen: boolean;
 }
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 const CommentsModal: React.FC<CommentsModalProps> = ({
   post,
   handleClose,
   isOpen,
 }) => {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {
@@ -72,38 +109,83 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           </Typography>
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-        <Box
-          className="comment-display"
-          style={{ maxHeight: "300px", overflow: "auto" }}
-        >
-          <List>
-            {displayPost.echoBoardComment
-              .sort((a, b) => b.upvote - a.upvote)
-              .map((comment, index) => (
-                <ListItem
-                  className="comment-display__individual-comment"
-                  key={index}
-                >
-                  <ListItemText
-                    primary={
-                      <Typography variant="body2" color="textSecondary">
-                        {comment.author}
-                      </Typography>
-                    }
-                    secondary={
-                      <Typography variant="body1" color="textPrimary">
-                        {comment.content}
-                      </Typography>
-                    }
-                  ></ListItemText>
-                  <Button onClick={() => mutation.mutate(comment.id)}>
-                    Upvote: {comment.upvote}
-                  </Button>
-                </ListItem>
-              ))}
-          </List>
+
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+              <Tab label="Comments" {...a11yProps(0)} />
+              <Tab label="Solutions" {...a11yProps(1)} />
+            </Tabs>
+          </Box>
+          <CustomTabPanel value={value} index={0}>
+            <Box
+              className="comment-display"
+              style={{ maxHeight: "300px", overflow: "auto" }}
+            >
+              <List>
+                {displayPost.echoBoardComment
+                  .sort((a, b) => b.upvote - a.upvote)
+                  .map((comment, index) => (
+                    <ListItem
+                      className="comment-display__individual-comment"
+                      key={index}
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography variant="body2" color="textSecondary">
+                            {comment.author}
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography variant="body1" color="textPrimary">
+                            {comment.content}
+                          </Typography>
+                        }
+                      ></ListItemText>
+                      <Button onClick={() => mutation.mutate(comment.id)}>
+                        Upvote: {comment.upvote}
+                      </Button>
+                    </ListItem>
+                  ))}
+              </List>
+              <PostComment echoBoardId={displayPost.id} />
+            </Box>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            <Box
+              className="comment-display"
+              style={{ maxHeight: "300px", overflow: "auto" }}
+            >
+              <List>
+                {displayPost.echoBoardSolutions
+                  .sort((a, b) => b.upvote - a.upvote)
+                  .map((solution, index) => (
+                    <ListItem
+                      className="comment-display__individual-comment"
+                      key={index}
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography variant="body2" color="textSecondary">
+                            {solution.author}
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography variant="body1" color="textPrimary">
+                            {solution.content}
+                          </Typography>
+                        }
+                      ></ListItemText>
+                      <Button onClick={() => mutation.mutate(solution.id)}>
+                        Upvote: {solution.upvote}
+                      </Button>
+                    </ListItem>
+                  ))}
+              </List>
+              
+            </Box>
+          </CustomTabPanel>
         </Box>
-        <PostComment echoBoardId={displayPost.id} />
       </div>
     </Modal>
   );

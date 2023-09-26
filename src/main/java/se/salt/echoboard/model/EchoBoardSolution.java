@@ -34,4 +34,8 @@ public class EchoBoardSolution {
         this.upvote = 0;
         this.created = Instant.now();
     }
+
+    public int addUpvote() {
+        return this.upvote += 1;
+    }
 }

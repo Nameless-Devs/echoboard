@@ -2,6 +2,7 @@ package se.salt.echoboard.service;
 
 
 import lombok.AllArgsConstructor;
+import lombok.var;
 import org.springframework.http.ResponseEntity;
 import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,11 @@ public class EchoBoardService {
         return commentRepository.saveComment(comment);
     }
 
+    public EchoBoardSolution saveSolution(EchoBoardSolution solution) {
+        return solutionRepository.saveSolution(solution);
+    }
+
+
     public Optional<EchoBoard> getEchoById(Long id) {
         return echoBoardRepository.getEchoById(id);
     }
@@ -42,6 +48,10 @@ public class EchoBoardService {
 
     public Optional<EchoBoardComment> findCommentById(long commentId) {
         return commentRepository.findCommentById(commentId);
+    }
+
+    public Optional<EchoBoardSolution> findSolutionById(long solutionId) {
+        return solutionRepository.findSolutionById(solutionId);
     }
 
     public Optional<Long> addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
@@ -71,6 +81,14 @@ public class EchoBoardService {
         echoBoard.map(echoBoardRepository::save);
         return echoBoard.map(EchoBoard::getUpvote);
     }
+
+    public Optional<Integer> upvoteSolution(long solutionId) {
+        var solution = findSolutionById(solutionId);
+        solution.map(EchoBoardSolution::addUpvote);
+        solution.map(this::saveSolution);
+        return solution.map(EchoBoardSolution::getUpvote);
+    }
+
 
 //    public void deleteEcho(Long id) {
 //        echoBoardRepository.deleteById(id);

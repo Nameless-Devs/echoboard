@@ -85,10 +85,10 @@ public class EchoBoardService {
     }
 
     public Optional<Integer> upvoteSolution(long solutionId) {
-        var solution = findSolutionById(solutionId);
-        solution.map(EchoBoardSolution::addUpvote);
-        solution.map(this::saveSolution);
-        return solution.map(EchoBoardSolution::getUpvote);
+        return getSolutionById(solutionId)
+                .map(EchoBoardSolution::addUpvote)
+                .map(this::saveSolution)
+                .map(EchoBoardSolution::getUpvote);
     }
 
 

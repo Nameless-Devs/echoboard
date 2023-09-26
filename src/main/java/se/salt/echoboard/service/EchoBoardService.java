@@ -31,6 +31,11 @@ public class EchoBoardService {
         return commentRepository.saveComment(comment);
     }
 
+    public EchoBoardSolution saveSolution(EchoBoardSolution solution) {
+        return solutionRepository.saveSolution(solution);
+    }
+
+
     public Optional<EchoBoard> getEchoById(Long id) {
         return echoBoardRepository.getEchoById(id);
     }
@@ -43,8 +48,14 @@ public class EchoBoardService {
         return commentRepository.findCommentById(commentId);
     }
 
+
+    public Optional<EchoBoardSolution> findSolutionById(long solutionId) {
+        return solutionRepository.findSolutionById(solutionId);
+    }
+
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
+      
         return echoBoard.map(board -> {
             board.getEchoBoardComment().add(echoBoardComment);
             return commentRepository.saveComment(echoBoardComment).getId();
@@ -72,6 +83,14 @@ public class EchoBoardService {
                 .map(echoBoardRepository::save)
                 .map(EchoBoard::getUpvote);
     }
+
+    public Optional<Integer> upvoteSolution(long solutionId) {
+        var solution = findSolutionById(solutionId);
+        solution.map(EchoBoardSolution::addUpvote);
+        solution.map(this::saveSolution);
+        return solution.map(EchoBoardSolution::getUpvote);
+    }
+
 
 //    public void deleteEcho(Long id) {
 //        echoBoardRepository.deleteById(id);

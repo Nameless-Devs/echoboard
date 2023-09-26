@@ -1,4 +1,4 @@
-import { PostEchoBoardData, EchoBoardResponseData, CommentToPost } from "./Types";
+import { PostEchoBoardData, EchoBoardResponseData, CommentToPost, SolutionToPost } from "./Types";
 
 //change it when deploying
 const baseURL = "http://localhost:8080/api"; 
@@ -112,4 +112,43 @@ export async function postComment(commentToPost: CommentToPost, echoBoardId: str
     throw new Error("Fetch error: " + error);
   }
   
+}
+
+export async function postSolution(solutionToPost: SolutionToPost, echoBoardId: string) {
+  try {
+    const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/solutions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(solutionToPost),
+    });
+
+    if (response.ok) {
+      console.log(response);
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}
+export async function upvoteSolution(echoBoardId: string, solutionId: string) {
+  try {
+    const response = await fetch(`${baseURL}/echoes/${echoBoardId}/solutions/${solutionId}/upvote`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (response.ok) {
+      console.log(response);
+      return response;
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
 }

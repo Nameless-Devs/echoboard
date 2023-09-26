@@ -12,6 +12,7 @@ export type EchoBoardResponseData = {
   upvote: number;
   created: string;
   echoBoardComment: CommentResponseData[];
+  echoBoardSolutions: SolutionResponseData[];
 };
 
 export type CommentResponseData = {
@@ -30,3 +31,17 @@ export type UpvoteProps = {
   author: string; 
   content: string;
  }
+
+ //Solution types are the same as Comment types for now, but that will be changed
+ //once we introduce enum labels for solutions
+ export type SolutionToPost = {
+  author: string; 
+  content: string;
+ }
+ export type SolutionResponseData = {
+  id: string;
+  author: string;
+  content: string;
+  upvote: number;
+  created: string;
+};

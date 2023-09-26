@@ -66,7 +66,7 @@ public class EchoBoardService {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
             board.getEchoBoardSolutions().add(echoBoardSolution);
-            return solutionRepository.saveSolution(echoBoardSolution).getId();
+            return solutionRepository.save(echoBoardSolution).getId();
         });
     }
 

@@ -1,27 +1,28 @@
 package se.salt.echoboard.security.config;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
 import se.salt.echoboard.security.CustomAuthenticationSuccessHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 @Profile("deploy")
 public class SecurityConfiguration {
 
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-
-    @Autowired
-    public SecurityConfiguration(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
-        this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
-    }
 
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
@@ -30,11 +31,22 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/status").permitAll()
                                 .anyRequest().permitAll()
                 )
-                .cors(withDefaults())
-                .csrf().disable()
+                .cors(corsCustomizer())
+                .csrf(AbstractHttpConfigurer::disable)
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler)
                         )
                 .build();
+    }
+    @Bean
+    public Customizer<CorsConfigurer<HttpSecurity>> corsCustomizer() {
+        return cors -> cors
+                .configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(List.of("https://echoboard.vercel.app/"));
+                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH"));
+                    config.setAllowCredentials(true);
+                    return config;
+                });
     }
 }

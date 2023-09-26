@@ -95,13 +95,13 @@ public class EchoController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-//
-//
-//    @DeleteMapping("/echoes/{id}")
-//    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable String id) {
-//        echoService.deleteEcho(id);
-//        return ResponseEntity.accepted().build();
-//    }
+
+
+    @DeleteMapping("/echoes/{id}")
+    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long id) {
+        echoService.deleteEcho(id);
+        return ResponseEntity.accepted().build();
+    }
 
 
 }

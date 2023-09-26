@@ -90,9 +90,8 @@ public class EchoBoardService {
                 .map(EchoBoardSolution::getUpvote);
     }
 
-
-//    public void deleteEcho(Long id) {
-//        echoBoardRepository.deleteById(id);
-//    }
+    public void deleteEcho(Long id) {
+        echoBoardRepository.deleteById(id);
+    }
 
 }

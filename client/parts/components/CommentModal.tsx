@@ -81,8 +81,13 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     }
   );
 
+
   const displayPost = updatedPost || post;
   const queryClient = useQueryClient();
+
+  const handleSolutionPosted = () => {
+    queryClient.refetchQueries(["comments", post.id]);
+  };
 
   const mutation = useMutation(
     (commentId: string) => upvoteComment(post.id, commentId),
@@ -207,6 +212,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         echoBoardId={selectedPostForSolution.id} 
         handleClose={handleCloseSolutionForm}
         isOpen={isOpenSolution}
+        onSolutionPosted={handleSolutionPosted}
         />
       )}
       </div>

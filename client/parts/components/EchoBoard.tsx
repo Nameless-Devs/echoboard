@@ -3,7 +3,7 @@ import { EchoBoardResponseData, CommentResponseData } from "../Types";
 import { fetchEchoBoards, fetchEchoBoardById } from "../Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -45,6 +45,12 @@ export const EchoBoard = () => {
   const handleCloseSolutionForm = () => {
     setIsOpenSolution(false);
     setSelectedPostForSolution(null);
+  };
+  const queryClient = useQueryClient();
+
+  const handleSolutionPosted = () => {
+    queryClient.invalidateQueries(["echoBoards"]);
+    queryClient.refetchQueries(["solutions", selectedPost?.id]);
   };
 
   const { data: echoBoardDetail } = useQuery(
@@ -126,6 +132,7 @@ export const EchoBoard = () => {
         echoBoardId={selectedPostForSolution.id} 
         handleClose={handleCloseSolutionForm}
         isOpen={isOpenSolution}
+        onSolutionPosted={handleSolutionPosted}
         />
       )}
     </main>

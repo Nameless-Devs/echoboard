@@ -9,12 +9,14 @@ type SolutionProps = {
     echoBoardId: string; 
     handleClose: () => void;
     isOpen: boolean;
+    onSolutionPosted: () => void;
 }
 
 export const PostSolution: React.FC<SolutionProps> = ({
     echoBoardId,
     handleClose,
-    isOpen
+    isOpen,
+    onSolutionPosted
 }) => {
     const [solutionToPost, setSolutionToPost] = useState<SolutionToPost>({
         author: "",
@@ -31,21 +33,22 @@ export const PostSolution: React.FC<SolutionProps> = ({
     if (!solutionToPost.author.trim() || !solutionToPost.content.trim()){
         return;
     }
-
     mutation.mutate(solutionToPost, {
         onSuccess: () => {
-            queryClient.invalidateQueries(["echoBoards"]);
-            queryClient.refetchQueries(["solutions", echoBoardId]);
-            setSolutionToPost({
-                author: "",
-                content: ""
-            });
-            setIsSuccess(true);
+          queryClient.invalidateQueries(["echoBoards"]);
+          queryClient.refetchQueries(["solution", echoBoardId]);
+          setSolutionToPost({
+            author: "",
+            content: ""
+          });
+          setIsSuccess(true);
+          onSolutionPosted();
         },
         onError: (error) => {
-            console.error("Error:", error);
+          console.error("Error:", error);
         },
-    });
+      });
+      
    }
   return (
     <Modal open={isOpen} onClose={handleClose} >

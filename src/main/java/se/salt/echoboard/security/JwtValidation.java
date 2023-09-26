@@ -2,6 +2,7 @@ package se.salt.echoboard.security;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.oauth2.client.oidc.authentication.OidcIdTokenValidator;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 
 @Component
+@Profile({"deploy"})
 public class JwtValidation {
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")

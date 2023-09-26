@@ -86,6 +86,11 @@ public class EchoController {
         return echoBoardSolutionId.map(aLong -> ResponseEntity.created(location).body(aLong)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PatchMapping("/echoes/{echoId}/solutions/{solutionId}/upvote")
+    public ResponseEntity<Integer> upvoteSolution(@PathVariable long echoId, @PathVariable long solutionId) {
+        return ResponseEntity.of(echoService.upvoteSolution(solutionId));
+    }
+
     @PostMapping("/echoes/{echoId}/comments")
     public ResponseEntity<Void> saveComments(@PathVariable long echoId, @RequestBody EchoBoardComment echoBoardComment) {
 

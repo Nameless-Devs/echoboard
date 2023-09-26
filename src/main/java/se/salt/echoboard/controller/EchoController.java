@@ -84,13 +84,11 @@ public class EchoController {
 //        return ResponseEntity.created(location).body(echoBoardSolutionId);
 //
 //    }
-//
-    @PostMapping("/echoes/{echoId}/comments")
-    public ResponseEntity<Void> saveComments(@PathVariable long echoId, @RequestBody EchoBoardComment echoBoardComment) {
 
-        Optional<EchoBoard> echoBoard = echoService.getEchoById(echoId);
+    @PostMapping("/echoes/{echoBoardId}/comments")
+    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId, @RequestBody EchoBoardComment echoBoardComment) {
 
-        Optional<Long> commentId = echoService.addCommentToEcho(echoBoard, echoBoardComment);
+        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

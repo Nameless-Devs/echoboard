@@ -43,14 +43,16 @@ public class EchoBoardService {
         return commentRepository.findCommentById(commentId);
     }
 
-    public Optional<Long> addCommentToEcho(Optional<EchoBoard> echoBoard, EchoBoardComment echoBoardComment) {
+    public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment) {
+        Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
             board.getEchoBoardComment().add(echoBoardComment);
             return commentRepository.saveComment(echoBoardComment).getId();
         });
     }
 
-    public Optional<Long> addSolutionToEcho(Optional<EchoBoard> echoBoard, EchoBoardSolution echoBoardSolution) {
+    public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution) {
+        Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
             board.getEchoBoardSolutions().add(echoBoardSolution);
             return solutionRepository.saveSolution(echoBoardSolution).getId();

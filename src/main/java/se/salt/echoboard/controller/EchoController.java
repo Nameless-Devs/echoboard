@@ -84,7 +84,6 @@ public class EchoController {
         return ResponseEntity.of(echoService.upvoteSolution(solutionId));
     }
 
-
     @PostMapping("/echoes/{echoBoardId}/comments")
     public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId, @RequestBody EchoBoardComment echoBoardComment) {
 

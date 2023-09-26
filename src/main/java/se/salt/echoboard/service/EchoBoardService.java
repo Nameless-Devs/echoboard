@@ -55,10 +55,9 @@ public class EchoBoardService {
 
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
-      
         return echoBoard.map(board -> {
             board.getEchoBoardComment().add(echoBoardComment);
-            return commentRepository.saveComment(echoBoardComment).getId();
+            return saveComment(echoBoardComment).getId();
         });
     }
 
@@ -66,14 +65,14 @@ public class EchoBoardService {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
             board.getEchoBoardSolutions().add(echoBoardSolution);
-            return solutionRepository.save(echoBoardSolution).getId();
+            return saveSolution(echoBoardSolution).getId();
         });
     }
 
     public Optional<Integer> upvoteComment (long commentId) {
-        return findCommentById(commentId)
+        return getCommentById(commentId)
                 .map(EchoBoardComment::addUpvote)
-                .map(commentRepository::saveComment)
+                .map(this::saveComment)
                 .map(EchoBoardComment::getUpvote);
     }
 

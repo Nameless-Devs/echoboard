@@ -2,12 +2,15 @@ package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import java.time.Instant;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @ToString
 @Table(name = "echo_board_solution")
 public class EchoBoardSolution {
@@ -22,6 +25,9 @@ public class EchoBoardSolution {
     private String content;
     private int upvote;
 
+    @Enumerated(EnumType.STRING)
+    private SolutionStatus status;
+
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
@@ -30,6 +36,7 @@ public class EchoBoardSolution {
         this.content = content;
         this.upvote = 0;
         this.created = Instant.now();
+        this.status = SolutionStatus.SOLUTION_IN_REVIEW;
     }
 
     public EchoBoardSolution() {
@@ -37,8 +44,17 @@ public class EchoBoardSolution {
         this.created = Instant.now();
     }
 
+    public enum SolutionStatus {
+        SOLUTION_IN_REVIEW,
+        VOLUNTEERS_REQUIRED,
+        IMPLEMENTATION_IN_PROGRESS,
+        SOLVED,
+        FAILED
+    }
+
     public EchoBoardSolution addUpvote() {
         this.upvote += 1;
         return this;
     }
+
 }

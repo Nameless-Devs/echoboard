@@ -16,19 +16,19 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api/echoes")
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
 public class EchoController {
 
     private final EchoBoardService echoService;
 
-    @GetMapping("/echoes/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<EchoBoard> getEcho(@PathVariable long id) {
         return ResponseEntity.of(echoService.getEchoById(id));
     }
 
-    @GetMapping("/echoes")
+    @GetMapping
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 
         List<EchoBoard> echoes = echoService.findAll();
@@ -39,17 +39,17 @@ public class EchoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/echoes/{echoId}/upvote")
+    @PatchMapping("{echoId}/upvote")
     public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId) {
         return ResponseEntity.of(echoService.upvoteEcho(echoId));
     }
 
-    @PatchMapping("/echoes/{echoId}/comments/{commentId}/upvote")
+    @PatchMapping("{echoId}/comments/{commentId}/upvote")
     public ResponseEntity<Integer> upvoteComment(@PathVariable long echoId, @PathVariable long commentId) {
         return ResponseEntity.of(echoService.upvoteComment(commentId));
     }
 
-    @PostMapping("/echoes")
+    @PostMapping
     public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard) {
         Long echoId = echoService.saveEcho(echoBoard).getId();
 
@@ -61,12 +61,12 @@ public class EchoController {
     }
 
 
-    @GetMapping("/echoes/{echoId}/solutions/{echoBoardSolutionId}")
+    @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
     public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId, @PathVariable Long echoBoardSolutionId) {
         return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId));
     }
 
-    @PostMapping("/echoes/{echoId}/solutions")
+    @PostMapping("{echoId}/solutions")
     public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
 
         Optional<Long> echoBoardSolutionId = echoService.addSolutionToEcho(echoId, echoBoardSolution);
@@ -79,12 +79,12 @@ public class EchoController {
         return echoBoardSolutionId.map(aLong -> ResponseEntity.created(location).body(aLong)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("/echoes/{echoId}/solutions/{solutionId}/upvote")
+    @PatchMapping("{echoId}/solutions/{solutionId}/upvote")
     public ResponseEntity<Integer> upvoteSolution(@PathVariable long echoId, @PathVariable long solutionId) {
         return ResponseEntity.of(echoService.upvoteSolution(solutionId));
     }
 
-    @PostMapping("/echoes/{echoBoardId}/comments")
+    @PostMapping("{echoBoardId}/comments")
     public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId, @RequestBody EchoBoardComment echoBoardComment) {
 
         Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment);

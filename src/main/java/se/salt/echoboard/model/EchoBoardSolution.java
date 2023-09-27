@@ -44,12 +44,13 @@ public class EchoBoardSolution {
         this.created = Instant.now();
     }
 
+    @Getter
     public enum SolutionStatus {
         SOLUTION_IN_REVIEW,
         VOLUNTEERS_REQUIRED,
         IMPLEMENTATION_IN_PROGRESS,
         SOLVED,
-        FAILED
+        FAILED;
     }
 
     public EchoBoardSolution addUpvote() {

@@ -1,7 +1,6 @@
 package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,6 +41,7 @@ public class EchoBoardSolution {
     public EchoBoardSolution() {
         this.upvote = 0;
         this.created = Instant.now();
+        this.status = SolutionStatus.SOLUTION_IN_REVIEW;
     }
 
     @Getter
@@ -55,6 +55,11 @@ public class EchoBoardSolution {
 
     public EchoBoardSolution addUpvote() {
         this.upvote += 1;
+        return this;
+    }
+
+    public EchoBoardSolution updateSolutionStatus(SolutionStatus status) {
+        this.status = status;
         return this;
     }
 

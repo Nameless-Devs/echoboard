@@ -11,6 +11,7 @@ import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import "../../app/styles/CommentModalStyles.css";
 import { PostSolution } from "./PostSolution";
+import { useCookies } from "react-cookie";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -60,6 +61,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const [selectedPostForSolution, setSelectedPostForSolution] =
     useState<null | EchoBoardResponseData>(null);
 
+  const [cookies] = useCookies();
+
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
     setSelectedPostForSolution(post);
@@ -76,7 +79,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {
-      const result = await fetchEchoBoardById(post.id);
+      const result = await fetchEchoBoardById(post.id, cookies.JwtToken);
       return result;
     }
   );
@@ -90,7 +93,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   };
 
   const mutation = useMutation(
-    (commentId: string) => upvoteComment(post.id, commentId),
+    (commentId: string) => upvoteComment(post.id, commentId, cookies.JwtToken),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["echoBoards"]);
@@ -100,7 +103,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   );
 
   const mutation1 = useMutation(
-    (solutionId: string) => upvoteSolution(post.id, solutionId),
+    (solutionId: string) => upvoteSolution(post.id, solutionId, cookies.JwtToken),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["echoBoards"]);

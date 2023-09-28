@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { addSyntheticLeadingComment } from "typescript";
+import { useCookies } from "react-cookie";
 
 const PostEchoBoard = () => {
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
@@ -20,8 +21,9 @@ const PostEchoBoard = () => {
   });
 
   const queryClient = useQueryClient();
+  const [cookies] = useCookies();
 
-  const mutation = useMutation(postEcho);
+  const mutation = useMutation((data: PostEchoBoardData) => postEcho(data, cookies.JwtToken));
 
   const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

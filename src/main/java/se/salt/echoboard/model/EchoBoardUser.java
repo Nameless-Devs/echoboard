@@ -30,5 +30,5 @@ public class EchoBoardUser {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EchoBoardSolution> usersSolutions;
 
-    private String jwtId;
+    private String subject;
 }

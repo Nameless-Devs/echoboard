@@ -2,8 +2,6 @@ package se.salt.echoboard.security;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.oidc.authentication.OidcIdTokenValidator;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -12,13 +10,11 @@ import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-
-import java.security.Principal;
 import java.util.Collections;
 
 @Component
@@ -59,7 +55,6 @@ public class JwtValidation {
         Jwt jwt = jwtDecoder.decode(JWTToken);
         validator.validate(jwt);
         OidcIdToken oidcIdToken = new OidcIdToken(jwt.getTokenValue(), jwt.getIssuedAt(), jwt.getExpiresAt(), jwt.getClaims());
-        OidcUser user =  new DefaultOidcUser(Collections.emptyList(), oidcIdToken);
-        return user;
+        return new DefaultOidcUser(Collections.emptyList(), oidcIdToken);
     }
 }

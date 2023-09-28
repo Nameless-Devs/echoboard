@@ -16,14 +16,14 @@ public class EchoBoardUserRepository {
    public EchoBoardUser createUser(OidcUser userToSave){
 
        EchoBoardUser user = EchoBoardUser.builder()
-               .jwtId(userToSave.getSubject())
+               .subject(userToSave.getSubject())
                .name(userToSave.getFullName())
                .email(userToSave.getEmail())
                .build();
        return userRepository.save(user);
    }
 
-   public Optional<EchoBoardUser> getUserByJwtId(String userId){
-       return userRepository.findByJwtId(userId);
+   public Optional<EchoBoardUser> getUserBySubject(String userSubject){
+       return userRepository.findBySubject(userSubject);
    }
 }

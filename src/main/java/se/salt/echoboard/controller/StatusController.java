@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api")
 public class StatusController {
 
-    @GetMapping("/status")
+    @GetMapping("status")
     @ResponseStatus(HttpStatus.OK)
     public String getStatus() {
         return "Server is up and running!";

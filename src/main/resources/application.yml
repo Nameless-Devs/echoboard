@@ -26,3 +26,7 @@ spring:
   profiles:
     default: deploy
 
+frontend-details:
+  base-url: https://echoboard.vercel.app/
+  base-url-dev: http://localhost:3000/
+

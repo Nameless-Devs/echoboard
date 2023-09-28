@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface JPAEchoBoardUserRepository extends JpaRepository<EchoBoardUser, Long> {
 
-    Optional<EchoBoardUser> findByJwtId(String jwtId);
+    Optional<EchoBoardUser> findBySubject(String userSubject);
 }

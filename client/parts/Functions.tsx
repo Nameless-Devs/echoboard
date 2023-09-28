@@ -1,37 +1,50 @@
-import { PostEchoBoardData, EchoBoardResponseData, CommentToPost, SolutionToPost } from "./Types";
+import { useCookies } from "react-cookie";
+import {
+  PostEchoBoardData,
+  EchoBoardResponseData,
+  CommentToPost,
+  SolutionToPost,
+} from "./Types";
+import { type } from "os";
 
 //change it when deploying
-const baseURL = "http://localhost:8080/api"; 
+const baseURL = "http://localhost:8080/api";
 
 // const baseURL = "https://echoboard-app.fly.dev/api"
 
-
-
-
-
-export async function postEcho(problemPostToSend: PostEchoBoardData) {
-    try {
-      const response = await fetch(baseURL + "/echoes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(problemPostToSend),
-      });
-  
-      if (response.ok) {
-        console.log(response);
-      } else {
-        throw new Error(`HTTP Error! Status: ${response.status}`);
-      }
-    } catch (error) {
-      throw new Error("Fetch error: " + error);
-    }
-  }
-
-export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
+export async function postEcho(
+  problemPostToSend: PostEchoBoardData,
+  token: string
+) {
   try {
-    const response = await fetch(baseURL + "/echoes");
+    const response = await fetch(baseURL + "/echoes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(problemPostToSend),
+    });
+
+    if (response.ok) {
+      console.log(response);
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}
+
+export async function fetchEchoBoards(
+  token: string
+): Promise<EchoBoardResponseData[]> {
+  try {
+    const response = await fetch(baseURL + "/echoes", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
@@ -42,12 +55,13 @@ export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
   }
 }
 
-export async function upvotePost(echoBoardId: string) {
+export async function upvotePost(echoBoardId: string, token: string) {
   try {
     const response = await fetch(baseURL + `/echoes/${echoBoardId}/upvote`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
     });
 
@@ -61,14 +75,22 @@ export async function upvotePost(echoBoardId: string) {
   }
 }
 
-export async function upvoteComment(echoBoardId: string, commentId: string) {
+export async function upvoteComment(
+  echoBoardId: string,
+  commentId: string,
+  token: string
+) {
   try {
-    const response = await fetch(`${baseURL}/echoes/${echoBoardId}/comments/${commentId}/upvote`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${baseURL}/echoes/${echoBoardId}/comments/${commentId}/upvote`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       }
-    });
+    );
 
     if (response.ok) {
       console.log(response);
@@ -81,9 +103,13 @@ export async function upvoteComment(echoBoardId: string, commentId: string) {
   }
 }
 
-export async function fetchEchoBoardById(echoBoardId: string) {
+export async function fetchEchoBoardById(echoBoardId: string, token: string) {
   try {
-    const response = await fetch(baseURL + `/echoes/${echoBoardId}`);
+    const response = await fetch(baseURL + `/echoes/${echoBoardId}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
@@ -94,55 +120,77 @@ export async function fetchEchoBoardById(echoBoardId: string) {
   }
 }
 
-export async function postComment(commentToPost: CommentToPost, echoBoardId: string) {
-
+export async function postComment(
+  commentToPost: CommentToPost,
+  echoBoardId: string,
+  token: string
+) {
   try {
-    const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/comments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(commentToPost),
-    });
-
-    if (response.ok) {
-      console.log(response);
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-  } catch (error) {
-    throw new Error("Fetch error: " + error);
-  }
-  
-}
-
-export async function postSolution(solutionToPost: SolutionToPost, echoBoardId: string) {
-  try {
-    const response = await fetch(baseURL + "/echoes/" + echoBoardId + "/solutions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(solutionToPost),
-    });
-
-    if (response.ok) {
-      console.log(response);
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-  } catch (error) {
-    throw new Error("Fetch error: " + error);
-  }
-}
-export async function upvoteSolution(echoBoardId: string, solutionId: string) {
-  try {
-    const response = await fetch(`${baseURL}/echoes/${echoBoardId}/solutions/${solutionId}/upvote`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      baseURL + "/echoes/" + echoBoardId + "/comments",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(commentToPost),
       }
-    });
+    );
+
+    if (response.ok) {
+      console.log(response);
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}
+
+export async function postSolution(
+  solutionToPost: SolutionToPost,
+  echoBoardId: string,
+  token: string
+) {
+  try {
+    const response = await fetch(
+      baseURL + "/echoes/" + echoBoardId + "/solutions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(solutionToPost),
+      }
+    );
+
+    if (response.ok) {
+      console.log(response);
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}
+export async function upvoteSolution(
+  echoBoardId: string,
+  solutionId: string,
+  token: string
+) {
+  try {
+    const response = await fetch(
+      `${baseURL}/echoes/${echoBoardId}/solutions/${solutionId}/upvote`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
 
     if (response.ok) {
       console.log(response);

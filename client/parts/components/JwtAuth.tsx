@@ -8,7 +8,7 @@ const JwtAuth = () => {
 
   if (token) {
     const tokenString = Array.isArray(token) ? token[0] : token;
-    Cookies.set("myTokenCookie", tokenString, { expires: 1 });
+    Cookies.set("JwtToken", tokenString, { expires: 1 });
   }
 
   return (

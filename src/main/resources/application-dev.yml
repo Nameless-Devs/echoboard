@@ -22,3 +22,6 @@ spring:
   sql:
     init:
       mode: always
+
+frontend-details:
+  base-url: http://localhost:3000/

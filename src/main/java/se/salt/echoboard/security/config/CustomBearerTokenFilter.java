@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import se.salt.echoboard.security.JwtValidation;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Component
 @AllArgsConstructor
@@ -30,12 +31,13 @@ public class CustomBearerTokenFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authorizationHeader = request.getHeader("Authorization");
+        var jwtTokenCookie = Arrays.stream(request.getCookies())
+                .filter(cookie -> "JwtToken".equals(cookie.getName()))
+                .findFirst();
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(7);
+        if (jwtTokenCookie.isPresent()) {
             try {
-                OidcUser user = validation.validateJwt(token);
+                OidcUser user = validation.validateJwt(jwtTokenCookie.get().getValue());
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
             } catch (JwtException e) {

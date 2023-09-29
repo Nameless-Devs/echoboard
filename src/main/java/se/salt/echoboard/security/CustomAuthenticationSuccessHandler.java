@@ -46,11 +46,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 userRepository.createUser(oidcUser);
             }
 
-            String redirectUrl =  baseUrl + "?token=" +
-                    URLEncoder.encode(oidcUser.getIdToken().getTokenValue(), StandardCharsets.UTF_8);
-            response.setHeader("Access-Control-Allow-Origin", baseUrl);
-            response.sendRedirect(redirectUrl);
-//        }
+    private Cookie createNewCookie(String tokenValue) {
+        Cookie cookie = new Cookie("JwtToken", tokenValue);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(3500);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+//        cookie.setDomain("localhost");
+        return cookie;
     }
 
 }

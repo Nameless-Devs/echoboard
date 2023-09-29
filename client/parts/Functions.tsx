@@ -8,9 +8,9 @@ import {
 import { type } from "os";
 
 //change it when deploying
-const baseURL = "http://localhost:8080/api";
+// const baseURL = "http://localhost:8080/api"; //development
 
-// const baseURL = "https://echoboard-app.fly.dev/api"
+const baseURL = "https://echoboard-app.fly.dev/api" //deployment
 
 export async function postEcho(
   problemPostToSend: PostEchoBoardData,

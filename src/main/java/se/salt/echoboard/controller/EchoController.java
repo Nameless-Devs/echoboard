@@ -76,7 +76,7 @@ public class EchoController {
                 .buildAndExpand(echoBoardSolutionId)
                 .toUri();
 
-        return echoBoardSolutionId.map(aLong -> ResponseEntity.created(location).body(aLong)).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("{echoId}/solutions/{solutionId}/upvote")

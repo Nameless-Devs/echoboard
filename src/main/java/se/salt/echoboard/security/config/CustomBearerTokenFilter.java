@@ -2,6 +2,7 @@ package se.salt.echoboard.security.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import se.salt.echoboard.security.JwtValidation;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
@@ -24,6 +26,7 @@ import java.util.Arrays;
 public class CustomBearerTokenFilter extends OncePerRequestFilter {
 
     private final JwtValidation validation;
+    private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -31,13 +34,11 @@ public class CustomBearerTokenFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        var jwtTokenCookie = Arrays.stream(request.getCookies())
-                .filter(cookie -> "JwtToken".equals(cookie.getName()))
-                .findFirst();
+        var jwtToken = getJwtTokenFromRequest(request);
 
-        if (jwtTokenCookie.isPresent()) {
+        if (jwtToken.isPresent()) {
             try {
-                OidcUser user = validation.validateJwt(jwtTokenCookie.get().getValue());
+                OidcUser user = validation.validateJwt(jwtToken.get());
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
             } catch (JwtException e) {
@@ -49,5 +50,12 @@ public class CustomBearerTokenFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
 
+    }
+
+    private Optional<String> getJwtTokenFromRequest(HttpServletRequest request) {
+        return Arrays.stream(request.getCookies())
+                .filter(cookie -> JWT_TOKEN_COOKIE_NAME.equals(cookie.getName()))
+                .findFirst()
+                .map(Cookie::getValue);
     }
 }

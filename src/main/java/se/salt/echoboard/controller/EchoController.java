@@ -47,28 +47,31 @@ public class EchoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard
-            , @AuthenticationPrincipal OidcUser user
-    ) {
-        Long echoId = echoService.saveEcho(echoBoard).getId();
+    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
+        long echoId = echoService.saveEcho(echoBoard, user.getSubject()).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(echoId)
                 .toUri();
+
         return ResponseEntity.created(location).build();
     }
 
 
     @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId, @PathVariable Long echoBoardSolutionId) {
+    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId,
+                                                                  @PathVariable Long echoBoardSolutionId) {
         return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId));
     }
 
     @PostMapping("{echoId}/solutions")
-    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
+    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId,
+                                                      @RequestBody EchoBoardSolution echoBoardSolution,
+                                                      @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> echoBoardSolutionId = echoService.addSolutionToEcho(echoId, echoBoardSolution);
+        Optional<Long> echoBoardSolutionId =
+                echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -84,9 +87,11 @@ public class EchoController {
     }
 
     @PostMapping("{echoBoardId}/comments")
-    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId, @RequestBody EchoBoardComment echoBoardComment) {
+    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId,
+                                                      @RequestBody EchoBoardComment echoBoardComment,
+                                                      @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment);
+        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment, user.getSubject());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

@@ -7,10 +7,15 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
+
+import java.util.Collections;
 
 @Component
 public class JwtValidation {
@@ -46,8 +51,10 @@ public class JwtValidation {
                 .build();
     }
 
-    public void validateJwt(OidcUser oidcUser) {
-        String tokenValue = oidcUser.getIdToken().getTokenValue();
-        validator.validate(jwtDecoder.decode(tokenValue));
+    public OidcUser validateJwt(String JWTToken) {
+        Jwt jwt = jwtDecoder.decode(JWTToken);
+        validator.validate(jwt);
+        OidcIdToken oidcIdToken = new OidcIdToken(jwt.getTokenValue(), jwt.getIssuedAt(), jwt.getExpiresAt(), jwt.getClaims());
+        return new DefaultOidcUser(Collections.emptyList(), oidcIdToken);
     }
 }

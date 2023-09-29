@@ -20,21 +20,28 @@ public class EchoBoardComment {
     private Long id;
 
     private String author;
-    private String comment;
-    private Long upvote;
+
+    @Column(length = 1000)
+    private String content;
+    private int upvote;
 
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
-    public EchoBoardComment(String author, String comment) {
-        this.author = author;
-        this.comment = comment;
-        this.upvote = 0L;
+    public EchoBoardComment() {
+        this.upvote = 0;
         this.created = Instant.now();
     }
 
-    public EchoBoardComment() {
-        this.upvote = 0L;
+    public EchoBoardComment(String author, String content) {
+        this.author = author;
+        this.content = content;
+        this.upvote = 0;
         this.created = Instant.now();
+    }
+
+    public EchoBoardComment addUpvote() {
+        this.upvote += 1;
+        return this;
     }
 }

@@ -19,6 +19,14 @@ spring:
     hibernate:
       ddl-auto: create-drop        # Automatically create/update database schema
     show-sql: true    # Show SQL queries in logs
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
   profiles:
     default: deploy
+
+frontend-details:
+  base-url: https://echoboard.vercel.app/
+  base-url-dev: http://localhost:3000/
 

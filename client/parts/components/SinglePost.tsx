@@ -1,7 +1,6 @@
 import React from "react";
 import { EchoBoardResponseData } from "../Types";
 import Typography from "@mui/material/Typography";
-import { PostComment } from "./PostComment";
 
 export const SinglePost: React.FC<EchoBoardResponseData> = ({
   id,
@@ -9,7 +8,7 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({
   author,
   content,
   upvote,
-  echoBoardComments: comments,
+  echoBoardComment: comments,
 }) => {
   return (
     <>

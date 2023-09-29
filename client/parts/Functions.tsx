@@ -203,7 +203,7 @@ export async function upvoteSolution(
 
 export async function getUserInfo(){
   try {
-    const response = await fetch(baseURL + "/echoes", {
+    const response = await fetch(baseURL + "/user", {
       headers: {
        // Authorization: "Bearer " + token,
       },
@@ -211,6 +211,7 @@ export async function getUserInfo(){
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
+   
     const data: UserResponseData = await response.json();
     return data;
   } catch (error) {

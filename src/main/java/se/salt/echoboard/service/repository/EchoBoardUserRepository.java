@@ -13,14 +13,14 @@ public class EchoBoardUserRepository {
 
    private final JPAEchoBoardUserRepository userRepository;
 
-   public EchoBoardUser createUser(OidcUser userToSave){
+   public void createUser(OidcUser userToSave){
 
        EchoBoardUser user = EchoBoardUser.builder()
                .subject(userToSave.getSubject())
                .name(userToSave.getFullName())
                .email(userToSave.getEmail())
                .build();
-       return userRepository.save(user);
+       userRepository.save(user);
    }
 
    public Optional<EchoBoardUser> getUserBySubject(String userSubject){

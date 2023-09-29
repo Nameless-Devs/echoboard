@@ -11,12 +11,12 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import org.springframework.web.server.ResponseStatusException;
+import se.salt.echoboard.service.repository.EchoBoardUserRepository;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.security.Principal;
 
 
 @Component
@@ -28,16 +28,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private final JwtValidation jwtValidation;
 
-    @Value("${frontend-details.base-url-dev}")
+    @Value("${frontend-details.base-url}")
     private String baseUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
-//        String BASE_URL = "https://echoboard.vercel.app/";
-
-//        if (principal instanceof OidcUser oidcUser) {
 
             try {
                 jwtValidation.validateJwt(oidcUser.getIdToken().getTokenValue());

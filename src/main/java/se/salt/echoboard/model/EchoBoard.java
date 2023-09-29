@@ -66,9 +66,4 @@ public class EchoBoard {
         this.created = Instant.now();
     }
 
-//    @PreUpdate
-//    private void onUpdate() {
-//        this.updated = Instant.now();
-//    }
-
 }

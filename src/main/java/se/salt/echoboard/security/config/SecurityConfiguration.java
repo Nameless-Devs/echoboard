@@ -35,8 +35,7 @@ public class SecurityConfiguration {
                 )
                 .cors(corsCustomizer())
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customAuthenticationSuccessHandler)
-                        )
+                        .successHandler(customAuthenticationSuccessHandler))
                 .addFilterBefore(customBearerTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(CsrfConfigurer::disable)
                 .build();
@@ -51,10 +50,12 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("https://echoboard.vercel.app/");
+        configuration.addAllowedOrigin(
+                "http://localhost:3000"
+        );
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

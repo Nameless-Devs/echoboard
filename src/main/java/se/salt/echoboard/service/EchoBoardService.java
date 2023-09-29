@@ -41,7 +41,7 @@ public class EchoBoardService {
     }
 
     public List<EchoBoard> findAll() {
-        return echoBoardRepository.findAll();
+        return echoBoardRepository.findByOrderByCreatedDesc(Pageable.unpaged());
     }
 
     public Optional<EchoBoardComment> getCommentById(long commentId) {

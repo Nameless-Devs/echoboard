@@ -45,3 +45,14 @@ export type UpvoteProps = {
   upvote: number;
   created: string;
 };
+
+export type UserResponseData = {
+  id: number;
+  name: string; 
+  email: string;
+  //add later: 
+  //comments[]
+  //posts[]
+  //solutions[]
+  //upvotes? 
+}

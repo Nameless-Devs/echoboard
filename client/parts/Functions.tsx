@@ -3,6 +3,7 @@ import {
   EchoBoardResponseData,
   CommentToPost,
   SolutionToPost,
+  UserResponseData,
 } from "./Types";
 
 const baseURL = "http://localhost:8080/api"; //development
@@ -197,5 +198,22 @@ export async function upvoteSolution(
     }
   } catch (error) {
     throw new Error("Fetch error: " + error);
+  }
+}
+
+export async function getUserInfo(){
+  try {
+    const response = await fetch(baseURL + "/echoes", {
+      headers: {
+       // Authorization: "Bearer " + token,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: UserResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
   }
 }

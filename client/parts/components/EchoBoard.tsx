@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import { EchoBoardResponseData, CommentResponseData } from "../Types";
 import { fetchEchoBoards, fetchEchoBoardById } from "../Functions";
 import { SinglePost } from "./SinglePost";

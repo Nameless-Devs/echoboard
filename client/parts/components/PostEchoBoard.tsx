@@ -5,12 +5,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Box,
   Button,
-  Card,
   TextField,
-  TextareaAutosize,
   Typography,
 } from "@mui/material";
-import { addSyntheticLeadingComment } from "typescript";
 import { useCookies } from "react-cookie";
 
 const PostEchoBoard = () => {
@@ -22,7 +19,7 @@ const PostEchoBoard = () => {
 
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
-  
+
   const mutation = useMutation((data: PostEchoBoardData) => postEcho(data, cookies.JwtToken));
 
   const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,11 +61,11 @@ const PostEchoBoard = () => {
         <Box
           sx={{
             "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root":
-              {
-                m: 1,
-                width: "99%",
-                alignSelf: "center",
-              },
+            {
+              m: 1,
+              width: "99%",
+              alignSelf: "center",
+            },
           }}
         >
           <TextField

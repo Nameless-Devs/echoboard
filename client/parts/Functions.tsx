@@ -1,13 +1,10 @@
-import { useCookies } from "react-cookie";
 import {
   PostEchoBoardData,
   EchoBoardResponseData,
   CommentToPost,
   SolutionToPost,
 } from "./Types";
-import { type } from "os";
 
-//change it when deploying
 // const baseURL = "http://localhost:8080/api"; //development
 
 const baseURL = "https://echoboard-app.fly.dev/api" //deployment

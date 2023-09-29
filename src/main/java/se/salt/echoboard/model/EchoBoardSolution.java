@@ -45,15 +45,6 @@ public class EchoBoardSolution {
         this.status = SolutionStatus.SOLUTION_IN_REVIEW;
     }
 
-    @Getter
-    public enum SolutionStatus {
-        SOLUTION_IN_REVIEW,
-        VOLUNTEERS_REQUIRED,
-        IMPLEMENTATION_IN_PROGRESS,
-        SOLVED,
-        FAILED
-    }
-
     public EchoBoardSolution addUpvote() {
         this.upvote += 1;
         return this;
@@ -62,6 +53,15 @@ public class EchoBoardSolution {
     public EchoBoardSolution updateSolutionStatus(SolutionStatus status) {
         this.status = status;
         return this;
+    }
+
+    @Getter
+    public enum SolutionStatus {
+        SOLUTION_IN_REVIEW,
+        VOLUNTEERS_REQUIRED,
+        IMPLEMENTATION_IN_PROGRESS,
+        SOLVED,
+        FAILED
     }
 
 }

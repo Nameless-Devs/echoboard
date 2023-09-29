@@ -45,6 +45,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             if (userRepository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
                 userRepository.createUser(oidcUser);
             }
+            response.addCookie(createNewCookie(oidcUser.getIdToken().getTokenValue()));
+            response.sendRedirect(baseUrl);
+    }
 
     private Cookie createNewCookie(String tokenValue) {
         Cookie cookie = new Cookie("JwtToken", tokenValue);

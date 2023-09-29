@@ -51,7 +51,7 @@ public class JwtValidation {
                 .build();
     }
 
-    public OidcUser validateJwt(String JWTToken) {
+    public OidcUser validateJwt(String JWTToken) throws JwtException {
         Jwt jwt = jwtDecoder.decode(JWTToken);
         validator.validate(jwt);
         OidcIdToken oidcIdToken = new OidcIdToken(jwt.getTokenValue(), jwt.getIssuedAt(), jwt.getExpiresAt(), jwt.getClaims());

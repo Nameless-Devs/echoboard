@@ -4,6 +4,7 @@ import { Button, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from '../Functions';
 import "../../app/styles/PostCommentStyles.css"
+import { useCookies } from 'react-cookie';
 
 type CommentProps = {
     echoBoardId: string; 
@@ -15,8 +16,10 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
         content:""
     });
 
+    const [cookies] = useCookies();
+  
     const queryClient = useQueryClient();
-    const mutation = useMutation((data: CommentToPost) => postComment(data, echoBoardId));
+    const mutation = useMutation((data: CommentToPost) => postComment(data, echoBoardId, cookies.JwtToken));
 
     const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

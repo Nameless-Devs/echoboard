@@ -4,6 +4,7 @@ import { Button, Modal, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postSolution } from '../Functions';
 import { error } from 'console';
+import { useCookies } from 'react-cookie';
 
 type SolutionProps = {
     echoBoardId: string; 
@@ -23,9 +24,10 @@ export const PostSolution: React.FC<SolutionProps> = ({
         content: ""
     });
     const [isSuccess, setIsSuccess] = useState(false);
+    const [cookies] = useCookies();
 
    const queryClient = useQueryClient();
-   const mutation = useMutation((data: SolutionToPost) => postSolution(data, echoBoardId));
+   const mutation = useMutation((data: SolutionToPost) => postSolution(data, echoBoardId, cookies.JwtToken));
 
    const handleSolutionPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

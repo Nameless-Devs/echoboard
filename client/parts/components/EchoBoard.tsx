@@ -12,13 +12,17 @@ import { PostComment } from "./PostComment";
 import { useEffect, useState } from "react";
 import CommentsModal from "./CommentModal";
 import { PostSolution } from "./PostSolution";
+import { useCookies } from "react-cookie";
 
 export const EchoBoard = () => {
+
+  const [cookies] = useCookies();
+
   const {
     data: echoBoards,
     isLoading,
     isError,
-  } = useQuery<EchoBoardResponseData[]>(["echoBoards"], fetchEchoBoards);
+  } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () => fetchEchoBoards(cookies.JwtToken));
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPost, setSelectedPost] =
@@ -63,7 +67,7 @@ export const EchoBoard = () => {
     ["echoBoard", selectedPost?.id],
     () => {
       if (!selectedPost?.id) throw new Error("No post selected");
-      return fetchEchoBoardById(selectedPost.id);
+      return fetchEchoBoardById(selectedPost.id, cookies.JwtToken);
     },
     {
       enabled: !!selectedPost,

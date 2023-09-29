@@ -2,6 +2,7 @@ package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class EchoBoard {
 
     @Id
@@ -44,11 +46,6 @@ public class EchoBoard {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.upvote = 0;
-    }
-
-    public EchoBoard() {
-        this.upvote = 0;
     }
 
     public EchoBoard addUpvote() {
@@ -63,6 +60,7 @@ public class EchoBoard {
 
     @PrePersist
     private void onCreate() {
+        this.upvote = 0;
         this.created = Instant.now();
     }
 

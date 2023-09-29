@@ -36,7 +36,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
         try {
-            jwtValidation.validateJwt(oidcUser.getIdToken().getTokenValue());
+            jwtValidation.decodeValidateJWT(oidcUser.getIdToken().getTokenValue());
         } catch (JwtException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
@@ -53,7 +53,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         cookie.setMaxAge(3500);
         cookie.setSecure(true);
         cookie.setPath("/");
-//        cookie.setDomain("localhost");
         return cookie;
     }
 

@@ -1,5 +1,6 @@
 package se.salt.echoboard.security;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 
 @Component
@@ -36,16 +35,16 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
-            try {
-                jwtValidation.validateJwt(oidcUser.getIdToken().getTokenValue());
-            } catch ( JwtException e) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-            }
-            if (userRepository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
-                userRepository.createUser(oidcUser);
-            }
-            response.addCookie(createNewCookie(oidcUser.getIdToken().getTokenValue()));
-            response.sendRedirect(baseUrl);
+        try {
+            jwtValidation.validateJwt(oidcUser.getIdToken().getTokenValue());
+        } catch (JwtException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+        if (userRepository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
+            userRepository.createUser(oidcUser);
+        }
+        response.addCookie(createNewCookie(oidcUser.getIdToken().getTokenValue()));
+        response.sendRedirect(baseUrl);
     }
 
     private Cookie createNewCookie(String tokenValue) {

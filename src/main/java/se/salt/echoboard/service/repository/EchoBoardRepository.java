@@ -25,6 +25,10 @@ public class EchoBoardRepository {
         return echoBoardRepository.findAll();
     }
 
+    public List<EchoBoard> findByOrderByCreatedDesc(Pageable page) {
+        return echoBoardRepository.findByOrderByCreatedDesc(page);
+    }
+
     public void deleteById(long echoId) {
         echoBoardRepository.deleteById(echoId);
     }

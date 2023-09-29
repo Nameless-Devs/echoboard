@@ -20,3 +20,10 @@ spring:
     hibernate:
       ddl-auto: update   # Set to 'update' to create/update database schema
     show-sql: true      # Show SQL queries in logs
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  profiles:
+    default: test
+

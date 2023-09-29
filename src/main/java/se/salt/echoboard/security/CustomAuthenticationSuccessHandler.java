@@ -38,7 +38,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
             try {
                 jwtValidation.validateJwt(oidcUser.getIdToken().getTokenValue());
-                System.out.println(oidcUser.getIdToken().getTokenValue());
             } catch ( JwtException e) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
             }

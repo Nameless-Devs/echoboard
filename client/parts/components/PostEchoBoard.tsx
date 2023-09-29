@@ -22,7 +22,7 @@ const PostEchoBoard = () => {
 
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
-
+  
   const mutation = useMutation((data: PostEchoBoardData) => postEcho(data, cookies.JwtToken));
 
   const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {

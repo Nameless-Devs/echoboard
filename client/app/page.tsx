@@ -13,6 +13,7 @@ export default function Home() {
     <main>
       <PostEchoBoard />
       <EchoBoard />
+      <JwtAuth /> 
     </main>
   )
 }

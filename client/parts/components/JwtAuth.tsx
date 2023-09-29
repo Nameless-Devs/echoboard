@@ -11,9 +11,7 @@ const JwtAuth = () => {
     Cookies.set("JwtToken", tokenString, { expires: 1 });
   }
 
-  return (
-    <div> {token} </div>
-  )
+  return (<></>)
 };
 
 export default JwtAuth;

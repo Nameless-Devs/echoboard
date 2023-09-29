@@ -17,7 +17,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
     });
 
     const [cookies] = useCookies();
-
+  
     const queryClient = useQueryClient();
     const mutation = useMutation((data: CommentToPost) => postComment(data, echoBoardId, cookies.JwtToken));
 

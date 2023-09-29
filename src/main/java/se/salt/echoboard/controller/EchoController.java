@@ -50,7 +50,6 @@ public class EchoController {
     public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard
             , @AuthenticationPrincipal OidcUser user
     ) {
-        System.out.println(user);
         Long echoId = echoService.saveEcho(echoBoard).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

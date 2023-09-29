@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 
 
 @Component
@@ -33,10 +34,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
-        Object principal = authentication.getPrincipal();
+        OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 //        String BASE_URL = "https://echoboard.vercel.app/";
 
-        if (principal instanceof OidcUser oidcUser) {
+//        if (principal instanceof OidcUser oidcUser) {
 
             try {
                 jwtValidation.validateJwt(oidcUser.getIdToken().getTokenValue());
@@ -52,7 +53,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                     URLEncoder.encode(oidcUser.getIdToken().getTokenValue(), StandardCharsets.UTF_8);
             response.setHeader("Access-Control-Allow-Origin", baseUrl);
             response.sendRedirect(redirectUrl);
-        }
+//        }
     }
 
 }

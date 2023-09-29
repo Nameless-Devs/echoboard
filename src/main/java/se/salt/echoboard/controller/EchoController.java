@@ -1,6 +1,9 @@
 package se.salt.echoboard.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
@@ -9,6 +12,7 @@ import se.salt.echoboard.service.EchoBoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +54,10 @@ public class EchoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard) {
+    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard
+            , @AuthenticationPrincipal OidcUser user
+    ) {
+        System.out.println(user);
         Long echoId = echoService.saveEcho(echoBoard).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

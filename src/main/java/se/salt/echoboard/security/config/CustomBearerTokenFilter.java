@@ -18,6 +18,7 @@ import se.salt.echoboard.security.JwtValidation;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 @Component
@@ -29,16 +30,17 @@ public class CustomBearerTokenFilter extends OncePerRequestFilter {
     private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        var jwtToken = getJwtTokenFromRequest(request);
+        var jwtTokenString = getJwtTokenFromRequest(request);
 
-        if (jwtToken.isPresent()) {
+        if (jwtTokenString.isPresent()) {
             try {
-                OidcUser user = validation.validateJwt(jwtToken.get());
+                Jwt jwt = validation.decodeValidateJWT(jwtTokenString.get());
+                OidcUser user = createOidcUserFromJwt(jwt);
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
             } catch (JwtException e) {

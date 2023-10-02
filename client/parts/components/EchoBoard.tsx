@@ -1,5 +1,5 @@
 import { EchoBoardResponseData, CommentResponseData } from "../Types";
-import { fetchEchoBoards, fetchEchoBoardById } from "../Functions";
+import { fetchEchoBoards, fetchEchoBoardById, getUserInfo } from "../Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -22,6 +22,7 @@ export const EchoBoard = () => {
     isLoading,
     isError,
   } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () => fetchEchoBoards(cookies.JwtToken));
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPost, setSelectedPost] =
@@ -81,7 +82,7 @@ export const EchoBoard = () => {
         alignItems: "center",
       }}
     >
-      <h1>Echo Board All Posts</h1>
+      <h2>Echo Board All Posts</h2>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
       ):(

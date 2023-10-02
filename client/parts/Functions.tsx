@@ -201,7 +201,7 @@ export async function upvoteSolution(
   }
 }
 
-export async function getUserInfo(){
+export async function getUserInfo() {
   try {
     const response = await fetch(baseURL + "/user", {
       headers: {

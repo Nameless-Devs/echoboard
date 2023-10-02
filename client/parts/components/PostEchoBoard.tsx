@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { PostEchoBoardData } from "../Types";
-import { postEcho } from "../Functions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { PostEchoBoardData, UserResponseData } from "../Types";
+import { getUserInfo, postEcho } from "../Functions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Box,
   Button,
@@ -10,13 +10,14 @@ import {
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 
-const PostEchoBoard = () => {
+const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
+ 
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
     title: "",
     content: "",
     author: "", //change it later when we have user authentication
   });
-
+  
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
 

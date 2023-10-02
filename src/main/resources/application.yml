@@ -16,12 +16,12 @@ spring:
             client-id: ${GOOGLE_OAUTH2_CLIENT_ID}
             client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
   datasource:
-    url: ${DATABASE_URL_DEV}
+    url: ${DATABASE_URL}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     defer-datasource-initialization: true
   sql:
@@ -31,8 +31,8 @@ spring:
     default: deploy
 
 frontend-details:
-#  base-url: https://damp-haze-3050.fly.dev/
-  base-url: http://localhost:3000/
+  base-url: https://damp-haze-3050.fly.dev/
+#  base-url: http://localhost:3000/
 backend-details:
 #  base-url: https://echoboard-app-dev.fly.dev/
   base-url: http://localhost:8080/

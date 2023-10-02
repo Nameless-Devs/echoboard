@@ -40,6 +40,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         } catch (JwtException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
+        createUserIfTheyDoNotExist(oidcUser);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.addCookie(createNewCookie(oidcUser.getIdToken().getTokenValue()));
+        response.sendRedirect(baseUrl);
+    }
+
+    private void createUserIfTheyDoNotExist(OidcUser oidcUser) {
         if (userRepository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
             userRepository.createUser(oidcUser);
         }

@@ -1,4 +1,5 @@
-package se.salt.echoboard.security.config;
+package se.salt.echoboard.security.config.dev;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,16 +16,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import se.salt.echoboard.security.CustomAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Profile("deploy")
-public class SecurityConfiguration {
+@Profile({"dev", "test"})
+public class SecurityConfigDev {
 
-    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-    private final CustomBearerTokenFilter customBearerTokenFilter;
+    private final FakeUserFilter fakeUserFilter;
 
     @Value("${frontend-details.base-url}")
     private String baseUrl;
@@ -32,16 +31,12 @@ public class SecurityConfiguration {
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(auth ->
-                        auth
-                                .requestMatchers("api/status").permitAll()
-                                .anyRequest().authenticated()
-                )
-                .cors(corsCustomizer())
-                .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customAuthenticationSuccessHandler))
-                .addFilterBefore(customBearerTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("api/status").permitAll()
+                        .anyRequest().authenticated())
                 .csrf(CsrfConfigurer::disable)
+                .cors(corsCustomizer())
+                .addFilterBefore(fakeUserFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -62,4 +57,5 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 }

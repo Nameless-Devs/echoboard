@@ -89,16 +89,6 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
               setProblemPost({ ...echoBoardPost, content: e.target.value })
             }
           />
-          {/* <TextField
-            label="Enter your name"
-            name="author"
-            type="text"
-            variant="outlined"
-            value={echoBoardPost.author}
-            onChange={(e) =>
-              setProblemPost({ ...echoBoardPost, author: e.target.value })
-            }
-          /> */}
           <Button variant="outlined" type="submit">
             Make a post
           </Button>

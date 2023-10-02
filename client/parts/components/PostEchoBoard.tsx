@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { PostEchoBoardData, UserResponseData } from "../Types";
-import { getUserInfo, postEcho } from "../Functions";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { postEcho } from "../Functions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Box,
   Button,

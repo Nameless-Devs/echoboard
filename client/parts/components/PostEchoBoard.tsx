@@ -15,7 +15,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
     title: "",
     content: "",
-    author: "", //change it later when we have user authentication
+    author: user.name, //change it later when we have user authentication
   });
   
   const queryClient = useQueryClient();
@@ -36,7 +36,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
         setProblemPost({
           title: "",
           content: "",
-          author: "",
+          author: user.name,
         });
       },
       onError: (error) => {
@@ -89,7 +89,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
               setProblemPost({ ...echoBoardPost, content: e.target.value })
             }
           />
-          <TextField
+          {/* <TextField
             label="Enter your name"
             name="author"
             type="text"
@@ -98,7 +98,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
             onChange={(e) =>
               setProblemPost({ ...echoBoardPost, author: e.target.value })
             }
-          />
+          /> */}
           <Button variant="outlined" type="submit">
             Make a post
           </Button>

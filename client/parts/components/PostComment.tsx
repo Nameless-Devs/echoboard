@@ -25,7 +25,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!commentToPost.author.trim() || !commentToPost.content.trim()) {
+    if (!commentToPost.content.trim()) {
       return;
     }
 
@@ -34,7 +34,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
         queryClient.invalidateQueries(["echoBoards"]);
         queryClient.refetchQueries(['comments', echoBoardId]);
         setCommentToPost({
-          author: "",
+          author: user.name,
           content: ""
         });
       },
@@ -47,14 +47,14 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   return (
     <>
       <form className='post-comment__form' onSubmit={handleCommentPost}>
-        <TextField className='post-comment__name-input'
+        {/* <TextField className='post-comment__name-input'
           label="Enter your name"
           variant="outlined"
           name="author"
           size="small"
           value={commentToPost.author}
           onChange={(e) =>
-            setCommentToPost({ ...commentToPost, author: e.target.value })} />
+            setCommentToPost({ ...commentToPost, author: e.target.value })} /> */}
         <TextField className='post-comment__comment'
           label="Comment"
           variant="outlined"

@@ -1,10 +1,10 @@
 server:
+  address: 0.0.0.0
+  port: 8080
   servlet:
     session:
       cookie:
-        same-site: lax
-  address: 0.0.0.0
-  port: 8080
+        same-site: none
 spring:
   config:
     import: optional:secrets.yml
@@ -16,13 +16,13 @@ spring:
             client-id: ${GOOGLE_OAUTH2_CLIENT_ID}
             client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
   datasource:
-    url: ${DATABASE_URL}   # JDBC URL for PostgreSQL
+    url: ${DATABASE_URL_DEV}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create        # Automatically create/update database schema
-    show-sql: true    # Show SQL queries in logs
+      ddl-auto: create
+    show-sql: true
     defer-datasource-initialization: true
   sql:
     init:
@@ -31,6 +31,8 @@ spring:
     default: deploy
 
 frontend-details:
-  base-url: https://echoboard.vercel.app/
-  base-url-dev: http://localhost:3000/
-
+  base-url: https://damp-haze-3050.fly.dev/
+#  base-url: http://localhost:3000/
+backend-details:
+  base-url: https://echoboard-app-dev.fly.dev/
+#  base-url: http://localhost:8080/

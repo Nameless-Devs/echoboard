@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CommentToPost } from '../Types';
+import { CommentToPost, UserResponseData } from '../Types';
 import { Button, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from '../Functions';
@@ -8,11 +8,12 @@ import { useCookies } from 'react-cookie';
 
 type CommentProps = {
   echoBoardId: string;
+  user: UserResponseData;
 }
 
-export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
+export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   const [commentToPost, setCommentToPost] = useState<CommentToPost>({
-    author: "",
+    author: user.name,
     content: ""
   });
 

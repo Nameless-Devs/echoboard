@@ -13,7 +13,7 @@ export default function Home() {
     <main>
       <h1>{user.name}, welcome to EchoBoard!</h1>
       <PostEchoBoard {...user}    />
-      <EchoBoard />
+      <EchoBoard {...user} />
       <JwtAuth /> 
     </main>
   )

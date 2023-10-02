@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, List, ListItem, ListItemText, Tabs, Tab } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { EchoBoardResponseData } from "../Types";
+import { EchoBoardResponseData, UserResponseData } from "../Types";
 import { Upvote } from "./Upvote";
 import { PostComment } from "./PostComment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ interface CommentsModalProps {
   post: EchoBoardResponseData;
   handleClose: () => void;
   isOpen: boolean;
+  user: UserResponseData;
 }
 
 interface TabPanelProps {
@@ -55,6 +56,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   post,
   handleClose,
   isOpen,
+  user
 }) => {
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
@@ -179,7 +181,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              <PostComment echoBoardId={displayPost.id} />
+              <PostComment echoBoardId={displayPost.id} user={user}/>
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>

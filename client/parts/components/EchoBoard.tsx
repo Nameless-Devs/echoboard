@@ -1,4 +1,4 @@
-import { EchoBoardResponseData, CommentResponseData } from "../Types";
+import { EchoBoardResponseData, CommentResponseData, UserResponseData } from "../Types";
 import { fetchEchoBoards, fetchEchoBoardById, getUserInfo } from "../Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
@@ -13,7 +13,7 @@ import CommentsModal from "./CommentModal";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 
-export const EchoBoard = () => {
+export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
 
   const [cookies] = useCookies();
 
@@ -126,7 +126,7 @@ export const EchoBoard = () => {
                 Solutions: {echoBoard.echoBoardSolutions.length}
               </Button>
             </CardActions>
-            <PostComment echoBoardId={echoBoard.id} />
+            <PostComment echoBoardId={echoBoard.id} user={user} />
             <Button size="medium" onClick={() => handleOpenSolutionForm(echoBoard)} >
               Suggest solution
             </Button>
@@ -139,6 +139,7 @@ export const EchoBoard = () => {
           post={echoBoardDetail || selectedPost}
           handleClose={handleClose}
           isOpen={isOpen}
+          user={user}
         />
       )}
 

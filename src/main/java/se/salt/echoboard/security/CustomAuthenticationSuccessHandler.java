@@ -54,12 +54,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         response.sendRedirect(baseUrl);
     }
 
-    private Cookie createNewCookie(String tokenValue) {
+    private Cookie createNewCookie(String tokenValue){
         Cookie cookie = new Cookie("JwtToken", tokenValue);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(3500);
         cookie.setSecure(true);
         cookie.setPath("/");
+        cookie.setDomain(extractDomain(baseUrl));
         return cookie;
     }
 

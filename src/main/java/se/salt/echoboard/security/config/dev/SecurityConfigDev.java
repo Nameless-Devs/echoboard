@@ -1,6 +1,6 @@
 package se.salt.echoboard.security.config.dev;
 
-import lombok.AllArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

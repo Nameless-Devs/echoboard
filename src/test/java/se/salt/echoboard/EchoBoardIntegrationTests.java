@@ -66,6 +66,7 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isCreated())
                 .andReturn();
         String locationUrl = postResult.getResponse().getHeader("Location");
+        assertNotNull(locationUrl, "Location URL should not be null!");
 
         MvcResult getResult = mockMvc.perform(get(locationUrl))
                 .andExpect(status().isOk())
@@ -85,7 +86,5 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
     }
-
-
 }
 

@@ -13,19 +13,29 @@ import {
 import { useCookies } from "react-cookie";
 
 const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
- 
+  
+  const [ifAnonymous, setIfAnonymous] = useState(false);
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
     title: "",
     content: "",
     author: user.name, 
+    anonymous: false,
   });
 
-  const [ifAnonymous, setIfAnonymous] = useState(false);
+ 
   
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
 
   const mutation = useMutation((data: PostEchoBoardData) => postEcho(data, cookies.JwtToken));
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    setIfAnonymous(event.target.checked);
+    setProblemPost((prevEchoBoardPost) => ({
+      ...prevEchoBoardPost,
+      anonymous: event.target.checked,
+    }));
+  }
 
   const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,7 +43,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
     if (!echoBoardPost.title.trim() || !echoBoardPost.content.trim()) {
       return;
     }
-
+    console.log(ifAnonymous);
 
     mutation.mutate(echoBoardPost, {
       onSuccess: () => {
@@ -42,6 +52,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
           title: "",
           content: "",
           author: user.name,
+          anonymous: false,
         });
       },
       onError: (error) => {
@@ -50,9 +61,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
     });
   };
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>): void {
-    setIfAnonymous(event.target.checked);
-  }
+
 
   return (
     <div style={{

@@ -26,6 +26,10 @@ spring:
       mode: always
   profiles:
     default: test
+frontend-details:
+  base-url: http://localhost:3000/
+backend-details:
+  base-url: http://localhost:8080/
 #logging:
 #  level:
 #    org:

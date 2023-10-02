@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { PostEchoBoardData, UserResponseData } from "../Types";
 import { getUserInfo, postEcho } from "../Functions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   TextField,
   Typography,
 } from "@mui/material";
@@ -15,8 +17,10 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
     title: "",
     content: "",
-    author: user.name, //change it later when we have user authentication
+    author: user.name, 
   });
+
+  const [ifAnonymous, setIfAnonymous] = useState(false);
   
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
@@ -29,6 +33,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
     if (!echoBoardPost.title.trim() || !echoBoardPost.content.trim()) {
       return;
     }
+
 
     mutation.mutate(echoBoardPost, {
       onSuccess: () => {
@@ -44,6 +49,10 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
       },
     });
   };
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    setIfAnonymous(event.target.checked);
+  }
 
   return (
     <div style={{
@@ -88,6 +97,15 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
             onChange={(e) =>
               setProblemPost({ ...echoBoardPost, content: e.target.value })
             }
+          />
+          <FormControlLabel
+            control={
+              <Checkbox 
+              onChange={handleChange} 
+              name="Anonymous" 
+              checked={ifAnonymous} />
+            }
+            label="Post anonymously"
           />
           <Button variant="outlined" type="submit">
             Make a post

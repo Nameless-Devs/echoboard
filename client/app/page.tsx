@@ -5,13 +5,14 @@ import { EchoBoard } from "../parts/components/EchoBoard";
 import JwtAuth from "@/parts/components/JwtAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/parts/Functions";
+import { text } from "stream/consumers";
 
 export default function Home() {
   const { data: user, isLoading, error } = useQuery(['userInfo'], getUserInfo);
   if (user){
   return (
     <main>
-      <h1>{user.name}, welcome to EchoBoard!</h1>
+      <h1 style={{textAlign: "center"}}>{user.name}, welcome to EchoBoard!</h1>
       <PostEchoBoard {...user}    />
       <EchoBoard {...user} />
       <JwtAuth /> 

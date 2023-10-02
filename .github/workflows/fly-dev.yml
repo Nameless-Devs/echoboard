@@ -8,12 +8,12 @@ on:
       - 'Dockerfile'
 
 jobs:
-  create:
-#    name: Create Package
-#    runs-on: ubuntu-22.04
-#    steps:
-#      TO DO
-#      create jar ile by mvn clean package then use it in the next step to deploy
+#  create:
+##    name: Create Package
+##    runs-on: ubuntu-22.04
+##    steps:
+##      TO DO
+##      create jar ile by mvn clean package then use it in the next step to deploy
   deploy:
     name: Deploy app
     runs-on: ubuntu-20.04

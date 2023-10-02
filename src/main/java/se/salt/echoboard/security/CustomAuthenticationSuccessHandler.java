@@ -60,7 +60,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Cookie cookie = new Cookie("JwtToken", tokenValue);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(3500);
-        cookie.setSecure(true);
+        cookie.setSecure(false);
         cookie.setPath("/");
         cookie.setDomain(extractDomain(baseUrl));
         return cookie;

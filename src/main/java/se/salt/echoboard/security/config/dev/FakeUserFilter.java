@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 
@@ -27,7 +28,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Profile({"dev", "test"})
 public class FakeUserFilter extends OncePerRequestFilter {
 

@@ -31,8 +31,8 @@ spring:
     default: deploy
 
 frontend-details:
-  base-url: https://damp-haze-3050.fly.dev/
-#  base-url: http://localhost:3000/
+#  base-url: https://damp-haze-3050.fly.dev/
+  base-url: http://localhost:3000/
 backend-details:
-  base-url: https://echoboard-app-dev.fly.dev/
-#  base-url: http://localhost:8080/
+#  base-url: https://echoboard-app-dev.fly.dev/
+  base-url: http://localhost:8080/

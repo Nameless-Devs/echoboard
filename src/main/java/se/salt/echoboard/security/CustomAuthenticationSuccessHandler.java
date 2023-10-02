@@ -16,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 @Component
@@ -27,11 +29,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private final JwtValidation jwtValidation;
 
-    @Value("${frontend-details.base-url-dev}")
+    @Value("${frontend-details.base-url}")
     private String baseUrl;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        Authentication authentication) throws IOException {
 
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
@@ -50,8 +54,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         if (userRepository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
             userRepository.createUser(oidcUser);
         }
-        response.addCookie(createNewCookie(oidcUser.getIdToken().getTokenValue()));
-        response.sendRedirect(baseUrl);
     }
 
     private Cookie createNewCookie(String tokenValue){

@@ -36,7 +36,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
         try {
-            jwtValidation.decodeValidateJWT(oidcUser.getIdToken().getTokenValue());
+            jwtValidation.validateJWTString(oidcUser.getIdToken().getTokenValue());
         } catch (JwtException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }

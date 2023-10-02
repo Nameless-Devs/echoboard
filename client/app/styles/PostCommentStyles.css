@@ -1,6 +1,5 @@
 .post-comment__name-input, .post-comment__comment{
     background-color: rgb(240, 242, 245);
-    margin-bottom: 10px; 
     width: 90%;
 }
 
@@ -8,8 +7,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
 .post-comment__button {
-   margin: 10px 0 20px;
+   margin-bottom: 20px;
 }

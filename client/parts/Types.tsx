@@ -2,6 +2,7 @@ export type PostEchoBoardData = {
   title: string;
   content: string;
   author: string;
+  isAnonymous: boolean;
 };
 
 export type EchoBoardResponseData = {
@@ -9,6 +10,7 @@ export type EchoBoardResponseData = {
   title: string;
   content: string;
   author: string;
+  isAnonymous: boolean;
   upvote: number;
   created: string;
   echoBoardComment: CommentResponseData[];

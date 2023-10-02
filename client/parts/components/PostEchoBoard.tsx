@@ -54,6 +54,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
           author: user.name,
           anonymous: false,
         });
+        setIfAnonymous(false);
       },
       onError: (error) => {
         console.error("Error:", error);

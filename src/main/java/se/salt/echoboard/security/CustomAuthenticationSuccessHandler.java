@@ -63,4 +63,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         return cookie;
     }
 
+    private String extractDomain(String url){
+        try {
+            URI uri = new URI(url);
+            return uri.getHost();
+        } catch (URISyntaxException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }

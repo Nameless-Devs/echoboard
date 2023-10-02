@@ -128,7 +128,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
       >
         <Box mb={1}>
           <Typography variant="body2" color="text.secondary">
-            {post.author}
+            {post.anonymous ? "Anonymous" : post.author}
           </Typography>
         </Box>
         <Box mb={1}>
@@ -229,6 +229,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             handleClose={handleCloseSolutionForm}
             isOpen={isOpenSolution}
             onSolutionPosted={handleSolutionPosted}
+            user={user}
           />
         )}
       </div>

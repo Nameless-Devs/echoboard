@@ -149,6 +149,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
         handleClose={handleCloseSolutionForm}
         isOpen={isOpenSolution}
         onSolutionPosted={handleSolutionPosted}
+        user={user}
         />
       )}
     </main>

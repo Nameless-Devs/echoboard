@@ -16,7 +16,7 @@ spring:
     password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create-drop        # Automatically create/update database schema
+      ddl-auto: create        # Automatically create/update database schema
     show-sql: true    # Show SQL queries in logs
     defer-datasource-initialization: true
   sql:
@@ -24,4 +24,9 @@ spring:
       mode: always
 
 frontend-details:
-  base-url: http://localhost:3000/
+  base-url: http://localhost:3000
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE

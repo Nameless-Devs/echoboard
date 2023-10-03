@@ -1,19 +1,16 @@
 package se.salt.echoboard.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 
-@RestController
+@Controller
 @RequestMapping("api")
 public class StatusController {
 
-    @GetMapping("status")
+    @RequestMapping(path = "status", method = { RequestMethod.HEAD })
     @ResponseStatus(HttpStatus.OK)
-    public String getStatus() {
-        return "Server is up and running!";
+    public void getStatus() {
     }
 }

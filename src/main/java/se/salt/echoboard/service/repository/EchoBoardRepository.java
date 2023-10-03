@@ -1,8 +1,9 @@
 package se.salt.echoboard.service.repository;
 
 import lombok.AllArgsConstructor;
-import se.salt.echoboard.model.EchoBoard;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import se.salt.echoboard.model.EchoBoard;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,10 @@ public class EchoBoardRepository {
 
     public List<EchoBoard> findAll() {
         return echoBoardRepository.findAll();
+    }
+
+    public List<EchoBoard> findByOrderByCreatedDesc(Pageable page) {
+        return echoBoardRepository.findByOrderByCreatedDesc(page);
     }
 
     public void deleteById(long echoId) {

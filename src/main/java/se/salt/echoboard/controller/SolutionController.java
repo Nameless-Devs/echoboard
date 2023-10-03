@@ -25,7 +25,7 @@ public class SolutionController {
 
         var echoBoardSolution = echoService.getSolutionById(echoBoardSolutionId)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
-                .map(echoService::saveSolution);
+                .map(echoService::updateSolution);
 
         return ResponseEntity.of(echoBoardSolution);
     }

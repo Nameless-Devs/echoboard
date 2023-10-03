@@ -14,8 +14,7 @@ import java.util.List;
 public class EchoBoardUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String subject;
 
     private String name;
 
@@ -26,9 +25,22 @@ public class EchoBoardUser {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EchoBoardComment> usersComments;
-    
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EchoBoardSolution> usersSolutions;
 
-    private String subject;
+    public EchoBoardUser addUserPost(EchoBoard echoBoard) {
+        usersPosts.add(echoBoard);
+        return this;
+    }
+
+    public EchoBoardUser addUserComment(EchoBoardComment echoBoardComment) {
+        usersComments.add(echoBoardComment);
+        return this;
+    }
+
+    public EchoBoardUser addUserSolution(EchoBoardSolution solution) {
+        usersSolutions.add(solution);
+        return this;
+    }
 }

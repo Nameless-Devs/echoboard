@@ -2,14 +2,18 @@ package se.salt.echoboard.service;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.repository.EchoBoardCommentRepository;
 import se.salt.echoboard.service.repository.EchoBoardRepository;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
+import se.salt.echoboard.service.repository.EchoBoardUserRepository;
+
 import java.util.Optional;
 
 @Service
@@ -22,26 +26,41 @@ public class EchoBoardService {
 
     private final EchoBoardSolutionRepository solutionRepository;
 
+    private final EchoBoardUserRepository userRepository;
 
-    public EchoBoard saveEcho(EchoBoard echoBoard) {
+
+    public EchoBoard saveEcho(EchoBoard echoBoard, String userSubject) {
+        var user = userRepository.getUserBySubject(userSubject);
+        user.map(u -> u.addUserPost(echoBoard));
         return echoBoardRepository.save(echoBoard);
     }
 
-    public EchoBoardComment saveComment(EchoBoardComment comment) {
+    public EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {
+        var user = userRepository.getUserBySubject(userSubject);
+        user.map(u -> u.addUserComment(comment));
         return commentRepository.save(comment);
     }
 
-    public EchoBoardSolution saveSolution(EchoBoardSolution solution) {
+    public EchoBoardSolution saveSolution(EchoBoardSolution solution, String userSubject) {
+        var user = userRepository.getUserBySubject(userSubject);
+        user.map(u -> u.addUserSolution(solution));
         return solutionRepository.save(solution);
     }
 
+    public EchoBoardSolution updateSolution(EchoBoardSolution solution) {
+        return solutionRepository.save(solution);
+    }
+
+    public EchoBoardComment updateComment(EchoBoardComment comment) {
+        return commentRepository.save(comment);
+    }
 
     public Optional<EchoBoard> getEchoById(Long id) {
         return echoBoardRepository.getEchoById(id);
     }
 
     public List<EchoBoard> findAll() {
-        return echoBoardRepository.findAll();
+        return echoBoardRepository.findByOrderByCreatedDesc(Pageable.unpaged());
     }
 
     public Optional<EchoBoardComment> getCommentById(long commentId) {
@@ -53,26 +72,26 @@ public class EchoBoardService {
         return solutionRepository.getSolutionById(solutionId);
     }
 
-    public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment) {
+    public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
             board.getEchoBoardComment().add(echoBoardComment);
-            return saveComment(echoBoardComment).getId();
+            return saveComment(echoBoardComment, userSubject).getId();
         });
     }
 
-    public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution) {
+    public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
             board.getEchoBoardSolutions().add(echoBoardSolution);
-            return saveSolution(echoBoardSolution).getId();
+            return saveSolution(echoBoardSolution, userSubject).getId();
         });
     }
 
     public Optional<Integer> upvoteComment (long commentId) {
         return getCommentById(commentId)
                 .map(EchoBoardComment::addUpvote)
-                .map(this::saveComment)
+                .map(this::updateComment)
                 .map(EchoBoardComment::getUpvote);
     }
 
@@ -86,7 +105,7 @@ public class EchoBoardService {
     public Optional<Integer> upvoteSolution(long solutionId) {
         return getSolutionById(solutionId)
                 .map(EchoBoardSolution::addUpvote)
-                .map(this::saveSolution)
+                .map(this::updateSolution)
                 .map(EchoBoardSolution::getUpvote);
     }
 
@@ -94,4 +113,7 @@ public class EchoBoardService {
         echoBoardRepository.deleteById(id);
     }
 
+    public Optional<EchoBoardUser> getUserById(String id) {
+        return userRepository.getUserBySubject(id);
+    }
 }

@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import { PostEchoBoardData } from "../Types";
-import { postEcho } from "../Functions";
+import { PostEchoBoardData } from "../service/Types";
+import { postEcho } from "../service/Functions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useCookies } from "react-cookie";
 
 const PostEchoBoard = () => {
@@ -20,7 +15,9 @@ const PostEchoBoard = () => {
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
 
-  const mutation = useMutation((data: PostEchoBoardData) => postEcho(data, cookies.JwtToken));
+  const mutation = useMutation((data: PostEchoBoardData) =>
+    postEcho(data, cookies.JwtToken)
+  );
 
   const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,12 +42,14 @@ const PostEchoBoard = () => {
   };
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      minWidth: "300px"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minWidth: "300px",
+      }}
+    >
       <Typography
         variant="h4"
         style={{ display: "flex", justifyContent: "center", padding: "1rem" }}
@@ -61,11 +60,11 @@ const PostEchoBoard = () => {
         <Box
           sx={{
             "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root":
-            {
-              m: 1,
-              width: "99%",
-              alignSelf: "center",
-            },
+              {
+                m: 1,
+                width: "99%",
+                alignSelf: "center",
+              },
           }}
         >
           <TextField

@@ -1,25 +1,27 @@
-import React, { useState } from 'react'
-import { CommentToPost } from '../Types';
-import { Button, TextField } from '@mui/material';
+import React, { useState } from "react";
+import { CommentToPost } from "../service/Types";
+import { Button, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postComment } from '../Functions';
-import "../../app/styles/PostCommentStyles.css"
-import { useCookies } from 'react-cookie';
+import { postComment } from "../service/Functions";
+import { useCookies } from "react-cookie";
+import "../app/styles/PostCommentStyles.css"
 
 type CommentProps = {
   echoBoardId: string;
-}
+};
 
 export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
   const [commentToPost, setCommentToPost] = useState<CommentToPost>({
     author: "",
-    content: ""
+    content: "",
   });
 
   const [cookies] = useCookies();
 
   const queryClient = useQueryClient();
-  const mutation = useMutation((data: CommentToPost) => postComment(data, echoBoardId, cookies.JwtToken));
+  const mutation = useMutation((data: CommentToPost) =>
+    postComment(data, echoBoardId, cookies.JwtToken)
+  );
 
   const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,30 +33,34 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
     mutation.mutate(commentToPost, {
       onSuccess: () => {
         queryClient.invalidateQueries(["echoBoards"]);
-        queryClient.refetchQueries(['comments', echoBoardId]);
+        queryClient.refetchQueries(["comments", echoBoardId]);
         setCommentToPost({
           author: "",
-          content: ""
+          content: "",
         });
       },
       onError: (error) => {
         console.error("Error:", error);
       },
     });
-  }
+  };
 
   return (
     <>
-      <form className='post-comment__form' onSubmit={handleCommentPost}>
-        <TextField className='post-comment__name-input'
+      <form className="post-comment__form" onSubmit={handleCommentPost}>
+        <TextField
+          className="post-comment__name-input"
           label="Enter your name"
           variant="outlined"
           name="author"
           size="small"
           value={commentToPost.author}
           onChange={(e) =>
-            setCommentToPost({ ...commentToPost, author: e.target.value })} />
-        <TextField className='post-comment__comment'
+            setCommentToPost({ ...commentToPost, author: e.target.value })
+          }
+        />
+        <TextField
+          className="post-comment__comment"
           label="Comment"
           variant="outlined"
           name="comment"
@@ -62,11 +68,17 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId }) => {
           rows={2}
           value={commentToPost.content}
           onChange={(e) =>
-            setCommentToPost({ ...commentToPost, content: e.target.value })} />
-        <Button className='post-comment__button' variant="outlined" type="submit">
+            setCommentToPost({ ...commentToPost, content: e.target.value })
+          }
+        />
+        <Button
+          className="post-comment__button"
+          variant="outlined"
+          type="submit"
+        >
           Comment
         </Button>
       </form>
     </>
-  )
-}
+  );
+};

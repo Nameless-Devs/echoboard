@@ -1,5 +1,5 @@
-import { EchoBoardResponseData, CommentResponseData } from "../Types";
-import { fetchEchoBoards, fetchEchoBoardById } from "../Functions";
+import { EchoBoardResponseData, CommentResponseData } from "../service/Types";
+import { fetchEchoBoards, fetchEchoBoardById } from "../service/Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -14,27 +14,29 @@ import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 
 export const EchoBoard = () => {
-
   const [cookies] = useCookies();
 
   const {
     data: echoBoards,
     isLoading,
     isError,
-  } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () => fetchEchoBoards(cookies.JwtToken));
+  } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () =>
+    fetchEchoBoards(cookies.JwtToken)
+  );
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPost, setSelectedPost] =
     useState<null | EchoBoardResponseData>(null);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
   const [selectedPostForSolution, setSelectedPostForSolution] =
-  useState<null | EchoBoardResponseData>(null);
+    useState<null | EchoBoardResponseData>(null);
   const [sortByUpvote, setSortByUpvote] = useState(false);
 
   const sortedEchoBoards = sortByUpvote
-  ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
-  : [...(echoBoards || [])].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
-
+    ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
+    : [...(echoBoards || [])].sort(
+        (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+      );
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);
@@ -49,7 +51,7 @@ export const EchoBoard = () => {
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
     setSelectedPostForSolution(post);
-  }
+  };
 
   const handleCloseSolutionForm = () => {
     setIsOpenSolution(false);
@@ -84,8 +86,10 @@ export const EchoBoard = () => {
       <h1>Echo Board All Posts</h1>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
-      ):(
-        <Button variant="outlined" onClick={() => setSortByUpvote(true)}>Sort</Button>
+      ) : (
+        <Button variant="outlined" onClick={() => setSortByUpvote(true)}>
+          Sort
+        </Button>
       )}
       <div
         style={{
@@ -126,10 +130,12 @@ export const EchoBoard = () => {
               </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} />
-            <Button size="medium" onClick={() => handleOpenSolutionForm(echoBoard)} >
+            <Button
+              size="medium"
+              onClick={() => handleOpenSolutionForm(echoBoard)}
+            >
               Suggest solution
             </Button>
-  
           </Card>
         ))}
       </div>
@@ -142,11 +148,11 @@ export const EchoBoard = () => {
       )}
 
       {selectedPostForSolution && (
-        <PostSolution 
-        echoBoardId={selectedPostForSolution.id} 
-        handleClose={handleCloseSolutionForm}
-        isOpen={isOpenSolution}
-        onSolutionPosted={handleSolutionPosted}
+        <PostSolution
+          echoBoardId={selectedPostForSolution.id}
+          handleClose={handleCloseSolutionForm}
+          isOpen={isOpenSolution}
+          onSolutionPosted={handleSolutionPosted}
         />
       )}
     </main>

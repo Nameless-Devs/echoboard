@@ -1,32 +1,34 @@
-import React, { useState } from 'react'
-import { SolutionToPost } from '../Types';
-import { Button, Modal, TextField } from '@mui/material';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { postSolution } from '../Functions';
-import { useCookies } from 'react-cookie';
+import React, { useState } from "react";
+import { SolutionToPost } from "../service/Types";
+import { Button, Modal, TextField } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { postSolution } from "../service/Functions";
+import { useCookies } from "react-cookie";
 
 type SolutionProps = {
   echoBoardId: string;
   handleClose: () => void;
   isOpen: boolean;
   onSolutionPosted: () => void;
-}
+};
 
 export const PostSolution: React.FC<SolutionProps> = ({
   echoBoardId,
   handleClose,
   isOpen,
-  onSolutionPosted
+  onSolutionPosted,
 }) => {
   const [solutionToPost, setSolutionToPost] = useState<SolutionToPost>({
     author: "",
-    content: ""
+    content: "",
   });
   const [isSuccess, setIsSuccess] = useState(false);
   const [cookies] = useCookies();
 
   const queryClient = useQueryClient();
-  const mutation = useMutation((data: SolutionToPost) => postSolution(data, echoBoardId, cookies.JwtToken));
+  const mutation = useMutation((data: SolutionToPost) =>
+    postSolution(data, echoBoardId, cookies.JwtToken)
+  );
 
   const handleSolutionPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,7 +42,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
         queryClient.refetchQueries(["solution", echoBoardId]);
         setSolutionToPost({
           author: "",
-          content: ""
+          content: "",
         });
         setIsSuccess(true);
         onSolutionPosted();
@@ -49,10 +51,9 @@ export const PostSolution: React.FC<SolutionProps> = ({
         console.error("Error:", error);
       },
     });
-
-  }
+  };
   return (
-    <Modal open={isOpen} onClose={handleClose} >
+    <Modal open={isOpen} onClose={handleClose}>
       <div
         style={{
           padding: "20px",
@@ -64,18 +65,30 @@ export const PostSolution: React.FC<SolutionProps> = ({
           borderRadius: "5px",
         }}
       >
-        {isSuccess ? (<h3 style={{ color: 'green' }}>Your solution was successfully posted</h3>) : (
-          <><h3>Here you can share your solution ideas</h3>
-            <form className='post-comment__form' onSubmit={handleSolutionPost}>
-              <TextField className='post-comment__name-input'
+        {isSuccess ? (
+          <h3 style={{ color: "green" }}>
+            Your solution was successfully posted
+          </h3>
+        ) : (
+          <>
+            <h3>Here you can share your solution ideas</h3>
+            <form className="post-comment__form" onSubmit={handleSolutionPost}>
+              <TextField
+                className="post-comment__name-input"
                 label="Enter your name"
                 variant="outlined"
                 name="author"
                 size="small"
                 value={solutionToPost.author}
                 onChange={(e) =>
-                  setSolutionToPost({ ...solutionToPost, author: e.target.value })} />
-              <TextField className='post-comment__comment'
+                  setSolutionToPost({
+                    ...solutionToPost,
+                    author: e.target.value,
+                  })
+                }
+              />
+              <TextField
+                className="post-comment__comment"
                 label="Solution"
                 variant="outlined"
                 name="content"
@@ -83,8 +96,17 @@ export const PostSolution: React.FC<SolutionProps> = ({
                 rows={4}
                 value={solutionToPost.content}
                 onChange={(e) =>
-                  setSolutionToPost({ ...solutionToPost, content: e.target.value })} />
-              <Button className='post-comment__button' variant="outlined" type="submit">
+                  setSolutionToPost({
+                    ...solutionToPost,
+                    content: e.target.value,
+                  })
+                }
+              />
+              <Button
+                className="post-comment__button"
+                variant="outlined"
+                type="submit"
+              >
                 Suggest solution
               </Button>
             </form>
@@ -92,5 +114,5 @@ export const PostSolution: React.FC<SolutionProps> = ({
         )}
       </div>
     </Modal>
-  )
-}
+  );
+};

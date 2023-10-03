@@ -61,9 +61,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Cookie cookie = new Cookie("JwtToken", tokenValue);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(3500);
-        cookie.setSecure(false);
+        cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setDomain(extractDomain(baseUrl));
+        cookie.setDomain("echoboard.site");
         return cookie;
     }
 

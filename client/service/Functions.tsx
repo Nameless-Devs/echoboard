@@ -3,7 +3,7 @@ import {
   EchoBoardResponseData,
   CommentToPost,
   SolutionToPost,
-} from "@/parts/Types";
+} from "./Types";
 
 // const baseURL = "http://localhost:8080/api"; //development
 
@@ -18,9 +18,9 @@ export async function postEcho(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(problemPostToSend),
+      credentials: 'include',
     });
 
     if (response.ok) {
@@ -38,9 +38,7 @@ export async function fetchEchoBoards(
 ): Promise<EchoBoardResponseData[]> {
   try {
     const response = await fetch(baseURL + "/echoes", {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -58,8 +56,8 @@ export async function upvotePost(echoBoardId: string, token: string) {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
       },
+      credentials: 'include',
     });
 
     if (response.ok) {
@@ -86,6 +84,7 @@ export async function upvoteComment(
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
+        credentials: 'include',
       }
     );
 
@@ -106,6 +105,7 @@ export async function fetchEchoBoardById(echoBoardId: string, token: string) {
       headers: {
         Authorization: "Bearer " + token,
       },
+      credentials: 'include',
     });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -132,6 +132,7 @@ export async function postComment(
           Authorization: "Bearer " + token,
         },
         body: JSON.stringify(commentToPost),
+        credentials: 'include',
       }
     );
 
@@ -160,6 +161,7 @@ export async function postSolution(
           Authorization: "Bearer " + token,
         },
         body: JSON.stringify(solutionToPost),
+        credentials: 'include',
       }
     );
 
@@ -186,6 +188,7 @@ export async function upvoteSolution(
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
+        credentials: 'include',
       }
     );
 

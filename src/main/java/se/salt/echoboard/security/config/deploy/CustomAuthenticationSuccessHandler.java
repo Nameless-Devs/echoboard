@@ -1,4 +1,4 @@
-package se.salt.echoboard.security;
+package se.salt.echoboard.security.config.deploy;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
+import se.salt.echoboard.security.config.JwtValidation;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
@@ -60,9 +61,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Cookie cookie = new Cookie("JwtToken", tokenValue);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(3500);
-        cookie.setSecure(false);
+        cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setDomain(extractDomain(baseUrl));
+        cookie.setDomain("echoboard.site");
         return cookie;
     }
 

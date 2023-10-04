@@ -72,12 +72,12 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
       alignItems: "center",
       minWidth: "300px"
     }}>
-      <Typography
+      {/* <Typography
         variant="h4"
         style={{ display: "flex", justifyContent: "center", padding: "1rem" }}
       >
         Create a Post with Your Problem
-      </Typography>
+      </Typography> */}
       <form onSubmit={handleProblemPost} >
 
         <Box
@@ -99,7 +99,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
               style={{margin: "10px"}}
                />
             </Box>
-            <Box>
+            <Box style={{marginRight: "50px"}}>
               <TextField
                 label="Title"
                 variant="outlined"

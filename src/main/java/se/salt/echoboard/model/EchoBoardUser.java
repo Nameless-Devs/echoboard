@@ -21,6 +21,8 @@ public class EchoBoardUser {
 
     private String email;
 
+    private String picture;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EchoBoard> usersPosts;
 

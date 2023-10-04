@@ -82,7 +82,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
         alignItems: "center",
       }}
     >
-      <h2>Echo Board All Posts</h2>
+      <h2>EchoBoard All Posts</h2>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
       ):(

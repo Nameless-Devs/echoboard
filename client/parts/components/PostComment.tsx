@@ -17,6 +17,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
     content: ""
   });
   const [numberOfRows, setNumberOfRows] = useState<number>(1);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const [cookies] = useCookies();
 
@@ -30,9 +31,10 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   const handleTextAreaBlur = () => {
     setNumberOfRows(1);
   }
-  const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleCommentPost = (event?: React.FormEvent<HTMLFormElement>) => {
+    if(event) {
     event.preventDefault();
-
+    }
 
     if (!commentToPost.content.trim()) {
       return;
@@ -46,6 +48,8 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           author: user.name,
           content: ""
         });
+        setIsSuccess(true);
+        setTimeout(() => setIsSuccess(false), 1500);
       },
       onError: (error) => {
         console.error("Error:", error);
@@ -53,8 +57,26 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
     });
   }
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement> ) => {
+    if (event.key === 'Enter' && event.shiftKey === false) {
+      // Prevent the default behavior of Enter key (submitting the form)
+      event.preventDefault();
+      // Trigger the comment submission here
+      handleCommentPost();
+    }
+  };
+
   return (
     <>
+    {isSuccess && <h3 style={{ 
+          color: 'green',  
+          padding: "20px",
+          background: "#fff",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          borderRadius: "5px",}}>Your comment was successfully posted</h3> }
       <form className='post-comment__form' onSubmit={handleCommentPost}>
         <Box style={{display: "flex", justifyContent: "space-around", width: "94%", gap: "9px"}}>
         <Avatar src={user.picture} />
@@ -69,6 +91,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
             setCommentToPost({ ...commentToPost, content: e.target.value })} 
           onFocus={handleTextAreaFocus}
           onBlur={handleTextAreaBlur}
+          onKeyDown={ (event) => handleKeyPress(event)}
         
           />
         </Box>

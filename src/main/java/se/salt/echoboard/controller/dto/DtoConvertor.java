@@ -19,6 +19,7 @@ public class DtoConvertor {
      * Gets the DTO class for an entity class.
      * The DtoConvertor class must be in the same package as the DTO.
      * The Dto must be named correctly, Entity Class name + ResponseDto
+     *
      * @param entityClass The entity class.
      * @return The DTO class.
      */

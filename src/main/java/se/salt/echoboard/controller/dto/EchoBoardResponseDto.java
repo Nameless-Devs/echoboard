@@ -2,7 +2,6 @@ package se.salt.echoboard.controller.dto;
 
 import se.salt.echoboard.model.EchoBoard;
 
-import java.io.Serializable;
 import java.time.Instant;
 
 /**

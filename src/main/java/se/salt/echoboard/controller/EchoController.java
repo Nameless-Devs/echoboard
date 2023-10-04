@@ -60,13 +60,13 @@ public class EchoController {
 
 
     @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId,
-                                                                  @PathVariable Long echoBoardSolutionId) {
+    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable long echoId,
+                                                                  @PathVariable long echoBoardSolutionId) {
         return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId));
     }
 
     @PostMapping("{echoId}/solutions")
-    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId,
+    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable long echoId,
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
                                                       @AuthenticationPrincipal OidcUser user) {
 

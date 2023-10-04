@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CommentToPost, UserResponseData } from '../Types';
-import { Button, TextField } from '@mui/material';
+import { Avatar, Box, Button, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from '../Functions';
 import "../../app/styles/PostCommentStyles.css"
@@ -47,14 +47,8 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   return (
     <>
       <form className='post-comment__form' onSubmit={handleCommentPost}>
-        {/* <TextField className='post-comment__name-input'
-          label="Enter your name"
-          variant="outlined"
-          name="author"
-          size="small"
-          value={commentToPost.author}
-          onChange={(e) =>
-            setCommentToPost({ ...commentToPost, author: e.target.value })} /> */}
+        <Box style={{display: "flex", justifyContent: "space-around", width: "94%", gap: "9px"}}>
+        <Avatar src={user.picture} />
         <TextField className='post-comment__comment'
           label="Comment"
           variant="outlined"
@@ -64,6 +58,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           value={commentToPost.content}
           onChange={(e) =>
             setCommentToPost({ ...commentToPost, content: e.target.value })} />
+        </Box>
         <Button className='post-comment__button' variant="outlined" type="submit">
           Comment
         </Button>

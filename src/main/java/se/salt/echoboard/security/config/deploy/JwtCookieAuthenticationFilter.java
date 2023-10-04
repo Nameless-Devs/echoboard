@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 @Slf4j
 @Profile("deploy")
-public class CustomBearerTokenFilter extends OncePerRequestFilter {
+public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtValidation validation;
     private final EchoBoardUserRepository userRepository;

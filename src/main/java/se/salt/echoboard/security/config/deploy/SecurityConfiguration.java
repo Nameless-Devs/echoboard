@@ -1,4 +1,4 @@
-package se.salt.echoboard.security.config;
+package se.salt.echoboard.security.config.deploy;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import se.salt.echoboard.security.CustomAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity

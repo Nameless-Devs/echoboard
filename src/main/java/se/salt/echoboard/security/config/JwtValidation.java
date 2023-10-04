@@ -1,4 +1,4 @@
-package se.salt.echoboard.security;
+package se.salt.echoboard.security.config;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;

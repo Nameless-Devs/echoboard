@@ -3,6 +3,7 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.net.URL;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,8 @@ public class EchoBoardUser {
     private String name;
 
     private String email;
+
+    private URL image;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EchoBoard> usersPosts;

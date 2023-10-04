@@ -23,11 +23,10 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   return (
-    <React.Fragment>
+    <React.Fragment >
+    <Box style={{ display: 'flex', justifyContent: "flex-end"}}>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-        <Typography sx={{ minWidth: 100 }}>Profile</Typography>
-        <Tooltip title="Account settings">
+        <Tooltip title="Account settings" style={{ marginRight: "5px"}}>
           <IconButton
             onClick={handleClick}
             size="small"
@@ -78,22 +77,7 @@ export default function AccountMenu() {
         <MenuItem onClick={handleClose}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Logout fontSize="small" />
@@ -101,6 +85,7 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
+      </Box>
     </React.Fragment>
   );
 }

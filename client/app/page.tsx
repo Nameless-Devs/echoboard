@@ -6,6 +6,7 @@ import JwtAuth from "@/parts/components/JwtAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/parts/Functions";
 import { Button } from "@mui/material";
+import AccountMenu from "@/parts/components/AccountMenu";
 
 export default function Home() {
   const { data: user, isLoading, error } = useQuery(['userInfo'], getUserInfo);
@@ -18,6 +19,7 @@ export default function Home() {
   if (user){
   return (
     <main style={{display: "flex", flexDirection: "column" }}>
+      <AccountMenu /> 
       <h1 style={{textAlign: "center"}}>{user.name}, welcome to EchoBoard!</h1>
       <Button 
             onClick={handleClick}

@@ -9,7 +9,7 @@ import { fetchEchoBoardById, upvoteSolution } from "@/service/Functions";
 import { upvoteComment } from "@/service/Functions";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
-import "../../app/styles/CommentModalStyles.css";
+import "../app/styles/CommentModalStyles.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 

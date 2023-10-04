@@ -3,7 +3,7 @@ import { CommentToPost, UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from '@/service/Functions';
-import "../../app/styles/PostCommentStyles.css"
+import "../app/styles/PostCommentStyles.css"
 import { useCookies } from 'react-cookie';
 
 type CommentProps = {

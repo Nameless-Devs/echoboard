@@ -78,7 +78,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
       >
         Create a Post with Your Problem
       </Typography>
-      <form onSubmit={handleProblemPost} style={{ display: "flex", border: "1px solid black" }}>
+      <form onSubmit={handleProblemPost} >
 
         <Box
           sx={{
@@ -89,10 +89,15 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
               alignSelf: "center",
             },
           }}
+          style={{ display: "flex", flexDirection: "column" }}
         >
-          <Box>
+          <Box style={{ display: "flex" }}>
             <Box>
-              <Avatar alt={user.name + "avatar picture"} src={user.picture} />
+              <Avatar 
+              alt={user.name + "avatar picture"} 
+              src={user.picture}
+              style={{margin: "10px"}}
+               />
             </Box>
             <Box>
               <TextField
@@ -120,13 +125,17 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
                   <Checkbox
                     onChange={handleChange}
                     name="Anonymous"
-                    checked={ifAnonymous} />
+                    checked={ifAnonymous} 
+                    style={{marginLeft: "10px"}}/>
                 }
                 label="Post anonymously"
               />
             </Box>
           </Box>
-          <Button variant="outlined" type="submit">
+          <Button 
+            variant="outlined" 
+            type="submit"
+            style={{width: "40%", marginTop: "15px"}}>
             Make a post
           </Button>
         </Box>

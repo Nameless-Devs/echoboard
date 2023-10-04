@@ -124,6 +124,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: "5px",
+          width: "60%",
         }}
       >
         <Box mb={1}>

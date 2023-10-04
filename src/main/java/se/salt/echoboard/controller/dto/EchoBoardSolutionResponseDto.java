@@ -9,5 +9,5 @@ import java.time.Instant;
  * DTO for {@link EchoBoardSolution}
  */
 public record EchoBoardSolutionResponseDto(long id, String author, String content, int upvote,
-                                           EchoBoardSolution.SolutionStatus status, Instant created) implements Serializable {
+                                           EchoBoardSolution.SolutionStatus status, Instant created){
 }

@@ -8,6 +8,5 @@ import java.time.Instant;
 /**
  * DTO for {@link EchoBoardComment}
  */
-public record EchoBoardCommentResponseDto(long id, String author, String content, int upvote,
-                                          Instant created) implements Serializable {
+public record EchoBoardCommentResponseDto(long id, String author, String content, int upvote, Instant created){
 }

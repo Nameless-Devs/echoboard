@@ -1,5 +1,5 @@
 "use client"
-import { getUserInfo } from '@/parts/Functions';
+import { getUserInfo } from '@/service/Functions';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react'
 

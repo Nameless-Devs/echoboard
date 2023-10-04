@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { CommentToPost, UserResponseData } from '../Types';
+import { CommentToPost, UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postComment } from '../Functions';
+import { postComment } from '@/service/Functions';
 import "../../app/styles/PostCommentStyles.css"
 import { useCookies } from 'react-cookie';
 

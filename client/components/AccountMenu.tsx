@@ -8,8 +8,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
-import { UserResponseData } from '../Types';
 import Link from 'next/link';
+import { UserResponseData } from '@/service/Types';
 
 
 export const AccountMenu: React.FC<UserResponseData> = (user: UserResponseData) => {

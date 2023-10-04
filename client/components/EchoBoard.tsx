@@ -1,5 +1,5 @@
-import { EchoBoardResponseData, CommentResponseData, UserResponseData } from "../Types";
-import { fetchEchoBoards, fetchEchoBoardById, getUserInfo } from "../Functions";
+import { EchoBoardResponseData, CommentResponseData, UserResponseData } from "@/service/Types";
+import { fetchEchoBoards, fetchEchoBoardById, getUserInfo } from "@/service/Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
 import { useQuery, useQueryClient } from "@tanstack/react-query";

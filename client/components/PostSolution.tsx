@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { SolutionToPost, UserResponseData } from '../Types';
+import { SolutionToPost, UserResponseData } from '@/service/Types';
 import { Button, Modal, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { postSolution } from '../Functions';
+import { postSolution } from '@/service/Functions';
 import { useCookies } from 'react-cookie';
 
 type SolutionProps = {

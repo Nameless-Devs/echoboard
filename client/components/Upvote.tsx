@@ -1,9 +1,9 @@
 import React from 'react';
-import { upvotePost, fetchEchoBoardById } from '../Functions';
-import { UpvoteProps } from '../Types';
+import { UpvoteProps } from '@/service/Types';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
+import { fetchEchoBoardById, upvotePost } from '@/service/Functions';
 
 
 export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {

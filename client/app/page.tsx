@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import PostEchoBoard from "../parts/components/PostEchoBoard";
-import { EchoBoard } from "../parts/components/EchoBoard";
-import JwtAuth from "@/parts/components/JwtAuth";
+import PostEchoBoard from "../components/PostEchoBoard";
+import { EchoBoard } from "../components/EchoBoard";
+import JwtAuth from "@/components/JwtAuth";
 import { useQuery } from "@tanstack/react-query";
-import { getUserInfo } from "@/parts/Functions";
+import { getUserInfo } from "@/service/Functions";
 import { Button } from "@mui/material";
-import { AccountMenu } from "@/parts/components/AccountMenu";
+import { AccountMenu } from "@/components/AccountMenu";
 
 export default function Home() {
   const { data: user, isLoading, error } = useQuery(['userInfo'], getUserInfo);

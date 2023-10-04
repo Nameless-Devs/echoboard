@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
-import { PostEchoBoardData, UserResponseData } from "../Types";
-import { postEcho } from "../Functions";
+import { PostEchoBoardData, UserResponseData } from "@/service/Types";
+import { postEcho } from "@/service/Functions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Avatar,

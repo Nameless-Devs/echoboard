@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Modal, List, ListItem, ListItemText, Tabs, Tab } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { EchoBoardResponseData, UserResponseData } from "../Types";
+import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "./Upvote";
 import { PostComment } from "./PostComment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { fetchEchoBoardById, upvoteSolution } from "../Functions";
-import { upvoteComment } from "../Functions";
+import { fetchEchoBoardById, upvoteSolution } from "@/service/Functions";
+import { upvoteComment } from "@/service/Functions";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import "../../app/styles/CommentModalStyles.css";

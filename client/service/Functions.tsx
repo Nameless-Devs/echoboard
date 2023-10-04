@@ -7,7 +7,7 @@ import {
 
 // const baseURL = "http://localhost:8080/api"; //development
 
-const baseURL = "https://echoboard-app.fly.dev/api" //deployment
+const baseURL = "https://api.echoboard.site/api" //deployment
 
 export async function postEcho(
   problemPostToSend: PostEchoBoardData,

@@ -16,14 +16,23 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
     author: user.name,
     content: ""
   });
+  const [numberOfRows, setNumberOfRows] = useState<number>(1);
 
   const [cookies] = useCookies();
 
   const queryClient = useQueryClient();
   const mutation = useMutation((data: CommentToPost) => postComment(data, echoBoardId, cookies.JwtToken));
 
+
+  const handleTextAreaFocus = () => { 
+   setNumberOfRows(3);
+  }
+  const handleTextAreaBlur = () => {
+    setNumberOfRows(1);
+  }
   const handleCommentPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
 
     if (!commentToPost.content.trim()) {
       return;
@@ -54,10 +63,14 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           variant="outlined"
           name="comment"
           multiline
-          rows={2}
+          rows={numberOfRows}
           value={commentToPost.content}
           onChange={(e) =>
-            setCommentToPost({ ...commentToPost, content: e.target.value })} />
+            setCommentToPost({ ...commentToPost, content: e.target.value })} 
+          onFocus={handleTextAreaFocus}
+          onBlur={handleTextAreaBlur}
+        
+          />
         </Box>
         <Button className='post-comment__button' variant="outlined" type="submit">
           Comment

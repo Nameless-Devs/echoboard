@@ -52,6 +52,7 @@ export type UserResponseData = {
   id: number;
   name: string; 
   email: string;
+  picture: string;
   //add later: 
   //comments[]
   //posts[]

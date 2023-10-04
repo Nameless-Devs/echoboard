@@ -4,7 +4,7 @@ import React from 'react'
 const home = () => {
   return (
     <>
-        <Link href={'http://localhost:8080'}>Login with Google</Link>
+        <Link href={'http://localhost:8080/echoes'}>Login with Google</Link>
     </>
   )
 }

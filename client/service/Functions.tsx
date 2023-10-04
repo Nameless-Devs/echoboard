@@ -107,7 +107,7 @@ export async function fetchEchoBoardById(echoBoardId: string, token: string) {
 
     const response = await fetch(endpoint, {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: `Bearer ${token}`,
       },
       credentials: "include",
     });

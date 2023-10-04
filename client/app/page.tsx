@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <main style={{display: "flex", flexDirection: "column" }}>
       <AccountMenu {...user} /> 
-      <h1 style={{textAlign: "center"}}>{user.name}, welcome to EchoBoard!</h1>
+      <h1 style={{textAlign: "center", marginTop: "-20px"}}>{user.name}, welcome to EchoBoard!</h1>
       <Button 
             onClick={handleClick}
             variant="outlined" 

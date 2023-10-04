@@ -26,9 +26,9 @@ export const AccountMenu: React.FC<UserResponseData> = (user: UserResponseData) 
     };
     return (
         <React.Fragment >
-            <Box style={{ display: 'flex', justifyContent: "flex-end" }}>
+            <Box sx={{ display: 'flex', justifyContent: "flex-end" }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                    <Tooltip title="Account settings" style={{ marginRight: "5px" }}>
+                    <Tooltip title="Account settings" style={{ marginRight: "5px", marginTop: "5px" }}>
                         <IconButton
                             onClick={handleClick}
                             size="small"
@@ -76,13 +76,13 @@ export const AccountMenu: React.FC<UserResponseData> = (user: UserResponseData) 
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                    <Link href={'userProfile'}>
+                    <Link href={'userProfile'} style={{textDecoration: "none", color: "black"}}>
                         <MenuItem >
                             <Avatar /> Profile
                         </MenuItem>
                     </Link>
                     <Divider />
-                     <Link href={''}>  {/* add log ou link here */}
+                     <Link href={''} style={{textDecoration: "none", color: "black"}}>  {/* add log ou link here */}
                         <MenuItem >
                             <ListItemIcon>
                                 <Logout fontSize="small" />

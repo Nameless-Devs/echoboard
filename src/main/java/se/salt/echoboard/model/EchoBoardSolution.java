@@ -11,7 +11,6 @@ import java.time.Instant;
 
 @Entity
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 @Table(name = "echo_board_solution")

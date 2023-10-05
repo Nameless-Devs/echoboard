@@ -1,6 +1,7 @@
-package se.salt.echoboard.security.config;
+package se.salt.echoboard.security.config.deploy;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -14,16 +15,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import se.salt.echoboard.security.CustomAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Profile("deploy")
 public class SecurityConfiguration {
 
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-    private final CustomBearerTokenFilter customBearerTokenFilter;
+    private final JwtCookieAuthenticationFilter jwtCookieAuthenticationFilter;
+
+    @Value("${frontend-details.base-url}")
+    private String baseUrl;
 
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
@@ -35,9 +38,8 @@ public class SecurityConfiguration {
                 )
                 .cors(corsCustomizer())
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customAuthenticationSuccessHandler)
-                        )
-                .addFilterBefore(customBearerTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                        .successHandler(customAuthenticationSuccessHandler))
+                .addFilterBefore(jwtCookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(CsrfConfigurer::disable)
                 .build();
     }
@@ -51,11 +53,10 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000/"); //development
-        //configuration.addAllowedOrigin("https://echoboard.vercel.app/"); //deployment
+        configuration.addAllowedOrigin(baseUrl);
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

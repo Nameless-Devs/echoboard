@@ -28,7 +28,9 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
 
-  const mutation = useMutation((data: PostEchoBoardData) => postEcho(data, cookies.JwtToken));
+  const mutation = useMutation((data: PostEchoBoardData) => 
+      postEcho(data, cookies.JwtToken)
+   );
 
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {
     setIfAnonymous(event.target.checked);
@@ -44,7 +46,6 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
     if (!echoBoardPost.title.trim() || !echoBoardPost.content.trim()) {
       return;
     }
-    console.log(ifAnonymous);
 
     mutation.mutate(echoBoardPost, {
       onSuccess: () => {
@@ -63,8 +64,6 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
     });
   };
 
-
-
   return (
     <div style={{
       display: "flex",
@@ -72,12 +71,6 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
       alignItems: "center",
       minWidth: "300px"
     }}>
-      {/* <Typography
-        variant="h4"
-        style={{ display: "flex", justifyContent: "center", padding: "1rem" }}
-      >
-        Create a Post with Your Problem
-      </Typography> */}
       <form onSubmit={handleProblemPost} >
 
         <Box

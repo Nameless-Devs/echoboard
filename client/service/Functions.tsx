@@ -1,3 +1,5 @@
+import { formatEndpoint } from "@/utils/apiUtils";
+import { ENDPOINTS } from "./config";
 import {
   PostEchoBoardData,
   EchoBoardResponseData,
@@ -6,22 +8,18 @@ import {
   UserResponseData,
 } from "./Types";
 
-const baseURL = "http://localhost:8080/api"; //development
-
-// const baseURL = "https://echoboard-app.fly.dev/api" //deployment
-
 export async function postEcho(
   problemPostToSend: PostEchoBoardData,
   token: string
 ) {
   try {
-    const response = await fetch(baseURL + "/echoes", {
+    const response = await fetch(ENDPOINTS.POST_ECHO, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(problemPostToSend),
+      credentials: "include",
     });
 
     if (response.ok) {
@@ -38,10 +36,8 @@ export async function fetchEchoBoards(
   token: string
 ): Promise<EchoBoardResponseData[]> {
   try {
-    const response = await fetch(baseURL + "/echoes", {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+    const response = await fetch(ENDPOINTS.POST_ECHO, {
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -55,12 +51,14 @@ export async function fetchEchoBoards(
 
 export async function upvotePost(echoBoardId: string, token: string) {
   try {
-    const response = await fetch(baseURL + `/echoes/${echoBoardId}/upvote`, {
+    const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_POST, { echoBoardId });
+
+    const response = await fetch(endpoint, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
       },
+      credentials: "include",
     });
 
     if (response.ok) {
@@ -79,16 +77,19 @@ export async function upvoteComment(
   token: string
 ) {
   try {
-    const response = await fetch(
-      `${baseURL}/echoes/${echoBoardId}/comments/${commentId}/upvote`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
+    const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_COMMENT, {
+      echoBoardId,
+      commentId,
+    });
+
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
 
     if (response.ok) {
       console.log(response);
@@ -103,10 +104,13 @@ export async function upvoteComment(
 
 export async function fetchEchoBoardById(echoBoardId: string, token: string) {
   try {
-    const response = await fetch(baseURL + `/echoes/${echoBoardId}`, {
+    const endpoint = formatEndpoint(ENDPOINTS.ECHO, { echoBoardId });
+
+    const response = await fetch(endpoint, {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: `Bearer ${token}`,
       },
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -124,18 +128,17 @@ export async function postComment(
   token: string
 ) {
   try {
-    const response = await fetch(
-      baseURL + "/echoes/" + echoBoardId + "/comments",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(commentToPost),
-      }
-    );
+    const endpoint = formatEndpoint(ENDPOINTS.POST_COMMENT, { echoBoardId });
 
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(commentToPost),
+      credentials: "include",
+    });
     if (response.ok) {
       console.log(response);
     } else {
@@ -152,18 +155,17 @@ export async function postSolution(
   token: string
 ) {
   try {
-    const response = await fetch(
-      baseURL + "/echoes/" + echoBoardId + "/solutions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(solutionToPost),
-      }
-    );
+    const endpoint = formatEndpoint(ENDPOINTS.POST_SOLUTION, { echoBoardId });
 
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(solutionToPost),
+      credentials: "include",
+    });
     if (response.ok) {
       console.log(response);
     } else {
@@ -173,23 +175,26 @@ export async function postSolution(
     throw new Error("Fetch error: " + error);
   }
 }
+
 export async function upvoteSolution(
   echoBoardId: string,
   solutionId: string,
   token: string
 ) {
   try {
-    const response = await fetch(
-      `${baseURL}/echoes/${echoBoardId}/solutions/${solutionId}/upvote`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
+    const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_SOLUTION, {
+      echoBoardId,
+      solutionId,
+    });
 
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
     if (response.ok) {
       console.log(response);
       return response;
@@ -218,3 +223,4 @@ export async function getUserInfo() {
     throw new Error("Error fetching data: " + error);
   }
 }
+

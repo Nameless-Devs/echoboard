@@ -48,7 +48,7 @@ function CustomTabPanel(props: TabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -68,7 +68,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
     setSelectedPostForSolution(post);
-  }
+  };
 
   const handleCloseSolutionForm = () => {
     setIsOpenSolution(false);
@@ -85,7 +85,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
       return result;
     }
   );
-
 
   const displayPost = updatedPost || post;
   const queryClient = useQueryClient();
@@ -105,7 +104,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   );
 
   const mutation1 = useMutation(
-    (solutionId: string) => upvoteSolution(post.id, solutionId, cookies.JwtToken),
+    (solutionId: string) =>
+      upvoteSolution(post.id, solutionId, cookies.JwtToken),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["echoBoards"]);
@@ -143,10 +143,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           </Typography>
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-
         <Box sx={{ width: '100%' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tabs 
+              value={value} 
+              onChange={handleChange} 
+              aria-label="basic tabs example">
               <Tab label="Comments" {...a11yProps(0)} />
               <Tab label="Solutions" {...a11yProps(1)} />
             </Tabs>
@@ -216,8 +218,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button size="medium" onClick={() => handleOpenSolutionForm(displayPost)} >
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  size="medium"
+                  onClick={() => handleOpenSolutionForm(displayPost)}
+                >
                   Suggest solution
                 </Button>
               </div>

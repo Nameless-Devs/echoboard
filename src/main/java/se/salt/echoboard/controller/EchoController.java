@@ -12,10 +12,8 @@ import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 
 
 @RestController
@@ -35,11 +33,7 @@ public class EchoController {
     public ResponseEntity<List<EchoBoard>> getAllEchoes() {
 
         List<EchoBoard> echoes = echoService.findAll();
-        if (echoes != null && !echoes.isEmpty()) {
-            Collections.reverse(echoes);
-            return ResponseEntity.ok(echoes);
-        }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ofNullable(echoes);
     }
 
     @PatchMapping("{echoId}/upvote")
@@ -53,36 +47,38 @@ public class EchoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard
-            , @AuthenticationPrincipal OidcUser user
-    ) {
-        System.out.println(user);
-        Long echoId = echoService.saveEcho(echoBoard).getId();
+    public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
+        long echoId = echoService.saveEcho(echoBoard, user.getSubject()).getId();
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(echoId)
                 .toUri();
+
         return ResponseEntity.created(location).build();
     }
 
 
     @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable Long echoId, @PathVariable Long echoBoardSolutionId) {
+    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable long echoId,
+                                                                  @PathVariable long echoBoardSolutionId) {
         return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId));
     }
 
     @PostMapping("{echoId}/solutions")
-    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable Long echoId, @RequestBody EchoBoardSolution echoBoardSolution) {
+    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable long echoId,
+                                                      @RequestBody EchoBoardSolution echoBoardSolution,
+                                                      @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> echoBoardSolutionId = echoService.addSolutionToEcho(echoId, echoBoardSolution);
+        Optional<Long> echoBoardSolutionId =
+                echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(echoBoardSolutionId)
                 .toUri();
 
-        return echoBoardSolutionId.map(aLong -> ResponseEntity.created(location).body(aLong)).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("{echoId}/solutions/{solutionId}/upvote")
@@ -91,9 +87,11 @@ public class EchoController {
     }
 
     @PostMapping("{echoBoardId}/comments")
-    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId, @RequestBody EchoBoardComment echoBoardComment) {
+    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId,
+                                                      @RequestBody EchoBoardComment echoBoardComment,
+                                                      @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment);
+        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment, user.getSubject());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

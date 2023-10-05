@@ -18,12 +18,12 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   });
   const [numberOfRows, setNumberOfRows] = useState<number>(1);
   const [isSuccess, setIsSuccess] = useState(false);
-
   const [cookies] = useCookies();
-
   const queryClient = useQueryClient();
-  const mutation = useMutation((data: CommentToPost) => postComment(data, echoBoardId, cookies.JwtToken));
-
+  
+  const mutation = useMutation((data: CommentToPost) =>
+     postComment(data, echoBoardId, cookies.JwtToken)
+  );
 
   const handleTextAreaFocus = () => { 
    setNumberOfRows(3);
@@ -92,13 +92,16 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           onFocus={handleTextAreaFocus}
           onBlur={handleTextAreaBlur}
           onKeyDown={ (event) => handleKeyPress(event)}
-        
           />
         </Box>
-        <Button className='post-comment__button' variant="outlined" type="submit">
+        <Button 
+          className='post-comment__button' 
+          variant="outlined" 
+          type="submit"
+        >
           Comment
         </Button>
       </form>
     </>
-  )
-}
+  );
+};

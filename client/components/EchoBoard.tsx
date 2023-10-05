@@ -8,34 +8,35 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { PostComment } from "./PostComment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentsModal from "./CommentModal";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 
 export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
-
   const [cookies] = useCookies();
 
   const {
     data: echoBoards,
     isLoading,
     isError,
-  } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () => fetchEchoBoards(cookies.JwtToken));
-
+  } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () =>
+    fetchEchoBoards(cookies.JwtToken)
+  );
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPost, setSelectedPost] =
     useState<null | EchoBoardResponseData>(null);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
   const [selectedPostForSolution, setSelectedPostForSolution] =
-  useState<null | EchoBoardResponseData>(null);
+    useState<null | EchoBoardResponseData>(null);
   const [sortByUpvote, setSortByUpvote] = useState(false);
 
   const sortedEchoBoards = sortByUpvote
-  ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
-  : [...(echoBoards || [])].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
-
+    ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
+    : [...(echoBoards || [])].sort(
+        (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+      );
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);
@@ -50,7 +51,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
     setSelectedPostForSolution(post);
-  }
+  };
 
   const handleCloseSolutionForm = () => {
     setIsOpenSolution(false);
@@ -85,8 +86,10 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
       <h2>EchoBoard All Posts</h2>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
-      ):(
-        <Button variant="outlined" onClick={() => setSortByUpvote(true)}>Sort</Button>
+      ) : (
+        <Button variant="outlined" onClick={() => setSortByUpvote(true)}>
+          Sort
+        </Button>
       )}
       <div
         style={{
@@ -127,10 +130,12 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
               </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} user={user} />
-            <Button size="medium" onClick={() => handleOpenSolutionForm(echoBoard)} >
+            <Button 
+              size="medium" 
+              onClick={() => handleOpenSolutionForm(echoBoard)} 
+            >
               Suggest solution
             </Button>
-  
           </Card>
         ))}
       </div>

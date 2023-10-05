@@ -26,4 +26,5 @@ public class EchoBoardUserRepository {
    public Optional<EchoBoardUser> getUserBySubject(String userSubject){
        return userRepository.findBySubject(userSubject);
    }
+
 }

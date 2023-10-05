@@ -75,7 +75,7 @@ public class EchoBoardService {
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
-            board.getEchoBoardComment().add(echoBoardComment);
+            board.getEchoBoardComments().add(echoBoardComment);
             return saveComment(echoBoardComment, userSubject).getId();
         });
     }

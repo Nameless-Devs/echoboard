@@ -128,7 +128,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         }}
       >
         <Box mb={1}>
-          <Typography variant="body2" color="text.secondary">
+          <SinglePost echoBoard={post} user={user}  />
+          {/* <Typography variant="body2" color="text.secondary">
             {post.anonymous ? "Anonymous" : post.author}
           </Typography>
         </Box>

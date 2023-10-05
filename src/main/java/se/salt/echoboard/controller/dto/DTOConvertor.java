@@ -3,12 +3,17 @@ package se.salt.echoboard.controller.dto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import se.salt.echoboard.model.EchoBoard;
 
 @Component
 @AllArgsConstructor
 public class DTOConvertor {
 
     private final ObjectMapper mapper;
+
+    public EchoBoardResponseDto convertEntityToResponseDto(EchoBoard echoBoard) {
+        return mapper.convertValue(echoBoard, EchoBoardResponseDto.class);
+    }
 
     public <T, D> D convertEntityToResponseDto(T entity) {
         Class<D> dtoClass = getDtoClassFromEntityClass(entity.getClass());

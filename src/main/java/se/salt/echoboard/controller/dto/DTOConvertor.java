@@ -3,14 +3,19 @@ package se.salt.echoboard.controller.dto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import se.salt.echoboard.model.EchoBoard;
 
 @Component
 @AllArgsConstructor
-public class DtoConvertor {
+public class DTOConvertor {
 
     private final ObjectMapper mapper;
 
-    public <T, D> D convertEntityToResponseDto(T entity) {
+    public EchoBoardResponseDto convertEntityToResponseDto(EchoBoard echoBoard) {
+        return mapper.convertValue(echoBoard, EchoBoardResponseDto.class);
+    }
+
+    public <T, D extends Record> D convertEntityToResponseDto(T entity) {
         Class<D> dtoClass = getDtoClassFromEntityClass(entity.getClass());
         return mapper.convertValue(entity, dtoClass);
     }
@@ -24,10 +29,10 @@ public class DtoConvertor {
      * @return The DTO class.
      */
     @SuppressWarnings("unchecked")
-    private <T, D> Class<D> getDtoClassFromEntityClass(Class<T> entityClass) {
+    private <T, D extends Record> Class<D> getDtoClassFromEntityClass(Class<T> entityClass) {
         String dtoClassName = entityClass.getSimpleName() + "ResponseDto";
         try {
-            return (Class<D>) Class.forName(DtoConvertor.class.getPackage().getName() + "." + dtoClassName);
+            return (Class<D>) Class.forName(DTOConvertor.class.getPackage().getName() + "." + dtoClassName);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("DTO class not found: " + dtoClassName, e);
         }

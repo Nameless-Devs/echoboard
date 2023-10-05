@@ -3,7 +3,6 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
@@ -11,7 +10,6 @@ import java.time.Instant;
 
 @Entity
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 @Table(name = "echo_board_solution")
@@ -48,6 +46,13 @@ public class EchoBoardSolution {
         return this;
     }
 
+    @PrePersist
+    private void onCreate() {
+        this.upvote = 0;
+        this.created = Instant.now();
+        this.status = SolutionStatus.SOLUTION_IN_REVIEW;
+    }
+
     @Getter
     public enum SolutionStatus {
         SOLUTION_IN_REVIEW,
@@ -55,13 +60,6 @@ public class EchoBoardSolution {
         IMPLEMENTATION_IN_PROGRESS,
         SOLVED,
         FAILED
-    }
-
-    @PrePersist
-    private void onCreate() {
-        this.upvote = 0;
-        this.created = Instant.now();
-        this.status = SolutionStatus.SOLUTION_IN_REVIEW;
     }
 
 }

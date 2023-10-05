@@ -7,5 +7,5 @@ import java.util.List;
  */
 public record EchoBoardUserResponseDto(String name, String email, List<EchoBoardResponseDto> usersPosts,
                                        List<EchoBoardCommentResponseDto> usersComments,
-                                       List<EchoBoardSolutionResponseDto> usersSolutions) {
+                                       List<EchoBoardSolutionResponseDto> usersSolutions, String picture) {
 }

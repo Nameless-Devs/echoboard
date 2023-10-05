@@ -208,10 +208,11 @@ export async function upvoteSolution(
 
 export async function getUserInfo() {
   try {
-    const response = await fetch( "http://localhost:8080/api/mocked", {
+    const response = await fetch( "http://localhost:8080/api/user", {
       headers: {
        // Authorization: "Bearer " + token,
       },
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);

@@ -19,6 +19,8 @@ public class EchoBoardUser {
     private String name;
     private String email;
 
+    private String picture;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<EchoBoard> usersPosts;

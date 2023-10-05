@@ -5,6 +5,7 @@ import {
   EchoBoardResponseData,
   CommentToPost,
   SolutionToPost,
+  UserResponseData,
 } from "./Types";
 
 export async function postEcho(
@@ -138,7 +139,6 @@ export async function postComment(
       body: JSON.stringify(commentToPost),
       credentials: "include",
     });
-
     if (response.ok) {
       console.log(response);
     } else {
@@ -166,7 +166,6 @@ export async function postSolution(
       body: JSON.stringify(solutionToPost),
       credentials: "include",
     });
-
     if (response.ok) {
       console.log(response);
     } else {
@@ -176,6 +175,7 @@ export async function postSolution(
     throw new Error("Fetch error: " + error);
   }
 }
+
 export async function upvoteSolution(
   echoBoardId: string,
   solutionId: string,
@@ -195,7 +195,6 @@ export async function upvoteSolution(
       },
       credentials: "include",
     });
-
     if (response.ok) {
       console.log(response);
       return response;
@@ -206,3 +205,22 @@ export async function upvoteSolution(
     throw new Error("Fetch error: " + error);
   }
 }
+
+export async function getUserInfo() {
+  try {
+    const response = await fetch(baseURL + "/user", {
+      headers: {
+       // Authorization: "Bearer " + token,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+   
+    const data: UserResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
+  }
+}
+

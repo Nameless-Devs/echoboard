@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { Modal, List, ListItem, ListItemText, Tabs, Tab } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { EchoBoardResponseData } from "../service/Types";
+import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "./Upvote";
 import { PostComment } from "./PostComment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { fetchEchoBoardById, upvoteSolution } from "../service/Functions";
-import { upvoteComment } from "../service/Functions";
+import { fetchEchoBoardById, upvoteSolution } from "@/service/Functions";
+import { upvoteComment } from "@/service/Functions";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
+import "../app/styles/CommentModalStyles.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
-import "../app/styles/CommentModalStyles.css"
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
   handleClose: () => void;
   isOpen: boolean;
+  user: UserResponseData;
 }
 
 interface TabPanelProps {
@@ -55,6 +56,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   post,
   handleClose,
   isOpen,
+  user
 }) => {
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
@@ -122,11 +124,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: "5px",
+          width: "60%",
         }}
       >
         <Box mb={1}>
           <Typography variant="body2" color="text.secondary">
-            {post.author}
+            {post.anonymous ? "Anonymous" : post.author}
           </Typography>
         </Box>
         <Box mb={1}>
@@ -140,14 +143,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           </Typography>
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs 
+              value={value} 
+              onChange={handleChange} 
+              aria-label="basic tabs example">
               <Tab label="Comments" {...a11yProps(0)} />
               <Tab label="Solutions" {...a11yProps(1)} />
             </Tabs>
@@ -183,7 +184,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              <PostComment echoBoardId={displayPost.id} />
+              <PostComment echoBoardId={displayPost.id} user={user}/>
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
@@ -234,6 +235,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             handleClose={handleCloseSolutionForm}
             isOpen={isOpenSolution}
             onSolutionPosted={handleSolutionPosted}
+            user={user}
           />
         )}
       </div>

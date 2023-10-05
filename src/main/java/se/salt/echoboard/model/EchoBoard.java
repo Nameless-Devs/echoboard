@@ -28,6 +28,7 @@ public class EchoBoard {
     private String content;
     private String author;
     private int upvote;
+    private boolean anonymous;
 
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;

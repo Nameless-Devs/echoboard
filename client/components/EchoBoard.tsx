@@ -1,5 +1,5 @@
-import { EchoBoardResponseData, CommentResponseData } from "../service/Types";
-import { fetchEchoBoards, fetchEchoBoardById } from "../service/Functions";
+import { EchoBoardResponseData, CommentResponseData, UserResponseData } from "@/service/Types";
+import { fetchEchoBoards, fetchEchoBoardById, getUserInfo } from "@/service/Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ import CommentsModal from "./CommentModal";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 
-export const EchoBoard = () => {
+export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   const [cookies] = useCookies();
 
   const {
@@ -83,7 +83,7 @@ export const EchoBoard = () => {
         alignItems: "center",
       }}
     >
-      <h1>Echo Board All Posts</h1>
+      <h2>EchoBoard All Posts</h2>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
       ) : (
@@ -129,10 +129,10 @@ export const EchoBoard = () => {
                 Solutions: {echoBoard.echoBoardSolutions.length}
               </Button>
             </CardActions>
-            <PostComment echoBoardId={echoBoard.id} />
-            <Button
-              size="medium"
-              onClick={() => handleOpenSolutionForm(echoBoard)}
+            <PostComment echoBoardId={echoBoard.id} user={user} />
+            <Button 
+              size="medium" 
+              onClick={() => handleOpenSolutionForm(echoBoard)} 
             >
               Suggest solution
             </Button>
@@ -144,15 +144,17 @@ export const EchoBoard = () => {
           post={echoBoardDetail || selectedPost}
           handleClose={handleClose}
           isOpen={isOpen}
+          user={user}
         />
       )}
 
       {selectedPostForSolution && (
-        <PostSolution
-          echoBoardId={selectedPostForSolution.id}
-          handleClose={handleCloseSolutionForm}
-          isOpen={isOpenSolution}
-          onSolutionPosted={handleSolutionPosted}
+        <PostSolution 
+        echoBoardId={selectedPostForSolution.id} 
+        handleClose={handleCloseSolutionForm}
+        isOpen={isOpenSolution}
+        onSolutionPosted={handleSolutionPosted}
+        user={user}
         />
       )}
     </main>

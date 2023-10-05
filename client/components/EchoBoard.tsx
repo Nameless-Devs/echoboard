@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import CommentsModal from "./CommentModal";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   const [cookies] = useCookies();
@@ -95,9 +97,11 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
         style={{
           display: "flex",
           flexWrap: "wrap",
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent: "center",
           gap: "1rem",
+          width: "60%",
+          maxWidth: "800px",
         }}
       >
         {isLoading && <p>Loading...</p>}
@@ -106,8 +110,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
           <Card
             key={index}
             sx={{
-              maxWidth: 345,
-              minWidth: 345,
+              margin: "15px 0px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -116,17 +119,18 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
             <CardContent
               sx={{
                 flex: "1 1 auto",
+                paddingBottom: "0px",
               }}
             >
-              <SinglePost {...echoBoard} />
+              <SinglePost echoBoard={echoBoard} user={user} />
             </CardContent>
-            <CardActions>
+            <CardActions sx={{marginBottom: "15px"}}>
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Comments: {echoBoard.echoBoardComment.length}
+                <ModeCommentIcon /> {echoBoard.echoBoardComment.length}
               </Button>
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Solutions: {echoBoard.echoBoardSolutions.length}
+                <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
               </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} user={user} />

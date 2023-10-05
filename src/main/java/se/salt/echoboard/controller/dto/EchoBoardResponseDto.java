@@ -12,7 +12,7 @@ import java.util.List;
  */
 public record EchoBoardResponseDto(long id, String title, String content, String author, int upvote, Instant created,
                                    List<EchoBoardSolution> echoBoardSolutions,
-                                   List<EchoBoardComment> echoBoardComments ,
+                                   List<EchoBoardComment> echoBoardComments,
                                    boolean anonymous) {
 
     @Override

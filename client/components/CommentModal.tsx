@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import "../app/styles/CommentModalStyles.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
+import { SinglePost } from "./SinglePost";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -141,7 +142,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         <Box style={{ borderBottom: "1px solid #e0e0e0" }}>
           <Typography mb={1} variant="h6">
             {post.content}
-          </Typography>
+          </Typography> */}
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
         <Box sx={{ width: '100%' }}>

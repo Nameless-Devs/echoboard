@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.controller.dto.DTOConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -63,8 +64,8 @@ public class EchoController {
 
 
     @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable long echoId,
-                                                                  @PathVariable long echoBoardSolutionId) {
+    public ResponseEntity<EchoBoardSolutionResponseDto> getEchoBoardSolution(@PathVariable long echoId,
+                                                                             @PathVariable long echoBoardSolutionId) {
         return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId)
                 .map(convertor::convertEntityToResponseDto));
     }

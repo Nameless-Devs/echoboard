@@ -34,10 +34,11 @@ public class EchoBoard {
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
-    public EchoBoard(String title, String content, String author) {
+    public EchoBoard(String title, String content, String author, boolean anonymous) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.anonymous = anonymous;
     }
 
     public EchoBoard addUpvote() {
@@ -45,9 +46,12 @@ public class EchoBoard {
         return this;
     }
 
-    public EchoBoard addSolution(EchoBoardSolution solution) {
+    public void addComment(EchoBoardComment comment) {
+        this.echoBoardComments.add(comment);
+    }
+
+    public void addSolution(EchoBoardSolution solution) {
         this.echoBoardSolutions.add(solution);
-        return this;
     }
 
     @PrePersist

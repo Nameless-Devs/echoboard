@@ -75,7 +75,7 @@ public class EchoBoardService {
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
-            board.getEchoBoardComments().add(echoBoardComment);
+            board.addComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject).getId();
         });
     }
@@ -83,7 +83,7 @@ public class EchoBoardService {
     public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.map(board -> {
-            board.getEchoBoardSolutions().add(echoBoardSolution);
+            board.addSolution(echoBoardSolution);
             return saveSolution(echoBoardSolution, userSubject).getId();
         });
     }
@@ -113,7 +113,7 @@ public class EchoBoardService {
         echoBoardRepository.deleteById(id);
     }
 
-    public Optional<EchoBoardUser> getUserById(String id) {
+    public Optional<EchoBoardUser> getUserBySubject(String id) {
         return userRepository.getUserBySubject(id);
     }
 }

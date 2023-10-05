@@ -15,7 +15,7 @@ public class DTOConvertor {
         return mapper.convertValue(echoBoard, EchoBoardResponseDto.class);
     }
 
-    public <T, D> D convertEntityToResponseDto(T entity) {
+    public <T, D extends Record> D convertEntityToResponseDto(T entity) {
         Class<D> dtoClass = getDtoClassFromEntityClass(entity.getClass());
         return mapper.convertValue(entity, dtoClass);
     }
@@ -29,7 +29,7 @@ public class DTOConvertor {
      * @return The DTO class.
      */
     @SuppressWarnings("unchecked")
-    private <T, D> Class<D> getDtoClassFromEntityClass(Class<T> entityClass) {
+    private <T, D extends Record> Class<D> getDtoClassFromEntityClass(Class<T> entityClass) {
         String dtoClassName = entityClass.getSimpleName() + "ResponseDto";
         try {
             return (Class<D>) Class.forName(DTOConvertor.class.getPackage().getName() + "." + dtoClassName);

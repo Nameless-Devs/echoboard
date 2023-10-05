@@ -75,13 +75,6 @@ export const PostSolution: React.FC<SolutionProps> = ({
           <>
             <h3>Here you can share your solution ideas</h3>
             <form className='post-comment__form' onSubmit={handleSolutionPost}>
-              {/* <TextField className='post-comment__name-input'
-                label="Enter your name"
-                variant="outlined"
-                name="author"
-                size="small"
-                value={solutionToPost.author}
-                onChange={(e) =>
               <TextField className='post-comment__comment'
                 label="Solution"
                 variant="outlined"

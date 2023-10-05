@@ -1,27 +1,33 @@
 import React from "react";
-import { EchoBoardResponseData } from "@/service/Types";
+import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import Typography from "@mui/material/Typography";
 import { Avatar, Box } from "@mui/material";
 import { timeConverter } from "@/service/TimeConverter";
 
-export const SinglePost: React.FC<EchoBoardResponseData> = ({
-  id,
-  title,
-  author,
-  content,
-  anonymous,
-  upvote,
-  created,
-  echoBoardComment: comments,
+type SinglePostProps = 
+{
+  echoBoard: EchoBoardResponseData;
+  user: UserResponseData;
+};
+
+export const SinglePost: React.FC<SinglePostProps> = ({
+echoBoard,
+user
 }) => {
-  const convertedTime = timeConverter(created);
+  const convertedTime = timeConverter(echoBoard.created);
   return (
     <>
-      <Box>
-        <Avatar />
+      <Box 
+      sx={{
+        display: "flex", 
+        gap: "8px", 
+        alignItems: "center",
+        marginBottom: "10px"}}
+        >
+        <Avatar sx={{ width: 32, height: 32 }} src={user.picture}  />
         <Box>
           <Typography variant="subtitle1">
-            {anonymous ? "Anonymous" : author}
+            {echoBoard.anonymous ? "Anonymous" : echoBoard.author}
           </Typography>
           <Typography variant="caption">
             {convertedTime}
@@ -29,10 +35,10 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({
         </Box>
       </Box>
       <Typography gutterBottom variant="h5" component="div">
-        {title}
+        {echoBoard.title}
       </Typography>
       <Typography variant="body1" color="text.secondary">
-        <p>{content}</p>
+        <p>{echoBoard.content}</p>
       </Typography>
     </>
   );

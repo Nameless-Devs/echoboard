@@ -1,8 +1,6 @@
 package se.salt.echoboard;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,7 +13,7 @@ import util.TestUtilities;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static util.TestUtilities.*;
@@ -72,7 +70,8 @@ public class EchoBoardIntegrationTests {
                 .andReturn();
 
         List<EchoBoard> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
-                .getContentAsString(), new TypeReference<>() {});
+                .getContentAsString(), new TypeReference<>() {
+        });
         Collections.reverse(echoBoards);
         for (int i = 0; i < echoBoards.size(); i++) {
             assertEchoBoardEqual(expectedEcho.get(i), echoBoards.get(i));

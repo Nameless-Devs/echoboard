@@ -10,9 +10,15 @@ import se.salt.echoboard.model.EchoBoard;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Objects;
 
 public class TestUtilities {
+
+    public static final ObjectMapper OBJECT_MAPPER;
+
+    static {
+        OBJECT_MAPPER = new ObjectMapper();
+        OBJECT_MAPPER.registerModule(new JavaTimeModule());
+    }
 
     public static void assertEchoBoardEqual(EchoBoard expected, EchoBoard actual) {
         Assertions.assertNotNull(actual, "Actual EchoBoard should not be null");
@@ -55,12 +61,6 @@ public class TestUtilities {
                         "Customer Support Manager", false)
         );
 
-    }
-    public static final ObjectMapper OBJECT_MAPPER;
-
-    static {
-        OBJECT_MAPPER = new ObjectMapper();
-        OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
     public static String convertJsonString(final Object object) {

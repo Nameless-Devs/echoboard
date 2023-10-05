@@ -57,7 +57,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
     }
 
-    private Cookie createNewCookie(String tokenValue){
+    private Cookie createNewCookie(String tokenValue) {
         Cookie cookie = new Cookie("JwtToken", tokenValue);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(3500);
@@ -67,7 +67,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         return cookie;
     }
 
-    private String extractDomain(String url){
+    private String extractDomain(String url) {
         try {
             URI uri = new URI(url);
             return uri.getHost();

@@ -18,6 +18,7 @@ public class EchoBoardUserRepository {
         EchoBoardUser user = EchoBoardUser.builder()
                 .subject(userToSave.getSubject())
                 .name(userToSave.getFullName())
+                .picture(userToSave.getPicture())
                 .email(userToSave.getEmail())
                 .build();
         userRepository.save(user);

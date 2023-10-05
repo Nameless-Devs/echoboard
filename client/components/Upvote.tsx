@@ -4,6 +4,7 @@ import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
 import { fetchEchoBoardById, upvotePost } from '@/service/Functions';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
   const queryClient = useQueryClient();
@@ -28,7 +29,8 @@ export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
   return (
     <div>
       <Button size="small" onClick={() => mutation.mutate()}>
-        upvotes: {upvoteCount}
+        <ThumbUpIcon  />
+        {upvoteCount}
       </Button>
       {mutation.isError ? <div>Error: {(mutation.error as Error).message}</div> : null}
     </div>

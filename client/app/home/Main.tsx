@@ -1,31 +1,35 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 
-interface MainProps {
-  posts: ReadonlyArray<string>;
+interface MainFeaturedProp {
   title: string;
+  description: string;
 }
 
-export default function Main(props: MainProps) {
-  const { posts, title } = props;
-
+export default function MainFeatured({ title, description }: MainFeaturedProp) {
   return (
-    <Grid
-      item
-      xs={12}
-      md={8}
+    <Box
       sx={{
-        '& .markdown': {
-          py: 3,
-        },
+        marginTop: "30px",
+        height: 400,
+        p: { xs: 4, md: 4 },
+        pr: { md: 0 },
+        backgroundColor: "#E5E4E2",
+        color: "black",
+        borderRadius: '15px'
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h2"
+      >
         {title}
       </Typography>
-      <Divider />
-    </Grid>
+      <Typography
+        variant="h4"
+      >
+        {description}
+      </Typography>
+    </Box>
   );
 }

@@ -101,10 +101,10 @@ public class EchoController {
     }
 
 
-    @DeleteMapping("/echoes/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long id) {
         echoService.deleteEcho(id);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.of(echoService.getEchoById(id));
     }
 
 

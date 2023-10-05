@@ -208,7 +208,7 @@ export async function upvoteSolution(
 
 export async function getUserInfo() {
   try {
-    const response = await fetch(baseURL + "/user", {
+    const response = await fetch( "http://localhost:8080/api/mocked", {
       headers: {
        // Authorization: "Bearer " + token,
       },

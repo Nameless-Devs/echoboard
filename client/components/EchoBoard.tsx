@@ -120,13 +120,13 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
             >
               <SinglePost echoBoard={echoBoard} user={user} />
             </CardContent>
-            <CardActions>
+            <CardActions sx={{marginBottom: "15px"}}>
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Comments: {echoBoard.echoBoardComment.length}
+                <ModeCommentIcon /> {echoBoard.echoBoardComment.length}
               </Button>
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Solutions: {echoBoard.echoBoardSolutions.length}
+                <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
               </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} user={user} />

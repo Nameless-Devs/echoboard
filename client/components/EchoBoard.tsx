@@ -118,7 +118,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
                 flex: "1 1 auto",
               }}
             >
-              <SinglePost {...echoBoard} />
+              <SinglePost echoBoard={echoBoard} user={user} />
             </CardContent>
             <CardActions>
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />

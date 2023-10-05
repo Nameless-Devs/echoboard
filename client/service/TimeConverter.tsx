@@ -1,4 +1,4 @@
- export function timeconverter(timestamp: string): string {
+ export function timeConverter(timestamp: string): string {
     const date = new Date(timestamp);
     const months = [
       "January", "February", "March", "April", "May", "June",

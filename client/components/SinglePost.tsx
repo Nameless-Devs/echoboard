@@ -2,6 +2,7 @@ import React from "react";
 import { EchoBoardResponseData } from "@/service/Types";
 import Typography from "@mui/material/Typography";
 import { Avatar, Box } from "@mui/material";
+import { timeConverter } from "@/service/TimeConverter";
 
 export const SinglePost: React.FC<EchoBoardResponseData> = ({
   id,
@@ -13,6 +14,7 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({
   created,
   echoBoardComment: comments,
 }) => {
+  const convertedTime = timeConverter(created);
   return (
     <>
       <Box>
@@ -22,7 +24,7 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({
             {anonymous ? "Anonymous" : author}
           </Typography>
           <Typography variant="caption">
-            {created}
+            {convertedTime}
           </Typography>
         </Box>
       </Box>

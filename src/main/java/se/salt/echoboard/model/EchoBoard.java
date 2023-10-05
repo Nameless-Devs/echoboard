@@ -18,7 +18,7 @@ public class EchoBoard {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private final List<EchoBoardComment> echoBoardComment = new ArrayList<>();
+    private final List<EchoBoardComment> echoBoardComments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();

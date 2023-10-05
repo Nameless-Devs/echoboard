@@ -13,7 +13,7 @@ export type EchoBoardResponseData = {
   anonymous: boolean;
   upvote: number;
   created: string;
-  echoBoardComment: CommentResponseData[];
+  echoBoardComments: CommentResponseData[];
   echoBoardSolutions: SolutionResponseData[];
 };
 

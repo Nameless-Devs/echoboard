@@ -123,7 +123,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
             <CardActions>
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Comments: {echoBoard.echoBoardComment.length}
+                Comments: {echoBoard.echoBoardComments.length}
               </Button>
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
                 Solutions: {echoBoard.echoBoardSolutions.length}

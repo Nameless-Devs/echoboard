@@ -24,7 +24,7 @@ user
         alignItems: "center",
         marginBottom: "10px"}}
         >
-        <Avatar sx={{ width: 32, height: 32 }} src={user.picture}  />
+        <Avatar src={user.picture}  />
         <Box>
           <Typography variant="subtitle1">
             {echoBoard.anonymous ? "Anonymous" : echoBoard.author}

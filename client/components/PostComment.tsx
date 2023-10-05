@@ -79,7 +79,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           borderRadius: "5px",}}>Your comment was successfully posted</h3> }
       <form className='post-comment__form' onSubmit={handleCommentPost}>
         <Box style={{display: "flex", justifyContent: "space-around", width: "94%", gap: "9px"}}>
-        <Avatar src={user.picture} />
+        <Avatar sx={{ width: 32, height: 32 }}  src={user.picture} />
         <TextField className='post-comment__comment'
           label="Comment"
           variant="outlined"

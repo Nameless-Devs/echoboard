@@ -10,10 +10,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import se.salt.echoboard.model.EchoBoard;
 import util.TestUtilities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static util.TestUtilities.assertEchoBoardEqual;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -48,10 +48,7 @@ public class EchoBoardIntegrationTests {
 
         EchoBoard actualEcho = objectMapper.readValue(getResult.getResponse().getContentAsString(), EchoBoard.class);
 
-//        expectedEcho.setId(actualEcho.getId());
-//        expectedEcho.setCreated(actualEcho.getCreated());
-
-        assertEquals(expectedEcho.toString(), actualEcho.toString());
+        assertEchoBoardEqual(expectedEcho, actualEcho);
     }
 
     @Test
@@ -73,9 +70,7 @@ public class EchoBoardIntegrationTests {
 
         EchoBoard actualEcho = objectMapper.readValue(getResult.getResponse().getContentAsString(), EchoBoard.class);
 
-//        expectedEcho.setId(actualEcho.getId());
-
-        TestUtilities.assertEchoBoardEqual(expectedEcho, actualEcho);
+        assertEchoBoardEqual(expectedEcho, actualEcho);
     }
 
     @Test

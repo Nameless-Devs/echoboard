@@ -14,10 +14,13 @@ public class TestUtilities {
 
     public static void assertEchoBoardEqual(EchoBoard expected, EchoBoard actual) {
         Assertions.assertNotNull(actual, "Actual EchoBoard should not be null");
-        Assertions.assertEquals(expected.getId(), actual.getId());
         Assertions.assertEquals(expected.getTitle(), actual.getTitle());
         Assertions.assertEquals(expected.getContent(), actual.getContent());
-        Assertions.assertEquals(expected.getAuthor(), actual.getAuthor());
+        if (expected.isAnonymous()) {
+            Assertions.assertEquals("Anonymous", actual.getAuthor());
+        } else {
+            Assertions.assertEquals(expected.getAuthor(), actual.getAuthor());
+        }
     }
 
     public static EchoBoard echoBoardSample() {

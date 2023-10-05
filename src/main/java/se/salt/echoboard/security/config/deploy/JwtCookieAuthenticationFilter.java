@@ -33,11 +33,9 @@ import java.util.stream.Stream;
 @Profile("deploy")
 public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
     private final JwtValidation validation;
     private final EchoBoardUserRepository userRepository;
-
-    private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
-
     @Value("${backend-details.base-url}")
     private String baseUrl;
 

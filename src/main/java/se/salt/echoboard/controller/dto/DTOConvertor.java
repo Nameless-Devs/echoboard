@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class DtoConvertor {
+public class DTOConvertor {
 
     private final ObjectMapper mapper;
 
@@ -27,7 +27,7 @@ public class DtoConvertor {
     private <T, D> Class<D> getDtoClassFromEntityClass(Class<T> entityClass) {
         String dtoClassName = entityClass.getSimpleName() + "ResponseDto";
         try {
-            return (Class<D>) Class.forName(DtoConvertor.class.getPackage().getName() + "." + dtoClassName);
+            return (Class<D>) Class.forName(DTOConvertor.class.getPackage().getName() + "." + dtoClassName);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("DTO class not found: " + dtoClassName, e);
         }

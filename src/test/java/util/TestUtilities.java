@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.test.web.servlet.MvcResult;
 import se.salt.echoboard.model.EchoBoard;
+
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 

@@ -17,9 +17,6 @@ import se.salt.echoboard.security.config.JwtValidation;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 
 @Component
 @RequiredArgsConstructor
@@ -67,12 +64,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         return cookie;
     }
 
-    private String extractDomain(String url) {
-        try {
-            URI uri = new URI(url);
-            return uri.getHost();
-        } catch (URISyntaxException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
+//    private String extractDomain(String url) {
+//        try {
+//            URI uri = new URI(url);
+//            return uri.getHost();
+//        } catch (URISyntaxException e) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+//        }
+//    }
 }

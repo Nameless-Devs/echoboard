@@ -2,7 +2,6 @@ package se.salt.echoboard.security.config.dev;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,7 +22,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class FakeUserFilter extends OncePerRequestFilter {
                 setFakeUserInSecurityContext(
                         createFakeUser(request.getSession().getId(),
                                 "Fake User " + request.getSession().getId(),
-                                "faker" + request.getSession().getId() +"@example.com")));
+                                "faker" + request.getSession().getId() + "@example.com")));
         response.setHeader("Access-Control-Allow-Origin", baseUrl);
         filterChain.doFilter(request, response);
     }

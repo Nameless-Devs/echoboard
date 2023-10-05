@@ -3,9 +3,8 @@ package se.salt.echoboard.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
@@ -14,6 +13,7 @@ import se.salt.echoboard.service.repository.EchoBoardRepository;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -88,7 +88,7 @@ public class EchoBoardService {
         });
     }
 
-    public Optional<Integer> upvoteComment (long commentId) {
+    public Optional<Integer> upvoteComment(long commentId) {
         return getCommentById(commentId)
                 .map(EchoBoardComment::addUpvote)
                 .map(this::updateComment)

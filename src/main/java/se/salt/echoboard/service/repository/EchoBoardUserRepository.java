@@ -11,20 +11,20 @@ import java.util.Optional;
 @AllArgsConstructor
 public class EchoBoardUserRepository {
 
-   private final JPAEchoBoardUserRepository userRepository;
+    private final JPAEchoBoardUserRepository userRepository;
 
-   public void createUser(OidcUser userToSave){
+    public void createUser(OidcUser userToSave) {
 
-       EchoBoardUser user = EchoBoardUser.builder()
-               .subject(userToSave.getSubject())
-               .name(userToSave.getFullName())
-               .email(userToSave.getEmail())
-               .build();
-       userRepository.save(user);
-   }
+        EchoBoardUser user = EchoBoardUser.builder()
+                .subject(userToSave.getSubject())
+                .name(userToSave.getFullName())
+                .email(userToSave.getEmail())
+                .build();
+        userRepository.save(user);
+    }
 
-   public Optional<EchoBoardUser> getUserBySubject(String userSubject){
-       return userRepository.findBySubject(userSubject);
-   }
+    public Optional<EchoBoardUser> getUserBySubject(String userSubject) {
+        return userRepository.findBySubject(userSubject);
+    }
 
 }

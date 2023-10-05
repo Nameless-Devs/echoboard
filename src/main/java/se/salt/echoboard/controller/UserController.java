@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import se.salt.echoboard.controller.dto.DtoConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardUserResponseDto;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 
@@ -28,7 +29,7 @@ public class UserController {
     @GetMapping("mocked")
     public ResponseEntity<EchoBoardUser> getMockedUser(){
         EchoBoardUser user = EchoBoardUser.builder().name("Mikey Tester")
-                .id(12345)
+                .subject("12345")
                 .email("mikey.mike@gmail.com")
                 .picture("https://lh3.googleusercontent.com/a/ACg8ocLAWnojfjPfMGVFs7PIJYrZjGtH_c4uHmIKOzXW29NT=s96-c")
                         .build();

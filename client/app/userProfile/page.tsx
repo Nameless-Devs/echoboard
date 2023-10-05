@@ -21,7 +21,7 @@ export default function UserProfile () {
       return (
         <div>
           <h1>User Information</h1>
-          <p>ID: {user?.id}</p>
+          <p>ID: {user?.subject}</p>
           <p>Name: {user?.name}</p>
           <p>Email: {user?.email}</p>
         </div>

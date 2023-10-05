@@ -49,7 +49,7 @@ export type UpvoteProps = {
 };
 
 export type UserResponseData = {
-  id: number;
+  subject: string;
   name: string; 
   email: string;
   picture: string;

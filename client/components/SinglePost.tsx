@@ -13,12 +13,13 @@ export const SinglePost: React.FC<EchoBoardResponseData> = ({
 }) => {
   return (
     <>
+      <Typography variant="subtitle2"></Typography>
+        <h4>{anonymous ? "Anonymous" : author}</h4>
       <Typography gutterBottom variant="h5" component="div">
-        <h3>{title}</h3>
+         {title}
       </Typography>
       <Typography variant="body2" color="text.secondary">
         <p>{content}</p>
-        <h4>{anonymous ? "Anonymous" : author}</h4>
       </Typography>
     </>
   );

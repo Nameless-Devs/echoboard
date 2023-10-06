@@ -13,6 +13,8 @@ import "../app/styles/CommentModalStyles.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
+import { useUpvote } from "@/hooks/useUpvote";
+import UpvoteButton from "./UpvoteButton";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -65,6 +67,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     useState<null | EchoBoardResponseData>(null);
 
   const [cookies] = useCookies();
+  const upvoteMutation = useUpvote(post.id, cookies.JwtToken);
 
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
@@ -93,16 +96,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const handleSolutionPosted = () => {
     queryClient.refetchQueries(["comments", post.id]);
   };
-
-  const mutation = useMutation(
-    (commentId: string) => upvoteComment(post.id, commentId, cookies.JwtToken),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["echoBoards"]);
-        queryClient.invalidateQueries(["comments", post.id]);
-      },
-    }
-  );
 
   const mutation1 = useMutation(
     (solutionId: string) =>
@@ -168,9 +161,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <Button onClick={() => mutation.mutate(comment.id)}>
-                        Upvote: {comment.upvote}
-                      </Button>
+                      <UpvoteButton
+                        count={comment.upvote}
+                        onUpvote={() => upvoteMutation.mutate(comment.id)}
+                      />
                     </ListItem>
                   ))}
               </List>

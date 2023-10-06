@@ -4,9 +4,8 @@ import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "./Upvote";
 import { PostComment } from "./PostComment";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { fetchEchoBoardById, upvoteSolution } from "@/service/Functions";
-import { upvoteComment } from "@/service/Functions";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchEchoBoardById } from "@/service/Functions";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import "../app/styles/CommentModalStyles.css";
@@ -15,6 +14,7 @@ import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
+import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -68,6 +68,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 
   const [cookies] = useCookies();
   const upvoteMutation = useUpvote(post.id, cookies.JwtToken);
+  const solutionUpvoteMutation = useUpvoteSolution(post.id, cookies.JwtToken);
 
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
@@ -97,16 +98,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     queryClient.refetchQueries(["comments", post.id]);
   };
 
-  const mutation1 = useMutation(
-    (solutionId: string) =>
-      upvoteSolution(post.id, solutionId, cookies.JwtToken),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["echoBoards"]);
-        queryClient.invalidateQueries(["comments", post.id]);
-      },
-    }
-  );
   return (
     <Modal open={isOpen} onClose={handleClose}>
       <div
@@ -196,9 +187,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <Button onClick={() => mutation1.mutate(solution.id)}>
-                        Upvote: {solution.upvote}
-                      </Button>
+                      <UpvoteButton
+                        count={solution.upvote}
+                        onUpvote={() =>
+                          solutionUpvoteMutation.mutate(solution.id)
+                        }
+                      />
                     </ListItem>
                   ))}
               </List>

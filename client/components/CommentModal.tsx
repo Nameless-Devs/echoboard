@@ -67,7 +67,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     useState<null | EchoBoardResponseData>(null);
 
   const [cookies] = useCookies();
-  const upvoteMutation = useUpvote(post.id, cookies.JwtToken);
 
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
@@ -161,10 +160,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <UpvoteButton
-                        count={comment.upvote}
-                        onUpvote={() => upvoteMutation.mutate(comment.id)}
-                      />
+                      
                     </ListItem>
                   ))}
               </List>

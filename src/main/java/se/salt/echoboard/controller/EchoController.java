@@ -6,6 +6,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import se.salt.echoboard.controller.dto.DTOConvertor;
+import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -23,17 +26,18 @@ import java.util.Optional;
 public class EchoController {
 
     private final EchoBoardService echoService;
+    private final DTOConvertor convertor;
 
     @GetMapping("{id}")
-    public ResponseEntity<EchoBoard> getEcho(@PathVariable long id) {
-        return ResponseEntity.of(echoService.getEchoById(id));
+    public ResponseEntity<EchoBoardResponseDto> getEcho(@PathVariable long id) {
+        return ResponseEntity.of(echoService.getEchoById(id)
+                .map(convertor::convertEntityToResponseDto));
     }
 
     @GetMapping
-    public ResponseEntity<List<EchoBoard>> getAllEchoes() {
-
-        List<EchoBoard> echoes = echoService.findAll();
-        return ResponseEntity.ofNullable(echoes);
+    public ResponseEntity<List<EchoBoardResponseDto>> getAllEchoes() {
+        return ResponseEntity.ofNullable(echoService.findAll().stream()
+                .map(convertor::convertEntityToResponseDto).toList());
     }
 
     @PatchMapping("{echoId}/upvote")
@@ -60,13 +64,14 @@ public class EchoController {
 
 
     @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable long echoId,
-                                                                  @PathVariable long echoBoardSolutionId) {
-        return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId));
+    public ResponseEntity<EchoBoardSolutionResponseDto> getEchoBoardSolution(@PathVariable long echoId,
+                                                                             @PathVariable long echoBoardSolutionId) {
+        return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId)
+                .map(convertor::convertEntityToResponseDto));
     }
 
     @PostMapping("{echoId}/solutions")
-    public ResponseEntity<Long> saveEchoBoardSolution(@PathVariable long echoId,
+    public ResponseEntity<Void> saveEchoBoardSolution(@PathVariable long echoId,
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
                                                       @AuthenticationPrincipal OidcUser user) {
 
@@ -101,10 +106,10 @@ public class EchoController {
     }
 
 
-    @DeleteMapping("/echoes/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long id) {
         echoService.deleteEcho(id);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.of(echoService.getEchoById(id));
     }
 
 

@@ -5,6 +5,7 @@ import {
   EchoBoardResponseData,
   CommentToPost,
   SolutionToPost,
+  UserResponseData,
 } from "./Types";
 
 export async function postEcho(
@@ -139,6 +140,16 @@ export async function postComment(
       credentials: "include",
     });
 
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(commentToPost),
+      credentials: "include",
+    });
     if (response.ok) {
       console.log(response);
     } else {
@@ -167,6 +178,16 @@ export async function postSolution(
       credentials: "include",
     });
 
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(solutionToPost),
+      credentials: "include",
+    });
     if (response.ok) {
       console.log(response);
     } else {
@@ -176,6 +197,7 @@ export async function postSolution(
     throw new Error("Fetch error: " + error);
   }
 }
+
 export async function upvoteSolution(
   echoBoardId: string,
   solutionId: string,
@@ -196,6 +218,15 @@ export async function upvoteSolution(
       credentials: "include",
     });
 
+
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
     if (response.ok) {
       console.log(response);
       return response;
@@ -206,3 +237,23 @@ export async function upvoteSolution(
     throw new Error("Fetch error: " + error);
   }
 }
+
+export async function getUserInfo() {
+  try {
+    const response = await fetch( "http://localhost:8080/api/user", {
+      headers: {
+       // Authorization: "Bearer " + token,
+      },
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+   
+    const data: UserResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
+  }
+}
+

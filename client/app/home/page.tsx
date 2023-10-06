@@ -17,6 +17,7 @@ const mainFeature = {
 
 const home = () => {
   return (
+    
     <main style={{ minHeight: "100vh", backgroundColor: "	#343434" }}>
       <CssBaseline />
       <Container maxWidth="lg">

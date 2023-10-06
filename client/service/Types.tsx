@@ -2,6 +2,7 @@ export type PostEchoBoardData = {
   title: string;
   content: string;
   author: string;
+  anonymous: boolean;
 };
 
 export type EchoBoardResponseData = {
@@ -9,9 +10,10 @@ export type EchoBoardResponseData = {
   title: string;
   content: string;
   author: string;
+  anonymous: boolean;
   upvote: number;
   created: string;
-  echoBoardComment: CommentResponseData[];
+  echoBoardComments: CommentResponseData[];
   echoBoardSolutions: SolutionResponseData[];
 };
 
@@ -45,3 +47,14 @@ export type UpvoteProps = {
   upvote: number;
   created: string;
 };
+
+export type UserResponseData = {
+  name: string; 
+  email: string;
+  picture: string;
+  //add later: 
+  //comments[]
+  //posts[]
+  //solutions[]
+  //upvotes? 
+}

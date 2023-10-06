@@ -14,6 +14,7 @@ import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { SolutionStatus } from "./SolutionStatus";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -217,17 +218,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <Button
-                        color="primary"
-                        disabled={false}
-                        size="small"
-                        variant="outlined"
-                        style={{ 
-                          position: "absolute", 
-                          top: "0", right: "0", 
-                          marginRight: "10px" }}>
-                        {solution.status}
-                      </Button>
+                      <SolutionStatus status={solution.status} ></SolutionStatus>
                       <Button onClick={() => mutation1.mutate(solution.id)} style={{ position: "absolute", bottom: "0", right: "0" }}>
                         <ThumbUpIcon /> {solution.upvote}
                       </Button>

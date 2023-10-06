@@ -1,12 +1,11 @@
-import { SolutionResponseData } from '@/service/Types'
 import { Button } from '@mui/material'
 import React from 'react'
 
 type SolutionStatusProps = {
-solution: SolutionResponseData;
+status: string;
 }
 
-export const SolutionStatus: React.FC<SolutionStatusProps> = ({solution}) => {
+export const SolutionStatus: React.FC<SolutionStatusProps> = ({status}) => {
     return (
         <>
             <Button
@@ -19,7 +18,7 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({solution}) => {
                     top: "0", right: "0",
                     marginRight: "10px"
                 }}>
-                {solution.status}
+                {status}
             </Button>
         </>
     )

@@ -46,6 +46,7 @@ export type UpvoteProps = {
   content: string;
   upvote: number;
   created: string;
+  status: string;
 };
 
 export type UserResponseData = {

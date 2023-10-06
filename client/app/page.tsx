@@ -27,10 +27,11 @@ export default function Home() {
             type="submit"
             style={{width: "30%", maxWidth: "300px" , margin: "15px auto"}}>
             Share your problem
-          </Button>
+      </Button>
       { isVisiblePostEcho &&  <PostEchoBoard {...user}    /> }
       <EchoBoard {...user} />
       <JwtAuth /> 
+  
     </main>
   )
   }

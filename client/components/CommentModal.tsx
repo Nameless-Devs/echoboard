@@ -13,6 +13,7 @@ import "../app/styles/CommentModalStyles.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -181,7 +182,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         }
                       ></ListItemText>
                       <Button onClick={() => mutation.mutate(comment.id)}>
-                        Upvote: {comment.upvote}
+                        <ThumbUpIcon /> {comment.upvote}
                       </Button>
                     </ListItem>
                   ))}
@@ -215,7 +216,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         }
                       ></ListItemText>
                       <Button onClick={() => mutation1.mutate(solution.id)}>
-                        Upvote: {solution.upvote}
+                       <ThumbUpIcon /> {solution.upvote}
                       </Button>
                     </ListItem>
                   ))}

@@ -31,8 +31,8 @@ spring:
     default: deploy
 
 frontend-details:
-#  base-url: https://app.echoboard.site/
+  #  base-url: https://app.echoboard.site/
   base-url: http://localhost:3000/
 backend-details:
-#  base-url: https://api.echoboard.site/
+  #  base-url: https://api.echoboard.site/
   base-url: http://localhost:8080/

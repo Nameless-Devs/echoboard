@@ -205,9 +205,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     >
                       <ListItemText
                         primary={
+                          <div>
                           <Typography variant="body2" color="textSecondary">
                             {solution.author}
                           </Typography>
+                        </div>
                         }
                         secondary={
                           <Typography variant="body1" color="textPrimary">
@@ -215,6 +217,9 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
+                        <Button style={{position: "absolute", top: "0", right: "0" }}>
+                          {solution.status}
+                        </Button>
                       <Button onClick={() => mutation1.mutate(solution.id)}>
                        <ThumbUpIcon /> {solution.upvote}
                       </Button>
@@ -222,6 +227,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   ))}
               </List>
               <div style={{ display: "flex", justifyContent: "center" }}>
+                
                 <Button
                   size="medium"
                   onClick={() => handleOpenSolutionForm(displayPost)}

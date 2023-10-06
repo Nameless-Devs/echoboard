@@ -3,6 +3,8 @@ package se.salt.echoboard.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.salt.echoboard.controller.dto.DTOConvertor;
+import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 
@@ -13,6 +15,7 @@ import se.salt.echoboard.service.EchoBoardService;
 public class SolutionController {
 
     private final EchoBoardService echoService;
+    private final DTOConvertor convertor;
 
     @GetMapping("{echoBoardSolutionId}")
     public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable long echoBoardSolutionId) {
@@ -20,13 +23,13 @@ public class SolutionController {
     }
 
     @PatchMapping("{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolution> updateSolutionStatus(@PathVariable long echoBoardSolutionId
+    public ResponseEntity<EchoBoardSolutionResponseDto> updateSolutionStatus(@PathVariable long echoBoardSolutionId
             , @RequestParam EchoBoardSolution.SolutionStatus updateToStage) {
 
         var echoBoardSolution = echoService.getSolutionById(echoBoardSolutionId)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
                 .map(echoService::updateSolution);
 
-        return ResponseEntity.of(echoBoardSolution);
+        return ResponseEntity.of(echoBoardSolution.map(convertor::convertEntityToResponseDto));
     }
 }

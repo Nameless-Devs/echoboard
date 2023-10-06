@@ -1,13 +1,16 @@
 package se.salt.echoboard.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,18 +18,21 @@ public class EchoBoardUser {
 
     @Id
     private String subject;
-
     private String name;
-
     private String email;
 
+    private String picture;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<EchoBoard> usersPosts;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<EchoBoardComment> usersComments;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<EchoBoardSolution> usersSolutions;
 
     public EchoBoardUser addUserPost(EchoBoard echoBoard) {

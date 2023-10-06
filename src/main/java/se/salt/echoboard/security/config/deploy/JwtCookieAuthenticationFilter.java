@@ -31,13 +31,11 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 @Slf4j
 @Profile("deploy")
-public class CustomBearerTokenFilter extends OncePerRequestFilter {
-
-    private final JwtValidation validation;
-    private final EchoBoardUserRepository userRepository;
+public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
-
+    private final JwtValidation validation;
+    private final EchoBoardUserRepository userRepository;
     @Value("${backend-details.base-url}")
     private String baseUrl;
 

@@ -59,3 +59,8 @@ export type UserResponseData = {
   //solutions[]
   //upvotes? 
 }
+
+export type StatusInfo = {
+  formattedStatus: string;
+  color: string;
+}

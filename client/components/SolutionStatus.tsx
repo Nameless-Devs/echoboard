@@ -1,30 +1,13 @@
+import { getStatusInfo } from '@/service/GetStatusInfo';
 import { Button, Chip, ChipProps } from '@mui/material'
 import React from 'react'
 
 type SolutionStatusProps = {
-status: string;
+    status: string;
 }
 
-type StatusInfo = {
-    formattedStatus: string;
-    color: string;
-  }
-  
-  const getStatusInfo = (status: string): StatusInfo => {
-    const statusMappings: Record<string, StatusInfo> = {
-      SOLUTION_IN_REVIEW: { formattedStatus: "Solution in review", color: "info" },
-      VOLUNTEERS_REQUIRED: { formattedStatus: "Volunteers required", color: "warning" },
-      IMPLEMENTATION_IN_PROGRESS: { formattedStatus: "Implementation in progress", color: "secondary" },
-      SOLVED: { formattedStatus: "Solved", color: "success" },
-      FAILED: { formattedStatus: "Failed", color: "error" },
-    };
-  
-    const defaultStatusInfo: StatusInfo = { formattedStatus: "Unknown", color: "default" };
-  
-    return statusMappings[status] || defaultStatusInfo;
-  };
 
-export const SolutionStatus: React.FC<SolutionStatusProps> = ({status}) => {
+export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status }) => {
     const handleClick = () => {
 
     }

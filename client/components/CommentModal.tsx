@@ -130,7 +130,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         }}
       >
         <Box mb={1}>
-          <SinglePost echoBoard={post} user={user}  />
+          <SinglePost echoBoard={post} user={user} />
           {/* <Typography variant="body2" color="text.secondary">
             {post.anonymous ? "Anonymous" : post.author}
           </Typography>
@@ -148,9 +148,9 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         </Box>
         <Box sx={{ width: '100%' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs 
-              value={value} 
-              onChange={handleChange} 
+            <Tabs
+              value={value}
+              onChange={handleChange}
               aria-label="basic tabs example">
               <Tab label="Comments" {...a11yProps(0)} />
               <Tab label="Solutions" {...a11yProps(1)} />
@@ -187,7 +187,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              <PostComment echoBoardId={displayPost.id} user={user}/>
+              <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
@@ -206,10 +206,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       <ListItemText
                         primary={
                           <div>
-                          <Typography variant="body2" color="textSecondary">
-                            {solution.author}
-                          </Typography>
-                        </div>
+                            <Typography variant="body2" color="textSecondary">
+                              {solution.author}
+                            </Typography>
+                          </div>
                         }
                         secondary={
                           <Typography variant="body1" color="textPrimary">
@@ -217,17 +217,25 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                        <Button style={{position: "absolute", top: "0", right: "0", marginRight: "10px" }}>
-                          {solution.status}
-                        </Button>
-                      <Button onClick={() => mutation1.mutate(solution.id)} style={{position: "absolute", bottom: "0", right: "0"}}>
-                       <ThumbUpIcon /> {solution.upvote}
+                      <Button
+                        color="primary"
+                        disabled={false}
+                        size="small"
+                        variant="outlined"
+                        style={{ 
+                          position: "absolute", 
+                          top: "0", right: "0", 
+                          marginRight: "10px" }}>
+                        {solution.status}
+                      </Button>
+                      <Button onClick={() => mutation1.mutate(solution.id)} style={{ position: "absolute", bottom: "0", right: "0" }}>
+                        <ThumbUpIcon /> {solution.upvote}
                       </Button>
                     </ListItem>
                   ))}
               </List>
               <div style={{ display: "flex", justifyContent: "center" }}>
-                
+
                 <Button
                   size="medium"
                   onClick={() => handleOpenSolutionForm(displayPost)}

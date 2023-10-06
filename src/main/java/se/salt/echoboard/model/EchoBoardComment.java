@@ -3,7 +3,6 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
@@ -11,15 +10,14 @@ import java.time.Instant;
 
 @Entity
 @Getter
-@Setter
 @ToString
-@Table(name = "echo_board_comment")
 @NoArgsConstructor
+@Table(name = "echo_board_comment")
 public class EchoBoardComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private long id;
 
     private String author;
 

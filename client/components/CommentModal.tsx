@@ -13,6 +13,8 @@ import "../app/styles/CommentModalStyles.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
+import { useUpvote } from "@/hooks/useUpvote";
+import UpvoteButton from "./UpvoteButton";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -57,7 +59,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   post,
   handleClose,
   isOpen,
-  user
+  user,
 }) => {
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
@@ -65,6 +67,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     useState<null | EchoBoardResponseData>(null);
 
   const [cookies] = useCookies();
+  const upvoteMutation = useUpvote(post.id, cookies.JwtToken);
 
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
@@ -94,16 +97,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     queryClient.refetchQueries(["comments", post.id]);
   };
 
-  const mutation = useMutation(
-    (commentId: string) => upvoteComment(post.id, commentId, cookies.JwtToken),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["echoBoards"]);
-        queryClient.invalidateQueries(["comments", post.id]);
-      },
-    }
-  );
-
   const mutation1 = useMutation(
     (solutionId: string) =>
       upvoteSolution(post.id, solutionId, cookies.JwtToken),
@@ -129,28 +122,16 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         }}
       >
         <Box mb={1}>
-          <SinglePost echoBoard={post} user={user}  />
-          {/* <Typography variant="body2" color="text.secondary">
-            {post.anonymous ? "Anonymous" : post.author}
-          </Typography>
-        </Box>
-        <Box mb={1}>
-          <Typography variant="h6" color="text.secondary">
-            {post.title}
-          </Typography>
-        </Box>
-        <Box style={{ borderBottom: "1px solid #e0e0e0" }}>
-          <Typography mb={1} variant="h6">
-            {post.content}
-          </Typography> */}
+          <SinglePost echoBoard={post} user={user} />
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs 
-              value={value} 
-              onChange={handleChange} 
-              aria-label="basic tabs example">
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
               <Tab label="Comments" {...a11yProps(0)} />
               <Tab label="Solutions" {...a11yProps(1)} />
             </Tabs>
@@ -180,13 +161,14 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <Button onClick={() => mutation.mutate(comment.id)}>
-                        Upvote: {comment.upvote}
-                      </Button>
+                      <UpvoteButton
+                        count={comment.upvote}
+                        onUpvote={() => upvoteMutation.mutate(comment.id)}
+                      />
                     </ListItem>
                   ))}
               </List>
-              <PostComment echoBoardId={displayPost.id} user={user}/>
+              <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>

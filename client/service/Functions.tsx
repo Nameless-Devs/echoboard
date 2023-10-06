@@ -129,18 +129,6 @@ export async function postComment(
 ) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.POST_COMMENT, { echoBoardId });
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(commentToPost),
-      credentials: "include",
-    });
-
-
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -177,17 +165,6 @@ export async function postSolution(
       body: JSON.stringify(solutionToPost),
       credentials: "include",
     });
-
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(solutionToPost),
-      credentials: "include",
-    });
     if (response.ok) {
       console.log(response);
     } else {
@@ -208,17 +185,6 @@ export async function upvoteSolution(
       echoBoardId,
       solutionId,
     });
-
-    const response = await fetch(endpoint, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      credentials: "include",
-    });
-
-
     const response = await fetch(endpoint, {
       method: "PATCH",
       headers: {

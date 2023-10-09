@@ -34,6 +34,10 @@ public class EchoBoard {
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    EchoBoardUser echoBoardUser;
+
     public EchoBoard(String title, String content, String author, boolean anonymous) {
         this.title = title;
         this.content = content;
@@ -60,4 +64,7 @@ public class EchoBoard {
         this.created = Instant.now();
     }
 
+    public void setUser(EchoBoardUser user) {
+        this.echoBoardUser = user;
+    }
 }

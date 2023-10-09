@@ -26,6 +26,15 @@ public class EchoBoardComment {
     private int upvote;
     private Instant created;
 
+    public EchoBoardComment setEchoBoardUser(EchoBoardUser echoBoardUser) {
+        this.echoBoardUser = echoBoardUser;
+        return this;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    EchoBoardUser echoBoardUser;
+
     public EchoBoardComment(String author, String content) {
         this.author = author;
         this.content = content;

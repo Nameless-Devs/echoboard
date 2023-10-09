@@ -31,6 +31,10 @@ public class EchoBoardSolution {
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    EchoBoardUser echoBoardUser;
+
     public EchoBoardSolution(String author, String content) {
         this.author = author;
         this.content = content;
@@ -43,6 +47,11 @@ public class EchoBoardSolution {
 
     public EchoBoardSolution updateSolutionStatus(SolutionStatus status) {
         this.status = status;
+        return this;
+    }
+
+    public EchoBoardSolution setEchoBoardUser(EchoBoardUser echoBoardUser) {
+        this.echoBoardUser = echoBoardUser;
         return this;
     }
 

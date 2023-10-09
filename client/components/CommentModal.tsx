@@ -61,6 +61,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   isOpen,
   user,
 }) => {
+
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
   const [selectedPostForSolution, setSelectedPostForSolution] =
@@ -100,24 +101,13 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 
   return (
     <Modal open={isOpen} onClose={handleClose}>
-      <div
-        style={{
-          padding: "20px",
-          background: "#fff",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          borderRadius: "5px",
-          width: "60%",
-        }}
-      >
+      <div className="model-display">
         <Box mb={1}>
           <SinglePost echoBoard={post} user={user} />
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box className="tabs-container">
+          <Box className="tabs-divider">
             <Tabs
               value={value}
               onChange={handleChange}
@@ -128,10 +118,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <Box
-              className="comment-display"
-              style={{ maxHeight: "300px", overflow: "auto" }}
-            >
+            <Box className="comment-display">
               <List>
                 {displayPost.echoBoardComments
                   .sort((a, b) => b.upvote - a.upvote)
@@ -163,10 +150,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <Box
-              className="comment-display"
-              style={{ maxHeight: "300px", overflow: "auto" }}
-            >
+            <Box className="comment-display">
               <List>
                 {displayPost.echoBoardSolutions
                   .sort((a, b) => b.upvote - a.upvote)
@@ -196,7 +180,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div className="solution-button-container">
                 <Button
                   size="medium"
                   onClick={() => handleOpenSolutionForm(displayPost)}

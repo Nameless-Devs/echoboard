@@ -104,7 +104,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
             onKeyDown={(event) => handleKeyPress(event)}
             InputProps={{
               endAdornment: isSendButtonVisible && (
-                <IconButton type="submit" color="primary" className='post-comment__send-icon'>
+                <IconButton type="submit" color="primary" className='post-comment__send-icon' style={{position: 'absolute', bottom: "0", right: "0"}}>
                   <SendIcon />
                 </IconButton> 
               ),

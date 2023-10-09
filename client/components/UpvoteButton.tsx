@@ -8,7 +8,7 @@ interface UpvoteButtonProps {
 }
 
 const UpvoteButton: React.FC<UpvoteButtonProps> = ({ count, onUpvote }) => {
-  return <Button onClick={onUpvote}>
+  return <Button onClick={onUpvote} style={{position: "absolute", bottom: "0", right: "0"}}>
     <ThumbUpIcon /> {count}</Button>;
 };
 

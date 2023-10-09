@@ -1,6 +1,8 @@
+import { changeSolutionStatus } from '@/service/Functions';
 import { getStatusInfo } from '@/service/GetStatusInfo';
 import { Box, Button, Chip, ChipProps, ClickAwayListener, Popover } from '@mui/material'
-import React, { useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React, { useRef, useState } from 'react'
 
 type SolutionStatusProps = {
     status: string;
@@ -10,8 +12,31 @@ type SolutionStatusProps = {
 
 export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
     const [open, setOpen] = useState(false);
-    
-    const anchorRef = React.useRef<HTMLDivElement>(null);
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const queryClient = useQueryClient();
+
+
+    const handleStatusChange = (status: string ) => {
+        var updatedStatus = ""; 
+        if(status="SOLUTION_IN_REVIEW"){
+          updatedStatus = "VOLUNTEERS_REQUIRED";
+         
+        }
+        else if(status="VOLUNTEERS_REQUIRED"){
+          updatedStatus = "IMPLEMENTATION_IN_PROGRESS";
+         
+        }
+        return updatedStatus; 
+      }
+    const mutation = useMutation(
+        () => changeSolutionStatus(solutionId, handleStatusChange(status)), 
+        {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['status', solutionId]);
+          },
+        }
+      );
+   
 
     const handleClick = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -30,19 +55,7 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
     const statusInfo = getStatusInfo(status);
     const chipColor: ChipProps['color'] = statusInfo.color as ChipProps['color'];
 
-    const handleStatusChange = (status: string ) => {
-      var updatedStatus = ""; 
-      if(status="SOLUTION_IN_REVIEW"){
-        updatedStatus = "VOLUNTEERS_REQUIRED";
-       
-      }
-      else if(status="VOLUNTEERS_REQUIRED"){
-        updatedStatus = "IMPLEMENTATION_IN_PROGRESS";
-       
-      }
-
-
-    }
+   
     
 
     return (
@@ -77,7 +90,7 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
                 <ClickAwayListener onClickAway={handleClose}>
                     <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper', maxWidth: "300px", paddingTop: "30px", textAlign: "center" }}>
                         Would you like to accept test this solution and open it for testing? 
-                      <Button style={{display: "block", margin: "10px auto 0"}}> Yes</Button>
+                      <Button onClick={() => mutation.mutate} style={{display: "block", margin: "10px auto 0"}}> Yes</Button>
                     </Box>
                 </ClickAwayListener>
             </Popover>

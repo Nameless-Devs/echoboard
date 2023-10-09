@@ -14,7 +14,6 @@ import {
 import { useCookies } from "react-cookie";
 
 const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
-
   const [ifAnonymous, setIfAnonymous] = useState(false);
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
     title: "",
@@ -23,14 +22,12 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
     anonymous: false,
   });
 
-
-
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
 
-  const mutation = useMutation((data: PostEchoBoardData) => 
-      postEcho(data, cookies.JwtToken)
-   );
+  const mutation = useMutation((data: PostEchoBoardData) =>
+    postEcho(data, cookies.JwtToken)
+  );
 
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {
     setIfAnonymous(event.target.checked);
@@ -65,34 +62,35 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   };
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      minWidth: "300px"
-    }}>
-      <form onSubmit={handleProblemPost} >
-
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minWidth: "300px",
+      }}
+    >
+      <form onSubmit={handleProblemPost}>
         <Box
           sx={{
             "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root":
-            {
-              m: 1,
-              width: "99%",
-              alignSelf: "center",
-            },
+              {
+                m: 1,
+                width: "99%",
+                alignSelf: "center",
+              },
           }}
           style={{ display: "flex", flexDirection: "column" }}
         >
           <Box style={{ display: "flex" }}>
             <Box>
-              <Avatar 
-              alt={user.name + "avatar picture"} 
-              src={user.picture}
-              style={{margin: "10px"}}
-               />
+              <Avatar
+                alt={user.name + "avatar picture"}
+                src={user.picture}
+                style={{ margin: "10px" }}
+              />
             </Box>
-            <Box style={{marginRight: "50px"}}>
+            <Box style={{ marginRight: "50px" }}>
               <TextField
                 label="Title"
                 variant="outlined"
@@ -118,17 +116,19 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
                   <Checkbox
                     onChange={handleChange}
                     name="Anonymous"
-                    checked={ifAnonymous} 
-                    style={{marginLeft: "10px"}}/>
+                    checked={ifAnonymous}
+                    style={{ marginLeft: "10px" }}
+                  />
                 }
                 label="Post anonymously"
               />
             </Box>
           </Box>
-          <Button 
-            variant="outlined" 
+          <Button
+            variant="outlined"
             type="submit"
-            style={{width: "40%", marginTop: "15px"}}>
+            style={{ width: "40%", marginTop: "15px" }}
+          >
             Make a post
           </Button>
         </Box>

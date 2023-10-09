@@ -14,6 +14,7 @@ import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import '../app/styles/EchoBoard.css'
 
 export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   const [cookies] = useCookies();
@@ -78,13 +79,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
   );
 
   return (
-    <main
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <main className="echo-board-main">
       <h2>EchoBoard All Posts</h2>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
@@ -93,42 +88,18 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
           Sort
         </Button>
       )}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: "1rem",
-          width: "60%",
-          maxWidth: "800px",
-        }}
-      >
+      <div className="echo-board-posts">
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error!</p>}
         {sortedEchoBoards?.map((echoBoard, index) => (
-          <Card
-            key={index}
-            sx={{
-              margin: "15px 0px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <CardContent
-              sx={{
-                flex: "1 1 auto",
-                paddingBottom: "0px",
-              }}
-            >
+          <Card key={index} className="echo-board-card">
+            <CardContent className="echo-board-card-content">
               <SinglePost echoBoard={echoBoard} user={user} />
             </CardContent>
-            <CardActions sx={{marginBottom: "15px"}}>
+            <CardActions className="echo-board-card-actions">
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
                 <ModeCommentIcon /> {echoBoard.echoBoardComments.length}
-
               </Button>
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
                 <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
@@ -138,6 +109,7 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
             <Button 
               size="medium" 
               onClick={() => handleOpenSolutionForm(echoBoard)} 
+              className="echo-board-solution-btn"
             >
               Suggest solution
             </Button>
@@ -152,14 +124,13 @@ export const EchoBoard: React.FC<UserResponseData> = (user: UserResponseData) =>
           user={user}
         />
       )}
-
       {selectedPostForSolution && (
         <PostSolution 
-        echoBoardId={selectedPostForSolution.id} 
-        handleClose={handleCloseSolutionForm}
-        isOpen={isOpenSolution}
-        onSolutionPosted={handleSolutionPosted}
-        user={user}
+          echoBoardId={selectedPostForSolution.id} 
+          handleClose={handleCloseSolutionForm}
+          isOpen={isOpenSolution}
+          onSolutionPosted={handleSolutionPosted}
+          user={user}
         />
       )}
     </main>

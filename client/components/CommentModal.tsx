@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import { Modal, List, ListItem, ListItemText, Tabs, Tab } from "@mui/material";
+import React, {useState} from "react";
+import {Box, List, ListItem, ListItemText, Modal, Tab, Tabs} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
-import { Upvote } from "./Upvote";
-import { PostComment } from "./PostComment";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchEchoBoardById } from "@/service/Functions";
-import { Box } from "@mui/material";
+import {EchoBoardResponseData, UserResponseData} from "@/service/Types";
+import {Upvote} from "./Upvote";
+import {PostComment} from "./PostComment";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {fetchEchoBoardById} from "@/service/Functions";
 import Button from "@mui/material/Button";
 import "../app/styles/CommentModalStyles.css";
-import { PostSolution } from "./PostSolution";
-import { useCookies } from "react-cookie";
-import { SinglePost } from "./SinglePost";
-import { useUpvote } from "@/hooks/useUpvote";
+import {PostSolution} from "./PostSolution";
+import {useCookies} from "react-cookie";
+import {SinglePost} from "./SinglePost";
+import {useUpvote} from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
-import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
+import {useUpvoteSolution} from "@/hooks/useUpvoteSolution";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -87,8 +86,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {
-      const result = await fetchEchoBoardById(post.id, cookies.JwtToken);
-      return result;
+      return await fetchEchoBoardById(post.id, cookies.JwtToken);
     }
   );
 

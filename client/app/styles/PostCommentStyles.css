@@ -13,3 +13,32 @@
 .post-comment__button {
    margin-bottom: 20px;
 }
+
+/* Added CSS */
+.post-comment__success-msg {
+    color: green;
+    padding: 20px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+}
+
+.post-comment__box {
+    display: flex;
+    justify-content: space-around;
+    width: 94%;
+}
+
+.post-comment__avatar {
+    width: 32px;
+    height: 32px;
+}
+
+.post-comment__send-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

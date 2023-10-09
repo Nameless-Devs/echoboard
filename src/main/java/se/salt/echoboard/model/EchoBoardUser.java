@@ -20,33 +20,23 @@ public class EchoBoardUser {
     private String subject;
     private String name;
     private String email;
-
     private String picture;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private List<EchoBoard> usersPosts;
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @ToString.Exclude
+//    private List<EchoBoardComment> usersComments;
+//
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @ToString.Exclude
+//    private List<EchoBoardSolution> usersSolutions;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private List<EchoBoardComment> usersComments;
+//    public EchoBoardUser addUserComment(EchoBoardComment echoBoardComment) {
+//        usersComments.add(echoBoardComment);
+//        return this;
+//    }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private List<EchoBoardSolution> usersSolutions;
-
-    public EchoBoardUser addUserPost(EchoBoard echoBoard) {
-        usersPosts.add(echoBoard);
-        return this;
-    }
-
-    public EchoBoardUser addUserComment(EchoBoardComment echoBoardComment) {
-        usersComments.add(echoBoardComment);
-        return this;
-    }
-
-    public EchoBoardUser addUserSolution(EchoBoardSolution solution) {
-        usersSolutions.add(solution);
-        return this;
-    }
+//    public EchoBoardUser addUserSolution(EchoBoardSolution solution) {
+//        usersSolutions.add(solution);
+//        return this;
+//    }
 }

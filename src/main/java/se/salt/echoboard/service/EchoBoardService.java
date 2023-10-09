@@ -31,20 +31,18 @@ public class EchoBoardService {
 
     public EchoBoard saveEcho(EchoBoard echoBoard, String userSubject) {
         var user = userRepository.getUserBySubject(userSubject);
-        user.map(u -> u.addUserPost(echoBoard));
+        echoBoard.setUser(user.orElseThrow());
         return echoBoardRepository.save(echoBoard);
     }
 
-    public EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {
-        var user = userRepository.getUserBySubject(userSubject);
-        user.map(u -> u.addUserComment(comment));
-        return commentRepository.save(comment);
+    public Optional<EchoBoardComment> saveComment(EchoBoardComment comment, String userSubject) {
+        return userRepository.getUserBySubject(userSubject)
+                .map(comment::setEchoBoardUser).map(commentRepository::save);
     }
 
-    public EchoBoardSolution saveSolution(EchoBoardSolution solution, String userSubject) {
-        var user = userRepository.getUserBySubject(userSubject);
-        user.map(u -> u.addUserSolution(solution));
-        return solutionRepository.save(solution);
+    public Optional<EchoBoardSolution> saveSolution(EchoBoardSolution solution, String userSubject) {
+        return userRepository.getUserBySubject(userSubject)
+                .map(solution::setEchoBoardUser).map(solutionRepository::save);
     }
 
     public EchoBoardSolution updateSolution(EchoBoardSolution solution) {
@@ -74,18 +72,23 @@ public class EchoBoardService {
 
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
-        return echoBoard.map(board -> {
-            board.addComment(echoBoardComment);
-            return saveComment(echoBoardComment, userSubject).getId();
+
+        return echoBoard.flatMap(e -> {
+            e.addComment(echoBoardComment);
+            return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
         });
+//        return echoBoard.map(board -> {
+//            board.addComment(echoBoardComment);
+//            return saveComment(echoBoardComment, userSubject).orElseThrow().getId();
+//        });
     }
 
     public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
-        return echoBoard.map(board -> {
-            board.addSolution(echoBoardSolution);
-            return saveSolution(echoBoardSolution, userSubject).getId();
-        });
+        return echoBoard.flatMap(e -> {
+            e.addSolution(echoBoardSolution);
+            return saveSolution(echoBoardSolution, userSubject);
+        }).map(EchoBoardSolution::getId);
     }
 
     public Optional<Integer> upvoteComment(long commentId) {

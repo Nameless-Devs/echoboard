@@ -74,12 +74,14 @@ public class EchoController {
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
                                                       @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> echoBoardSolutionId =
-                echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
+        Optional<Long> id = echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
 
+        if (id.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(echoBoardSolutionId)
+                .buildAndExpand(id.get())
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -95,11 +97,14 @@ public class EchoController {
                                                       @RequestBody EchoBoardComment echoBoardComment,
                                                       @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment, user.getSubject());
+        var id = echoService.addCommentToEcho(echoBoardId, echoBoardComment, user.getSubject());
 
+        if (id.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(commentId)
+                .buildAndExpand(id.get())
                 .toUri();
         return ResponseEntity.created(location).build();
     }

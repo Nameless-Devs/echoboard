@@ -35,9 +35,8 @@ public class EchoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EchoBoardResponseDto>> getAllEchoes() {
-        return ResponseEntity.ofNullable(echoService.findAll().stream()
-                .map(convertor::convertEntityToResponseDto).toList());
+    public ResponseEntity<List<EchoBoard>> getAllEchoes() {
+        return ResponseEntity.ofNullable(echoService.findAll());
     }
 
     @PatchMapping("{echoId}/upvote")

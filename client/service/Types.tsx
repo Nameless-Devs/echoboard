@@ -46,6 +46,7 @@ export type UpvoteProps = {
   content: string;
   upvote: number;
   created: string;
+  status: string;
 };
 
 export type UserResponseData = {
@@ -57,4 +58,9 @@ export type UserResponseData = {
   //posts[]
   //solutions[]
   //upvotes? 
+}
+
+export type StatusInfo = {
+  formattedStatus: string;
+  color: string;
 }

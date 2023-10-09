@@ -3,7 +3,7 @@ import { CommentToPost, UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, IconButton, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from '@/service/Functions';
-import "../app/styles/PostCommentStyles.css"
+import "../app/styles/PostComment.css"
 import { useCookies } from 'react-cookie';
 import { StyledBadge } from './StyledBadge';
 import SendIcon from "@mui/icons-material/Send";

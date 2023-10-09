@@ -1,15 +1,18 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
-import Link from 'next/link';
-import { UserResponseData } from '@/service/Types';
+import React from "react";
+import {
+  Avatar,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Divider,
+  IconButton,
+  Tooltip,
+  Box,
+} from "@mui/material";
+import Logout from "@mui/icons-material/Logout";
+import Link from "next/link";
+import { UserResponseData } from "@/service/Types";
+import "../app/styles/AccountMenu.css";
 
 export const AccountMenu: React.FC<UserResponseData> = (
   user: UserResponseData

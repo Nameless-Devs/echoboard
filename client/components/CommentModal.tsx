@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import { Modal, List, ListItem, ListItemText, Tabs, Tab } from "@mui/material";
+import React, {useState} from "react";
+import {Box, List, ListItem, ListItemText, Modal, Tab, Tabs} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
-import { Upvote } from "./Upvote";
-import { PostComment } from "./PostComment";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchEchoBoardById } from "@/service/Functions";
-import { Box } from "@mui/material";
+import {EchoBoardResponseData, UserResponseData} from "@/service/Types";
+import {Upvote} from "./Upvote";
+import {PostComment} from "./PostComment";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {fetchEchoBoardById} from "@/service/Functions";
 import Button from "@mui/material/Button";
-import "../app/styles/CommentModalStyles.css";
-import { PostSolution } from "./PostSolution";
-import { useCookies } from "react-cookie";
-import { SinglePost } from "./SinglePost";
-import { useUpvote } from "@/hooks/useUpvote";
+import "../app/styles/CommentModal.css";
+import {PostSolution} from "./PostSolution";
+import {useCookies} from "react-cookie";
+import {SinglePost} from "./SinglePost";
+import {useUpvote} from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
-import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
+import {useUpvoteSolution} from "@/hooks/useUpvoteSolution";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -83,11 +82,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {
-      const result = await fetchEchoBoardById(post.id, cookies.JwtToken);
-      return result;
+      return await fetchEchoBoardById(post.id, cookies.JwtToken);
     }
   );
 
@@ -100,24 +99,13 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 
   return (
     <Modal open={isOpen} onClose={handleClose}>
-      <div
-        style={{
-          padding: "20px",
-          background: "#fff",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          borderRadius: "5px",
-          width: "60%",
-        }}
-      >
+      <div className="model-display">
         <Box mb={1}>
           <SinglePost echoBoard={post} user={user} />
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box className="tabs-container">
+          <Box className="tabs-divider">
             <Tabs
               value={value}
               onChange={handleChange}
@@ -128,10 +116,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <Box
-              className="comment-display"
-              style={{ maxHeight: "300px", overflow: "auto" }}
-            >
+            <Box className="comment-display">
               <List>
                 {displayPost.echoBoardComments
                   .sort((a, b) => b.upvote - a.upvote)
@@ -163,10 +148,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <Box
-              className="comment-display"
-              style={{ maxHeight: "300px", overflow: "auto" }}
-            >
+            <Box className="comment-display">
               <List>
                 {displayPost.echoBoardSolutions
                   .sort((a, b) => b.upvote - a.upvote)
@@ -196,7 +178,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     </ListItem>
                   ))}
               </List>
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div className="solution-button-container">
                 <Button
                   size="medium"
                   onClick={() => handleOpenSolutionForm(displayPost)}

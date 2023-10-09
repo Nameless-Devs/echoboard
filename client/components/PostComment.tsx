@@ -3,7 +3,7 @@ import { CommentToPost, UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, IconButton, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from '@/service/Functions';
-import "../app/styles/PostCommentStyles.css"
+import "../app/styles/PostComment.css"
 import { useCookies } from 'react-cookie';
 import { StyledBadge } from './StyledBadge';
 import SendIcon from "@mui/icons-material/Send";
@@ -78,25 +78,16 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
 
   return (
     <>
-      {isSuccess && <h3 style={{
-        color: 'green',
-        padding: "20px",
-        background: "#fff",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        borderRadius: "5px",
-      }}>Your comment was successfully posted</h3>}
+      {isSuccess && <h3 className='post-comment__success-msg'>Your comment was successfully posted</h3>}
       <form className='post-comment__form' onSubmit={handleCommentPost}>
-        <Box style={{ display: "flex", justifyContent: "space-around", width: "94%" }}>
+        <Box className='post-comment__box'>
           <Box>
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             variant="dot"
           >
-            <Avatar sx={{ width: 32, height: 32 }} alt={user.name + "avatar"} src={user.picture} />
+            <Avatar className='post-comment__avatar' alt={user.name + "avatar"} src={user.picture} />
           </StyledBadge>
           </Box>
           <TextField className='post-comment__comment'
@@ -113,7 +104,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
             onKeyDown={(event) => handleKeyPress(event)}
             InputProps={{
               endAdornment: isSendButtonVisible && (
-                <IconButton type="submit" color="primary" style={{position: 'absolute', bottom: "0", right: "0"}}>
+                <IconButton type="submit" color="primary" className='post-comment__send-icon'>
                   <SendIcon />
                 </IconButton> 
               ),

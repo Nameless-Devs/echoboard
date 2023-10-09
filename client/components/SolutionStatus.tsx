@@ -49,15 +49,19 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status }) => {
                 open={open}
                 anchorEl={anchorRef.current}
                 anchorOrigin={{
-                    vertical: 'center',
-                    horizontal: 'left',
+                    vertical: 'bottom',
+                    horizontal: 'center',
                 }}
+                transformOrigin={{
+                    vertical: 'center',
+                    horizontal: 'right',
+                  }}
 
             >
                 <ClickAwayListener onClickAway={handleClose}>
-                    <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                        The content of the Popper.
-                        <Button> Yes</Button>
+                    <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper', maxWidth: "300px", paddingTop: "30px", textAlign: "center" }}>
+                        Would you like to accept test this solution and open it for testing? 
+                        <Button style={{display: "block", margin: "10px auto 0"}}> Yes</Button>
                     </Box>
                 </ClickAwayListener>
             </Popover>

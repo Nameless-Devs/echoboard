@@ -61,7 +61,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   isOpen,
   user,
 }) => {
-
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
   const [selectedPostForSolution, setSelectedPostForSolution] =
@@ -84,6 +83,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {

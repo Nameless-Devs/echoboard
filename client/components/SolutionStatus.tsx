@@ -4,10 +4,11 @@ import React, { useState } from 'react'
 
 type SolutionStatusProps = {
     status: string;
+    solutionId: string
 }
 
 
-export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status }) => {
+export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
     const [open, setOpen] = useState(false);
     
     const anchorRef = React.useRef<HTMLDivElement>(null);

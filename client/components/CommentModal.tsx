@@ -218,7 +218,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <SolutionStatus status={solution.status} ></SolutionStatus>
+                      <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus>
                       <Button onClick={() => mutation1.mutate(solution.id)} style={{ position: "absolute", bottom: "0", right: "0" }}>
                         <ThumbUpIcon /> {solution.upvote}
                       </Button>

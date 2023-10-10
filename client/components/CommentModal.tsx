@@ -156,8 +156,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       {/* <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus> */}
                       <SolutionStatusButton 
                         status={solution.status} 
-                        solutionId={solution.id}>
-                    </SolutionStatusButton>
+                        solutionId={solution.id}
+                        />
                         <UpvoteButton
                         count={solution.upvote}
                         onUpvote={() =>

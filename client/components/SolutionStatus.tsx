@@ -10,13 +10,6 @@ type SolutionStatusProps = {
   solutionId: string;
 };
 
-export const SolutionStatus: React.FC<SolutionStatusProps> = ({
-  status,
-  solutionId,
-}) => {
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef<HTMLDivElement>(null);
-  const queryClient = useQueryClient();
 
 export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
     const [open, setOpen] = useState(false);

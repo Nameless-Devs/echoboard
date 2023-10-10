@@ -110,7 +110,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       <ListItemText
                         primary={
                           <Typography variant="body2" color="textSecondary">
-                            {comment.author}
+                            {comment.echoBoardUser.name}
                           </Typography>
                         }
                         secondary={
@@ -143,7 +143,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         primary={
                           <div>
                             <Typography variant="body2" color="textSecondary">
-                              {solution.author}
+                              {solution.echoBoardUser.name}
                             </Typography>
                           </div>
                         }

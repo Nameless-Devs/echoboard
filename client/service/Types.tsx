@@ -5,24 +5,29 @@ export type PostEchoBoardData = {
   anonymous: boolean;
 };
 
+export type EchoBoardUser = {
+  name: string; 
+  picture: string;
+}
+
 export type EchoBoardResponseData = {
   id: string;
   title: string;
   content: string;
-  author: string;
   anonymous: boolean;
   upvote: number;
   created: string;
   echoBoardComments: CommentResponseData[];
   echoBoardSolutions: SolutionResponseData[];
+  echoBoardUser: EchoBoardUser;
 };
 
 export type CommentResponseData = {
   id: string;
-  author: string;
   content: string;
   upvote: number;
   created: string;
+  echoBoardUser: EchoBoardUser;
 };
 
 export type UpvoteProps = {
@@ -42,11 +47,11 @@ export type UpvoteProps = {
  }
  export type SolutionResponseData = {
   id: string;
-  author: string;
   content: string;
   upvote: number;
   created: string;
   status: string;
+  echoBoardUser: EchoBoardUser;
 };
 
 export type UserResponseData = {

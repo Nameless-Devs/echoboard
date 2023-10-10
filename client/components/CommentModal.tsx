@@ -8,12 +8,14 @@ import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {fetchEchoBoardById} from "@/service/Functions";
 import Button from "@mui/material/Button";
 import "../app/styles/CommentModal.css";
-import {PostSolution} from "./PostSolution";
-import {useCookies} from "react-cookie";
-import {SinglePost} from "./SinglePost";
+import { PostSolution } from "./PostSolution";
+import { useCookies } from "react-cookie";
+import { SinglePost } from "./SinglePost";
+import { SolutionStatus } from "./SolutionStatus";
 import {useUpvote} from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
 import {useUpvoteSolution} from "@/hooks/useUpvoteSolution";
+
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -159,9 +161,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     >
                       <ListItemText
                         primary={
-                          <Typography variant="body2" color="textSecondary">
-                            {solution.author}
-                          </Typography>
+                          <div>
+                            <Typography variant="body2" color="textSecondary">
+                              {solution.author}
+                            </Typography>
+                          </div>
                         }
                         secondary={
                           <Typography variant="body1" color="textPrimary">
@@ -169,7 +173,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <UpvoteButton
+                      <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus>
+                        <UpvoteButton
                         count={solution.upvote}
                         onUpvote={() =>
                           solutionUpvoteMutation.mutate(solution.id)

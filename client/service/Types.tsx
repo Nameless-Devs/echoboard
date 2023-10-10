@@ -47,11 +47,11 @@ export type UpvoteProps = {
  }
  export type SolutionResponseData = {
   id: string;
-  author: string;
   content: string;
   upvote: number;
   created: string;
   status: string;
+  echoBoardUser: EchoBoardUser;
 };
 
 export type UserResponseData = {

@@ -1,23 +1,30 @@
-import React, {useState} from "react";
-import {Box, List, ListItem, ListItemText, Modal, Tab, Tabs} from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  Modal,
+  Tab,
+  Tabs,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {EchoBoardResponseData, UserResponseData} from "@/service/Types";
-import {Upvote} from "./Upvote";
-import {PostComment} from "./PostComment";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {fetchEchoBoardById} from "@/service/Functions";
+import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
+import { Upvote } from "./Upvote";
+import { PostComment } from "./PostComment";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchEchoBoardById } from "@/service/Functions";
 import Button from "@mui/material/Button";
 import "../app/styles/CommentModal.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
 import { SolutionStatus } from "./SolutionStatus";
-import {useUpvote} from "@/hooks/useUpvote";
+import { useUpvote } from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
-import {useUpvoteSolution} from "@/hooks/useUpvoteSolution";
+import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "./TabsManager";
-
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -84,11 +91,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
         <Box className="tabs-container">
-        <TabsManager
-          labels={["Comments", "Solutions"]}
-          onTabChange={handleTabChange}
-          currentTabIndex={value}
-        />
+          <TabsManager
+            labels={["Comments", "Solutions"]}
+            onTabChange={handleTabChange}
+            currentTabIndex={value}
+          />
           <CustomTabContent value={value} index={0}>
             <Box className="comment-display">
               <List>
@@ -145,8 +152,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus>
-                        <UpvoteButton
+                      <SolutionStatus
+                        status={solution.status}
+                        solutionId={solution.id}
+                      ></SolutionStatus>
+                      <UpvoteButton
                         count={solution.upvote}
                         onUpvote={() =>
                           solutionUpvoteMutation.mutate(solution.id)

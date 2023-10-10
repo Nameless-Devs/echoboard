@@ -9,4 +9,5 @@ import java.time.Instant;
  */
 public record EchoBoardSolutionResponseDto(long id, String author, String content, int upvote,
                                            EchoBoardSolution.SolutionStatus status, Instant created) {
+public record EchoBoardSolutionResponseDto(long id, String content, int upvote, boolean anonymous,
 }

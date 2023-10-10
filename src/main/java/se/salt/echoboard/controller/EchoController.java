@@ -22,7 +22,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/echoes")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
 public class EchoController {
 
     private final EchoBoardService echoService;
@@ -41,13 +40,14 @@ public class EchoController {
     }
 
     @PatchMapping("{echoId}/upvote")
-    public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId) {
-        return ResponseEntity.of(echoService.upvoteEcho(echoId));
+    public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId, @AuthenticationPrincipal OidcUser user) {
+        return ResponseEntity.of(echoService.upvoteEcho(echoId, user.getSubject()));
     }
 
     @PatchMapping("{echoId}/comments/{commentId}/upvote")
-    public ResponseEntity<Integer> upvoteComment(@PathVariable long echoId, @PathVariable long commentId) {
-        return ResponseEntity.of(echoService.upvoteComment(commentId));
+    public ResponseEntity<Integer> upvoteComment(@PathVariable long echoId, @PathVariable long commentId,
+                                                 @AuthenticationPrincipal OidcUser user) {
+        return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));
     }
 
     @PostMapping

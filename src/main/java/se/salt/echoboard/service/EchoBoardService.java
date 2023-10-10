@@ -77,10 +77,6 @@ public class EchoBoardService {
             e.addComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
         });
-//        return echoBoard.map(board -> {
-//            board.addComment(echoBoardComment);
-//            return saveComment(echoBoardComment, userSubject).orElseThrow().getId();
-//        });
     }
 
     public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
@@ -91,23 +87,23 @@ public class EchoBoardService {
         }).map(EchoBoardSolution::getId);
     }
 
-    public Optional<Integer> upvoteComment(long commentId) {
+    public Optional<Integer> upvoteComment(long commentId, String userSubject) {
         return getCommentById(commentId)
-                .map(EchoBoardComment::addUpvote)
+                .map(comment -> comment.addUpvote(userSubject))
                 .map(this::updateComment)
                 .map(EchoBoardComment::getUpvote);
     }
 
-    public Optional<Integer> upvoteEcho(long echoId) {
+    public Optional<Integer> upvoteEcho(long echoId, String userSubject) {
         return getEchoById(echoId)
-                .map(EchoBoard::addUpvote)
+                .map(echoBoard -> echoBoard.addUpvote(userSubject))
                 .map(echoBoardRepository::save)
                 .map(EchoBoard::getUpvote);
     }
 
-    public Optional<Integer> upvoteSolution(long solutionId) {
+    public Optional<Integer> upvoteSolution(long solutionId, String userSubject) {
         return getSolutionById(solutionId)
-                .map(EchoBoardSolution::addUpvote)
+                .map(solution -> solution.addUpvote(userSubject))
                 .map(this::updateSolution)
                 .map(EchoBoardSolution::getUpvote);
     }

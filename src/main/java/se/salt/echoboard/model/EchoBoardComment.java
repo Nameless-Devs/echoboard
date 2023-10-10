@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -21,7 +23,8 @@ public class EchoBoardComment {
 
     @Column(length = 1000)
     private String content;
-    private int upvote;
+    @ElementCollection
+    Set<String> upvote;
     private Instant created;
     private boolean anonymous;
 
@@ -38,14 +41,18 @@ public class EchoBoardComment {
         this.content = content;
     }
 
-    public EchoBoardComment addUpvote() {
-        this.upvote += 1;
+    public EchoBoardComment addUpvote(String userSubject) {
+        this.upvote.add(userSubject);
         return this;
+    }
+
+    public int getUpvote() {
+        return upvote.size();
     }
 
     @PrePersist
     private void onCreate() {
-        this.upvote = 0;
+        this.upvote = new HashSet<>();
         this.created = Instant.now();
     }
 }

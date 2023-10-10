@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -21,7 +23,8 @@ public class EchoBoardSolution {
 
     @Column(length = 1000)
     private String content;
-    private int upvote;
+    @ElementCollection
+    Set<String> upvote;
     private boolean anonymous;
 
     @Enumerated(EnumType.STRING)
@@ -38,9 +41,13 @@ public class EchoBoardSolution {
         this.content = content;
     }
 
-    public EchoBoardSolution addUpvote() {
-        this.upvote += 1;
+    public EchoBoardSolution addUpvote(String userSubject) {
+        this.upvote.add(userSubject);
         return this;
+    }
+
+    public int getUpvote() {
+        return upvote.size();
     }
 
     public EchoBoardSolution updateSolutionStatus(SolutionStatus status) {
@@ -55,7 +62,7 @@ public class EchoBoardSolution {
 
     @PrePersist
     private void onCreate() {
-        this.upvote = 0;
+        this.upvote = new HashSet<>();
         this.created = Instant.now();
         this.status = SolutionStatus.SOLUTION_IN_REVIEW;
     }

@@ -23,6 +23,7 @@ public class EchoBoardComment {
     private String content;
     private int upvote;
     private Instant created;
+    private boolean anonymous;
 
     public EchoBoardComment setEchoBoardUser(EchoBoardUser echoBoardUser) {
         this.echoBoardUser = echoBoardUser;

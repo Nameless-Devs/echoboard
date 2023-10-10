@@ -22,6 +22,7 @@ public class EchoBoardSolution {
     @Column(length = 1000)
     private String content;
     private int upvote;
+    private boolean anonymous;
 
     @Enumerated(EnumType.STRING)
     private SolutionStatus status;

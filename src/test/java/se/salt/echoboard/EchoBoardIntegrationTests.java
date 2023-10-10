@@ -9,8 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import se.salt.echoboard.controller.dto.DTOConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
-import se.salt.echoboard.controller.dto.EchoBoardUserResponseDto;
-import se.salt.echoboard.model.EchoBoard;
+import util.dto.request.EchoBoardRequestDto;
 import util.TestUtilities;
 
 import java.util.Collections;
@@ -36,9 +35,9 @@ public class EchoBoardIntegrationTests {
 
     @Test
     public void testPublishEchoBoard() throws Exception {
-        EchoBoard requestEcho = TestUtilities.echoBoardSample();
+        var requestEcho = TestUtilities.echoBoardSample();
         String jsonRequest = TestUtilities.convertJsonString(requestEcho);
-        EchoBoardResponseDto expectedEcho = convertor.convertEntityToResponseDto(requestEcho);
+        System.out.println(jsonRequest);
 
         MvcResult postResult = mockMvc.perform(post("/api/echoes")
                         .contentType("application/json")
@@ -59,9 +58,9 @@ public class EchoBoardIntegrationTests {
 
     @Test
     public void testGetAllEchoes() throws Exception {
-        List<EchoBoard> expectedEcho = echoBoardListSample();
+        List<EchoBoardRequestDto> expectedEcho = echoBoardListSample();
 
-        for (EchoBoard echoBoard : expectedEcho) {
+        for (EchoBoardRequestDto echoBoard : expectedEcho) {
             String jsonRequest = TestUtilities.convertJsonString(echoBoard);
             mockMvc.perform(post("/api/echoes")
                             .contentType("application/json")

@@ -39,8 +39,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         (newStatus: string) => changeSolutionStatus(solutionId, newStatus),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['echoBoards', solutionId]);
-                queryClient.refetchQueries(['echoBoard', solutionId]);
+                queryClient.invalidateQueries(['status', solutionId]);
             },
         }
     );

@@ -1,9 +1,12 @@
 import { changeSolutionStatus } from '@/service/Functions';
 import { getStatusInfo } from '@/service/GetStatusInfo';
-import { Box, Button, Chip, ChipProps, ClickAwayListener, FormControl, InputLabel, MenuItem, Popover, Select } from '@mui/material'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Chip, ChipProps, ClickAwayListener, FormControl, MenuItem, Select } from '@mui/material'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react'
 
+//Generally we are not using this component
+//But i left it for not, will delete later is it's competelly ussless for us
+//Ana
 
 type SolutionStatusProps = {
   status: string;

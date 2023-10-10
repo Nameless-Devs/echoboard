@@ -6,7 +6,7 @@ export type PostEchoBoardData = {
 };
 
 export type EchoBoardUser = {
-  name: string; 
+  name: string;
   picture: string;
 }
 
@@ -34,18 +34,18 @@ export type UpvoteProps = {
   upvote: number;
   echoBoardId: string;
 };
- export type CommentToPost = {
-  author: string; 
-  content: string;
- }
 
- //Solution types are the same as Comment types for now, but that will be changed
- //once we introduce enum labels for solutions
- export type SolutionToPost = {
-  author: string; 
+export type CommentToPost = {
+  author: string;
   content: string;
- }
- export type SolutionResponseData = {
+}
+
+export type SolutionToPost = {
+  author: string;
+  content: string;
+}
+
+export type SolutionResponseData = {
   id: string;
   content: string;
   upvote: number;
@@ -55,7 +55,7 @@ export type UpvoteProps = {
 };
 
 export type UserResponseData = {
-  name: string; 
+  name: string;
   email: string;
   picture: string;
   //add later: 

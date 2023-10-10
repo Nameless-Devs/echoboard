@@ -1,12 +1,10 @@
 import {
   EchoBoardResponseData,
-  CommentResponseData,
   UserResponseData,
 } from "@/service/Types";
 import {
   fetchEchoBoards,
   fetchEchoBoardById,
-  getUserInfo,
 } from "@/service/Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
@@ -48,8 +46,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
   const sortedEchoBoards = sortByUpvote
     ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
     : [...(echoBoards || [])].sort(
-        (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
-      );
+      (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+    );
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);

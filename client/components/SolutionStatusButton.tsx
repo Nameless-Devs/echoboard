@@ -12,7 +12,6 @@ import { getStatusInfo } from '@/service/GetStatusInfo';
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { changeSolutionStatus } from '@/service/Functions';
-import { borderRadius } from '@mui/system';
 
 type SolutionStatusProps = {
     status: string;
@@ -31,7 +30,6 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [selectedStatus, setSelectedStatus] = useState(status);
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
 
     const queryClient = useQueryClient();
@@ -57,7 +55,6 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         setSelectedIndex(index);
         setOpen(false);
         const newStatus = options[index][0];
-        setSelectedStatus(newStatus);
         setFormatedStatus(getStatusInfo(newStatus));
         mutation.mutate(newStatus);
     };
@@ -143,7 +140,6 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                                     {options.map((option, index) => (
                                         <MenuItem
                                             key={option[0]}
-                                            //   disabled={index === 2}
                                             selected={index === selectedIndex}
                                             value={option[0]}
                                             onClick={(event) => handleMenuItemClick(event, index)}

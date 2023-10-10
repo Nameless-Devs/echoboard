@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CommentToPost, UserResponseData } from "@/service/Types";
-import { Avatar, Box, Button, IconButton, TextField } from "@mui/material";
+import { Avatar, Box, IconButton, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from "@/service/Functions";
 import "../app/styles/PostComment.css";
@@ -69,9 +69,8 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && event.shiftKey === false) {
-      // Prevent the default behavior of Enter key (submitting the form)
+
       event.preventDefault();
-      // Trigger the comment submission here
       handleCommentPost();
     }
   };

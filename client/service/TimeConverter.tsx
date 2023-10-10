@@ -10,9 +10,8 @@
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+    const formattedHours = hours % 12 || 12; 
   
-    // Function to add the appropriate suffix to the day
     const getDayWithSuffix = (day: number): string => {
       if (day >= 11 && day <= 13) {
         return `${day}th`;

@@ -74,11 +74,11 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
         <Box
           sx={{
             "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root":
-              {
-                m: 1,
-                width: "99%",
-                alignSelf: "center",
-              },
+            {
+              m: 1,
+              width: "99%",
+              alignSelf: "center",
+            },
           }}
           style={{ display: "flex", flexDirection: "column" }}
         >

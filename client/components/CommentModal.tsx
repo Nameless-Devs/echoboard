@@ -5,8 +5,6 @@ import {
   ListItem,
   ListItemText,
   Modal,
-  Tab,
-  Tabs,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
@@ -19,7 +17,6 @@ import "../app/styles/CommentModal.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
-import { SolutionStatus } from "./SolutionStatus";
 import { useUpvote } from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
 import { SolutionStatusButton } from "./SolutionStatusButton";
@@ -153,12 +150,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      {/* <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus> */}
-                      <SolutionStatusButton 
-                        status={solution.status} 
+                      <SolutionStatusButton
+                        status={solution.status}
                         solutionId={solution.id}
-                        />
-                        <UpvoteButton
+                      />
+                      <UpvoteButton
                         count={solution.upvote}
                         onUpvote={() =>
                           solutionUpvoteMutation.mutate(solution.id)

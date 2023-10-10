@@ -1,54 +1,37 @@
-import React, {useState} from "react";
-import {Box, List, ListItem, ListItemText, Modal, Tab, Tabs} from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  Modal,
+  Tab,
+  Tabs,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {EchoBoardResponseData, UserResponseData} from "@/service/Types";
-import {Upvote} from "./Upvote";
-import {PostComment} from "./PostComment";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {fetchEchoBoardById} from "@/service/Functions";
+import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
+import { Upvote } from "./Upvote";
+import { PostComment } from "./PostComment";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchEchoBoardById } from "@/service/Functions";
 import Button from "@mui/material/Button";
 import "../app/styles/CommentModal.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
 import { SolutionStatus } from "./SolutionStatus";
-import {useUpvote} from "@/hooks/useUpvote";
+import { useUpvote } from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
-import {useUpvoteSolution} from "@/hooks/useUpvoteSolution";
 import { SolutionStatusButton } from "./SolutionStatusButton";
-
-
+import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
+import { CustomTabContent } from "./CustomTabContent";
+import { TabsManager } from "./TabsManager";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
   handleClose: () => void;
   isOpen: boolean;
   user: UserResponseData;
-}
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
 }
 
 function a11yProps(index: number) {
@@ -83,8 +66,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setSelectedPostForSolution(null);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleTabChange = (newTabIndex: number) => {
+    setValue(newTabIndex);
   };
 
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
@@ -109,17 +92,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
         <Box className="tabs-container">
-          <Box className="tabs-divider">
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab label="Comments" {...a11yProps(0)} />
-              <Tab label="Solutions" {...a11yProps(1)} />
-            </Tabs>
-          </Box>
-          <CustomTabPanel value={value} index={0}>
+          <TabsManager
+            labels={["Comments", "Solutions"]}
+            onTabChange={handleTabChange}
+            currentTabIndex={value}
+          />
+          <CustomTabContent value={value} index={0}>
             <Box className="comment-display">
               <List>
                 {displayPost.echoBoardComments
@@ -150,8 +128,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               </List>
               <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
+          </CustomTabContent>
+          <CustomTabContent value={value} index={1}>
             <Box className="comment-display">
               <List>
                 {displayPost.echoBoardSolutions
@@ -176,7 +154,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         }
                       ></ListItemText>
                       {/* <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus> */}
-                      <SolutionStatusButton status={solution.status} solutionId={solution.id}></SolutionStatusButton>
+                      <SolutionStatusButton 
+                        status={solution.status} 
+                        solutionId={solution.id}>
+                    </SolutionStatusButton>
                         <UpvoteButton
                         count={solution.upvote}
                         onUpvote={() =>
@@ -195,7 +176,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 </Button>
               </div>
             </Box>
-          </CustomTabPanel>
+          </CustomTabContent>
         </Box>
         {selectedPostForSolution && (
           <PostSolution

@@ -4,11 +4,19 @@ import { Box, Button, Chip, ChipProps, ClickAwayListener, FormControl, InputLabe
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react'
 
-type SolutionStatusProps = {
-    status: string;
-    solutionId: string
-}
 
+type SolutionStatusProps = {
+  status: string;
+  solutionId: string;
+};
+
+export const SolutionStatus: React.FC<SolutionStatusProps> = ({
+  status,
+  solutionId,
+}) => {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const queryClient = useQueryClient();
 
 export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
     const [open, setOpen] = useState(false);

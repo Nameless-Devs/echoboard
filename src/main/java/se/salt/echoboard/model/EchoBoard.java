@@ -44,10 +44,6 @@ public class EchoBoard {
         return this;
     }
 
-    public int getUpvote() {
-        return upvote.size();
-    }
-
     public void addComment(EchoBoardComment comment) {
         this.echoBoardComments.add(comment);
     }

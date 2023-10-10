@@ -40,10 +40,6 @@ public class EchoBoardComment {
         return this;
     }
 
-    public int getUpvote() {
-        return upvote.size();
-    }
-
     @PrePersist
     private void onCreate() {
         this.upvote = new HashSet<>();

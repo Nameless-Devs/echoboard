@@ -12,6 +12,7 @@ import { getStatusInfo } from '@/service/GetStatusInfo';
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { changeSolutionStatus } from '@/service/Functions';
+import { borderRadius } from '@mui/system';
 
 type SolutionStatusProps = {
     status: string;
@@ -32,7 +33,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedStatus, setSelectedStatus] = useState(status);
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
-    
+
     const queryClient = useQueryClient();
 
     const mutation = useMutation(
@@ -57,7 +58,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         setOpen(false);
         const newStatus = options[index][0];
         setSelectedStatus(newStatus);
-        setFormatedStatus(getStatusInfo(newStatus)); 
+        setFormatedStatus(getStatusInfo(newStatus));
         mutation.mutate(newStatus);
     };
 
@@ -78,10 +79,26 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
 
     return (
         <React.Fragment>
-            <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
+            <ButtonGroup
+                variant="contained"
+                ref={anchorRef}
+                aria-label="split button"
+                style={{
+                    position: "absolute",
+                    top: "0",
+                    right: "0",
+                    margin: "10px 15px 0 0",
+                    height: "25px",
+                    borderRadius: "30px"
+                }}
+            >
                 <Button
                     size='small'
                     color={formatedStatus.color as ButtonProps['color']}
+                    style={{
+                        borderTopLeftRadius: "30px",
+                        borderBottomLeftRadius: "30px"
+                    }}
                 >
                     {formatedStatus.formattedStatus}
                 </Button>
@@ -94,6 +111,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                     aria-haspopup="menu"
                     onClick={handleToggle}
                     disabled={false} //fix logic later
+                    style={{
+                        borderTopRightRadius: "30px",
+                        borderBottomRightRadius: "30px"
+                    }}
                 >
                     <ArrowDropDownIcon />
                 </Button>

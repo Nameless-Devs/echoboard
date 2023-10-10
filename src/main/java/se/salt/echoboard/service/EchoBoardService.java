@@ -91,21 +91,24 @@ public class EchoBoardService {
         return getCommentById(commentId)
                 .map(comment -> comment.addUpvote(userSubject))
                 .map(this::updateComment)
-                .map(EchoBoardComment::getUpvote);
+                .map(EchoBoardComment::getUpvote)
+                .map(Set::size);
     }
 
     public Optional<Integer> upvoteEcho(long echoId, String userSubject) {
         return getEchoById(echoId)
                 .map(echoBoard -> echoBoard.addUpvote(userSubject))
                 .map(echoBoardRepository::save)
-                .map(EchoBoard::getUpvote);
+                .map(EchoBoard::getUpvote)
+                .map(Set::size);
     }
 
     public Optional<Integer> upvoteSolution(long solutionId, String userSubject) {
         return getSolutionById(solutionId)
                 .map(solution -> solution.addUpvote(userSubject))
                 .map(this::updateSolution)
-                .map(EchoBoardSolution::getUpvote);
+                .map(EchoBoardSolution::getUpvote)
+                .map(Set::size);
     }
 
     public void deleteEcho(Long id) {

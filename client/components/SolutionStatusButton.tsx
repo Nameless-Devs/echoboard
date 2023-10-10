@@ -113,7 +113,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                     disabled={false} //fix logic later
                     style={{
                         borderTopRightRadius: "30px",
-                        borderBottomRightRadius: "30px"
+                        borderBottomRightRadius: "30px",
                     }}
                 >
                     <ArrowDropDownIcon />

@@ -28,7 +28,6 @@ public class EchoBoard {
     private String title;
     @Column(length = 1000)
     private String content;
-    private String author;
     private int upvote;
     private boolean anonymous;
     @Column(columnDefinition = "TIMESTAMP")
@@ -38,10 +37,9 @@ public class EchoBoard {
     @JoinColumn(name = "subject")
     EchoBoardUser echoBoardUser;
 
-    public EchoBoard(String title, String content, String author, boolean anonymous) {
+    public EchoBoard(String title, String content, boolean anonymous) {
         this.title = title;
         this.content = content;
-        this.author = author;
         this.anonymous = anonymous;
     }
 

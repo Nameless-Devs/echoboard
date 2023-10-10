@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @Controller
-@RequestMapping("api")
+@RequestMapping("api/status")
 public class StatusController {
 
-    @RequestMapping(path = "status", method = {RequestMethod.HEAD})
+    @RequestMapping(method = {RequestMethod.HEAD})
     @ResponseStatus(HttpStatus.OK)
     public void getStatus() {
     }

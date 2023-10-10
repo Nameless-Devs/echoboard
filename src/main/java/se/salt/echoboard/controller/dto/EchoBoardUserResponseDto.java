@@ -1,11 +1,11 @@
 package se.salt.echoboard.controller.dto;
 
-import java.util.List;
+import se.salt.echoboard.model.EchoBoardUser;
+
+import java.io.Serializable;
 
 /**
- * DTO for {@link se.salt.echoboard.model.EchoBoardUser}
+ * DTO for {@link EchoBoardUser}
  */
-public record EchoBoardUserResponseDto(String name, String email, List<EchoBoardResponseDto> usersPosts,
-                                       List<EchoBoardCommentResponseDto> usersComments,
-                                       List<EchoBoardSolutionResponseDto> usersSolutions, String picture) {
+public record EchoBoardUserResponseDto(String name, String picture) implements Serializable {
 }

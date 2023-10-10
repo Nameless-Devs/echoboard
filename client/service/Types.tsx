@@ -5,16 +5,21 @@ export type PostEchoBoardData = {
   anonymous: boolean;
 };
 
+export type EchoBoardUser = {
+  name: string; 
+  picture: string;
+}
+
 export type EchoBoardResponseData = {
   id: string;
   title: string;
   content: string;
-  author: string;
   anonymous: boolean;
   upvote: number;
   created: string;
   echoBoardComments: CommentResponseData[];
   echoBoardSolutions: SolutionResponseData[];
+  echoBoardUser: EchoBoardUser;
 };
 
 export type CommentResponseData = {

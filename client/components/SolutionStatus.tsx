@@ -58,6 +58,7 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
     return (
         <>
             <div ref={anchorRef}>
+            <ClickAwayListener onClickAway={handleClose}>
                 <Chip
                     color={chipColor}
                     disabled={false} //that should be false for the OP and true for everyone esle
@@ -70,8 +71,11 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
                         marginTop: "-30px"
                     }}
                 />
-            </div>
+                </ClickAwayListener>
+            </div> 
+          
             <FormControl>
+           
                 <Select
                     open={open}
                     onClose={() => handleClose}
@@ -85,7 +89,9 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
                     <MenuItem value="SOLVED">Solved</MenuItem>
                     <MenuItem value="FAILED">Failed</MenuItem>
                 </Select>
+                
             </FormControl>
+    
         </>
     )
 }

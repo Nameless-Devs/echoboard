@@ -15,6 +15,7 @@ import { SolutionStatus } from "./SolutionStatus";
 import {useUpvote} from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
 import {useUpvoteSolution} from "@/hooks/useUpvoteSolution";
+import SolutionStatusButton from "./SolutionStatusButton";
 
 
 interface CommentsModalProps {
@@ -174,6 +175,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         }
                       ></ListItemText>
                       <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus>
+                      <SolutionStatusButton></SolutionStatusButton>
                         <UpvoteButton
                         count={solution.upvote}
                         onUpvote={() =>

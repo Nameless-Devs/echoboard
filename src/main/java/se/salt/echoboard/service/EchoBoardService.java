@@ -1,6 +1,7 @@
 package se.salt.echoboard.service;
 
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -29,26 +31,31 @@ public class EchoBoardService {
     private final EchoBoardUserRepository userRepository;
 
 
+    @Transactional
     public EchoBoard saveEcho(EchoBoard echoBoard, String userSubject) {
         var user = userRepository.getUserBySubject(userSubject);
         echoBoard.setUser(user.orElseThrow());
         return echoBoardRepository.save(echoBoard);
     }
 
+    @Transactional
     public Optional<EchoBoardComment> saveComment(EchoBoardComment comment, String userSubject) {
         return userRepository.getUserBySubject(userSubject)
                 .map(comment::setEchoBoardUser).map(commentRepository::save);
     }
 
+    @Transactional
     public Optional<EchoBoardSolution> saveSolution(EchoBoardSolution solution, String userSubject) {
         return userRepository.getUserBySubject(userSubject)
                 .map(solution::setEchoBoardUser).map(solutionRepository::save);
     }
 
+    @Transactional
     public EchoBoardSolution updateSolution(EchoBoardSolution solution) {
         return solutionRepository.save(solution);
     }
 
+    @Transactional
     public EchoBoardComment updateComment(EchoBoardComment comment) {
         return commentRepository.save(comment);
     }
@@ -70,6 +77,7 @@ public class EchoBoardService {
         return solutionRepository.getSolutionById(solutionId);
     }
 
+    @Transactional
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
 
@@ -79,6 +87,7 @@ public class EchoBoardService {
         });
     }
 
+    @Transactional
     public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.flatMap(e -> {
@@ -87,6 +96,7 @@ public class EchoBoardService {
         }).map(EchoBoardSolution::getId);
     }
 
+    @Transactional
     public Optional<Integer> upvoteComment(long commentId, String userSubject) {
         return getCommentById(commentId)
                 .map(comment -> comment.addUpvote(userSubject))
@@ -95,6 +105,7 @@ public class EchoBoardService {
                 .map(Set::size);
     }
 
+    @Transactional
     public Optional<Integer> upvoteEcho(long echoId, String userSubject) {
         return getEchoById(echoId)
                 .map(echoBoard -> echoBoard.addUpvote(userSubject))
@@ -103,6 +114,7 @@ public class EchoBoardService {
                 .map(Set::size);
     }
 
+    @Transactional
     public Optional<Integer> upvoteSolution(long solutionId, String userSubject) {
         return getSolutionById(solutionId)
                 .map(solution -> solution.addUpvote(userSubject))
@@ -111,6 +123,7 @@ public class EchoBoardService {
                 .map(Set::size);
     }
 
+    @Transactional
     public void deleteEcho(Long id) {
         echoBoardRepository.deleteById(id);
     }

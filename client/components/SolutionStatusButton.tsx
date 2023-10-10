@@ -36,16 +36,18 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const queryClient = useQueryClient();
 
     const mutation = useMutation(
-        () => changeSolutionStatus(solutionId, selectedStatus),
+        (newStatus: string) => changeSolutionStatus(solutionId, newStatus),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['status', solutionId]);
+                queryClient.invalidateQueries(['echoBoards', solutionId]);
+                queryClient.refetchQueries(['echoBoard', solutionId]);
             },
         }
     );
 
     const handleClick = () => {
         console.info(`You clicked ${options[selectedIndex][1]}`);
+        //here we can implement logic for volunteering an so on
     };
 
     const handleMenuItemClick = (
@@ -54,8 +56,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     ) => {
         setSelectedIndex(index);
         setOpen(false);
-        setSelectedStatus(options[index][0]);
-        setFormatedStatus(getStatusInfo(selectedStatus));
+        const newStatus = options[index][0];
+        setSelectedStatus(newStatus);
+        setFormatedStatus(getStatusInfo(newStatus)); 
+        mutation.mutate(newStatus);
     };
 
     const handleToggle = () => {
@@ -77,7 +81,6 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         <React.Fragment>
             <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
                 <Button
-                    onClick={handleClick}// maybe delete it 
                     size='small'
                     color={formatedStatus.color as ButtonProps['color']}
                 >

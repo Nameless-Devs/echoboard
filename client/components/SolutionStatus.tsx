@@ -20,7 +20,7 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
         () => changeSolutionStatus(solutionId, selectedStatus),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['status', solutionId]);
+                queryClient.invalidateQueries(['comments', solutionId]);
             },
         }
     );

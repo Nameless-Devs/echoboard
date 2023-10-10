@@ -7,6 +7,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import se.salt.echoboard.controller.dto.DTOConvertor;
+import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardUserResponseDto;
 import se.salt.echoboard.model.EchoBoard;
 import util.TestUtilities;
 
@@ -23,16 +26,19 @@ import static util.TestUtilities.*;
 public class EchoBoardIntegrationTests {
 
     private final MockMvc mockMvc;
+    private final DTOConvertor convertor;
 
     @Autowired
-    public EchoBoardIntegrationTests(MockMvc mockMvc) {
+    public EchoBoardIntegrationTests(MockMvc mockMvc, DTOConvertor convertor) {
         this.mockMvc = mockMvc;
+        this.convertor = convertor;
     }
 
     @Test
     public void testPublishEchoBoard() throws Exception {
-        EchoBoard expectedEcho = TestUtilities.echoBoardSample();
-        String jsonRequest = TestUtilities.convertJsonString(expectedEcho);
+        EchoBoard requestEcho = TestUtilities.echoBoardSample();
+        String jsonRequest = TestUtilities.convertJsonString(requestEcho);
+        EchoBoardResponseDto expectedEcho = convertor.convertEntityToResponseDto(requestEcho);
 
         MvcResult postResult = mockMvc.perform(post("/api/echoes")
                         .contentType("application/json")
@@ -47,8 +53,8 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        EchoBoard actualEcho = getObjectFromResponse(getResult, EchoBoard.class);
-        assertEchoBoardEqual(expectedEcho, actualEcho);
+        EchoBoardResponseDto actualEcho = getObjectFromResponse(getResult, EchoBoardResponseDto.class);
+        assertEchoBoardEqual(requestEcho, actualEcho);
     }
 
     @Test
@@ -69,9 +75,8 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<EchoBoard> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
-                .getContentAsString(), new TypeReference<>() {
-        });
+        List<EchoBoardResponseDto> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
+                .getContentAsString(), new TypeReference<>() {});
         Collections.reverse(echoBoards);
         for (int i = 0; i < echoBoards.size(); i++) {
             assertEchoBoardEqual(expectedEcho.get(i), echoBoards.get(i));

@@ -12,31 +12,28 @@ type SolutionStatusProps = {
 
 export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
     const [open, setOpen] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState(status);
     const anchorRef = useRef<HTMLDivElement>(null);
     const queryClient = useQueryClient();
 
-
-    const handleStatusChange = (status: string ) => {
-        var updatedStatus = ""; 
-        if(status="SOLUTION_IN_REVIEW"){
-          updatedStatus = "VOLUNTEERS_REQUIRED";
-         
-        }
-        else if(status="VOLUNTEERS_REQUIRED"){
-          updatedStatus = "IMPLEMENTATION_IN_PROGRESS";
-         
-        }
-        return updatedStatus; 
-      }
     const mutation = useMutation(
-        () => changeSolutionStatus(solutionId, handleStatusChange(status)), 
+        () => changeSolutionStatus(solutionId, selectedStatus),
         {
-        onSuccess: () => {
-          queryClient.invalidateQueries(['status', solutionId]);
-          },
+            onSuccess: () => {
+                queryClient.invalidateQueries(['status', solutionId]);
+            },
         }
-      );
-   
+    );
+
+
+    const handleStatusChange = (newStatus: string) => {
+        setSelectedStatus(newStatus);
+        setOpen(false);
+
+        mutation.mutate();
+    };
+
+
 
     const handleClick = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -52,11 +49,11 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
 
         setOpen(false);
     };
-    const statusInfo = getStatusInfo(status);
+    const statusInfo = getStatusInfo(selectedStatus || status);
     const chipColor: ChipProps['color'] = statusInfo.color as ChipProps['color'];
 
-   
-    
+
+
 
     return (
         <>
@@ -74,7 +71,7 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
                     }}
                 />
             </div>
-            <Popover
+            {/* <Popover
                 open={open}
                 anchorEl={anchorRef.current}
                 anchorOrigin={{
@@ -93,7 +90,7 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
                       <Button onClick={() => mutation.mutate} style={{display: "block", margin: "10px auto 0"}}> Yes</Button>
                     </Box>
                 </ClickAwayListener>
-            </Popover>
+            </Popover> */}
         </>
     )
 }

@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * DTO for {@link EchoBoard}
  */
-public record EchoBoardResponseDto(long id, String title, String content, String author, int upvote, Instant created,
-                                   List<EchoBoardSolution> echoBoardSolutions,
-                                   List<EchoBoardComment> echoBoardComments,
-                                   boolean anonymous) {
+public record EchoBoardResponseDto(List<EchoBoardCommentResponseDto> echoBoardComments,
+                                   List<EchoBoardSolutionResponseDto> echoBoardSolutions, long id, String title, String content,
+                                   int upvote, boolean anonymous, Instant created,
+                                   EchoBoardUserResponseDto echoBoardUser) implements Serializable {
 
     @Override
     public String author() {

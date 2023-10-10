@@ -19,8 +19,6 @@ public class EchoBoardComment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    private String author;
-
     @Column(length = 1000)
     private String content;
     private int upvote;
@@ -35,8 +33,7 @@ public class EchoBoardComment {
     @JoinColumn(name = "subject")
     EchoBoardUser echoBoardUser;
 
-    public EchoBoardComment(String author, String content) {
-        this.author = author;
+    public EchoBoardComment(String content) {
         this.content = content;
     }
 

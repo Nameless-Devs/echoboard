@@ -15,6 +15,8 @@ import { SolutionStatus } from "./SolutionStatus";
 import {useUpvote} from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
 import {useUpvoteSolution} from "@/hooks/useUpvoteSolution";
+import { CustomTabContent } from "./CustomTabContent";
+import { TabsManager } from "./TabsManager";
 
 
 interface CommentsModalProps {
@@ -82,17 +84,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
         <Box className="tabs-container">
-          <Box className="tabs-divider">
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab label="Comments" {...a11yProps(0)} />
-              <Tab label="Solutions" {...a11yProps(1)} />
-            </Tabs>
-          </Box>
-          <CustomTabPanel value={value} index={0}>
+        <TabsManager
+          labels={["Comments", "Solutions"]}
+          onTabChange={handleTabChange}
+          currentTabIndex={value}
+        />
+          <CustomTabContent value={value} index={0}>
             <Box className="comment-display">
               <List>
                 {displayPost.echoBoardComments
@@ -123,8 +120,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               </List>
               <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
+          </CustomTabContent>
+          <CustomTabContent value={value} index={1}>
             <Box className="comment-display">
               <List>
                 {displayPost.echoBoardSolutions
@@ -167,7 +164,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 </Button>
               </div>
             </Box>
-          </CustomTabPanel>
+          </CustomTabContent>
         </Box>
         {selectedPostForSolution && (
           <PostSolution

@@ -1,9 +1,8 @@
 package se.salt.echoboard.controller.dto;
 
 import se.salt.echoboard.model.EchoBoard;
-import se.salt.echoboard.model.EchoBoardComment;
-import se.salt.echoboard.model.EchoBoardSolution;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
 
@@ -16,10 +15,10 @@ public record EchoBoardResponseDto(List<EchoBoardCommentResponseDto> echoBoardCo
                                    EchoBoardUserResponseDto echoBoardUser) implements Serializable {
 
     @Override
-    public String author() {
+    public EchoBoardUserResponseDto echoBoardUser() {
         if (anonymous) {
-            return "Anonymous";
+            return new EchoBoardUserResponseDto("Anonymous", null);
         }
-        return author;
+        return echoBoardUser;
     }
 }

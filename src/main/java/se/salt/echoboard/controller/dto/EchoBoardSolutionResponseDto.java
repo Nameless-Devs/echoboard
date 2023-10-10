@@ -1,6 +1,7 @@
 package se.salt.echoboard.controller.dto;
 
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.model.EchoBoardUser;
 
 import java.time.Instant;
 
@@ -9,4 +10,13 @@ import java.time.Instant;
  */
 public record EchoBoardSolutionResponseDto(long id, String content, int upvote, boolean anonymous,
                                            EchoBoardSolution.SolutionStatus status, Instant created,
+                                           EchoBoardUserResponseDto echoBoardUser) {
+
+    @Override
+    public EchoBoardUserResponseDto echoBoardUser() {
+        if (anonymous) {
+            return new EchoBoardUserResponseDto("Anonymous", null);
+        }
+        return echoBoardUser;
+    }
 }

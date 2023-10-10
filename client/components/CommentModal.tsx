@@ -174,7 +174,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus>
+                      {/* <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus> */}
                       <SolutionStatusButton></SolutionStatusButton>
                         <UpvoteButton
                         count={solution.upvote}

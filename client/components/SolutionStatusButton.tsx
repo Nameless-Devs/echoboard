@@ -9,6 +9,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { getStatusInfo } from '@/service/GetStatusInfo';
+import { useRef, useState } from 'react';
 
 type SolutionStatusProps = {
     status: string;
@@ -24,9 +25,11 @@ const options = [
 ];
 
 export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef<HTMLDivElement>(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [selectedStatus, setSelectedStatus] = useState(status);
+    const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
 
     const handleClick = () => {
         console.info(`You clicked ${options[selectedIndex][1]}`);
@@ -38,6 +41,8 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     ) => {
         setSelectedIndex(index);
         setOpen(false);
+        setSelectedStatus(options[index][0]);
+        setFormatedStatus(getStatusInfo(selectedStatus));
     };
 
     const handleToggle = () => {
@@ -59,15 +64,15 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         <React.Fragment>
             <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
                 <Button
-                    onClick={handleClick}
+                    onClick={handleClick}// maybe delete it 
                     size='small'
-                    color={options[selectedIndex][2] as ButtonProps['color']}
+                    color={formatedStatus.color as ButtonProps['color']}
                 >
-                    {options[selectedIndex][1]}
+                    {formatedStatus.formattedStatus}
                 </Button>
                 <Button
                     size="small"
-                    color={options[selectedIndex][2] as ButtonProps['color']}
+                    color={formatedStatus.color as ButtonProps['color']}
                     aria-controls={open ? 'split-button-menu' : undefined}
                     aria-expanded={open ? 'true' : undefined}
                     aria-label="select merge strategy"

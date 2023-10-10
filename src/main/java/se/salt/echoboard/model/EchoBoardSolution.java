@@ -33,10 +33,6 @@ public class EchoBoardSolution {
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
-    public EchoBoardSolution(String content) {
-        this.content = content;
-    }
-
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);
         return this;

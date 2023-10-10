@@ -25,10 +25,10 @@ public class EchoBoard {
     @ToString.Exclude
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
     @ElementCollection
-    Set<String> upvote;
+    private final Set<String> upvote = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "subject")
-    EchoBoardUser echoBoardUser;
+    private EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -38,12 +38,6 @@ public class EchoBoard {
     private boolean anonymous;
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
-
-    public EchoBoard(String title, String content, boolean anonymous) {
-        this.title = title;
-        this.content = content;
-        this.anonymous = anonymous;
-    }
 
     public EchoBoard addUpvote(String userSubject) {
         this.upvote.add(userSubject);
@@ -64,7 +58,6 @@ public class EchoBoard {
 
     @PrePersist
     private void onCreate() {
-        this.upvote = new HashSet<>();
         this.created = Instant.now();
     }
 

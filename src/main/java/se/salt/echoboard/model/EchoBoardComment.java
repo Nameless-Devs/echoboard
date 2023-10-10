@@ -30,10 +30,6 @@ public class EchoBoardComment {
     private Instant created;
     private boolean anonymous;
 
-    public EchoBoardComment(String content) {
-        this.content = content;
-    }
-
     public EchoBoardComment setEchoBoardUser(EchoBoardUser echoBoardUser) {
         this.echoBoardUser = echoBoardUser;
         return this;

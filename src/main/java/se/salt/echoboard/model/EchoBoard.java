@@ -24,21 +24,20 @@ public class EchoBoard {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
+    @ElementCollection
+    Set<String> upvote;
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     @Column(length = 1000)
     private String content;
-    @ElementCollection
-    Set<String> upvote;
     private boolean anonymous;
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
-
-    @ManyToOne
-    @JoinColumn(name = "subject")
-    EchoBoardUser echoBoardUser;
 
     public EchoBoard(String title, String content, boolean anonymous) {
         this.title = title;

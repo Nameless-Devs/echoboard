@@ -10,7 +10,8 @@ import java.util.List;
  * DTO for {@link EchoBoard}
  */
 public record EchoBoardResponseDto(List<EchoBoardCommentResponseDto> echoBoardComments,
-                                   List<EchoBoardSolutionResponseDto> echoBoardSolutions, long id, String title, String content,
+                                   List<EchoBoardSolutionResponseDto> echoBoardSolutions, long id, String title,
+                                   String content,
                                    int upvote, boolean anonymous, Instant created,
                                    EchoBoardUserResponseDto echoBoardUser) implements Serializable {
 

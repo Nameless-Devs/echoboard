@@ -17,28 +17,26 @@ import java.util.Set;
 @Table(name = "echo_board_comment")
 public class EchoBoardComment {
 
+    @ElementCollection
+    Set<String> upvote;
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-
     @Column(length = 1000)
     private String content;
-    @ElementCollection
-    Set<String> upvote;
     private Instant created;
     private boolean anonymous;
+
+    public EchoBoardComment(String content) {
+        this.content = content;
+    }
 
     public EchoBoardComment setEchoBoardUser(EchoBoardUser echoBoardUser) {
         this.echoBoardUser = echoBoardUser;
         return this;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "subject")
-    EchoBoardUser echoBoardUser;
-
-    public EchoBoardComment(String content) {
-        this.content = content;
     }
 
     public EchoBoardComment addUpvote(String userSubject) {

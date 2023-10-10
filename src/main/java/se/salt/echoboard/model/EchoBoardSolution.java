@@ -17,25 +17,21 @@ import java.util.Set;
 @Table(name = "echo_board_solution")
 public class EchoBoardSolution {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
-
-    @Column(length = 1000)
-    private String content;
     @ElementCollection
     Set<String> upvote;
-    private boolean anonymous;
-
-    @Enumerated(EnumType.STRING)
-    private SolutionStatus status;
-
-    @Column(columnDefinition = "TIMESTAMP")
-    private Instant created;
-
     @ManyToOne
     @JoinColumn(name = "subject")
     EchoBoardUser echoBoardUser;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+    @Column(length = 1000)
+    private String content;
+    private boolean anonymous;
+    @Enumerated(EnumType.STRING)
+    private SolutionStatus status;
+    @Column(columnDefinition = "TIMESTAMP")
+    private Instant created;
 
     public EchoBoardSolution(String content) {
         this.content = content;

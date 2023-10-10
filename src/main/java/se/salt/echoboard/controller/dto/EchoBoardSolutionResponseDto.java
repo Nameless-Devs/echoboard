@@ -1,7 +1,6 @@
 package se.salt.echoboard.controller.dto;
 
 import se.salt.echoboard.model.EchoBoardSolution;
-import se.salt.echoboard.model.EchoBoardUser;
 
 import java.time.Instant;
 

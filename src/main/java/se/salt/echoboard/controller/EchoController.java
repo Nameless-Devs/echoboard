@@ -43,12 +43,6 @@ public class EchoController {
         return ResponseEntity.of(echoService.upvoteEcho(echoId, user.getSubject()));
     }
 
-    @PatchMapping("{echoId}/comments/{commentId}/upvote")
-    public ResponseEntity<Integer> upvoteComment(@PathVariable long echoId, @PathVariable long commentId,
-                                                 @AuthenticationPrincipal OidcUser user) {
-        return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));
-    }
-
     @PostMapping
     public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
         long echoId = echoService.saveEcho(echoBoard, user.getSubject()).getId();

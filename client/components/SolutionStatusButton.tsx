@@ -10,6 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { getStatusInfo } from '@/service/GetStatusInfo';
 
+type SolutionStatusProps = {
+    status: string;
+    solutionId: string
+}
+
 const options = [
     ["SOLUTION_IN_REVIEW", "Solution in review", "info"],
     ["VOLUNTEERS_REQUIRED", "Volunteers required", "warning"],
@@ -18,7 +23,7 @@ const options = [
     ["FAILED", "Failed", "error"]
 ];
 
-export default function SplitButton() {
+export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);

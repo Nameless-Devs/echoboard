@@ -1,6 +1,6 @@
 import { changeSolutionStatus } from '@/service/Functions';
 import { getStatusInfo } from '@/service/GetStatusInfo';
-import { Box, Button, Chip, ChipProps, ClickAwayListener, Popover } from '@mui/material'
+import { Box, Button, Chip, ChipProps, ClickAwayListener, FormControl, InputLabel, MenuItem, Popover, Select } from '@mui/material'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react'
 
@@ -71,7 +71,21 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solution
                     }}
                 />
             </div>
-        
+            <FormControl>
+                <Select
+                    open={open}
+                    onClose={() => handleClose}
+                    onOpen={handleClick}
+                    value={selectedStatus}
+                    onChange={(event) => handleStatusChange(event.target.value as string)}
+                >
+                    <MenuItem value="SOLUTION_IN_REVIEW">Solution in review</MenuItem>
+                    <MenuItem value="VOLUNTEERS_REQUIRED">Volunteers required</MenuItem>
+                    <MenuItem value="IMPLEMENTATION_IN_PROGRESS">Implementation in progress</MenuItem>
+                    <MenuItem value="SOLVED">Solved</MenuItem>
+                    <MenuItem value="FAILED">Failed</MenuItem>
+                </Select>
+            </FormControl>
         </>
     )
 }

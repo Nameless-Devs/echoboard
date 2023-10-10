@@ -22,6 +22,7 @@ import { SinglePost } from "./SinglePost";
 import { SolutionStatus } from "./SolutionStatus";
 import { useUpvote } from "@/hooks/useUpvote";
 import UpvoteButton from "./UpvoteButton";
+import { SolutionStatusButton } from "./SolutionStatusButton";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "./TabsManager";
@@ -152,11 +153,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <SolutionStatus
-                        status={solution.status}
-                        solutionId={solution.id}
-                      ></SolutionStatus>
-                      <UpvoteButton
+                      {/* <SolutionStatus status={solution.status} solutionId={solution.id} ></SolutionStatus> */}
+                      <SolutionStatusButton 
+                        status={solution.status} 
+                        solutionId={solution.id}>
+                    </SolutionStatusButton>
+                        <UpvoteButton
                         count={solution.upvote}
                         onUpvote={() =>
                           solutionUpvoteMutation.mutate(solution.id)

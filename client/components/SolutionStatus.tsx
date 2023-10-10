@@ -1,15 +1,9 @@
-import { changeSolutionStatus } from "@/service/Functions";
-import { getStatusInfo } from "@/service/GetStatusInfo";
-import {
-  Box,
-  Button,
-  Chip,
-  ChipProps,
-  ClickAwayListener,
-  Popover,
-} from "@mui/material";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useRef, useState } from "react";
+import { changeSolutionStatus } from '@/service/Functions';
+import { getStatusInfo } from '@/service/GetStatusInfo';
+import { Box, Button, Chip, ChipProps, ClickAwayListener, FormControl, InputLabel, MenuItem, Popover, Select } from '@mui/material'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React, { useRef, useState } from 'react'
+
 
 type SolutionStatusProps = {
   status: string;
@@ -24,91 +18,88 @@ export const SolutionStatus: React.FC<SolutionStatusProps> = ({
   const anchorRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
 
-  const handleStatusChange = (status: string) => {
-    var updatedStatus = "";
-    if ((status = "SOLUTION_IN_REVIEW")) {
-      updatedStatus = "VOLUNTEERS_REQUIRED";
-    } else if ((status = "VOLUNTEERS_REQUIRED")) {
-      updatedStatus = "IMPLEMENTATION_IN_PROGRESS";
-    }
-    return updatedStatus;
-  };
-  const mutation = useMutation(
-    () => changeSolutionStatus(solutionId, handleStatusChange(status)),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["status", solutionId]);
-      },
-    }
-  );
+export const SolutionStatus: React.FC<SolutionStatusProps> = ({ status, solutionId }) => {
+    const [open, setOpen] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState(status);
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const queryClient = useQueryClient();
 
-  const handleClick = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+    const mutation = useMutation(
+        () => changeSolutionStatus(solutionId, selectedStatus),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(['comments', solutionId]);
+            },
+        }
+    );
 
-  const handleClose = (event: Event) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
-      return;
-    }
 
-    setOpen(false);
-  };
-  const statusInfo = getStatusInfo(status);
-  const chipColor: ChipProps["color"] = statusInfo.color as ChipProps["color"];
+    const handleStatusChange = (newStatus: string) => {
+        setSelectedStatus(newStatus);
+        setOpen(false);
 
-  return (
-    <>
-      <div ref={anchorRef}>
-        <Chip
-          color={chipColor}
-          disabled={false} //that should be false for the OP and true for everyone esle
-          size="small"
-          variant="filled"
-          onClick={handleClick}
-          label={statusInfo.formattedStatus}
-          style={{
-            position: "relative",
-            marginTop: "-30px",
-          }}
-        />
-      </div>
-      <Popover
-        open={open}
-        anchorEl={anchorRef.current}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "center",
-          horizontal: "right",
-        }}
-      >
-        <ClickAwayListener onClickAway={handleClose}>
-          <Box
-            sx={{
-              border: 1,
-              p: 1,
-              bgcolor: "background.paper",
-              maxWidth: "300px",
-              paddingTop: "30px",
-              textAlign: "center",
-            }}
-          >
-            Would you like to accept test this solution and open it for testing?
-            <Button
-              onClick={() => mutation.mutate}
-              style={{ display: "block", margin: "10px auto 0" }}
-            >
-              {" "}
-              Yes
-            </Button>
-          </Box>
-        </ClickAwayListener>
-      </Popover>
-    </>
-  );
-};
+        mutation.mutate();
+    };
+
+
+
+    const handleClick = () => {
+        setOpen((prevOpen) => !prevOpen);
+    };
+
+    const handleClose = (event: Event) => {
+        if (
+            anchorRef.current &&
+            anchorRef.current.contains(event.target as HTMLElement)
+        ) {
+            return;
+        }
+
+        setOpen(false);
+    };
+    const statusInfo = getStatusInfo(selectedStatus || status);
+    const chipColor: ChipProps['color'] = statusInfo.color as ChipProps['color'];
+
+
+
+
+    return (
+        <>
+            <div ref={anchorRef}>
+            <ClickAwayListener onClickAway={handleClose}>
+                <Chip
+                    color={chipColor}
+                    disabled={false} //that should be false for the OP and true for everyone esle
+                    size="small"
+                    variant="filled"
+                    onClick={handleClick}
+                    label={statusInfo.formattedStatus}
+                    style={{
+                        position: "relative",
+                        marginTop: "-30px"
+                    }}
+                />
+                </ClickAwayListener>
+            </div> 
+          
+            <FormControl>
+           
+                <Select
+                    open={open}
+                    onClose={() => handleClose}
+                    onOpen={handleClick}
+                    value={selectedStatus}
+                    onChange={(event) => handleStatusChange(event.target.value as string)}
+                >
+                    <MenuItem value="SOLUTION_IN_REVIEW">Solution in review</MenuItem>
+                    <MenuItem value="VOLUNTEERS_REQUIRED">Volunteers required</MenuItem>
+                    <MenuItem value="IMPLEMENTATION_IN_PROGRESS">Implementation in progress</MenuItem>
+                    <MenuItem value="SOLVED">Solved</MenuItem>
+                    <MenuItem value="FAILED">Failed</MenuItem>
+                </Select>
+                
+            </FormControl>
+    
+        </>
+    )
+}

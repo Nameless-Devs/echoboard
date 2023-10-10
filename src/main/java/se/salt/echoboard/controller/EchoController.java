@@ -62,14 +62,6 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
-
-    @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolutionResponseDto> getEchoBoardSolution(@PathVariable long echoId,
-                                                                             @PathVariable long echoBoardSolutionId) {
-        return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId)
-                .map(convertor::convertEntityToResponseDto));
-    }
-
     @PostMapping("{echoId}/solutions")
     public ResponseEntity<Void> saveEchoBoardSolution(@PathVariable long echoId,
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
@@ -86,11 +78,6 @@ public class EchoController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
-    }
-
-    @PatchMapping("{echoId}/solutions/{solutionId}/upvote")
-    public ResponseEntity<Integer> upvoteSolution(@PathVariable long echoId, @PathVariable long solutionId) {
-        return ResponseEntity.of(echoService.upvoteSolution(solutionId));
     }
 
     @PostMapping("{echoBoardId}/comments")

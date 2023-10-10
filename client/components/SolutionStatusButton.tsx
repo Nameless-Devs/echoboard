@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { getStatusInfo } from '@/service/GetStatusInfo';
 import { useRef, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { changeSolutionStatus } from '@/service/Functions';
 
 type SolutionStatusProps = {
     status: string;
@@ -30,6 +32,17 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedStatus, setSelectedStatus] = useState(status);
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
+    
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation(
+        () => changeSolutionStatus(solutionId, selectedStatus),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(['status', solutionId]);
+            },
+        }
+    );
 
     const handleClick = () => {
         console.info(`You clicked ${options[selectedIndex][1]}`);

@@ -143,7 +143,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         primary={
                           <div>
                             <Typography variant="body2" color="textSecondary">
-                              {solution.author}
+                              {solution.echoBoardUser.name}
                             </Typography>
                           </div>
                         }

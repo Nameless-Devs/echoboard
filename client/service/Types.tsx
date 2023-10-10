@@ -24,10 +24,10 @@ export type EchoBoardResponseData = {
 
 export type CommentResponseData = {
   id: string;
-  author: string;
   content: string;
   upvote: number;
   created: string;
+  echoBoardUser: EchoBoardUser;
 };
 
 export type UpvoteProps = {

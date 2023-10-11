@@ -37,7 +37,7 @@ public class SolutionController {
         return ResponseEntity.of(echoBoardSolution.map(convertor::convertEntityToResponseDto));
     }
 
-    @PatchMapping("solutions/{solutionId}/upvote")
+    @PatchMapping("{solutionId}/upvote")
     public ResponseEntity<Integer> upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteSolution(solutionId, user.getSubject()));
     }

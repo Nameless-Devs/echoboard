@@ -98,7 +98,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             <Box className="comment-display">
               <List>
                 {displayPost.echoBoardComments
-                  .sort((a, b) => b.upvote - a.upvote)
+                  .sort((a, b) => b.upvote.length - a.upvote.length)
                   .map((comment, index) => (
                     <ListItem
                       className="comment-display__individual-comment"
@@ -117,7 +117,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         }
                       ></ListItemText>
                       <UpvoteButton
-                        count={comment.upvote}
+                        count={comment.upvote.length}
                         onUpvote={() => upvoteMutation.mutate(comment.id)}
                       />
                     </ListItem>
@@ -130,7 +130,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             <Box className="comment-display">
               <List>
                 {displayPost.echoBoardSolutions
-                  .sort((a, b) => b.upvote - a.upvote)
+                  .sort((a, b) => b.upvote.length - a.upvote.length)
                   .map((solution, index) => (
                     <ListItem
                       className="comment-display__individual-comment"
@@ -155,7 +155,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                         solutionId={solution.id}
                       />
                       <UpvoteButton
-                        count={solution.upvote}
+                        count={solution.upvote.length}
                         onUpvote={() =>
                           solutionUpvoteMutation.mutate(solution.id)
                         }

@@ -13,7 +13,7 @@ export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
   const { data: echoData } = useQuery(["echoBoard", echoBoardId], () =>
     fetchEchoBoardById(echoBoardId, cookies.JwtToken)
   );
-  const upvoteCount = echoData ? echoData.upvote : 0;
+  const upvoteCount = echoData ? echoData.upvote.length : 0;
 
   const mutation = useMutation(
     () => upvotePost(echoBoardId, cookies.JwtToken),

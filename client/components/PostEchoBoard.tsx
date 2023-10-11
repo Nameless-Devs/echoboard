@@ -9,7 +9,6 @@ import {
   Checkbox,
   FormControlLabel,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 

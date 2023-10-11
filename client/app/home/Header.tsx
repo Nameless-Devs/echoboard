@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Image from "next/image";
 import EchoLogo from "../image/EchoLogo.png";
+import { ENDPOINTS } from "@/service/config";
 
 interface HeaderProps {
   title: string;
@@ -34,7 +35,7 @@ export default function Header(props: HeaderProps) {
           {title}
         </Typography>
         <Button variant="outlined" size="small">
-          <Link href={"http://localhost:8080/echoes"}>
+          <Link href={ENDPOINTS.LOGIN}>
             Join the Community
           </Link>
         </Button>

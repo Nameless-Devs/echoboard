@@ -3,44 +3,46 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Getter
-@Setter
 @ToString
-@Table(name = "echo_board_comment")
 @NoArgsConstructor
+@Table(name = "echo_board_comment")
 public class EchoBoardComment {
 
+    @ElementCollection
+    Set<String> upvote;
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    private String author;
-
+    private long id;
     @Column(length = 1000)
     private String content;
-    private int upvote;
     private Instant created;
+    private boolean anonymous;
 
-    public EchoBoardComment(String author, String content) {
-        this.author = author;
-        this.content = content;
+    public EchoBoardComment setEchoBoardUser(EchoBoardUser echoBoardUser) {
+        this.echoBoardUser = echoBoardUser;
+        return this;
     }
 
-    public EchoBoardComment addUpvote() {
-        this.upvote += 1;
+    public EchoBoardComment addUpvote(String userSubject) {
+        this.upvote.add(userSubject);
         return this;
     }
 
     @PrePersist
     private void onCreate() {
-        this.upvote = 0;
+        this.upvote = new HashSet<>();
         this.created = Instant.now();
     }
 }

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { SolutionToPost } from "../service/Types";
+import { SolutionToPost, UserResponseData } from "@/service/Types";
 import { Button, Modal, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postSolution } from "../service/Functions";
+import { postSolution } from "@/service/Functions";
 import { useCookies } from "react-cookie";
 
 type SolutionProps = {
@@ -10,6 +10,7 @@ type SolutionProps = {
   handleClose: () => void;
   isOpen: boolean;
   onSolutionPosted: () => void;
+  user: UserResponseData;
 };
 
 export const PostSolution: React.FC<SolutionProps> = ({
@@ -17,9 +18,10 @@ export const PostSolution: React.FC<SolutionProps> = ({
   handleClose,
   isOpen,
   onSolutionPosted,
+  user,
 }) => {
   const [solutionToPost, setSolutionToPost] = useState<SolutionToPost>({
-    author: "",
+    author: user.name,
     content: "",
   });
   const [isSuccess, setIsSuccess] = useState(false);
@@ -41,7 +43,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
         queryClient.invalidateQueries(["echoBoards"]);
         queryClient.refetchQueries(["solution", echoBoardId]);
         setSolutionToPost({
-          author: "",
+          author: user.name,
           content: "",
         });
         setIsSuccess(true);
@@ -73,20 +75,6 @@ export const PostSolution: React.FC<SolutionProps> = ({
           <>
             <h3>Here you can share your solution ideas</h3>
             <form className="post-comment__form" onSubmit={handleSolutionPost}>
-              <TextField
-                className="post-comment__name-input"
-                label="Enter your name"
-                variant="outlined"
-                name="author"
-                size="small"
-                value={solutionToPost.author}
-                onChange={(e) =>
-                  setSolutionToPost({
-                    ...solutionToPost,
-                    author: e.target.value,
-                  })
-                }
-              />
               <TextField
                 className="post-comment__comment"
                 label="Solution"

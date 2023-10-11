@@ -1,5 +1,11 @@
-import { EchoBoardResponseData, CommentResponseData } from "../service/Types";
-import { fetchEchoBoards, fetchEchoBoardById } from "../service/Functions";
+import {
+  EchoBoardResponseData,
+  UserResponseData,
+} from "@/service/Types";
+import {
+  fetchEchoBoards,
+  fetchEchoBoardById,
+} from "@/service/Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -12,8 +18,13 @@ import { useEffect, useState } from "react";
 import CommentsModal from "./CommentModal";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import "../app/styles/EchoBoard.css";
 
-export const EchoBoard = () => {
+export const EchoBoard: React.FC<UserResponseData> = (
+  user: UserResponseData
+) => {
   const [cookies] = useCookies();
 
   const {
@@ -35,8 +46,8 @@ export const EchoBoard = () => {
   const sortedEchoBoards = sortByUpvote
     ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
     : [...(echoBoards || [])].sort(
-        (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
-      );
+      (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+    );
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);
@@ -76,14 +87,8 @@ export const EchoBoard = () => {
   );
 
   return (
-    <main
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <h1>Echo Board All Posts</h1>
+    <main className="echo-board-main">
+      <h2>EchoBoard All Posts</h2>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
       ) : (
@@ -91,48 +96,28 @@ export const EchoBoard = () => {
           Sort
         </Button>
       )}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "row",
-          justifyContent: "center",
-          gap: "1rem",
-        }}
-      >
+      <div className="echo-board-posts">
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error!</p>}
         {sortedEchoBoards?.map((echoBoard, index) => (
-          <Card
-            key={index}
-            sx={{
-              maxWidth: 345,
-              minWidth: 345,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <CardContent
-              sx={{
-                flex: "1 1 auto",
-              }}
-            >
-              <SinglePost {...echoBoard} />
+          <Card key={index} className="echo-board-card">
+            <CardContent className="echo-board-card-content">
+              <SinglePost echoBoard={echoBoard} user={user} />
             </CardContent>
-            <CardActions>
+            <CardActions className="echo-board-card-actions">
               <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Comments: {echoBoard.echoBoardComment.length}
+                <ModeCommentIcon /> {echoBoard.echoBoardComments.length}
               </Button>
               <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                Solutions: {echoBoard.echoBoardSolutions.length}
+                <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
               </Button>
             </CardActions>
-            <PostComment echoBoardId={echoBoard.id} />
+            <PostComment echoBoardId={echoBoard.id} user={user} />
             <Button
               size="medium"
               onClick={() => handleOpenSolutionForm(echoBoard)}
+              className="echo-board-solution-btn"
             >
               Suggest solution
             </Button>
@@ -144,15 +129,16 @@ export const EchoBoard = () => {
           post={echoBoardDetail || selectedPost}
           handleClose={handleClose}
           isOpen={isOpen}
+          user={user}
         />
       )}
-
       {selectedPostForSolution && (
         <PostSolution
           echoBoardId={selectedPostForSolution.id}
           handleClose={handleCloseSolutionForm}
           isOpen={isOpenSolution}
           onSolutionPosted={handleSolutionPosted}
+          user={user}
         />
       )}
     </main>

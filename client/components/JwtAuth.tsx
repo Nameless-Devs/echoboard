@@ -1,9 +1,9 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
-import jwtDecode from "jwt-decode"; 
+import jwtDecode from "jwt-decode";
 
-type decodedToken = {
+type DecodedToken = {
   exp: number;
 };
 
@@ -11,7 +11,7 @@ const JwtAuth = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const existingToken = Cookies.get("JwtToken");
-  
+
   const isTokenExpired = !existingToken || checkIfTokenExpired(existingToken);
 
   if (token && (isTokenExpired || !existingToken)) {
@@ -19,9 +19,8 @@ const JwtAuth = () => {
     Cookies.set("JwtToken", tokenString, { expires: 1 });
   }
 
-
   function checkIfTokenExpired(token: string) {
-    const decodedToken: decodedToken = jwtDecode(token);
+    const decodedToken: DecodedToken = jwtDecode(token);
     if (!decodedToken) {
       return true;
     }
@@ -29,7 +28,7 @@ const JwtAuth = () => {
     return decodedToken.exp < currentTimestamp;
   }
 
-  return <></>;
+  return null;
 };
 
 export default JwtAuth;

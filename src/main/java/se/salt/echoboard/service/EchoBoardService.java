@@ -1,11 +1,11 @@
 package se.salt.echoboard.service;
 
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import se.salt.echoboard.model.EchoBoard;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
@@ -14,7 +14,9 @@ import se.salt.echoboard.service.repository.EchoBoardRepository;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -29,28 +31,31 @@ public class EchoBoardService {
     private final EchoBoardUserRepository userRepository;
 
 
+    @Transactional
     public EchoBoard saveEcho(EchoBoard echoBoard, String userSubject) {
         var user = userRepository.getUserBySubject(userSubject);
-        user.map(u -> u.addUserPost(echoBoard));
+        echoBoard.setUser(user.orElseThrow());
         return echoBoardRepository.save(echoBoard);
     }
 
-    public EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {
-        var user = userRepository.getUserBySubject(userSubject);
-        user.map(u -> u.addUserComment(comment));
-        return commentRepository.save(comment);
+    @Transactional
+    public Optional<EchoBoardComment> saveComment(EchoBoardComment comment, String userSubject) {
+        return userRepository.getUserBySubject(userSubject)
+                .map(comment::setEchoBoardUser).map(commentRepository::save);
     }
 
-    public EchoBoardSolution saveSolution(EchoBoardSolution solution, String userSubject) {
-        var user = userRepository.getUserBySubject(userSubject);
-        user.map(u -> u.addUserSolution(solution));
-        return solutionRepository.save(solution);
+    @Transactional
+    public Optional<EchoBoardSolution> saveSolution(EchoBoardSolution solution, String userSubject) {
+        return userRepository.getUserBySubject(userSubject)
+                .map(solution::setEchoBoardUser).map(solutionRepository::save);
     }
 
+    @Transactional
     public EchoBoardSolution updateSolution(EchoBoardSolution solution) {
         return solutionRepository.save(solution);
     }
 
+    @Transactional
     public EchoBoardComment updateComment(EchoBoardComment comment) {
         return commentRepository.save(comment);
     }
@@ -72,48 +77,58 @@ public class EchoBoardService {
         return solutionRepository.getSolutionById(solutionId);
     }
 
+    @Transactional
     public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
-        return echoBoard.map(board -> {
-            board.getEchoBoardComment().add(echoBoardComment);
-            return saveComment(echoBoardComment, userSubject).getId();
+
+        return echoBoard.flatMap(e -> {
+            e.addComment(echoBoardComment);
+            return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
         });
     }
 
+    @Transactional
     public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
-        return echoBoard.map(board -> {
-            board.getEchoBoardSolutions().add(echoBoardSolution);
-            return saveSolution(echoBoardSolution, userSubject).getId();
-        });
+        return echoBoard.flatMap(e -> {
+            e.addSolution(echoBoardSolution);
+            return saveSolution(echoBoardSolution, userSubject);
+        }).map(EchoBoardSolution::getId);
     }
 
-    public Optional<Integer> upvoteComment (long commentId) {
+    @Transactional
+    public Optional<Integer> upvoteComment(long commentId, String userSubject) {
         return getCommentById(commentId)
-                .map(EchoBoardComment::addUpvote)
+                .map(comment -> comment.addUpvote(userSubject))
                 .map(this::updateComment)
-                .map(EchoBoardComment::getUpvote);
+                .map(EchoBoardComment::getUpvote)
+                .map(Set::size);
     }
 
-    public Optional<Integer> upvoteEcho(long echoId) {
+    @Transactional
+    public Optional<Integer> upvoteEcho(long echoId, String userSubject) {
         return getEchoById(echoId)
-                .map(EchoBoard::addUpvote)
+                .map(echoBoard -> echoBoard.addUpvote(userSubject))
                 .map(echoBoardRepository::save)
-                .map(EchoBoard::getUpvote);
+                .map(EchoBoard::getUpvote)
+                .map(Set::size);
     }
 
-    public Optional<Integer> upvoteSolution(long solutionId) {
+    @Transactional
+    public Optional<Integer> upvoteSolution(long solutionId, String userSubject) {
         return getSolutionById(solutionId)
-                .map(EchoBoardSolution::addUpvote)
+                .map(solution -> solution.addUpvote(userSubject))
                 .map(this::updateSolution)
-                .map(EchoBoardSolution::getUpvote);
+                .map(EchoBoardSolution::getUpvote)
+                .map(Set::size);
     }
 
+    @Transactional
     public void deleteEcho(Long id) {
         echoBoardRepository.deleteById(id);
     }
 
-    public Optional<EchoBoardUser> getUserById(String id) {
+    public Optional<EchoBoardUser> getUserBySubject(String id) {
         return userRepository.getUserBySubject(id);
     }
 }

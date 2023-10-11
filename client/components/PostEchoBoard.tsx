@@ -1,15 +1,25 @@
-import React, { useState } from "react";
-import { PostEchoBoardData } from "../service/Types";
-import { postEcho } from "../service/Functions";
+import React, { ChangeEvent, useState } from "react";
+import { PostEchoBoardData, UserResponseData } from "@/service/Types";
+import { postEcho } from "@/service/Functions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useCookies } from "react-cookie";
 
-const PostEchoBoard = () => {
+const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
+  const [ifAnonymous, setIfAnonymous] = useState(false);
   const [echoBoardPost, setProblemPost] = useState<PostEchoBoardData>({
     title: "",
     content: "",
-    author: "", //change it later when we have user authentication
+    author: user.name,
+    anonymous: false,
   });
 
   const queryClient = useQueryClient();
@@ -18,6 +28,14 @@ const PostEchoBoard = () => {
   const mutation = useMutation((data: PostEchoBoardData) =>
     postEcho(data, cookies.JwtToken)
   );
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    setIfAnonymous(event.target.checked);
+    setProblemPost((prevEchoBoardPost) => ({
+      ...prevEchoBoardPost,
+      anonymous: event.target.checked,
+    }));
+  }
 
   const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,8 +50,10 @@ const PostEchoBoard = () => {
         setProblemPost({
           title: "",
           content: "",
-          author: "",
+          author: user.name,
+          anonymous: false,
         });
+        setIfAnonymous(false);
       },
       onError: (error) => {
         console.error("Error:", error);
@@ -50,54 +70,65 @@ const PostEchoBoard = () => {
         minWidth: "300px",
       }}
     >
-      <Typography
-        variant="h4"
-        style={{ display: "flex", justifyContent: "center", padding: "1rem" }}
-      >
-        Create a Post with Your Problem
-      </Typography>
       <form onSubmit={handleProblemPost}>
         <Box
           sx={{
             "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root":
-              {
-                m: 1,
-                width: "99%",
-                alignSelf: "center",
-              },
+            {
+              m: 1,
+              width: "99%",
+              alignSelf: "center",
+            },
           }}
+          style={{ display: "flex", flexDirection: "column" }}
         >
-          <TextField
-            label="Title"
+          <Box style={{ display: "flex" }}>
+            <Box>
+              <Avatar
+                alt={user.name + "avatar picture"}
+                src={user.picture}
+                style={{ margin: "10px" }}
+              />
+            </Box>
+            <Box style={{ marginRight: "50px" }}>
+              <TextField
+                label="Title"
+                variant="outlined"
+                name="title"
+                value={echoBoardPost.title}
+                onChange={(e) =>
+                  setProblemPost({ ...echoBoardPost, title: e.target.value })
+                }
+              />
+              <TextField
+                label="Description"
+                id="filled-multiline-static"
+                multiline
+                name="content"
+                minRows={5}
+                value={echoBoardPost.content}
+                onChange={(e) =>
+                  setProblemPost({ ...echoBoardPost, content: e.target.value })
+                }
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleChange}
+                    name="Anonymous"
+                    checked={ifAnonymous}
+                    style={{ marginLeft: "10px" }}
+                  />
+                }
+                label="Post anonymously"
+              />
+            </Box>
+          </Box>
+          <Button
             variant="outlined"
-            name="title"
-            value={echoBoardPost.title}
-            onChange={(e) =>
-              setProblemPost({ ...echoBoardPost, title: e.target.value })
-            }
-          />
-          <TextField
-            label="Description"
-            id="filled-multiline-static"
-            multiline
-            name="content"
-            minRows={5}
-            value={echoBoardPost.content}
-            onChange={(e) =>
-              setProblemPost({ ...echoBoardPost, content: e.target.value })
-            }
-          />
-          <TextField
-            label="Enter your name"
-            name="author"
-            type="text"
-            variant="outlined"
-            value={echoBoardPost.author}
-            onChange={(e) =>
-              setProblemPost({ ...echoBoardPost, author: e.target.value })
-            }
-          />
-          <Button variant="outlined" type="submit">
+            type="submit"
+            style={{ width: "40%", marginTop: "15px" }}
+          >
             Make a post
           </Button>
         </Box>

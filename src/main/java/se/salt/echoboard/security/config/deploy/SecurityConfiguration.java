@@ -23,7 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfiguration {
 
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-    private final CustomBearerTokenFilter customBearerTokenFilter;
+    private final JwtCookieAuthenticationFilter jwtCookieAuthenticationFilter;
 
     @Value("${frontend-details.base-url}")
     private String baseUrl;
@@ -39,7 +39,7 @@ public class SecurityConfiguration {
                 .cors(corsCustomizer())
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler))
-                .addFilterBefore(customBearerTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtCookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(CsrfConfigurer::disable)
                 .build();
     }

@@ -44,7 +44,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
   const [sortByUpvote, setSortByUpvote] = useState(false);
 
   const sortedEchoBoards = sortByUpvote
-    ? [...(echoBoards || [])].sort((a, b) => b.upvote - a.upvote)
+    ? [...(echoBoards || [])].sort((a, b) => b.upvote.length - a.upvote.length)
     : [...(echoBoards || [])].sort(
       (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
     );

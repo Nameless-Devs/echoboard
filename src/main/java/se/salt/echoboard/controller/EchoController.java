@@ -26,9 +26,9 @@ public class EchoController {
     private final EchoBoardService echoService;
     private final DTOConvertor convertor;
 
-    @GetMapping("{id}")
-    public ResponseEntity<EchoBoardResponseDto> getEcho(@PathVariable long id) {
-        return ResponseEntity.of(echoService.getEchoById(id)
+    @GetMapping("{echoId}")
+    public ResponseEntity<EchoBoardResponseDto> getEcho(@PathVariable long echoId) {
+        return ResponseEntity.of(echoService.getEchoById(echoId)
                 .map(convertor::convertEntityToResponseDto));
     }
 
@@ -41,12 +41,6 @@ public class EchoController {
     @PatchMapping("{echoId}/upvote")
     public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteEcho(echoId, user.getSubject()));
-    }
-
-    @PatchMapping("{echoId}/comments/{commentId}/upvote")
-    public ResponseEntity<Integer> upvoteComment(@PathVariable long echoId, @PathVariable long commentId,
-                                                 @AuthenticationPrincipal OidcUser user) {
-        return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));
     }
 
     @PostMapping
@@ -62,7 +56,7 @@ public class EchoController {
     }
 
     @PostMapping("{echoId}/solutions")
-    public ResponseEntity<Void> saveEchoBoardSolution(@PathVariable long echoId,
+    public ResponseEntity<Void> addSolutionToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
                                                       @AuthenticationPrincipal OidcUser user) {
 
@@ -79,12 +73,12 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("{echoBoardId}/comments")
-    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId,
+    @PostMapping("{echoId}/comments")
+    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardComment echoBoardComment,
                                                       @AuthenticationPrincipal OidcUser user) {
 
-        var id = echoService.addCommentToEcho(echoBoardId, echoBoardComment, user.getSubject());
+        var id = echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject());
 
         if (id.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -97,12 +91,10 @@ public class EchoController {
     }
 
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long id) {
-        echoService.deleteEcho(id);
-        return ResponseEntity.of(echoService.getEchoById(id));
+    @DeleteMapping("{echoId}")
+    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long echoId) {
+        echoService.deleteEcho(echoId);
+        return ResponseEntity.of(echoService.getEchoById(echoId));
     }
-
-
 }
 

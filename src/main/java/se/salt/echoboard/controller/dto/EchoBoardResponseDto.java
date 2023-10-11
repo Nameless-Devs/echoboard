@@ -5,14 +5,14 @@ import se.salt.echoboard.model.EchoBoard;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * DTO for {@link EchoBoard}
  */
 public record EchoBoardResponseDto(List<EchoBoardCommentResponseDto> echoBoardComments,
                                    List<EchoBoardSolutionResponseDto> echoBoardSolutions, long id, String title,
-                                   String content,
-                                   int upvote, boolean anonymous, Instant created,
+                                   String content, Set<String> upvote, boolean anonymous, Instant created,
                                    EchoBoardUserResponseDto echoBoardUser) implements Serializable {
 
     @Override

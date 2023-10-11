@@ -38,10 +38,6 @@ public class EchoBoardSolution {
         return this;
     }
 
-    public int getUpvote() {
-        return upvote.size();
-    }
-
     public EchoBoardSolution updateSolutionStatus(SolutionStatus status) {
         this.status = status;
         return this;

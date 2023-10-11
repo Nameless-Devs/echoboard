@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Avatar,
   Box,
   List,
   ListItem,
@@ -104,6 +105,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       className="comment-display__individual-comment"
                       key={index}
                     >
+                      <Avatar src={comment.echoBoardUser.picture} style={{marginRight: "15px"}} />
                       <ListItemText
                         primary={
                           <Typography variant="body2" color="textSecondary">

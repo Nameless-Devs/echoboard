@@ -131,4 +131,13 @@ public class EchoBoardService {
     public Optional<EchoBoardUser> getUserBySubject(String id) {
         return userRepository.getUserBySubject(id);
     }
+
+    @Transactional
+    public Optional<Long> addCommentToComment(long commentId,
+                                              EchoBoardComment echoBoardComment,
+                                              String userSubject) {
+        Optional<EchoBoardComment> comment = getCommentById(commentId);
+        comment.map(c -> c.addCommentToEchoBoardComment(echoBoardComment));
+        return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
+    }
 }

@@ -138,6 +138,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       className="comment-display__individual-comment"
                       key={index}
                     >
+                      <Avatar src={solution.echoBoardUser.picture} style={{marginRight: "15px"}} />
                       <ListItemText
                         primary={
                           <div>

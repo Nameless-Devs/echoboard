@@ -17,6 +17,11 @@ public class CommentController {
 
     private final EchoBoardService echoService;
 
+    @GetMapping("{commentId}")
+    public ResponseEntity<EchoBoardComment> getCommentById(@PathVariable long commentId) {
+        return ResponseEntity.of(echoService.getCommentById(commentId));
+    }
+
     @PatchMapping("{commentId}/upvote")
     public ResponseEntity<Integer> upvoteComment(@PathVariable long commentId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));

@@ -32,8 +32,10 @@ export const PostSolution: React.FC<SolutionProps> = ({
     postSolution(data, echoBoardId, cookies.JwtToken)
   );
 
-  const handleSolutionPost = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSolutionPost = (event?: React.FormEvent<HTMLFormElement>) => {
+    if (event) {
+      event.preventDefault();
+    }
 
     if (!solutionToPost.author.trim() || !solutionToPost.content.trim()) {
       return;
@@ -53,6 +55,14 @@ export const PostSolution: React.FC<SolutionProps> = ({
         console.error("Error:", error);
       },
     });
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && event.shiftKey === false) {
+
+      event.preventDefault();
+      handleSolutionPost();
+    }
   };
   return (
     <Modal open={isOpen} onClose={handleClose}>
@@ -89,6 +99,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
                     content: e.target.value,
                   })
                 }
+                onKeyDown={(event) => handleKeyPress(event)}
               />
               <Button
                 className="post-comment__button"

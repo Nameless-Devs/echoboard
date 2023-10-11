@@ -26,4 +26,22 @@ public class CommentController {
     public ResponseEntity<Integer> upvoteComment(@PathVariable long commentId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));
     }
+
+    @PostMapping("{commentId}")
+    public ResponseEntity<Void> addCommentToEchoBoardComment(@PathVariable long commentId,
+                                                      @RequestBody EchoBoardComment echoBoardComment,
+                                                      @AuthenticationPrincipal OidcUser user) {
+
+        var id = echoService.addCommentToComment(commentId, echoBoardComment, user.getSubject());
+
+        if (id.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id.get())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
 }

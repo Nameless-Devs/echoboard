@@ -7,6 +7,8 @@ import lombok.ToString;
 
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -18,10 +20,10 @@ import java.util.Set;
 public class EchoBoardComment {
 
     @ElementCollection
-    Set<String> upvote;
+    private Set<String> upvote;
     @ManyToOne
     @JoinColumn(name = "subject")
-    EchoBoardUser echoBoardUser;
+    private EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -29,6 +31,14 @@ public class EchoBoardComment {
     private String content;
     private Instant created;
     private boolean anonymous;
+    @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<EchoBoardComment> echoBoardComments = new LinkedList<>();
+
+    public EchoBoardComment addCommentToEchoBoardComment(EchoBoardComment echoBoardComment) {
+        this.echoBoardComments.add(echoBoardComment);
+        return echoBoardComment;
+    }
 
     public EchoBoardComment setEchoBoardUser(EchoBoardUser echoBoardUser) {
         this.echoBoardUser = echoBoardUser;

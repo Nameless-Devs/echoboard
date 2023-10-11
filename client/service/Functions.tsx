@@ -206,7 +206,7 @@ export async function upvoteSolution(
 
 export async function getUserInfo() {
   try {
-    const response = await fetch( "http://localhost:8080/api/user", {
+    const response = await fetch( ENDPOINTS.USER, {
       headers: {
        // Authorization: "Bearer " + token,
       },
@@ -224,7 +224,10 @@ export async function getUserInfo() {
 }
 export async function changeSolutionStatus(solutionId: string, status: string) {
   try {
-    const endpoint = `http://localhost:8080/api/solutions/${solutionId}?updateToStage=${status}`
+    const endpoint = formatEndpoint(ENDPOINTS.UPDATE_SOLUTION_STATUS, {
+      solutionId,
+      status,
+    });
 
     const response = await fetch(endpoint, {
       method: "PATCH",

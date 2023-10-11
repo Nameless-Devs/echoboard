@@ -27,6 +27,7 @@
 }
 
 .post-comment__box {
+    margin: 15px 0 20px;
     display: flex;
     justify-content: space-around;
     width: 94%;

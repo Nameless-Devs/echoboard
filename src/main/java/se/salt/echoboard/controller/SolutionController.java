@@ -2,6 +2,8 @@ package se.salt.echoboard.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import se.salt.echoboard.controller.dto.DTOConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
@@ -17,19 +19,26 @@ public class SolutionController {
     private final EchoBoardService echoService;
     private final DTOConvertor convertor;
 
-    @GetMapping("{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolution> getEchoBoardSolution(@PathVariable long echoBoardSolutionId) {
-        return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId));
+    @GetMapping("{solutionId}")
+    public ResponseEntity<EchoBoardSolutionResponseDto> getEchoBoardSolution(@PathVariable long solutionId) {
+        return ResponseEntity.of(echoService.getSolutionById(solutionId)
+                .map(convertor::convertEntityToResponseDto));
     }
 
-    @PatchMapping("{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolutionResponseDto> updateSolutionStatus(@PathVariable long echoBoardSolutionId
+
+    @PatchMapping("{solutionId}")
+    public ResponseEntity<EchoBoardSolutionResponseDto> updateSolutionStatus(@PathVariable long solutionId
             , @RequestParam EchoBoardSolution.SolutionStatus updateToStage) {
 
-        var echoBoardSolution = echoService.getSolutionById(echoBoardSolutionId)
+        var echoBoardSolution = echoService.getSolutionById(solutionId)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
                 .map(echoService::updateSolution);
 
         return ResponseEntity.of(echoBoardSolution.map(convertor::convertEntityToResponseDto));
+    }
+
+    @PatchMapping("{solutionId}/upvote")
+    public ResponseEntity<Integer> upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
+        return ResponseEntity.of(echoService.upvoteSolution(solutionId, user.getSubject()));
     }
 }

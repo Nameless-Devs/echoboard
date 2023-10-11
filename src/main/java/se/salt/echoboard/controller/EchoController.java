@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import se.salt.echoboard.controller.dto.DTOConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
-import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -22,15 +21,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/echoes")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
 public class EchoController {
 
     private final EchoBoardService echoService;
     private final DTOConvertor convertor;
 
-    @GetMapping("{id}")
-    public ResponseEntity<EchoBoardResponseDto> getEcho(@PathVariable long id) {
-        return ResponseEntity.of(echoService.getEchoById(id)
+    @GetMapping("{echoId}")
+    public ResponseEntity<EchoBoardResponseDto> getEcho(@PathVariable long echoId) {
+        return ResponseEntity.of(echoService.getEchoById(echoId)
                 .map(convertor::convertEntityToResponseDto));
     }
 
@@ -41,13 +39,8 @@ public class EchoController {
     }
 
     @PatchMapping("{echoId}/upvote")
-    public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId) {
-        return ResponseEntity.of(echoService.upvoteEcho(echoId));
-    }
-
-    @PatchMapping("{echoId}/comments/{commentId}/upvote")
-    public ResponseEntity<Integer> upvoteComment(@PathVariable long echoId, @PathVariable long commentId) {
-        return ResponseEntity.of(echoService.upvoteComment(commentId));
+    public ResponseEntity<Integer> upvoteEcho(@PathVariable long echoId, @AuthenticationPrincipal OidcUser user) {
+        return ResponseEntity.of(echoService.upvoteEcho(echoId, user.getSubject()));
     }
 
     @PostMapping
@@ -62,56 +55,46 @@ public class EchoController {
         return ResponseEntity.created(location).build();
     }
 
-
-    @GetMapping("{echoId}/solutions/{echoBoardSolutionId}")
-    public ResponseEntity<EchoBoardSolutionResponseDto> getEchoBoardSolution(@PathVariable long echoId,
-                                                                             @PathVariable long echoBoardSolutionId) {
-        return ResponseEntity.of(echoService.getSolutionById(echoBoardSolutionId)
-                .map(convertor::convertEntityToResponseDto));
-    }
-
     @PostMapping("{echoId}/solutions")
-    public ResponseEntity<Void> saveEchoBoardSolution(@PathVariable long echoId,
+    public ResponseEntity<Void> addSolutionToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
                                                       @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> echoBoardSolutionId =
-                echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
+        Optional<Long> id = echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
 
+        if (id.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(echoBoardSolutionId)
+                .buildAndExpand(id.get())
                 .toUri();
 
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("{echoId}/solutions/{solutionId}/upvote")
-    public ResponseEntity<Integer> upvoteSolution(@PathVariable long echoId, @PathVariable long solutionId) {
-        return ResponseEntity.of(echoService.upvoteSolution(solutionId));
-    }
-
-    @PostMapping("{echoBoardId}/comments")
-    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoBoardId,
+    @PostMapping("{echoId}/comments")
+    public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardComment echoBoardComment,
                                                       @AuthenticationPrincipal OidcUser user) {
 
-        Optional<Long> commentId = echoService.addCommentToEcho(echoBoardId, echoBoardComment, user.getSubject());
+        var id = echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject());
 
+        if (id.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(commentId)
+                .buildAndExpand(id.get())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long id) {
-        echoService.deleteEcho(id);
-        return ResponseEntity.of(echoService.getEchoById(id));
+    @DeleteMapping("{echoId}")
+    public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long echoId) {
+        echoService.deleteEcho(echoId);
+        return ResponseEntity.of(echoService.getEchoById(echoId));
     }
-
-
 }
 

@@ -7,7 +7,9 @@ import lombok.ToString;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -22,27 +24,23 @@ public class EchoBoard {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
+    @ElementCollection
+    private final Set<String> upvote = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    private EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     @Column(length = 1000)
     private String content;
-    private String author;
-    private int upvote;
     private boolean anonymous;
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
-    public EchoBoard(String title, String content, String author, boolean anonymous) {
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.anonymous = anonymous;
-    }
-
-    public EchoBoard addUpvote() {
-        this.upvote += 1;
+    public EchoBoard addUpvote(String userSubject) {
+        this.upvote.add(userSubject);
         return this;
     }
 
@@ -56,8 +54,10 @@ public class EchoBoard {
 
     @PrePersist
     private void onCreate() {
-        this.upvote = 0;
         this.created = Instant.now();
     }
 
+    public void setUser(EchoBoardUser user) {
+        this.echoBoardUser = user;
+    }
 }

@@ -222,4 +222,24 @@ export async function getUserInfo() {
     throw new Error("Error fetching data: " + error);
   }
 }
+export async function changeSolutionStatus(solutionId: string, status: string) {
+  try {
+    const endpoint = `http://localhost:8080/api/solutions/${solutionId}?updateToStage=${status}`
 
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      return response;
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}

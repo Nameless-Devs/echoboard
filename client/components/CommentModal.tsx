@@ -1,49 +1,34 @@
 import React, { useState } from "react";
-import { Modal, List, ListItem, ListItemText, Tabs, Tab } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  Modal,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "./Upvote";
 import { PostComment } from "./PostComment";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { fetchEchoBoardById, upvoteSolution } from "@/service/Functions";
-import { upvoteComment } from "@/service/Functions";
-import { Box } from "@mui/material";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchEchoBoardById } from "@/service/Functions";
 import Button from "@mui/material/Button";
-import "../app/styles/CommentModalStyles.css";
+import "../app/styles/CommentModal.css";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "./SinglePost";
+import { useUpvote } from "@/hooks/useUpvote";
+import UpvoteButton from "./UpvoteButton";
+import { SolutionStatusButton } from "./SolutionStatusButton";
+import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
+import { CustomTabContent } from "./CustomTabContent";
+import { TabsManager } from "./TabsManager";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
   handleClose: () => void;
   isOpen: boolean;
   user: UserResponseData;
-}
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
 }
 
 function a11yProps(index: number) {
@@ -57,7 +42,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   post,
   handleClose,
   isOpen,
-  user
+  user,
 }) => {
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
@@ -65,6 +50,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     useState<null | EchoBoardResponseData>(null);
 
   const [cookies] = useCookies();
+  const upvoteMutation = useUpvote(post.id, cookies.JwtToken);
+  const solutionUpvoteMutation = useUpvoteSolution(post.id, cookies.JwtToken);
 
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
@@ -76,14 +63,14 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setSelectedPostForSolution(null);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleTabChange = (newTabIndex: number) => {
+    setValue(newTabIndex);
   };
+
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {
-      const result = await fetchEchoBoardById(post.id, cookies.JwtToken);
-      return result;
+      return await fetchEchoBoardById(post.id, cookies.JwtToken);
     }
   );
 
@@ -94,72 +81,21 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     queryClient.refetchQueries(["comments", post.id]);
   };
 
-  const mutation = useMutation(
-    (commentId: string) => upvoteComment(post.id, commentId, cookies.JwtToken),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["echoBoards"]);
-        queryClient.invalidateQueries(["comments", post.id]);
-      },
-    }
-  );
-
-  const mutation1 = useMutation(
-    (solutionId: string) =>
-      upvoteSolution(post.id, solutionId, cookies.JwtToken),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["echoBoards"]);
-        queryClient.invalidateQueries(["comments", post.id]);
-      },
-    }
-  );
   return (
     <Modal open={isOpen} onClose={handleClose}>
-      <div
-        style={{
-          padding: "20px",
-          background: "#fff",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          borderRadius: "5px",
-          width: "60%",
-        }}
-      >
+      <div className="model-display">
         <Box mb={1}>
-          <SinglePost echoBoard={post} user={user}  />
-          {/* <Typography variant="body2" color="text.secondary">
-            {post.anonymous ? "Anonymous" : post.author}
-          </Typography>
-        </Box>
-        <Box mb={1}>
-          <Typography variant="h6" color="text.secondary">
-            {post.title}
-          </Typography>
-        </Box>
-        <Box style={{ borderBottom: "1px solid #e0e0e0" }}>
-          <Typography mb={1} variant="h6">
-            {post.content}
-          </Typography> */}
+          <SinglePost echoBoard={post} user={user} />
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
         </Box>
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs 
-              value={value} 
-              onChange={handleChange} 
-              aria-label="basic tabs example">
-              <Tab label="Comments" {...a11yProps(0)} />
-              <Tab label="Solutions" {...a11yProps(1)} />
-            </Tabs>
-          </Box>
-          <CustomTabPanel value={value} index={0}>
-            <Box
-              className="comment-display"
-              style={{ maxHeight: "300px", overflow: "auto" }}
-            >
+        <Box className="tabs-container">
+          <TabsManager
+            labels={["Comments", "Solutions"]}
+            onTabChange={handleTabChange}
+            currentTabIndex={value}
+          />
+          <CustomTabContent value={value} index={0}>
+            <Box className="comment-display">
               <List>
                 {displayPost.echoBoardComments
                   .sort((a, b) => b.upvote - a.upvote)
@@ -171,7 +107,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       <ListItemText
                         primary={
                           <Typography variant="body2" color="textSecondary">
-                            {comment.author}
+                            {comment.echoBoardUser.name}
                           </Typography>
                         }
                         secondary={
@@ -180,20 +116,18 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <Button onClick={() => mutation.mutate(comment.id)}>
-                        Upvote: {comment.upvote}
-                      </Button>
+                      <UpvoteButton
+                        count={comment.upvote}
+                        onUpvote={() => upvoteMutation.mutate(comment.id)}
+                      />
                     </ListItem>
                   ))}
               </List>
-              <PostComment echoBoardId={displayPost.id} user={user}/>
+              <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            <Box
-              className="comment-display"
-              style={{ maxHeight: "300px", overflow: "auto" }}
-            >
+          </CustomTabContent>
+          <CustomTabContent value={value} index={1}>
+            <Box className="comment-display">
               <List>
                 {displayPost.echoBoardSolutions
                   .sort((a, b) => b.upvote - a.upvote)
@@ -204,9 +138,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                     >
                       <ListItemText
                         primary={
-                          <Typography variant="body2" color="textSecondary">
-                            {solution.author}
-                          </Typography>
+                          <div>
+                            <Typography variant="body2" color="textSecondary">
+                              {solution.echoBoardUser.name}
+                            </Typography>
+                          </div>
                         }
                         secondary={
                           <Typography variant="body1" color="textPrimary">
@@ -214,13 +150,20 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                           </Typography>
                         }
                       ></ListItemText>
-                      <Button onClick={() => mutation1.mutate(solution.id)}>
-                        Upvote: {solution.upvote}
-                      </Button>
+                      <SolutionStatusButton
+                        status={solution.status}
+                        solutionId={solution.id}
+                      />
+                      <UpvoteButton
+                        count={solution.upvote}
+                        onUpvote={() =>
+                          solutionUpvoteMutation.mutate(solution.id)
+                        }
+                      />
                     </ListItem>
                   ))}
               </List>
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div className="solution-button-container">
                 <Button
                   size="medium"
                   onClick={() => handleOpenSolutionForm(displayPost)}
@@ -229,7 +172,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 </Button>
               </div>
             </Box>
-          </CustomTabPanel>
+          </CustomTabContent>
         </Box>
         {selectedPostForSolution && (
           <PostSolution

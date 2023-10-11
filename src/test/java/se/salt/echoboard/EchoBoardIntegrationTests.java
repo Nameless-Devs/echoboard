@@ -7,7 +7,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import se.salt.echoboard.model.EchoBoard;
+import se.salt.echoboard.controller.dto.DTOConvertor;
+import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
+import util.dto.request.EchoBoardRequestDto;
 import util.TestUtilities;
 
 import java.util.Collections;
@@ -23,16 +25,19 @@ import static util.TestUtilities.*;
 public class EchoBoardIntegrationTests {
 
     private final MockMvc mockMvc;
+    private final DTOConvertor convertor;
 
     @Autowired
-    public EchoBoardIntegrationTests(MockMvc mockMvc) {
+    public EchoBoardIntegrationTests(MockMvc mockMvc, DTOConvertor convertor) {
         this.mockMvc = mockMvc;
+        this.convertor = convertor;
     }
 
     @Test
     public void testPublishEchoBoard() throws Exception {
-        EchoBoard expectedEcho = TestUtilities.echoBoardSample();
-        String jsonRequest = TestUtilities.convertJsonString(expectedEcho);
+        var requestEcho = TestUtilities.echoBoardSample();
+        String jsonRequest = TestUtilities.convertJsonString(requestEcho);
+        System.out.println(jsonRequest);
 
         MvcResult postResult = mockMvc.perform(post("/api/echoes")
                         .contentType("application/json")
@@ -47,15 +52,15 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        EchoBoard actualEcho = getObjectFromResponse(getResult, EchoBoard.class);
-        assertEchoBoardEqual(expectedEcho, actualEcho);
+        EchoBoardResponseDto actualEcho = getObjectFromResponse(getResult, EchoBoardResponseDto.class);
+        assertEchoBoardEqual(requestEcho, actualEcho);
     }
 
     @Test
     public void testGetAllEchoes() throws Exception {
-        List<EchoBoard> expectedEcho = echoBoardListSample();
+        List<EchoBoardRequestDto> expectedEcho = echoBoardListSample();
 
-        for (EchoBoard echoBoard : expectedEcho) {
+        for (EchoBoardRequestDto echoBoard : expectedEcho) {
             String jsonRequest = TestUtilities.convertJsonString(echoBoard);
             mockMvc.perform(post("/api/echoes")
                             .contentType("application/json")
@@ -69,9 +74,8 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<EchoBoard> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
-                .getContentAsString(), new TypeReference<>() {
-        });
+        List<EchoBoardResponseDto> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
+                .getContentAsString(), new TypeReference<>() {});
         Collections.reverse(echoBoards);
         for (int i = 0; i < echoBoards.size(); i++) {
             assertEchoBoardEqual(expectedEcho.get(i), echoBoards.get(i));

@@ -15,13 +15,13 @@ import se.salt.echoboard.service.EchoBoardService;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/user")
 public class UserController {
 
     private final EchoBoardService echoBoardService;
     private final DTOConvertor convert;
 
-    @GetMapping("user")
+    @GetMapping
     public ResponseEntity<EchoBoardUserResponseDto> getUser(@AuthenticationPrincipal OidcUser user) {
         var echoBoardUser = echoBoardService.getUserBySubject(user.getSubject());
         return ResponseEntity.of(echoBoardUser.map(convert::convertEntityToResponseDto));

@@ -19,10 +19,10 @@ import java.util.Set;
 public class EchoBoardComment {
 
     @ElementCollection
-    Set<String> upvote;
+    private Set<String> upvote;
     @ManyToOne
     @JoinColumn(name = "subject")
-    EchoBoardUser echoBoardUser;
+    private EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;

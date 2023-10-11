@@ -21,7 +21,7 @@ export const SinglePost: React.FC<SinglePostProps> = ({ echoBoard, user }) => {
           marginBottom: "10px",
         }}
       >
-        <Avatar src={echoBoard.anonymous ? " " : user.picture} />
+        <Avatar src={echoBoard.anonymous ? " " : echoBoard.echoBoardUser.picture} />
         <Box>
           <Typography variant="subtitle1" style={{ marginBottom: "-5px" }}>
             {echoBoard.anonymous ? "Anonymous" : echoBoard.echoBoardUser.name}

@@ -45,7 +45,8 @@ public class FakeUserFilter extends OncePerRequestFilter {
                 setFakeUserInSecurityContext(
                         createFakeUser(request.getSession().getId(),
                                 "Fake User " + request.getSession().getId(),
-                                "faker" + request.getSession().getId() + "@example.com")));
+                                "faker" + request.getSession().getId() + "@example.com",
+                                "https://picsum.photos/id/64/200")));
         response.setHeader("Access-Control-Allow-Origin", baseUrl);
         filterChain.doFilter(request, response);
     }
@@ -59,23 +60,25 @@ public class FakeUserFilter extends OncePerRequestFilter {
         return SecurityContextHolder.getContext();
     }
 
-    private OidcUser createFakeUser(String subject, String name, String email) {
+    private OidcUser createFakeUser(String subject, String name, String email, String picture) {
 
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("sub", subject);
         attributes.put("name", name);
         attributes.put("email", email);
+        attributes.put("picture", picture);
 
-        OidcIdToken idToken = new OidcIdToken(createTokenValue(subject, name, email), null, null, attributes);
+        OidcIdToken idToken = new OidcIdToken(createTokenValue(subject, name, email, picture), null, null, attributes);
         return new DefaultOidcUser(Collections.emptyList(), idToken);
     }
 
-    private String createTokenValue(String subject, String name, String email) {
+    private String createTokenValue(String subject, String name, String email, String picture) {
 
         JwtBuilder builder = Jwts.builder()
                 .setSubject(subject)
                 .claim("name", name)
                 .claim("email", email)
+                .claim("picture", picture)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 3600));
 

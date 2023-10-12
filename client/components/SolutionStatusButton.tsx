@@ -46,7 +46,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
 
 
     const handleClick = () => {
-        console.info(`You clicked ${options[selectedIndex][1]}`);
+        if(formatedStatus.formattedStatus == "Volunteers required"){
+    //here i need to send a call to BE
+
+        }
       
     };
 

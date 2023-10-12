@@ -11,7 +11,7 @@ import MenuList from '@mui/material/MenuList';
 import { getStatusInfo } from '@/service/GetStatusInfo';
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { changeSolutionStatus } from '@/service/Functions';
+import { changeSolutionStatus, volunteerForSolution } from '@/service/Functions';
 
 type SolutionStatusProps = {
     status: string;
@@ -44,11 +44,14 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         }
     );
 
+    const volunteerMutation = useMutation(
+        (solutionId: string) => volunteerForSolution(solutionId)
+        );
+
 
     const handleClick = () => {
         if(formatedStatus.formattedStatus == "Volunteers required"){
-    //here i need to send a call to BE
-
+        volunteerMutation.mutate(solutionId);
         }
       
     };

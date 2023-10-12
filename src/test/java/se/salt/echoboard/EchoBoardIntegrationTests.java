@@ -37,7 +37,6 @@ public class EchoBoardIntegrationTests {
     public void testPublishEchoBoard() throws Exception {
         var requestEcho = TestUtilities.echoBoardSample();
         String jsonRequest = TestUtilities.convertJsonString(requestEcho);
-        System.out.println(jsonRequest);
 
         MvcResult postResult = mockMvc.perform(post("/api/echoes")
                         .contentType("application/json")

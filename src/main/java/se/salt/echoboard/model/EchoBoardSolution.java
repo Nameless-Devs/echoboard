@@ -20,10 +20,10 @@ import java.util.Set;
 public class EchoBoardSolution {
 
     @ElementCollection
-    Set<String> upvote;
+    private final Set<String> upvote = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "subject")
-    EchoBoardUser echoBoardUser;
+    private EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -60,7 +60,6 @@ public class EchoBoardSolution {
 
     @PrePersist
     private void onCreate() {
-        this.upvote = new HashSet<>();
         this.created = Instant.now();
         this.status = SolutionStatus.SOLUTION_IN_REVIEW;
     }

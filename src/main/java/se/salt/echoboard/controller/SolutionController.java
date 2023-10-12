@@ -47,14 +47,13 @@ public class SolutionController {
     public ResponseEntity<EchoBoardSolutionResponseDto> volunteerForSolutionTesting(@PathVariable long solutionId
             , @AuthenticationPrincipal OidcUser user) {
 
-        var volunteer = echoService.getUserBySubject(user.getSubject()).orElseThrow();
         var echoBoardSolutionStatus = echoService.getSolutionStatus(solutionId).orElseThrow();
 
             if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
                 return ResponseEntity.badRequest().build();
             }
 
-            var echoBoardSolution = echoService.addVolunteerToSolution(solutionId, volunteer);
-            return ResponseEntity.of(echoBoardSolution.map(convertor::convertEntityToResponseDto));
+            return ResponseEntity.of(echoService.addVolunteerToSolution(solutionId, user)
+                    .map(convertor::convertEntityToResponseDto));
     }
 }

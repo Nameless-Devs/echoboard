@@ -4,6 +4,7 @@ package se.salt.echoboard.service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
@@ -147,7 +148,9 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId, EchoBoardUser volunteer){
+    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId,
+                                                              OidcUser user){
+        var volunteer = getUserBySubject(user.getSubject()).orElseThrow();
         return  getSolutionById(solutionId)
                 .map(solution -> solution.addVolunteer(volunteer))
                 .map(this::updateSolution);

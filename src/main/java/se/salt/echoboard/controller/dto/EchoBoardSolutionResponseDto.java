@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public record EchoBoardSolutionResponseDto(long id, String content, Set<String> upvote, boolean anonymous,
                                            EchoBoardSolution.SolutionStatus status, Instant created,
-                                           EchoBoardUserResponseDto echoBoardUser) {
+                                           EchoBoardUserResponseDto echoBoardUser, Set<EchoBoardUserResponseDto> volunteers) {
 
     @Override
     public EchoBoardUserResponseDto echoBoardUser() {

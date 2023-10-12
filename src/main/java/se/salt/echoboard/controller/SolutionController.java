@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import se.salt.echoboard.controller.dto.DTOConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.EchoBoardService;
+
+import java.util.Optional;
 
 
 @RestController
@@ -40,5 +43,24 @@ public class SolutionController {
     @PatchMapping("{solutionId}/upvote")
     public ResponseEntity<Integer> upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteSolution(solutionId, user.getSubject()));
+    }
+
+    @PostMapping("{solutionId}/volunteer")
+    public ResponseEntity<EchoBoardSolutionResponseDto> volunteerForSolutionTesting(@PathVariable long solutionId
+            , @RequestBody EchoBoardUser volunteer){
+
+        var echoBoardSolutionStatus = echoService.getSolutionById(solutionId)
+                .map(EchoBoardSolution::getStatus);
+        echoBoardSolutionStatus.map(Enum::name).map(statusName -> statusName.equals(Optional.of(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)));
+
+        if (echoBoardSolutionStatus.equals("VOLUNTEERS_REQUIRED")){
+            var echoBoardSolution = echoService.getSolutionById(solutionId)
+                    .map(solution -> solution.addVolunteer(volunteer))
+                    .map(echoService::updateSolution);
+
+            return ResponseEntity.of(echoBoardSolution.map(convertor::convertEntityToResponseDto));
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 }

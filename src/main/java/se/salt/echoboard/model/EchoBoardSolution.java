@@ -53,6 +53,11 @@ public class EchoBoardSolution {
         return this;
     }
 
+    public EchoBoardSolution addVolunteer(EchoBoardUser volunteer) {
+        this.volunteers.add(volunteer);
+        return this;
+    }
+
     @PrePersist
     private void onCreate() {
         this.upvote = new HashSet<>();

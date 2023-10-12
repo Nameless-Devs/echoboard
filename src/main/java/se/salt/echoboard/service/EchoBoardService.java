@@ -32,10 +32,11 @@ public class EchoBoardService {
 
 
     @Transactional
-    public EchoBoard saveEcho(EchoBoard echoBoard, String userSubject) {
-        var user = userRepository.getUserBySubject(userSubject);
-        echoBoard.setUser(user.orElseThrow());
-        return echoBoardRepository.save(echoBoard);
+    public Optional<Long> saveEcho(EchoBoard echoBoard, String userSubject) {
+        return userRepository.getUserBySubject(userSubject)
+                .map(echoBoard::setUser)
+                .map(echoBoardRepository::save)
+                .map(EchoBoard::getId);
     }
 
     @Transactional

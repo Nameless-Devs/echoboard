@@ -15,8 +15,6 @@ import se.salt.echoboard.service.EchoBoardService;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping("api/echoes")
@@ -45,11 +43,13 @@ public class EchoController {
 
     @PostMapping
     public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
-        long echoId = echoService.saveEcho(echoBoard, user.getSubject()).getId();
-
+        var id = echoService.saveEcho(echoBoard, user.getSubject());
+        if (id.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(echoId)
+                .buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -59,9 +59,7 @@ public class EchoController {
     public ResponseEntity<Void> addSolutionToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
                                                       @AuthenticationPrincipal OidcUser user) {
-
-        Optional<Long> id = echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
-
+        var id = echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
         if (id.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -77,9 +75,7 @@ public class EchoController {
     public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardComment echoBoardComment,
                                                       @AuthenticationPrincipal OidcUser user) {
-
         var id = echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject());
-
         if (id.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -89,7 +85,6 @@ public class EchoController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-
 
     @DeleteMapping("{echoId}")
     public ResponseEntity<EchoBoard> deleteEcho(@PathVariable long echoId) {

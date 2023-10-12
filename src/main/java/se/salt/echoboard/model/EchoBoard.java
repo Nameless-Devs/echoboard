@@ -57,7 +57,8 @@ public class EchoBoard {
         this.created = Instant.now();
     }
 
-    public void setUser(EchoBoardUser user) {
+    public EchoBoard setUser(EchoBoardUser user) {
         this.echoBoardUser = user;
+        return this;
     }
 }

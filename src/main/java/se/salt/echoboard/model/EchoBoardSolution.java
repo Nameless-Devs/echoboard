@@ -36,7 +36,7 @@ public class EchoBoardSolution {
     private Instant created;
     @OneToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<EchoBoardUser> volunteers = new ArrayList<>();
+    private Set<EchoBoardUser> volunteers = new HashSet<>();
 
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);

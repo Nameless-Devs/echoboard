@@ -34,7 +34,7 @@ public class EchoBoardSolution {
     private SolutionStatus status;
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
 

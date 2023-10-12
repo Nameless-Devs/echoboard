@@ -30,7 +30,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [isClickble, setIsClickble] = useState(false);
+    const [isClickble, setIsClickble] = useState(status == "VOLUNTEERS_REQUIRED");
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
 
     const queryClient = useQueryClient();

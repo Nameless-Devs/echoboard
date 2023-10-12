@@ -48,8 +48,7 @@ public class SolutionController {
             , @AuthenticationPrincipal OidcUser user) {
 
         var volunteer = echoService.getUserBySubject(user.getSubject()).orElseThrow();
-        var echoBoardSolutionStatus = echoService.getSolutionById(solutionId)
-                .map(EchoBoardSolution::getStatus).orElseThrow();
+        var echoBoardSolutionStatus = echoService.getSolutionStatus(solutionId).orElseThrow();
 
             if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
                 return ResponseEntity.badRequest().build();

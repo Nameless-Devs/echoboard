@@ -145,4 +145,10 @@ public class EchoBoardService {
         return getSolutionById(solutionId)
                 .map(EchoBoardSolution::getStatus);
     }
+
+    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId, EchoBoardUser volunteer){
+        return  getSolutionById(solutionId)
+                .map(solution -> solution.addVolunteer(volunteer))
+                .map(this::updateSolution);
+    }
 }

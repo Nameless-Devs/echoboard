@@ -43,13 +43,10 @@ public class EchoController {
 
     @PostMapping
     public ResponseEntity<Void> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
-        var id = echoService.saveEcho(echoBoard, user.getSubject());
-        if (id.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        var id = echoService.saveEcho(echoBoard, user.getSubject()).getId();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id.get())
+                .buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -59,13 +56,10 @@ public class EchoController {
     public ResponseEntity<Void> addSolutionToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardSolution echoBoardSolution,
                                                       @AuthenticationPrincipal OidcUser user) {
-        var id = echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
-        if (id.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        var id = echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject()).getId();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id.get())
+                .buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -75,13 +69,10 @@ public class EchoController {
     public ResponseEntity<Void> addCommentToEchoBoard(@PathVariable long echoId,
                                                       @RequestBody EchoBoardComment echoBoardComment,
                                                       @AuthenticationPrincipal OidcUser user) {
-        var id = echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject());
-        if (id.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        var id = echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject()).getId();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id.get())
+                .buildAndExpand(id)
                 .toUri();
         return ResponseEntity.created(location).build();
     }

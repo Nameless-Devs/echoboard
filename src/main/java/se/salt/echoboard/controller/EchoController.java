@@ -49,7 +49,7 @@ public class EchoController {
         }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(id.get())
                 .toUri();
 
         return ResponseEntity.created(location).build();

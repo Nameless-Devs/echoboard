@@ -146,6 +146,7 @@ public class EchoBoardService {
                 .map(EchoBoardSolution::getStatus);
     }
 
+    @Transactional
     public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId, EchoBoardUser volunteer){
         return  getSolutionById(solutionId)
                 .map(solution -> solution.addVolunteer(volunteer))

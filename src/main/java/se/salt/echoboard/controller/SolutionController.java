@@ -53,10 +53,8 @@ public class SolutionController {
             if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
                 return ResponseEntity.badRequest().build();
             }
-            var echoBoardSolution = echoService.getSolutionById(solutionId)
-                    .map(solution -> solution.addVolunteer(volunteer))
-                    .map(echoService::updateSolution);
 
+            var echoBoardSolution = echoService.addVolunteerToSolution(solutionId, volunteer);
             return ResponseEntity.of(echoBoardSolution.map(convertor::convertEntityToResponseDto));
     }
 }

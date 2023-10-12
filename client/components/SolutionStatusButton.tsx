@@ -30,6 +30,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [isClickble, setIsClickble] = useState(false);
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
 
     const queryClient = useQueryClient();
@@ -92,9 +93,11 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                 <Button
                     size='small'
                     color={formatedStatus.color as ButtonProps['color']}
+                    onClick={handleClick}
                     style={{
                         borderTopLeftRadius: "30px",
-                        borderBottomLeftRadius: "30px"
+                        borderBottomLeftRadius: "30px",
+                        pointerEvents: "none",
                     }}
                 >
                     {formatedStatus.formattedStatus}

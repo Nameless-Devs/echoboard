@@ -44,9 +44,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         }
     );
 
+
     const handleClick = () => {
         console.info(`You clicked ${options[selectedIndex][1]}`);
-        //here we can implement logic for volunteering an so on
+      
     };
 
     const handleMenuItemClick = (
@@ -58,6 +59,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         const newStatus = options[index][0];
         setFormatedStatus(getStatusInfo(newStatus));
         mutation.mutate(newStatus);
+        if(newStatus == "VOLUNTEERS_REQUIRED"){
+            setIsClickble(true);
+        }
+        else setIsClickble(false);
     };
 
     const handleToggle = () => {
@@ -97,7 +102,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                     style={{
                         borderTopLeftRadius: "30px",
                         borderBottomLeftRadius: "30px",
-                        pointerEvents: "none",
+                        pointerEvents: isClickble? "auto" : "none",
                     }}
                 >
                     {formatedStatus.formattedStatus}

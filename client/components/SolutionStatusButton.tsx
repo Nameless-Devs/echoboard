@@ -11,7 +11,7 @@ import MenuList from '@mui/material/MenuList';
 import { getStatusInfo } from '@/service/GetStatusInfo';
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { changeSolutionStatus } from '@/service/Functions';
+import { changeSolutionStatus, volunteerForSolution } from '@/service/Functions';
 
 type SolutionStatusProps = {
     status: string;
@@ -30,6 +30,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [isClickble, setIsClickble] = useState(status == "VOLUNTEERS_REQUIRED");
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
 
     const queryClient = useQueryClient();
@@ -43,9 +44,16 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         }
     );
 
+    const volunteerMutation = useMutation(
+        (solutionId: string) => volunteerForSolution(solutionId)
+        );
+
+
     const handleClick = () => {
-        console.info(`You clicked ${options[selectedIndex][1]}`);
-        //here we can implement logic for volunteering an so on
+        if(formatedStatus.formattedStatus == "Volunteers required"){
+        volunteerMutation.mutate(solutionId);
+        }
+      
     };
 
     const handleMenuItemClick = (
@@ -57,6 +65,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         const newStatus = options[index][0];
         setFormatedStatus(getStatusInfo(newStatus));
         mutation.mutate(newStatus);
+        if(newStatus == "VOLUNTEERS_REQUIRED"){
+            setIsClickble(true);
+        }
+        else setIsClickble(false);
     };
 
     const handleToggle = () => {
@@ -92,9 +104,11 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                 <Button
                     size='small'
                     color={formatedStatus.color as ButtonProps['color']}
+                    onClick={handleClick}
                     style={{
                         borderTopLeftRadius: "30px",
-                        borderBottomLeftRadius: "30px"
+                        borderBottomLeftRadius: "30px",
+                        pointerEvents: isClickble? "auto" : "none",
                     }}
                 >
                     {formatedStatus.formattedStatus}

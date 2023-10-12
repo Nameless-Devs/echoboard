@@ -11,6 +11,7 @@ import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 
 
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/solutions")
@@ -40,5 +41,19 @@ public class SolutionController {
     @PatchMapping("{solutionId}/upvote")
     public ResponseEntity<Integer> upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteSolution(solutionId, user.getSubject()));
+    }
+
+    @PostMapping("{solutionId}/volunteer")
+    public ResponseEntity<EchoBoardSolutionResponseDto> volunteerForSolutionTesting(@PathVariable long solutionId
+            , @AuthenticationPrincipal OidcUser user) {
+
+        var echoBoardSolutionStatus = echoService.getSolutionStatus(solutionId).orElseThrow();
+
+            if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            return ResponseEntity.of(echoService.addVolunteerToSolution(solutionId, user)
+                    .map(convertor::convertEntityToResponseDto));
     }
 }

@@ -22,10 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -46,7 +43,7 @@ public class FakeUserFilter extends OncePerRequestFilter {
                         createFakeUser(request.getSession().getId(),
                                 "Fake User " + request.getSession().getId(),
                                 "faker" + request.getSession().getId() + "@example.com",
-                                "https://picsum.photos/id/64/200")));
+                                "https://picsum.photos/id/"+generateRandomNumber()+"/200")));
         response.setHeader("Access-Control-Allow-Origin", baseUrl);
         filterChain.doFilter(request, response);
     }
@@ -90,6 +87,12 @@ public class FakeUserFilter extends OncePerRequestFilter {
             userRepository.createUser(oidcUser);
         }
     }
+
+    public static int generateRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(200) + 1;
+    }
+
 
 }
 

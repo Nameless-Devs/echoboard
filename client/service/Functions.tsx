@@ -246,3 +246,26 @@ export async function changeSolutionStatus(solutionId: string, status: string) {
     throw new Error("Fetch error: " + error);
   }
 }
+
+export async function volunteerForSolution(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, { solutionId });
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+      // body: JSON.stringify(solutionToPost),
+      credentials: "include",
+    });
+    if (response.ok) {
+      console.log(response);
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}

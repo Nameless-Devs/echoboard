@@ -1,14 +1,11 @@
 "use client"
 import { getUserInfo } from '@/service/Functions';
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function UserProfile () {
 
-    const { data: user, error, isLoading } = useQuery(['userInfo'], getUserInfo);
-    console.log(user);
-
-
+    const { data: user, error, isLoading } = useQuery(['userInfo'], getUserInfo)
 
     if (isLoading) {
         return <div>Loading...</div>;

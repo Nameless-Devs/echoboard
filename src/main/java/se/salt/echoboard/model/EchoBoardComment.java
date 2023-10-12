@@ -20,7 +20,7 @@ import java.util.Set;
 public class EchoBoardComment {
 
     @ElementCollection
-    private Set<String> upvote;
+    private final Set<String> upvote = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
@@ -33,11 +33,10 @@ public class EchoBoardComment {
     private boolean anonymous;
     @OneToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<EchoBoardComment> echoBoardComments = new LinkedList<>();
+    private final List<EchoBoardComment> echoBoardComments = new LinkedList<>();
 
-    public EchoBoardComment addCommentToEchoBoardComment(EchoBoardComment echoBoardComment) {
+    public void addCommentToEchoBoardComment(EchoBoardComment echoBoardComment) {
         this.echoBoardComments.add(echoBoardComment);
-        return echoBoardComment;
     }
 
     public EchoBoardComment setEchoBoardUser(EchoBoardUser echoBoardUser) {
@@ -52,7 +51,6 @@ public class EchoBoardComment {
 
     @PrePersist
     private void onCreate() {
-        this.upvote = new HashSet<>();
         this.created = Instant.now();
     }
 }

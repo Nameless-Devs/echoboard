@@ -4,6 +4,7 @@ package se.salt.echoboard.service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
@@ -33,9 +34,10 @@ public class EchoBoardService {
 
     @Transactional
     public EchoBoard saveEcho(EchoBoard echoBoard, String userSubject) {
-        var user = userRepository.getUserBySubject(userSubject);
-        echoBoard.setUser(user.orElseThrow());
-        return echoBoardRepository.save(echoBoard);
+        return userRepository.getUserBySubject(userSubject)
+                .map(echoBoard::setUser)
+                .map(echoBoardRepository::save)
+                .orElseThrow();
     }
 
     @Transactional
@@ -78,22 +80,22 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public Optional<Long> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
+    public EchoBoardComment addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
 
         return echoBoard.flatMap(e -> {
             e.addComment(echoBoardComment);
-            return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
-        });
+            return saveComment(echoBoardComment, userSubject);
+        }).orElseThrow();
     }
 
     @Transactional
-    public Optional<Long> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
+    public EchoBoardSolution addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
         Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
         return echoBoard.flatMap(e -> {
             e.addSolution(echoBoardSolution);
             return saveSolution(echoBoardSolution, userSubject);
-        }).map(EchoBoardSolution::getId);
+        }).orElseThrow();
     }
 
     @Transactional
@@ -133,11 +135,26 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public Optional<Long> addCommentToComment(long commentId,
+    public EchoBoardComment addCommentToComment(long commentId,
                                               EchoBoardComment echoBoardComment,
                                               String userSubject) {
-        Optional<EchoBoardComment> comment = getCommentById(commentId);
-        comment.map(c -> c.addCommentToEchoBoardComment(echoBoardComment));
-        return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
+        return getCommentById(commentId).flatMap(c -> {
+            c.addCommentToEchoBoardComment(echoBoardComment);
+            return saveComment(echoBoardComment, userSubject);
+        }).orElseThrow();
+    }
+
+    public  Optional<EchoBoardSolution.SolutionStatus> getSolutionStatus(long solutionId){
+        return getSolutionById(solutionId)
+                .map(EchoBoardSolution::getStatus);
+    }
+
+    @Transactional
+    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId,
+                                                              OidcUser user){
+        var volunteer = getUserBySubject(user.getSubject()).orElseThrow();
+        return  getSolutionById(solutionId)
+                .map(solution -> solution.addVolunteer(volunteer))
+                .map(this::updateSolution);
     }
 }

@@ -9,7 +9,6 @@ import {
   Checkbox,
   FormControlLabel,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 
@@ -37,8 +36,10 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
     }));
   }
 
-  const handleProblemPost = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleProblemPost = (event?: React.FormEvent<HTMLFormElement>) => {
+    if (event) {
+      event.preventDefault();
+    }
 
     if (!echoBoardPost.title.trim() || !echoBoardPost.content.trim()) {
       return;
@@ -59,6 +60,13 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
         console.error("Error:", error);
       },
     });
+  };
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && event.shiftKey === false) {
+
+      event.preventDefault();
+      handleProblemPost();
+    }
   };
 
   return (
@@ -110,6 +118,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
                 onChange={(e) =>
                   setProblemPost({ ...echoBoardPost, content: e.target.value })
                 }
+                onKeyDown={(event) => handleKeyPress(event)}
               />
               <FormControlLabel
                 control={

@@ -33,14 +33,12 @@ public class CommentController {
                                                       @RequestBody EchoBoardComment echoBoardComment,
                                                       @AuthenticationPrincipal OidcUser user) {
 
-        var id = echoService.addCommentToComment(commentId, echoBoardComment, user.getSubject());
+        var id = echoService.addCommentToComment(commentId, echoBoardComment, user.getSubject()).getId();
 
-        if (id.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/comments")
                 .path("/{id}")
-                .buildAndExpand(id.get())
+                .buildAndExpand(id)
                 .toUri();
         return ResponseEntity.created(location).build();
     }

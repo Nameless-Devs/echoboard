@@ -18,17 +18,19 @@
 }
 
 .comment-display {
-  margin-bottom: 15px;
   border: none;
-  max-height: 300px;
+  max-height: 400px;
   width: auto;
+  margin: 15px 25px 0 0;
+  overflow-y: scroll;
+  
 }
 
 .comment-display__individual-comment {
   background-color: rgb(247, 246, 246);
   margin: 10px;
   border-radius: 40px;
-  width: 95%;
+  max-width: 98%;
   padding: 5px;
 }
 

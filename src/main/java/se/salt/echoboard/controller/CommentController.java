@@ -38,7 +38,8 @@ public class CommentController {
         if (id.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/comments")
                 .path("/{id}")
                 .buildAndExpand(id.get())
                 .toUri();

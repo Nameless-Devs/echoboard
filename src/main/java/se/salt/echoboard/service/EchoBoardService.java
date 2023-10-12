@@ -136,8 +136,9 @@ public class EchoBoardService {
     public Optional<Long> addCommentToComment(long commentId,
                                               EchoBoardComment echoBoardComment,
                                               String userSubject) {
-        Optional<EchoBoardComment> comment = getCommentById(commentId);
-        comment.map(c -> c.addCommentToEchoBoardComment(echoBoardComment));
-        return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
+        return getCommentById(commentId).flatMap(c -> {
+            c.addCommentToEchoBoardComment(echoBoardComment);
+            return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
+        });
     }
 }

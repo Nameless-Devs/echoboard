@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -32,6 +34,9 @@ public class EchoBoardSolution {
     private SolutionStatus status;
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
+    @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<EchoBoardUser> volunteers = new ArrayList<>();
 
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);

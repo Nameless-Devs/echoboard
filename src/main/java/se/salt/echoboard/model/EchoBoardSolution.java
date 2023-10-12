@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -32,6 +34,9 @@ public class EchoBoardSolution {
     private SolutionStatus status;
     @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Set<EchoBoardUser> volunteers = new HashSet<>();
 
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);
@@ -45,6 +50,11 @@ public class EchoBoardSolution {
 
     public EchoBoardSolution setEchoBoardUser(EchoBoardUser echoBoardUser) {
         this.echoBoardUser = echoBoardUser;
+        return this;
+    }
+
+    public EchoBoardSolution addVolunteer(EchoBoardUser volunteer) {
+        this.volunteers.add(volunteer);
         return this;
     }
 
@@ -63,5 +73,4 @@ public class EchoBoardSolution {
         SOLVED,
         FAILED
     }
-
 }

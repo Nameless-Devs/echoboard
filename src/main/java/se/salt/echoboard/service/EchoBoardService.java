@@ -140,4 +140,9 @@ public class EchoBoardService {
         comment.map(c -> c.addCommentToEchoBoardComment(echoBoardComment));
         return saveComment(echoBoardComment, userSubject).map(EchoBoardComment::getId);
     }
+
+    public  Optional<EchoBoardSolution.SolutionStatus> getSolutionStatus(long solutionId){
+        return getSolutionById(solutionId)
+                .map(EchoBoardSolution::getStatus);
+    }
 }

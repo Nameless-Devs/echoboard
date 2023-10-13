@@ -142,7 +142,7 @@ public class EchoBoardService {
         return getCommentById(commentId).flatMap(c -> {
             c.addCommentToEchoBoardComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject);
-        }).orElseThrow();
+        }).orElseThrow(CommentNotFoundException::new);
     }
 
     public  Optional<EchoBoardSolution.SolutionStatus> getSolutionStatus(long solutionId){

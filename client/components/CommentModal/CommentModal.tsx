@@ -21,6 +21,7 @@ interface CommentsModalProps {
   handleClose: () => void;
   isOpen: boolean;
   user: UserResponseData;
+  defaultTabIndex: number;
 }
 
 const CommentsModal: React.FC<CommentsModalProps> = ({
@@ -28,6 +29,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   handleClose,
   isOpen,
   user,
+  defaultTabIndex,
 }) => {
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
@@ -51,6 +53,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const handleTabChange = (newTabIndex: number) => {
     setValue(newTabIndex);
   };
+
 
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
@@ -78,6 +81,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             labels={["Comments", "Solutions"]}
             onTabChange={handleTabChange}
             currentTabIndex={value}
+            defaultTabIndex={defaultTabIndex}
           />
           <CustomTabContent value={value} index={0}>
             <Box className="comment-display">

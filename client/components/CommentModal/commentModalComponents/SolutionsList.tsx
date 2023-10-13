@@ -3,6 +3,7 @@ import { List } from '@mui/material';
 import React from 'react'
 import { SolutionItem } from './SolutionItem';
 
+
 type SolutionsListProps =  {
     solutions: SolutionResponseData[];
     onSolutionUpvote: (solutionId: string) => void;

@@ -1,10 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 
 interface TabsManagerProps {
   labels: string[];
   onTabChange: (newTabIndex: number) => void;
   currentTabIndex: number;
+  defaultTabIndex: number; 
 }
 
 const a11yProps = (index: number) => {
@@ -18,10 +19,19 @@ export const TabsManager: FC<TabsManagerProps> = ({
   labels,
   onTabChange,
   currentTabIndex,
+  defaultTabIndex,
 }) => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     onTabChange(newValue);
   };
+
+  const [initialized, setInitialized] = useState(false);
+  useEffect(() => {
+    if (!initialized) {
+      setInitialized(true);
+      onTabChange(defaultTabIndex);
+    }
+  }, [defaultTabIndex, initialized, onTabChange]);
 
   return (
     <Box className="tabs-container">

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import PostEchoBoard from "../components/PostEchoBoard";
+import PostEchoBoard from "../components/PostEchoBoard/PostEchoBoard";
 import { EchoBoard } from "../components/EchoBoard";
 import JwtAuth from "@/components/JwtAuth";
 import { useQuery } from "@tanstack/react-query";

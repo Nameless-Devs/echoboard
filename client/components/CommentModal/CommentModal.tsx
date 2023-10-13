@@ -17,7 +17,7 @@ import Button from "@mui/material/Button";
 import "../../app/styles/CommentModal.css";
 import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
-import { SinglePost } from "../SinglePost";
+import { SinglePost } from "../SinglePost/SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
 import UpvoteButton from "../UpvoteButton";
 import { SolutionStatusButton } from "../SolutionStatus/SolutionStatusButton";

@@ -14,7 +14,7 @@ import { PostComment } from "../PostComment";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "@/service/Functions";
 import Button from "@mui/material/Button";
-import "../app/styles/CommentModal.css";
+import "../../app/styles/CommentModal.css";
 import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "../SinglePost";

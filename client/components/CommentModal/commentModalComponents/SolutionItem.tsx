@@ -1,8 +1,8 @@
 import { SolutionResponseData } from '@/service/Types'
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import React from 'react'
-import { SolutionStatusButton } from '../SolutionStatusButton';
-import UpvoteButton from '../UpvoteButton';
+import { SolutionStatusButton } from '../../SolutionStatusButton';
+import UpvoteButton from '../../UpvoteButton';
 
 type SolutionItemProps = {
     solution: SolutionResponseData;

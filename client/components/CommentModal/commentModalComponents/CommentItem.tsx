@@ -1,7 +1,7 @@
 import { CommentResponseData } from '@/service/Types'
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material'
 import React from 'react'
-import UpvoteButton from '../UpvoteButton'
+import UpvoteButton from '../../UpvoteButton'
 
 type CommentItemProps = {
     comment: CommentResponseData,

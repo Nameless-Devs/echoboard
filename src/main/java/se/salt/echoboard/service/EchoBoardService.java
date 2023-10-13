@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.exception.custom.CommentNotFoundException;
 import se.salt.echoboard.exception.custom.EchoBoardNotFoundException;
+import se.salt.echoboard.exception.custom.SolutionNotFoundException;
 import se.salt.echoboard.exception.custom.UserNotFoundException;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
@@ -153,8 +154,15 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId,
-                                                              OidcUser user){
+    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId, OidcUser user){
+
+        var echoBoardSolutionStatus = getSolutionStatus(solutionId)
+                .orElseThrow(SolutionNotFoundException::new);
+
+        if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
+            throw new IllegalArgumentException("Wrong Solution Status");
+        }
+
         var volunteer = getUserBySubject(user.getSubject())
                 .orElseThrow(UserNotFoundException::new);
         return  getSolutionById(solutionId)

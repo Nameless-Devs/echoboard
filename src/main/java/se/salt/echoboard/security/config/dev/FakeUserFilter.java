@@ -1,5 +1,7 @@
 package se.salt.echoboard.security.config.dev;
 
+import com.github.javafaker.Faker;
+import com.github.javafaker.Name;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -30,6 +32,7 @@ import java.util.*;
 public class FakeUserFilter extends OncePerRequestFilter {
 
     private final EchoBoardUserRepository userRepository;
+    private final Faker fakeUser = new Faker();
 
     @Value("${frontend-details.base-url}")
     private String baseUrl;
@@ -40,9 +43,7 @@ public class FakeUserFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         SecurityContextHolder.setContext(
                 setFakeUserInSecurityContext(
-                        createFakeUser(request.getSession().getId(),
-                                "Fake User " + request.getSession().getId(),
-                                "faker" + request.getSession().getId() + "@example.com",
+                        createFakeUser(request.getSession().getId(), fakeUser.name(),
                                 "https://picsum.photos/id/"+generateRandomNumber()+"/200")));
         response.setHeader("Access-Control-Allow-Origin", baseUrl);
         filterChain.doFilter(request, response);
@@ -57,24 +58,26 @@ public class FakeUserFilter extends OncePerRequestFilter {
         return SecurityContextHolder.getContext();
     }
 
-    private OidcUser createFakeUser(String subject, String name, String email, String picture) {
+    private OidcUser createFakeUser(String subject, Name fakeUser, String picture) {
+
+        String fakeUserName = fakeUser.firstName()+ " "+ fakeUser.lastName() ;
 
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("sub", subject);
-        attributes.put("name", name);
-        attributes.put("email", email);
+        attributes.put("name", fakeUserName);
+        attributes.put("email", fakeUserName.replace(" ", "") + "@example.com");
         attributes.put("picture", picture);
 
-        OidcIdToken idToken = new OidcIdToken(createTokenValue(subject, name, email, picture), null, null, attributes);
+        OidcIdToken idToken = new OidcIdToken(createTokenValue(subject, fakeUserName, picture), null, null, attributes);
         return new DefaultOidcUser(Collections.emptyList(), idToken);
     }
 
-    private String createTokenValue(String subject, String name, String email, String picture) {
+    private String createTokenValue(String subject, String fakeUserName, String picture) {
 
         JwtBuilder builder = Jwts.builder()
                 .setSubject(subject)
-                .claim("name", name)
-                .claim("email", email)
+                .claim("name", fakeUserName)
+                .claim("email", fakeUserName + "@example.com")
                 .claim("picture", picture)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 3600));

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IconButton, TextField } from "@mui/material";
-import "../app/styles/PostComment.css";
+import "../../app/styles/PostComment.css";
 import SendIcon from "@mui/icons-material/Send";
 
 interface CommentFormProps {

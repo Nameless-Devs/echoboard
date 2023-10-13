@@ -1,26 +1,13 @@
-import {
-  EchoBoardResponseData,
-  UserResponseData,
-} from "@/service/Types";
-import {
-  fetchEchoBoards,
-  fetchEchoBoardById,
-} from "@/service/Functions";
-import { SinglePost } from "./SinglePost";
-import { Upvote } from "./Upvote";
+import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
+import { fetchEchoBoards, fetchEchoBoardById } from "@/service/Functions";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import { PostComment } from "./PostComment";
-import { useEffect, useState } from "react";
-import CommentsModal from "./CommentModal";
-import { PostSolution } from "./PostSolution";
+import { useState } from "react";
+import CommentsModal from "../CommentModal/CommentModal";
+import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
-import "../app/styles/EchoBoard.css";
+import "../../app/styles/EchoBoard.css";
+import EchoBoardCard from "./EchoBoardCard";
 
 export const EchoBoard: React.FC<UserResponseData> = (
   user: UserResponseData
@@ -36,6 +23,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
   );
 
   const [isOpen, setIsOpen] = useState(false);
+  const [defaultTabIndex, setDefaultTabIndex] = useState(0);
   const [selectedPost, setSelectedPost] =
     useState<null | EchoBoardResponseData>(null);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
@@ -62,6 +50,14 @@ export const EchoBoard: React.FC<UserResponseData> = (
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
     setSelectedPostForSolution(post);
+  };
+
+  const handleOpenCommentsTab = () => {
+    setDefaultTabIndex(0); 
+  };
+  
+  const handleOpenSolutionsTab = () => {
+    setDefaultTabIndex(1); 
   };
 
   const handleCloseSolutionForm = () => {
@@ -100,28 +96,16 @@ export const EchoBoard: React.FC<UserResponseData> = (
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error!</p>}
         {sortedEchoBoards?.map((echoBoard, index) => (
-          <Card key={index} className="echo-board-card">
-            <CardContent className="echo-board-card-content">
-              <SinglePost echoBoard={echoBoard} user={user} />
-            </CardContent>
-            <CardActions className="echo-board-card-actions">
-              <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-              <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                <ModeCommentIcon /> {echoBoard.echoBoardComments.length}
-              </Button>
-              <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
-              </Button>
-            </CardActions>
-            <PostComment echoBoardId={echoBoard.id} user={user} />
-            <Button
-              size="medium"
-              onClick={() => handleOpenSolutionForm(echoBoard)}
-              className="echo-board-solution-btn"
-            >
-              Suggest solution
-            </Button>
-          </Card>
+          <EchoBoardCard
+            key={index}
+            echoBoard={echoBoard}
+            user={user}
+            handleOpen={handleOpen}
+            handleOpenSolutionForm={handleOpenSolutionForm}
+            index={index}
+            handleOpenCommentsTab={handleOpenCommentsTab}
+            handleOpenSolutionsTab={handleOpenSolutionsTab}
+          />
         ))}
       </div>
       {selectedPost && (
@@ -130,6 +114,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
           handleClose={handleClose}
           isOpen={isOpen}
           user={user}
+          defaultTabIndex={defaultTabIndex}
         />
       )}
       {selectedPostForSolution && (

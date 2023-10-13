@@ -46,13 +46,6 @@ public class SolutionController {
     @PostMapping("{solutionId}/volunteer")
     public ResponseEntity<EchoBoardSolutionResponseDto> volunteerForSolutionTesting(@PathVariable long solutionId
             , @AuthenticationPrincipal OidcUser user) {
-
-        var echoBoardSolutionStatus = echoService.getSolutionStatus(solutionId).orElseThrow();
-
-            if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
-                return ResponseEntity.badRequest().build();
-            }
-
             return ResponseEntity.of(echoService.addVolunteerToSolution(solutionId, user)
                     .map(convertor::convertEntityToResponseDto));
     }

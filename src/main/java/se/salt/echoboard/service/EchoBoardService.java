@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
+import se.salt.echoboard.exception.custom.CommentNotFoundException;
+import se.salt.echoboard.exception.custom.EchoBoardNotFoundException;
+import se.salt.echoboard.exception.custom.SolutionNotFoundException;
+import se.salt.echoboard.exception.custom.UserNotFoundException;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -86,7 +90,7 @@ public class EchoBoardService {
         return echoBoard.flatMap(e -> {
             e.addComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject);
-        }).orElseThrow();
+        }).orElseThrow(EchoBoardNotFoundException::new);
     }
 
     @Transactional
@@ -95,7 +99,7 @@ public class EchoBoardService {
         return echoBoard.flatMap(e -> {
             e.addSolution(echoBoardSolution);
             return saveSolution(echoBoardSolution, userSubject);
-        }).orElseThrow();
+        }).orElseThrow(EchoBoardNotFoundException::new);
     }
 
     @Transactional
@@ -141,7 +145,7 @@ public class EchoBoardService {
         return getCommentById(commentId).flatMap(c -> {
             c.addCommentToEchoBoardComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject);
-        }).orElseThrow();
+        }).orElseThrow(CommentNotFoundException::new);
     }
 
     public  Optional<EchoBoardSolution.SolutionStatus> getSolutionStatus(long solutionId){
@@ -150,9 +154,17 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId,
-                                                              OidcUser user){
-        var volunteer = getUserBySubject(user.getSubject()).orElseThrow();
+    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId, OidcUser user){
+
+        var echoBoardSolutionStatus = getSolutionStatus(solutionId)
+                .orElseThrow(SolutionNotFoundException::new);
+
+        if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
+            throw new IllegalArgumentException("Wrong Solution Status");
+        }
+
+        var volunteer = getUserBySubject(user.getSubject())
+                .orElseThrow(UserNotFoundException::new);
         return  getSolutionById(solutionId)
                 .map(solution -> solution.addVolunteer(volunteer))
                 .map(this::updateSolution);

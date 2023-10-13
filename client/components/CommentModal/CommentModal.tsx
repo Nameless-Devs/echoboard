@@ -53,6 +53,14 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setValue(newTabIndex);
   };
 
+  const handleOpenCommentsTab = () => {
+    setDefaultTabIndex(0); 
+  };
+  
+  const handleOpenSolutionsTab = () => {
+    setDefaultTabIndex(1); 
+  };
+
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {

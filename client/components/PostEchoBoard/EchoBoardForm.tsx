@@ -9,7 +9,7 @@ type EchoBoardFormProps = {
   handleProblemPost: (event?: React.FormEvent<HTMLFormElement>) => void;
   handleKeyPress: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   user: UserResponseData;
-  handleIfAnonymousChange: (event: ChangeEvent<HTMLInputElement>) => void; 
+  handleIfAnonymousChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const EchoBoardForm: React.FC<EchoBoardFormProps> = ({

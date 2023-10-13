@@ -25,6 +25,7 @@ import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "../TabsManager";
 import { CommentItem } from "./CommentItem";
+import { SolutionItem } from "./SolutionItem";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -118,39 +119,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 {displayPost.echoBoardSolutions
                   .sort((a, b) => b.upvote.length - a.upvote.length)
                   .map((solution, index) => (
-                    <ListItem
-                      className="comment-display__individual-comment"
-                      key={index}
-                    >
-                      <Avatar
-                        src={solution.echoBoardUser.picture}
-                        style={{ marginRight: "15px" }}
-                      />
-                      <ListItemText
-                        primary={
-                          <div>
-                            <Typography variant="body2" color="textSecondary">
-                              {solution.echoBoardUser.name}
-                            </Typography>
-                          </div>
-                        }
-                        secondary={
-                          <Typography variant="body1" color="textPrimary">
-                            {solution.content}
-                          </Typography>
-                        }
-                      ></ListItemText>
-                      <SolutionStatusButton
-                        status={solution.status}
-                        solutionId={solution.id}
-                      />
-                      <UpvoteButton
-                        count={solution.upvote.length}
-                        onUpvote={() =>
-                          solutionUpvoteMutation.mutate(solution.id)
-                        }
-                      />
-                    </ListItem>
+                    <SolutionItem
+                    key={index}
+                    solution={solution}
+                    onUpvote={() => solutionUpvoteMutation.mutate(solution.id)}
+                  />
                   ))}
               </List>
               <div className="solution-button-container">

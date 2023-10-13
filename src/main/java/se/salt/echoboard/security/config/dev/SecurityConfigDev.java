@@ -33,6 +33,7 @@ public class SecurityConfigDev {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("api/status").permitAll()
+                        .requestMatchers("error").permitAll()
                         .anyRequest().authenticated())
                 .csrf(CsrfConfigurer::disable)
                 .cors(corsCustomizer())

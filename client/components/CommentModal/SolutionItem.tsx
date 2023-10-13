@@ -1,6 +1,13 @@
+import { SolutionResponseData } from '@/service/Types'
 import React from 'react'
 
-export const SolutionItem = () => {
+type SolutionItemProps = {
+    solution: SolutionResponseData;
+    onUpvote: () => void; 
+}
+
+export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote }) => {
+    
   return (
     <div>SolutionItem</div>
   )

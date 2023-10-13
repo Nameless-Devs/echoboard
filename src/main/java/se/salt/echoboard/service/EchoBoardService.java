@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
+import se.salt.echoboard.exception.custom.CommentNotFoundException;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -86,7 +87,7 @@ public class EchoBoardService {
         return echoBoard.flatMap(e -> {
             e.addComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject);
-        }).orElseThrow();
+        }).orElseThrow(CommentNotFoundException::new);
     }
 
     @Transactional

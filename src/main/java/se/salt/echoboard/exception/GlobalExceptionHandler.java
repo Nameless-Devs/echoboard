@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import se.salt.echoboard.exception.custom.IllegalSolutionArgumentException;
 
 import java.util.NoSuchElementException;
 
@@ -19,9 +20,9 @@ public class GlobalExceptionHandler {
         return ex.getMessage();
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(IllegalSolutionArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleIncorrectSolutionStatus(IllegalArgumentException ex){
+    public String handleIncorrectSolutionStatus(IllegalSolutionArgumentException ex){
         log.error("Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED", ex);
         return "Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED";
     }

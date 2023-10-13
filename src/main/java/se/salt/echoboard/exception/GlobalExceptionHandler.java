@@ -18,4 +18,11 @@ public class GlobalExceptionHandler {
         log.error("Entity not found", ex);
         return ex.getMessage();
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleIncorrectSolutionStatus(IllegalArgumentException ex){
+        log.error("Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED", ex);
+        return "Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED";
+    }
 }

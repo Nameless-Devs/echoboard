@@ -23,6 +23,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
   );
 
   const [isOpen, setIsOpen] = useState(false);
+  const [defaultTabIndex, setDefaultTabIndex] = useState(0);
   const [selectedPost, setSelectedPost] =
     useState<null | EchoBoardResponseData>(null);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
@@ -49,6 +50,14 @@ export const EchoBoard: React.FC<UserResponseData> = (
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);
     setSelectedPostForSolution(post);
+  };
+
+  const handleOpenCommentsTab = () => {
+    setDefaultTabIndex(0); 
+  };
+  
+  const handleOpenSolutionsTab = () => {
+    setDefaultTabIndex(1); 
   };
 
   const handleCloseSolutionForm = () => {

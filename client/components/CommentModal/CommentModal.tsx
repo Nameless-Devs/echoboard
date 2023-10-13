@@ -11,10 +11,11 @@ import { useCookies } from "react-cookie";
 import { SinglePost } from "../SinglePost/SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
-import { CustomTabContent } from "./CommentModalComponents/CustomTabContent";
 import { TabsManager } from "./CommentModalComponents/TabsManager";
+import { CustomTabContent } from "./CommentModalComponents/CustomTabContent";
 import { CommentsList } from "./CommentModalComponents/CommentsList";
 import { SolutionsList } from "./CommentModalComponents/SolutionsList";
+
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;

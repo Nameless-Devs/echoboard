@@ -1,6 +1,7 @@
 import { PostEchoBoardData, UserResponseData } from '@/service/Types'
 import { Avatar, Box, Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import React, { ChangeEvent } from 'react'
+import { AnonymityCheckbox } from './AnonymityCheckbox';
 
 type EchoBoardFormProps = {
   echoBoardPost: PostEchoBoardData;
@@ -64,17 +65,7 @@ export const EchoBoardForm: React.FC<EchoBoardFormProps> = ({
               }
               onKeyDown={handleKeyPress}
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  onChange={handleIfAnonymousChange}
-                  name="Anonymous"
-                  checked={ifAnonymous}
-                  style={{ marginLeft: "10px" }}
-                />
-              }
-              label="Post anonymously"
-            />
+            <AnonymityCheckbox ifAnonymous={ifAnonymous} handleIfAnonymousChange={handleIfAnonymousChange} />
           </Box>
         </Box>
         <Button

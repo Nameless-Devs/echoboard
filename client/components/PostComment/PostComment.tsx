@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from "@/service/Functions";
 import { useCookies } from "react-cookie";
 import { CommentForm } from "./PostCommentTextField";
-import { StyledBadge } from "../StyledBadge";
+import { StyledBadge } from "./StyledBadge";
 import "../../app/styles/PostComment.css";
 
 interface CommentProps {

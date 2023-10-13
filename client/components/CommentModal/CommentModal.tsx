@@ -24,6 +24,7 @@ import { SolutionStatusButton } from "../SolutionStatusButton";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "../TabsManager";
+import { CommentItem } from "./CommentItem";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -101,31 +102,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 {displayPost.echoBoardComments
                   .sort((a, b) => b.upvote.length - a.upvote.length)
                   .map((comment, index) => (
-                    <ListItem
-                      className="comment-display__individual-comment"
-                      key={index}
-                    >
-                      <Avatar
-                        src={comment.echoBoardUser.picture}
-                        style={{ marginRight: "15px" }}
-                      />
-                      <ListItemText
-                        primary={
-                          <Typography variant="body2" color="textSecondary">
-                            {comment.echoBoardUser.name}
-                          </Typography>
-                        }
-                        secondary={
-                          <Typography variant="body1" color="textPrimary">
-                            {comment.content}
-                          </Typography>
-                        }
-                      ></ListItemText>
-                      <UpvoteButton
-                        count={comment.upvote.length}
-                        onUpvote={() => upvoteMutation.mutate(comment.id)}
-                      />
-                    </ListItem>
+                    <CommentItem
+                    key={index}
+                    comment={comment}
+                    onUpvote={() => upvoteMutation.mutate(comment.id)}
+                  />
                   ))}
               </List>
               <PostComment echoBoardId={displayPost.id} user={user} />

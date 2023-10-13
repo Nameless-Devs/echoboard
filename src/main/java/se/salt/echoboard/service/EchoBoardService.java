@@ -153,7 +153,8 @@ public class EchoBoardService {
     @Transactional
     public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId,
                                                               OidcUser user){
-        var volunteer = getUserBySubject(user.getSubject()).orElseThrow();
+        var volunteer = getUserBySubject(user.getSubject())
+                .orElseThrow(UserNotFoundException::new);
         return  getSolutionById(solutionId)
                 .map(solution -> solution.addVolunteer(volunteer))
                 .map(this::updateSolution);

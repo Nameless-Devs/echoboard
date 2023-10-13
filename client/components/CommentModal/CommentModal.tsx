@@ -1,42 +1,26 @@
 import React, { useState } from "react";
-import {
-  Avatar,
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Modal,
-} from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Box, Modal, Button } from "@mui/material";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "../Upvote";
 import { PostComment } from "../PostComment/PostComment";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "@/service/Functions";
-import Button from "@mui/material/Button";
 import "../../app/styles/CommentModal.css";
 import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "../SinglePost/SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
-import UpvoteButton from "../UpvoteButton";
-import { SolutionStatusButton } from "../SolutionStatus/SolutionStatusButton";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
-import { CustomTabContent } from "./CustomTabContent";
+import { CustomTabContent } from "./commentModalComponents/CustomTabContent";
 import { TabsManager } from "../TabsManager";
+import { CommentsList } from "./commentModalComponents/CommentsList";
+import { SolutionsList } from "./commentModalComponents/SolutionsList";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
   handleClose: () => void;
   isOpen: boolean;
   user: UserResponseData;
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
 }
 
 const CommentsModal: React.FC<CommentsModalProps> = ({
@@ -97,81 +81,19 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           />
           <CustomTabContent value={value} index={0}>
             <Box className="comment-display">
-              <List>
-                {displayPost.echoBoardComments
-                  .sort((a, b) => b.upvote.length - a.upvote.length)
-                  .map((comment, index) => (
-                    <ListItem
-                      className="comment-display__individual-comment"
-                      key={index}
-                    >
-                      <Avatar
-                        src={comment.echoBoardUser.picture}
-                        style={{ marginRight: "15px" }}
-                      />
-                      <ListItemText
-                        primary={
-                          <Typography variant="body2" color="textSecondary">
-                            {comment.echoBoardUser.name}
-                          </Typography>
-                        }
-                        secondary={
-                          <Typography variant="body1" color="textPrimary">
-                            {comment.content}
-                          </Typography>
-                        }
-                      ></ListItemText>
-                      <UpvoteButton
-                        count={comment.upvote.length}
-                        onUpvote={() => upvoteMutation.mutate(comment.id)}
-                      />
-                    </ListItem>
-                  ))}
-              </List>
+              <CommentsList
+                comments={displayPost.echoBoardComments}
+                onCommentUpvote={(commentId) => upvoteMutation.mutate(commentId)}
+              />
               <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={1}>
             <Box className="comment-display">
-              <List>
-                {displayPost.echoBoardSolutions
-                  .sort((a, b) => b.upvote.length - a.upvote.length)
-                  .map((solution, index) => (
-                    <ListItem
-                      className="comment-display__individual-comment"
-                      key={index}
-                    >
-                      <Avatar
-                        src={solution.echoBoardUser.picture}
-                        style={{ marginRight: "15px" }}
-                      />
-                      <ListItemText
-                        primary={
-                          <div>
-                            <Typography variant="body2" color="textSecondary">
-                              {solution.echoBoardUser.name}
-                            </Typography>
-                          </div>
-                        }
-                        secondary={
-                          <Typography variant="body1" color="textPrimary">
-                            {solution.content}
-                          </Typography>
-                        }
-                      ></ListItemText>
-                      <SolutionStatusButton
-                        status={solution.status}
-                        solutionId={solution.id}
-                      />
-                      <UpvoteButton
-                        count={solution.upvote.length}
-                        onUpvote={() =>
-                          solutionUpvoteMutation.mutate(solution.id)
-                        }
-                      />
-                    </ListItem>
-                  ))}
-              </List>
+              <SolutionsList
+                solutions={displayPost.echoBoardSolutions}
+                onSolutionUpvote={(solutionId) => solutionUpvoteMutation.mutate(solutionId)}
+              />
               <div className="solution-button-container">
                 <Button
                   size="medium"

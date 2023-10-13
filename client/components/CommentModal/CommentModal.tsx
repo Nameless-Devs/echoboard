@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import {
-  Box,
-  List,
-  Modal,
-} from "@mui/material";
+import { Box, Modal, Button } from "@mui/material";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "../Upvote";
 import { PostComment } from "../PostComment";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "@/service/Functions";
-import Button from "@mui/material/Button";
 import "../../app/styles/CommentModal.css";
 import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
@@ -18,7 +13,6 @@ import { useUpvote } from "@/hooks/useUpvote";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "../TabsManager";
-import { SolutionItem } from "./SolutionItem";
 import { CommentsList } from "./CommentsList";
 import { SolutionsList } from "./SolutionsLIst";
 
@@ -27,13 +21,6 @@ interface CommentsModalProps {
   handleClose: () => void;
   isOpen: boolean;
   user: UserResponseData;
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
 }
 
 const CommentsModal: React.FC<CommentsModalProps> = ({

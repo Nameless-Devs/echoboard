@@ -11,10 +11,10 @@ import { useCookies } from "react-cookie";
 import { SinglePost } from "../SinglePost/SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
-import { CustomTabContent } from "./commentModalComponents/CustomTabContent";
-import { TabsManager } from "./commentModalComponents/TabsManager";
-import { CommentsList } from "./commentModalComponents/CommentsList";
-import { SolutionsList } from "./commentModalComponents/SolutionsList";
+import { CustomTabContent } from "./CommentModalComponents/CustomTabContent";
+import { TabsManager } from "./CommentModalComponents/TabsManager";
+import { CommentsList } from "./CommentModalComponents/CommentsList";
+import { SolutionsList } from "./CommentModalComponents/SolutionsList";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;

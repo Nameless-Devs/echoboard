@@ -10,7 +10,7 @@ import {
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "../Upvote";
-import { PostComment } from "../PostComment";
+import { PostComment } from "../PostComment/PostComment";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "@/service/Functions";
 import Button from "@mui/material/Button";

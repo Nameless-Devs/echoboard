@@ -2,14 +2,6 @@ import React, { ChangeEvent, useState } from "react";
 import { PostEchoBoardData, UserResponseData } from "@/service/Types";
 import { postEcho } from "@/service/Functions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  Avatar,
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-} from "@mui/material";
 import { useCookies } from "react-cookie";
 import { EchoBoardForm } from "./EchoBoardForm";
 
@@ -79,11 +71,10 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
         minWidth: "300px",
       }}
     >
-       <EchoBoardForm 
+      <EchoBoardForm
         echoBoardPost={echoBoardPost}
         setProblemPost={setProblemPost}
         ifAnonymous={ifAnonymous}
-        setIfAnonymous={setIfAnonymous}
         handleProblemPost={handleProblemPost}
         handleKeyPress={handleKeyPress}
         user={user}

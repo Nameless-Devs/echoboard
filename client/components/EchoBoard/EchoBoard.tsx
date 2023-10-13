@@ -14,7 +14,8 @@ import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
-import "../app/styles/EchoBoard.css";
+import "../../app/styles/EchoBoard.css";
+import EchoBoardCard from "./EchoBoardCard";
 
 export const EchoBoard: React.FC<UserResponseData> = (
   user: UserResponseData
@@ -40,8 +41,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
   const sortedEchoBoards = sortByUpvote
     ? [...(echoBoards || [])].sort((a, b) => b.upvote.length - a.upvote.length)
     : [...(echoBoards || [])].sort(
-        (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
-      );
+      (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+    );
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);
@@ -94,28 +95,14 @@ export const EchoBoard: React.FC<UserResponseData> = (
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error!</p>}
         {sortedEchoBoards?.map((echoBoard, index) => (
-          <Card key={index} className="echo-board-card">
-            <CardContent className="echo-board-card-content">
-              <SinglePost echoBoard={echoBoard} user={user} />
-            </CardContent>
-            <CardActions className="echo-board-card-actions">
-              <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-              <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                <ModeCommentIcon /> {echoBoard.echoBoardComments.length}
-              </Button>
-              <Button size="small" onClick={() => handleOpen(echoBoard)}>
-                <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
-              </Button>
-            </CardActions>
-            <PostComment echoBoardId={echoBoard.id} user={user} />
-            <Button
-              size="medium"
-              onClick={() => handleOpenSolutionForm(echoBoard)}
-              className="echo-board-solution-btn"
-            >
-              Suggest solution
-            </Button>
-          </Card>
+          <EchoBoardCard
+            key={index}
+            echoBoard={echoBoard}
+            user={user}
+            handleOpen={handleOpen}
+            handleOpenSolutionForm={handleOpenSolutionForm}
+            index={index}
+          />
         ))}
       </div>
       {selectedPost && (

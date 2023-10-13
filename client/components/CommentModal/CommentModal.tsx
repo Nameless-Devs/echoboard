@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import {
-  Avatar,
   Box,
   List,
-  ListItem,
-  ListItemText,
   Modal,
 } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { Upvote } from "../Upvote";
 import { PostComment } from "../PostComment";
@@ -19,8 +15,6 @@ import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
 import { SinglePost } from "../SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
-import UpvoteButton from "../UpvoteButton";
-import { SolutionStatusButton } from "../SolutionStatusButton";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "../TabsManager";

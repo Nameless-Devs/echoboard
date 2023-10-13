@@ -1,5 +1,5 @@
 import { PostEchoBoardData, UserResponseData } from '@/service/Types'
-import { Avatar, Box, Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { Avatar, Box, Button, TextField } from '@mui/material';
 import React, { ChangeEvent } from 'react'
 import { AnonymityCheckbox } from './AnonymityCheckbox';
 

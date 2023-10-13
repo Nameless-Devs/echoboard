@@ -8,7 +8,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { PostComment } from "./PostComment/PostComment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CommentsModal from "./CommentModal/CommentModal";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";

@@ -11,6 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useCookies } from "react-cookie";
+import { EchoBoardForm } from "./EchoBoardForm";
 
 const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   const [ifAnonymous, setIfAnonymous] = useState(false);
@@ -78,70 +79,16 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
         minWidth: "300px",
       }}
     >
-      <form onSubmit={handleProblemPost}>
-        <Box
-          sx={{
-            "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root":
-            {
-              m: 1,
-              width: "99%",
-              alignSelf: "center",
-            },
-          }}
-          style={{ display: "flex", flexDirection: "column" }}
-        >
-          <Box style={{ display: "flex" }}>
-            <Box>
-              <Avatar
-                alt={user.name + "avatar picture"}
-                src={user.picture}
-                style={{ margin: "10px" }}
-              />
-            </Box>
-            <Box style={{ marginRight: "50px" }}>
-              <TextField
-                label="Title"
-                variant="outlined"
-                name="title"
-                value={echoBoardPost.title}
-                onChange={(e) =>
-                  setProblemPost({ ...echoBoardPost, title: e.target.value })
-                }
-              />
-              <TextField
-                label="Description"
-                id="filled-multiline-static"
-                multiline
-                name="content"
-                minRows={5}
-                value={echoBoardPost.content}
-                onChange={(e) =>
-                  setProblemPost({ ...echoBoardPost, content: e.target.value })
-                }
-                onKeyDown={(event) => handleKeyPress(event)}
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChange}
-                    name="Anonymous"
-                    checked={ifAnonymous}
-                    style={{ marginLeft: "10px" }}
-                  />
-                }
-                label="Post anonymously"
-              />
-            </Box>
-          </Box>
-          <Button
-            variant="outlined"
-            type="submit"
-            style={{ width: "40%", marginTop: "15px" }}
-          >
-            Make a post
-          </Button>
-        </Box>
-      </form>
+       <EchoBoardForm 
+        echoBoardPost={echoBoardPost}
+        setProblemPost={setProblemPost}
+        ifAnonymous={ifAnonymous}
+        setIfAnonymous={setIfAnonymous}
+        handleProblemPost={handleProblemPost}
+        handleKeyPress={handleKeyPress}
+        user={user}
+        handleIfAnonymousChange={handleChange}
+      />
     </div>
   );
 };

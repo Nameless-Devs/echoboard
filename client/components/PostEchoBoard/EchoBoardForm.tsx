@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const EchoBoardFrom = () => {
+export const EchoBoardForm = () => {
   return (
     <div>EchoBoardFrom</div>
   )

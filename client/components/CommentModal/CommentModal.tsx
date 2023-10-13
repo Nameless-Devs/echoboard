@@ -20,7 +20,7 @@ import { useCookies } from "react-cookie";
 import { SinglePost } from "../SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
 import UpvoteButton from "../UpvoteButton";
-import { SolutionStatusButton } from "../SolutionStatusButton";
+import { SolutionStatusButton } from "../SolutionStatus/SolutionStatusButton";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "../TabsManager";

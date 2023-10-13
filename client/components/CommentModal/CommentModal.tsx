@@ -104,10 +104,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   .sort((a, b) => b.upvote.length - a.upvote.length)
                   .map((comment, index) => (
                     <CommentItem
-                    key={index}
-                    comment={comment}
-                    onUpvote={() => upvoteMutation.mutate(comment.id)}
-                  />
+                      key={index}
+                      comment={comment}
+                      onUpvote={() => upvoteMutation.mutate(comment.id)}
+                    />
                   ))}
               </List>
               <PostComment echoBoardId={displayPost.id} user={user} />
@@ -120,10 +120,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   .sort((a, b) => b.upvote.length - a.upvote.length)
                   .map((solution, index) => (
                     <SolutionItem
-                    key={index}
-                    solution={solution}
-                    onUpvote={() => solutionUpvoteMutation.mutate(solution.id)}
-                  />
+                      key={index}
+                      solution={solution}
+                      onUpvote={() => solutionUpvoteMutation.mutate(solution.id)}
+                    />
                   ))}
               </List>
               <div className="solution-button-container">

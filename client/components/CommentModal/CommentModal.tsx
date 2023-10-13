@@ -18,8 +18,8 @@ import { useUpvote } from "@/hooks/useUpvote";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "../TabsManager";
-import { CommentItem } from "./CommentItem";
 import { SolutionItem } from "./SolutionItem";
+import { CommentsList } from "./CommentsList";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -93,17 +93,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           />
           <CustomTabContent value={value} index={0}>
             <Box className="comment-display">
-              <List>
-                {displayPost.echoBoardComments
-                  .sort((a, b) => b.upvote.length - a.upvote.length)
-                  .map((comment, index) => (
-                    <CommentItem
-                      key={index}
-                      comment={comment}
-                      onUpvote={() => upvoteMutation.mutate(comment.id)}
-                    />
-                  ))}
-              </List>
+              <CommentsList
+                comments={displayPost.echoBoardComments}
+                onCommentUpvote={(commentId) => upvoteMutation.mutate(commentId)}
+              />
               <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>
           </CustomTabContent>

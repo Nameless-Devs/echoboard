@@ -1,14 +1,14 @@
-import { EchoBoardResponseData } from '@/service/Types';
+import { CommentResponseData } from '@/service/Types';
 import { List } from '@mui/material';
 import React from 'react'
 import { CommentItem } from './CommentItem';
 
 type CommentsListProps = {
-    comments: EchoBoardResponseData[];
+    comments: CommentResponseData[];
     onCommentUpvote: (commentId: string) => void;
   }
 
-export const CommentList: React.FC<CommentsListProps> = ({ comments, onCommentUpvote }) => {
+export const CommentsList: React.FC<CommentsListProps> = ({ comments, onCommentUpvote }) => {
     
   return (
     <List>

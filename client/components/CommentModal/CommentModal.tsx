@@ -12,7 +12,7 @@ import { SinglePost } from "../SinglePost/SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./commentModalComponents/CustomTabContent";
-import { TabsManager } from "../TabsManager";
+import { TabsManager } from "./commentModalComponents/TabsManager";
 import { CommentsList } from "./commentModalComponents/CommentsList";
 import { SolutionsList } from "./commentModalComponents/SolutionsList";
 

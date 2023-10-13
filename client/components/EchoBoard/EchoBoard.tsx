@@ -1,19 +1,11 @@
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
 import { fetchEchoBoards, fetchEchoBoardById } from "@/service/Functions";
-import { SinglePost } from "../SinglePost/SinglePost";
-import { Upvote } from "../Upvote";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import { PostComment } from "../PostComment/PostComment";
 import { useState } from "react";
 import CommentsModal from "../CommentModal/CommentModal";
 import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import "../../app/styles/EchoBoard.css";
 import EchoBoardCard from "./EchoBoardCard";
 

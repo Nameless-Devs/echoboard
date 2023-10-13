@@ -9,21 +9,21 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
-import { Upvote } from "./Upvote";
-import { PostComment } from "./PostComment";
+import { Upvote } from "../Upvote";
+import { PostComment } from "../PostComment";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "@/service/Functions";
 import Button from "@mui/material/Button";
-import "../app/styles/CommentModal.css";
-import { PostSolution } from "./PostSolution";
+import "../../app/styles/CommentModal.css";
+import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
-import { SinglePost } from "./SinglePost";
+import { SinglePost } from "../SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
-import UpvoteButton from "./UpvoteButton";
-import { SolutionStatusButton } from "./SolutionStatusButton";
+import UpvoteButton from "../UpvoteButton";
+import { SolutionStatusButton } from "../SolutionStatusButton";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
 import { CustomTabContent } from "./CustomTabContent";
-import { TabsManager } from "./TabsManager";
+import { TabsManager } from "../TabsManager";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -105,7 +105,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       className="comment-display__individual-comment"
                       key={index}
                     >
-                      <Avatar src={comment.echoBoardUser.picture} style={{marginRight: "15px"}} />
+                      <Avatar
+                        src={comment.echoBoardUser.picture}
+                        style={{ marginRight: "15px" }}
+                      />
                       <ListItemText
                         primary={
                           <Typography variant="body2" color="textSecondary">
@@ -138,7 +141,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                       className="comment-display__individual-comment"
                       key={index}
                     >
-                      <Avatar src={solution.echoBoardUser.picture} style={{marginRight: "15px"}} />
+                      <Avatar
+                        src={solution.echoBoardUser.picture}
+                        style={{ marginRight: "15px" }}
+                      />
                       <ListItemText
                         primary={
                           <div>

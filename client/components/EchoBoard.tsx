@@ -1,11 +1,5 @@
-import {
-  EchoBoardResponseData,
-  UserResponseData,
-} from "@/service/Types";
-import {
-  fetchEchoBoards,
-  fetchEchoBoardById,
-} from "@/service/Functions";
+import { EchoBoardResponseData, UserResponseData } from "@/service/Types";
+import { fetchEchoBoards, fetchEchoBoardById } from "@/service/Functions";
 import { SinglePost } from "./SinglePost";
 import { Upvote } from "./Upvote";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -15,7 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { PostComment } from "./PostComment";
 import { useEffect, useState } from "react";
-import CommentsModal from "./CommentModal";
+import CommentsModal from "./CommentModal/CommentModal";
 import { PostSolution } from "./PostSolution";
 import { useCookies } from "react-cookie";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
@@ -46,8 +40,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
   const sortedEchoBoards = sortByUpvote
     ? [...(echoBoards || [])].sort((a, b) => b.upvote.length - a.upvote.length)
     : [...(echoBoards || [])].sort(
-      (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
-    );
+        (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+      );
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);

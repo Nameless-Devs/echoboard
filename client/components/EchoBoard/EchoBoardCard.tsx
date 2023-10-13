@@ -13,6 +13,8 @@ type EchoBoardCardPros = {
     handleOpen: (echoBoard: EchoBoardResponseData) => void;
     handleOpenSolutionForm: (echoBoard: EchoBoardResponseData) => void;
     index: number;
+    handleOpenCommentsTab: () => void; 
+    handleOpenSolutionsTab: () => void; 
 }
 
 const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
@@ -20,7 +22,9 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
     user,
     handleOpen,
     handleOpenSolutionForm,
-    index
+    index,
+    handleOpenCommentsTab,
+    handleOpenSolutionsTab,
 }) => {
     return (
         <Card key={index} className="echo-board-card">
@@ -29,7 +33,10 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
             </CardContent>
             <CardActions className="echo-board-card-actions">
                 <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-                <Button size="small" onClick={() => handleOpen(echoBoard)}>
+                <Button size="small" onClick={() => {
+                    handleOpen(echoBoard);
+                    handleOpenCommentsTab();;
+                    }}>
                     <ModeCommentIcon /> {echoBoard.echoBoardComments.length}
                 </Button>
                 <Button size="small" onClick={() => handleOpen(echoBoard)}>
@@ -39,7 +46,10 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
             <PostComment echoBoardId={echoBoard.id} user={user} />
             <Button
                 size="medium"
-                onClick={() => handleOpenSolutionForm(echoBoard)}
+                onClick={() => {
+                    handleOpenSolutionForm(echoBoard);
+                    handleOpenSolutionsTab();
+                }}
                 className="echo-board-solution-btn"
             >
                 Suggest solution

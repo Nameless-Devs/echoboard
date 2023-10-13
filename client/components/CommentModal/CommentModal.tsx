@@ -29,6 +29,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   handleClose,
   isOpen,
   user,
+  defaultTabIndex,
 }) => {
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);

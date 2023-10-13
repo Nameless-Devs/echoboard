@@ -103,6 +103,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
             handleOpen={handleOpen}
             handleOpenSolutionForm={handleOpenSolutionForm}
             index={index}
+            handleOpenCommentsTab={handleOpenCommentsTab}
+            handleOpenSolutionsTab={handleOpenSolutionsTab}
           />
         ))}
       </div>

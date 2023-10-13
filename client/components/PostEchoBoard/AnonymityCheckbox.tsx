@@ -1,3 +1,4 @@
+import { Checkbox, FormControlLabel } from '@mui/material';
 import React, { ChangeEvent } from 'react'
 
 type AnonymityCheckboxProps = {
@@ -10,6 +11,16 @@ export const AnonymityCheckbox: React.FC<AnonymityCheckboxProps> = ({
   handleIfAnonymousChange,
 }) => {
   return (
-    <div>AnonimityCheckbox</div>
+    <FormControlLabel
+      control={
+        <Checkbox
+          onChange={handleIfAnonymousChange}
+          name="Anonymous"
+          checked={ifAnonymous}
+          style={{ marginLeft: "10px" }}
+        />
+      }
+      label="Post anonymously"
+    />
   )
 }

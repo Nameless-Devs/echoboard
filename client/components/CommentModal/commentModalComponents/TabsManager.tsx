@@ -5,6 +5,7 @@ interface TabsManagerProps {
   labels: string[];
   onTabChange: (newTabIndex: number) => void;
   currentTabIndex: number;
+  defaultTabIndex: number; 
 }
 
 const a11yProps = (index: number) => {

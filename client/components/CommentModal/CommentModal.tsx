@@ -31,6 +31,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 }) => {
   const [value, setValue] = useState(0);
   const [isOpenSolution, setIsOpenSolution] = useState(false);
+  const [defaultTabIndex, setDefaultTabIndex] = useState(0);
   const [selectedPostForSolution, setSelectedPostForSolution] =
     useState<null | EchoBoardResponseData>(null);
 
@@ -78,6 +79,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             labels={["Comments", "Solutions"]}
             onTabChange={handleTabChange}
             currentTabIndex={value}
+            defaultTabIndex={defaultTabIndex}
           />
           <CustomTabContent value={value} index={0}>
             <Box className="comment-display">

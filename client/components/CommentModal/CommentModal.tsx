@@ -20,6 +20,7 @@ import { CustomTabContent } from "./CustomTabContent";
 import { TabsManager } from "../TabsManager";
 import { SolutionItem } from "./SolutionItem";
 import { CommentsList } from "./CommentsList";
+import { SolutionsList } from "./SolutionsLIst";
 
 interface CommentsModalProps {
   post: EchoBoardResponseData;
@@ -102,17 +103,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           </CustomTabContent>
           <CustomTabContent value={value} index={1}>
             <Box className="comment-display">
-              <List>
-                {displayPost.echoBoardSolutions
-                  .sort((a, b) => b.upvote.length - a.upvote.length)
-                  .map((solution, index) => (
-                    <SolutionItem
-                      key={index}
-                      solution={solution}
-                      onUpvote={() => solutionUpvoteMutation.mutate(solution.id)}
-                    />
-                  ))}
-              </List>
+              <SolutionsList
+                solutions={displayPost.echoBoardSolutions}
+                onSolutionUpvote={(solutionId) => solutionUpvoteMutation.mutate(solutionId)}
+              />
               <div className="solution-button-container">
                 <Button
                   size="medium"

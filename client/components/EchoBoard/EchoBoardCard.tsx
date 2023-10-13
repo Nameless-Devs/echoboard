@@ -39,17 +39,17 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
                     }}>
                     <ModeCommentIcon /> {echoBoard.echoBoardComments.length}
                 </Button>
-                <Button size="small" onClick={() => handleOpen(echoBoard)}>
+                <Button size="small" onClick={() => {
+                    handleOpen(echoBoard);
+                    handleOpenSolutionsTab()
+                    }}>
                     <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
                 </Button>
             </CardActions>
             <PostComment echoBoardId={echoBoard.id} user={user} />
             <Button
                 size="medium"
-                onClick={() => {
-                    handleOpenSolutionForm(echoBoard);
-                    handleOpenSolutionsTab();
-                }}
+                onClick={() => handleOpenSolutionForm(echoBoard)}
                 className="echo-board-solution-btn"
             >
                 Suggest solution

@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("api/status").permitAll()
+                                .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .cors(corsCustomizer())

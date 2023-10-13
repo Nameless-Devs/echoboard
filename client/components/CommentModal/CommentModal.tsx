@@ -21,6 +21,7 @@ interface CommentsModalProps {
   handleClose: () => void;
   isOpen: boolean;
   user: UserResponseData;
+  defaultTabIndex: number;
 }
 
 const CommentsModal: React.FC<CommentsModalProps> = ({

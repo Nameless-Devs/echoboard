@@ -112,6 +112,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
           handleClose={handleClose}
           isOpen={isOpen}
           user={user}
+          defaultTabIndex={defaultTabIndex}
         />
       )}
       {selectedPostForSolution && (

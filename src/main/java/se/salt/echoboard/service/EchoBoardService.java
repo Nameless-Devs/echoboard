@@ -87,7 +87,7 @@ public class EchoBoardService {
         return echoBoard.flatMap(e -> {
             e.addComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject);
-        }).orElseThrow(CommentNotFoundException::new);
+        }).orElseThrow(EchoBoardNotFoundException::new);
     }
 
     @Transactional
@@ -96,7 +96,7 @@ public class EchoBoardService {
         return echoBoard.flatMap(e -> {
             e.addSolution(echoBoardSolution);
             return saveSolution(echoBoardSolution, userSubject);
-        }).orElseThrow();
+        }).orElseThrow(EchoBoardNotFoundException::new);
     }
 
     @Transactional

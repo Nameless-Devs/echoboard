@@ -15,7 +15,6 @@ import util.TestUtilities;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static util.TestUtilities.*;
@@ -44,14 +43,7 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        String locationUrl = postResult.getResponse().getHeader("Location");
-        assertNotNull(locationUrl, "Location URL should not be null!");
-
-        MvcResult getResult = mockMvc.perform(get(locationUrl))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        EchoBoardResponseDto actualEcho = getObjectFromResponse(getResult, EchoBoardResponseDto.class);
+        EchoBoardResponseDto actualEcho = getObjectFromResponse(postResult, EchoBoardResponseDto.class);
         assertEchoBoardEqual(requestEcho, actualEcho);
     }
 

@@ -1,7 +1,6 @@
 package se.salt.echoboard.security.config.dev;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -21,7 +20,7 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import se.salt.echoboard.service.repository.EchoBoardUserRepository;
+import se.salt.echoboard.service.EchoBoardService;
 
 import java.io.IOException;
 import java.util.*;
@@ -29,22 +28,21 @@ import java.util.*;
 @Component
 @RequiredArgsConstructor
 @Profile({"dev", "test"})
-public class FakeUserFilter extends OncePerRequestFilter {
+public class MockUserFilter extends OncePerRequestFilter {
 
-    private final EchoBoardUserRepository userRepository;
-    private final Faker fakeUser = new Faker();
+    private final EchoBoardService service;
 
     @Value("${frontend-details.base-url}")
     private String baseUrl;
+    private final Faker faker = new Faker();
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        SecurityContextHolder.setContext(
-                setFakeUserInSecurityContext(
-                        createFakeUser(request.getSession().getId(), fakeUser.name(),
-                                "https://picsum.photos/id/"+generateRandomNumber()+"/200")));
+
+        OidcUser fakeUser = createFakeUser(request.getSession().getId());
+        SecurityContextHolder.setContext(setFakeUserInSecurityContext(fakeUser));
         response.setHeader("Access-Control-Allow-Origin", baseUrl);
         filterChain.doFilter(request, response);
     }
@@ -58,27 +56,28 @@ public class FakeUserFilter extends OncePerRequestFilter {
         return SecurityContextHolder.getContext();
     }
 
-    private OidcUser createFakeUser(String subject, Name fakeUser, String picture) {
+    private OidcUser createFakeUser(String subject) {
 
-        String fakeUserName = fakeUser.firstName()+ " "+ fakeUser.lastName() ;
+        String fakeUserName = faker.name().firstName() + " " + faker.name().lastName();
 
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("sub", subject);
         attributes.put("name", fakeUserName);
         attributes.put("email", fakeUserName.replace(" ", "") + "@example.com");
-        attributes.put("picture", picture);
+        attributes.put("picture", "https://source.unsplash.com/random/200x200");
 
-        OidcIdToken idToken = new OidcIdToken(createTokenValue(subject, fakeUserName, picture), null, null, attributes);
+        OidcIdToken idToken = new OidcIdToken(createTokenValue(subject, fakeUserName),
+                null, null, attributes);
         return new DefaultOidcUser(Collections.emptyList(), idToken);
     }
 
-    private String createTokenValue(String subject, String fakeUserName, String picture) {
+    private String createTokenValue(String subject, String fakeUserName) {
 
         JwtBuilder builder = Jwts.builder()
                 .setSubject(subject)
                 .claim("name", fakeUserName)
                 .claim("email", fakeUserName + "@example.com")
-                .claim("picture", picture)
+                .claim("picture", "https://source.unsplash.com/random/200x200")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 3600));
 
@@ -86,16 +85,10 @@ public class FakeUserFilter extends OncePerRequestFilter {
     }
 
     private void createUserIfTheyDoNotExist(OidcUser oidcUser) {
-        if (userRepository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
-            userRepository.createUser(oidcUser);
+        if (service.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
+            service.createUser(oidcUser);
         }
     }
-
-    public static int generateRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(200) + 1;
-    }
-
 
 }
 

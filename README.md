@@ -92,7 +92,7 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 
 ### 🚀 Getting Started / Installation
-Follow these steps to get the application up and running in your local environment:
+Follow these steps to get the application up and running in your local environment (you will be only able to run the applicatio in dev mode):
 
 1. Clone the repo SSH
 ``` git clone git@github.com:Nameless-Devs/echoboard.git ```
@@ -101,7 +101,25 @@ Follow these steps to get the application up and running in your local environme
 | ---------------------------------| ------------------------- | ------------------------- |
 | 2. Navigate into repo            | `cd Client`               | `Inside echoboard`        |
 | 3. Install Dependencies          | `npm install`             | `mvn clean install`       |
-| 4. Run the project               | `npm run dev`             | `mvn start`               |
+
+4. Go to your application-dev.yml in resource folder an replace these values: 
+
+`url: ${DATABASE_URL_DEV}`  
+`username: ${DATABASE_USER}`  
+`password: ${DATABASE_PASSWORD}`
+
+With these values: 
+
+`url: jdbc:h2:mem:testdb`  
+`username: sa`  
+`password:`  (Should be empty)
+
+It will allow you to run the application in **dev mode**.
+| Steps                            | Front-end                 | Back-end                  |
+| ---------------------------------| ------------------------- | ------------------------- |
+| 5. Run the project               | `npm run dev`             | `mvn start`               |
+
+
 
 #
 

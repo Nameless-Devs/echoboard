@@ -19,6 +19,9 @@ import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withE
 @Profile("deploy")
 public class SecurityConfiguration {
 
+    @Value("${frontend-details.base-url}")
+    private String baseUrl;
+
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     private final JwtCookieAuthenticationFilter jwtCookieAuthenticationFilter;
 
@@ -31,7 +34,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .cors(withEchoBoardDefaults())
+                .cors(withEchoBoardDefaults(baseUrl))
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler))
                 .addFilterBefore(jwtCookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

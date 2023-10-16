@@ -2,6 +2,7 @@ package se.salt.echoboard.security.config.dev;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,6 +20,9 @@ import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withE
 @Profile({"dev", "test"})
 public class SecurityConfigDev {
 
+    @Value("${frontend-details.base-url}")
+    private String baseUrl;
+
     private final MockUserAuthenticationFilter mockUserAuthenticationFilter;
 
     @Bean
@@ -29,7 +33,7 @@ public class SecurityConfigDev {
                         .requestMatchers("error").permitAll()
                         .anyRequest().authenticated())
                 .csrf(CsrfConfigurer::disable)
-                .cors(withEchoBoardDefaults())
+                .cors(withEchoBoardDefaults(baseUrl))
                 .addFilterBefore(mockUserAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

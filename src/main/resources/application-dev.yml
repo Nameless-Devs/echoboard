@@ -4,21 +4,14 @@ server:
 spring:
   config:
     import: optional:secrets.yml
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${GOOGLE_OAUTH2_CLIENT_ID}
-            client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
   datasource:
-    url: ${DATABASE_URL_DEV}   # JDBC URL for PostgreSQL
+    url: ${DATABASE_URL_DEV}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update      # Automatically create/update database schema
-    defer-datasource-initialization: true
+      ddl-auto: update
+#    defer-datasource-initialization: true
 #  sql:
 #    init:
 #      mode: always

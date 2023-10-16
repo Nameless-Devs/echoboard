@@ -1,6 +1,5 @@
 package se.salt.echoboard.security.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
@@ -10,16 +9,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 public class EchoBoardCorsConfiguration {
 
-    @Value("${frontend-details.base-url}")
-    private static String baseUrl;
-
-    public static Customizer<CorsConfigurer<HttpSecurity>> withEchoBoardDefaults() {
+    public static Customizer<CorsConfigurer<HttpSecurity>> withEchoBoardDefaults(String baseUrl) {
         return cors -> cors
-                .configurationSource(corsConfigurationSource());
+                .configurationSource(corsConfigurationSource(baseUrl));
     }
 
 
-    private static CorsConfigurationSource corsConfigurationSource() {
+    private static CorsConfigurationSource corsConfigurationSource(String baseUrl) {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin(baseUrl);
         configuration.addAllowedHeader("*");

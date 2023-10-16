@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import se.salt.echoboard.service.EchoBoardService;
@@ -31,14 +31,14 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
                                     @NonNull HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        OidcUser fakeUser = createFakeUser(request.getSession().getId());
-        SecurityContextHolder.setContext(setMockUserInSecurityContext(fakeUser));
-        createUserIfTheyDoNotExist(fakeUser);
+        DefaultOidcUser mockUser = createMockUser();
+        SecurityContextHolder.setContext(setMockUserInSecurityContext(mockUser));
+        createUserIfTheyDoNotExist(mockUser);
         response.setHeader("Access-Control-Allow-Origin", baseUrl);
         filterChain.doFilter(request, response);
     }
 
-    private void createUserIfTheyDoNotExist(OidcUser oidcUser) {
+    private void createUserIfTheyDoNotExist(DefaultOidcUser oidcUser) {
         if (service.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
             service.createUser(oidcUser);
         }

@@ -24,9 +24,9 @@ public interface MockUserSecurityContextFactory {
         return context;
     }
 
-    default DefaultOidcUser createFakeUser(String subject) {
+    default DefaultOidcUser createMockUser() {
         Faker faker = new Faker();
-
+        String subject = UUID.randomUUID().toString();
         String mockUserName = faker.name().firstName() + " " + faker.name().lastName();
 
         Map<String, Object> attributes = new HashMap<>();

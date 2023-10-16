@@ -9,15 +9,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 public class EchoBoardCorsConfiguration {
 
-    public static Customizer<CorsConfigurer<HttpSecurity>> withEchoBoardDefaults(String baseUrl) {
+    public static Customizer<CorsConfigurer<HttpSecurity>> withEchoBoardDefaults(String frontEndUrl) {
         return cors -> cors
-                .configurationSource(corsConfigurationSource(baseUrl));
+                .configurationSource(corsConfigurationSource(frontEndUrl));
     }
 
 
-    private static CorsConfigurationSource corsConfigurationSource(String baseUrl) {
+    private static CorsConfigurationSource corsConfigurationSource(String frontEndUrl) {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin(baseUrl);
+        configuration.addAllowedOrigin(frontEndUrl);
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

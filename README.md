@@ -85,7 +85,7 @@ It aims to bridge the gap between employees and upper management by providing a 
 **Week 3:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
 **Week 4:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
 **Week 5:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
-**Week 6:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]() 
+**Week 6:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc) 
 
 
 #

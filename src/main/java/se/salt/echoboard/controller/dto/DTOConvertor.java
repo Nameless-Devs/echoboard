@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import se.salt.echoboard.model.EchoBoard;
+import se.salt.echoboard.model.EchoBoardComment;
+import se.salt.echoboard.model.EchoBoardSolution;
 
 @Component
 @AllArgsConstructor
@@ -13,6 +15,14 @@ public class DTOConvertor {
 
     public EchoBoardResponseDto convertEntityToResponseDto(EchoBoard echoBoard) {
         return mapper.convertValue(echoBoard, EchoBoardResponseDto.class);
+    }
+
+    public EchoBoardSolutionResponseDto convertEntityToResponseDto(EchoBoardSolution echoBoardSolution) {
+        return mapper.convertValue(echoBoardSolution, EchoBoardSolutionResponseDto.class);
+    }
+
+    public EchoBoardCommentResponseDto convertEntityToResponseDto(EchoBoardComment echoBoardComment) {
+        return mapper.convertValue(echoBoardComment, EchoBoardCommentResponseDto.class);
     }
 
     public <T, D extends Record> D convertEntityToResponseDto(T entity) {

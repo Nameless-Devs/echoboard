@@ -28,7 +28,7 @@ import java.util.*;
 @Component
 @RequiredArgsConstructor
 @Profile({"dev", "test"})
-public class MockUserFilter extends OncePerRequestFilter {
+public class MockUserAuthenticationFilter extends OncePerRequestFilter {
 
     private final EchoBoardService service;
 

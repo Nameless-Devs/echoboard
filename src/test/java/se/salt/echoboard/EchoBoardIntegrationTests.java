@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import se.salt.echoboard.controller.dto.DTOConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
 import util.dto.request.EchoBoardRequestDto;
 import util.TestUtilities;
@@ -24,12 +23,10 @@ import static util.TestUtilities.*;
 public class EchoBoardIntegrationTests {
 
     private final MockMvc mockMvc;
-    private final DTOConvertor convertor;
 
     @Autowired
-    public EchoBoardIntegrationTests(MockMvc mockMvc, DTOConvertor convertor) {
+    public EchoBoardIntegrationTests(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
-        this.convertor = convertor;
     }
 
     @Test

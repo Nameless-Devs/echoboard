@@ -32,6 +32,8 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [isClickble, setIsClickble] = useState(status == "VOLUNTEERS_REQUIRED");
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
+    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+    const [volunteerConfirmed, setVolunteerConfirmed] = useState(false);
 
     const queryClient = useQueryClient();
 

@@ -1,6 +1,6 @@
 # Echoboard
 
-**EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
+**[EchoBoard](https://app.echoboard.site/home) is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, propose solutions, and collaborate on addressing issues that impact the organisation.**
 
 #
@@ -97,6 +97,9 @@ Follow these steps to get the application up and running in your local environme
 | Anastasia Kurayshevich  | [![Github-Anastasia](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnastasiaKurayshevich) [![LinkedIn-Anastasia](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anastasia-kurayshevich/) |
 | Ibrahim Iqbal           | [![Github-Ibrahim](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dIB59) [![LinkedIn-Ibrahim](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/) |
 
+#  
+
+Visit our deployed application [here](https://app.echoboard.site/home).
 #
 
 [![tests](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg)](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml)

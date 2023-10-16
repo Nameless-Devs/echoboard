@@ -1,6 +1,6 @@
 # Echoboard
 
-**EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
+**[EchoBoard](https://app.echoboard.site/home) is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, propose solutions, and collaborate on addressing issues that impact the organisation.**
 
 #
@@ -23,6 +23,10 @@ It aims to bridge the gap between employees and upper management by providing a 
 		- Solutions are categorised with labels such as "being tested," "tested and failed," "tested and succeeded," and "needs volunteers," providing clarity on their status.
 	- Problem Resolution: 
 		- If a solution is tested successfully, the associated problem is marked as solved and archived for reference.
+
+
+**Pitch Deck**  
+[![Pitch deck video](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/17zv-aNRXUQ?si=ifBuImKbhevp0ihR)
 
 #
 
@@ -73,10 +77,22 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 **Conclusion**
 - EchoBoard aims to empower employees by providing a platform for sharing challenges, proposing solutions, and collaborating on problem-solving efforts. By embracing technology and open communication, EchoBoard has the potential to foster a culture of innovation and continuous improvement within your organisation.
+#  
+
+### Weekly Sprint result videos
+**Week 1:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/JhUpzNYnvzo?si=iRZY_Q1q3FMGLS8X)  
+**Week 2:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qr2D3bSNd78?si=0IqkzBUAO9xkli91)  
+**Week 3:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
+**Week 4:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
+**Week 5:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
+**Week 6:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]() 
+
+
 #
 
+
 ### 🚀 Getting Started / Installation
-Follow these steps to get the application up and running in your local environment:
+Follow these steps to get the application up and running in your local environment (you will be only able to run the applicatio in dev mode):
 
 1. Clone the repo SSH
 ``` git clone git@github.com:Nameless-Devs/echoboard.git ```
@@ -85,7 +101,25 @@ Follow these steps to get the application up and running in your local environme
 | ---------------------------------| ------------------------- | ------------------------- |
 | 2. Navigate into repo            | `cd Client`               | `Inside echoboard`        |
 | 3. Install Dependencies          | `npm install`             | `mvn clean install`       |
-| 4. Run the project               | `npm run dev`             | `mvn start`               |
+
+4. Go to your application-dev.yml in resource folder an replace these values: 
+
+`url: ${DATABASE_URL_DEV}`  
+`username: ${DATABASE_USER}`  
+`password: ${DATABASE_PASSWORD}`
+
+With these values: 
+
+`url: jdbc:h2:mem:testdb`  
+`username: sa`  
+`password:`  (Should be empty)
+
+It will allow you to run the application in **dev mode**.
+| Steps                            | Front-end                 | Back-end                  |
+| ---------------------------------| ------------------------- | ------------------------- |
+| 5. Run the project               | `npm run dev`             | `mvn start`               |
+
+
 
 #
 
@@ -97,6 +131,9 @@ Follow these steps to get the application up and running in your local environme
 | Anastasia Kurayshevich  | [![Github-Anastasia](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnastasiaKurayshevich) [![LinkedIn-Anastasia](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anastasia-kurayshevich/) |
 | Ibrahim Iqbal           | [![Github-Ibrahim](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dIB59) [![LinkedIn-Ibrahim](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/) |
 
+#  
+
+Visit our deployed application [here](https://app.echoboard.site/home).
 #
 
 [![tests](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml/badge.svg)](https://github.com/Nameless-Devs/echoboard/actions/workflows/tests.yaml)

@@ -24,6 +24,10 @@ It aims to bridge the gap between employees and upper management by providing a 
 	- Problem Resolution: 
 		- If a solution is tested successfully, the associated problem is marked as solved and archived for reference.
 
+
+**Pitch Deck**  
+[![Pitch deck video](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/17zv-aNRXUQ?si=ifBuImKbhevp0ihR)
+
 #
 
 ### 📱 Tech Stack

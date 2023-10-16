@@ -53,8 +53,9 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
 
     const handleClick = () => {
         if(formatedStatus.formattedStatus == "Volunteers required"){
-        volunteerMutation.mutate(solutionId);
-        }
+        // volunteerMutation.mutate(solutionId);
+        setIsConfirmationModalOpen(true);
+    }
       
     };
 

@@ -28,4 +28,11 @@ public class EchoBoardUserRepository {
         return userRepository.findBySubject(userSubject);
     }
 
+    public EchoBoardUser getUserBySubject1(String userSubject) {
+        return userRepository.findBySubject1(userSubject);
+    }
+
+
+
+
 }

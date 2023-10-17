@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
+import se.salt.echoboard.controller.dto.EchoBoardDTO;
+import se.salt.echoboard.controller.dto.EchoBoardMapper;
 import se.salt.echoboard.exception.custom.CommentNotFoundException;
 import se.salt.echoboard.exception.custom.EchoBoardNotFoundException;
 import se.salt.echoboard.exception.custom.SolutionNotFoundException;
@@ -34,6 +36,8 @@ public class EchoBoardService {
     private final EchoBoardSolutionRepository solutionRepository;
 
     private final EchoBoardUserRepository userRepository;
+
+    private final EchoBoardMapper echoBoardMapper;
 
 
     @Transactional
@@ -138,6 +142,17 @@ public class EchoBoardService {
         return userRepository.getUserBySubject(id);
     }
 
+    public EchoBoardDTO getEchoBoardUserWithCommentsAndSolutions(String subject) {
+        EchoBoardUser user = userRepository.getUserBySubject1(subject);
+        if (user != null) {
+            EchoBoard echoBoard = user.getEchoBoards().stream().findFirst().orElse(null);
+            if (echoBoard != null) {
+                return echoBoardMapper.echoBoardToEchoBoardDTO(echoBoard);
+            }
+        }
+        return null;
+    }
+
     @Transactional
     public EchoBoardComment addCommentToComment(long commentId,
                                               EchoBoardComment echoBoardComment,
@@ -169,4 +184,5 @@ public class EchoBoardService {
                 .map(solution -> solution.addVolunteer(volunteer))
                 .map(this::updateSolution);
     }
+
 }

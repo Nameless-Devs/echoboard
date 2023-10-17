@@ -26,7 +26,7 @@ public class EchoBoard {
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // Use FetchType.LAZY for EchoBoardUser
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
     @Id

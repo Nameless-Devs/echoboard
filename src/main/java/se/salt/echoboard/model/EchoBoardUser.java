@@ -2,7 +2,10 @@ package se.salt.echoboard.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,5 +20,8 @@ public class EchoBoardUser {
     private String name;
     private String email;
     private String picture;
+
+    @OneToMany(mappedBy = "echoBoardUser")
+    private List<EchoBoard> echoBoards;
 
 }

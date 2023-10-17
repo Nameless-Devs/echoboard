@@ -43,7 +43,7 @@ public class CommentControllerTest {
 
         JacksonTester.initFields(this, OBJECT_MAPPER);
         mvc = MockMvcBuilders.standaloneSetup(this.controller)
-                .setControllerAdvice(new GlobalExceptionHandler())
+                .setControllerAdvice(new GeneralExceptionHandler())
                 .setCustomArgumentResolvers(new AuthenticationPrincipalResolver())
                 .build();
     }

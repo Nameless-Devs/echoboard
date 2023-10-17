@@ -13,7 +13,7 @@ export const VolunteeringModal: React.FC<VolunteeringModalProps> = ({
   onClose
 }) => {
   return (
-    <Dialog open={isConfirmationModalOpen} onClose={() => setIsConfirmationModalOpen(false)}>
+    <Dialog open={isOpen} onClose={() => onClose}>
     <DialogTitle>Confirm Volunteer Action</DialogTitle>
     <DialogContent>
         <DialogContentText>
@@ -21,10 +21,11 @@ export const VolunteeringModal: React.FC<VolunteeringModalProps> = ({
         </DialogContentText>
     </DialogContent>
     <DialogActions>
-        <Button onClick={() => setIsConfirmationModalOpen(false)}>Cancel</Button>
+        <Button onClick={() => onClose}>Cancel</Button>
         <Button
             onClick={() => {
-                setIsConfirmationModalOpen(false);
+              onClose();
+              onConfirm();
             }}
             color="primary"
         >

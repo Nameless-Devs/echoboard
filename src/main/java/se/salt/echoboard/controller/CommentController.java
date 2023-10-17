@@ -1,6 +1,7 @@
 package se.salt.echoboard.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/comments")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CommentController {
 
     private final EchoBoardService echoService;

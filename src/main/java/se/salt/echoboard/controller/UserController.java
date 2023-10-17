@@ -1,6 +1,7 @@
 package se.salt.echoboard.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -14,8 +15,8 @@ import se.salt.echoboard.service.EchoBoardService;
 
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("api/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final EchoBoardService echoBoardService;

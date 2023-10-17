@@ -15,6 +15,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
 
     return (
         <>
+            <Box></Box>
             <Box sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -45,13 +46,20 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                         height: "150px"
                     }} />
             </Box>
-            <Box className="tabs-container">
-                <TabsManager
-                    labels={["Your posts", "Your solutions", "Your comments", "Volunteering"]}
-                    onTabChange={handleTabChange}
-                    currentTabIndex={value}
-                    defaultTabIndex={0}
-                />
+            <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "15px",
+            }}>
+                <Box className="tabs-container" >
+                    <TabsManager
+                        labels={["Your posts", "Your solutions", "Your comments", "Volunteering"]}
+                        onTabChange={handleTabChange}
+                        currentTabIndex={value}
+                        defaultTabIndex={0}
+                    />
+                </Box>
             </Box>
         </>
     )

@@ -34,6 +34,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [isClickble, setIsClickble] = useState(status == "VOLUNTEERS_REQUIRED");
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
 
     const queryClient = useQueryClient();
@@ -49,20 +50,25 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
 
     const volunteerMutation = useMutation(
         (solutionId: string) => volunteerForSolution(solutionId)
-        );
+    );
 
 
     const handleClick = () => {
-        if(formatedStatus.formattedStatus == "Volunteers required"){
-        // volunteerMutation.mutate(solutionId);
-        setIsConfirmationModalOpen(true);
-    }
-      
+        if (formatedStatus.formattedStatus == "Volunteers required") {
+            // volunteerMutation.mutate(solutionId);
+            setIsConfirmationModalOpen(true);
+        }
+
     };
 
     const handleVolunteeringConfirm = () => {
-        volunteerMutation.mutate(solutionId);
-    } 
+        volunteerMutation.mutate(solutionId, {
+            onSuccess: () => {
+                setIsSuccess(true);
+                setTimeout(() => setIsSuccess(false), 3500);
+            }
+        });
+    }
 
     const handleMenuItemClick = (
         event: React.MouseEvent<HTMLLIElement, MouseEvent>,
@@ -73,7 +79,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         const newStatus = options[index][0];
         setFormatedStatus(getStatusInfo(newStatus));
         mutation.mutate(newStatus);
-        if(newStatus == "VOLUNTEERS_REQUIRED"){
+        if (newStatus == "VOLUNTEERS_REQUIRED") {
             setIsClickble(true);
         }
         else setIsClickble(false);
@@ -96,6 +102,13 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
 
     return (
         <React.Fragment>
+            {isSuccess && (
+                <Dialog open={isSuccess}>
+                    <DialogContentText style={{padding: "40px", color: "green", fontSize: "20px", textAlign: "center"}}>
+                    You request was send and is now waiting for confirmation for post owner
+                    </DialogContentText>
+                </Dialog>
+            )}
             <ButtonGroup
                 variant="contained"
                 ref={anchorRef}
@@ -116,7 +129,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                     style={{
                         borderTopLeftRadius: "30px",
                         borderBottomLeftRadius: "30px",
-                        pointerEvents: isClickble? "auto" : "none",
+                        pointerEvents: isClickble ? "auto" : "none",
                     }}
                 >
                     {formatedStatus.formattedStatus}
@@ -176,25 +189,25 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                 )}
             </Popper>
             <Dialog open={isConfirmationModalOpen} onClose={() => setIsConfirmationModalOpen(false)}>
-            <DialogTitle>Confirm Volunteer Action</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    Are you sure you want to volunteer for solution testing?
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={() => setIsConfirmationModalOpen(false)}>Cancel</Button>
-                <Button
-                    onClick={() => {
-                        setIsConfirmationModalOpen(false);
-                        handleVolunteeringConfirm();
-                    }}
-                    color="primary"
-                >
-                    Confirm
-                </Button>
-            </DialogActions>
-        </Dialog>
+                <DialogTitle>Confirm Volunteer Action</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Are you sure you want to volunteer for solution testing?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setIsConfirmationModalOpen(false)}>Cancel</Button>
+                    <Button
+                        onClick={() => {
+                            setIsConfirmationModalOpen(false);
+                            handleVolunteeringConfirm();
+                        }}
+                        color="primary"
+                    >
+                        Confirm
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </React.Fragment>
     );
 }

@@ -50,7 +50,7 @@ public class EchoBoardService {
     public EchoBoardResponse getEchoById(long id) {
         return echoBoardRepository.getEchoById(id)
                 .map(convertor::convertEntityToResponseDTO)
-                .orElseThrow(()-> new EchoBoardNotFoundException(id));
+                .orElseThrow(() -> new EchoBoardNotFoundException(id));
     }
 
     public List<EchoBoardResponse> findAll() {
@@ -65,16 +65,16 @@ public class EchoBoardService {
                 .orElseThrow(() -> new CommentNotFoundException(commentId));
     }
 
-
     public EchoBoardSolution getSolutionById(long solutionId) {
         return solutionRepository.getSolutionById(solutionId)
-                .orElseThrow(SolutionNotFoundException::new);
+                .orElseThrow(() -> new SolutionNotFoundException(solutionId));
     }
 
     public EchoBoardCommentResponse addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         return echoBoardRepository.getEchoById(echoBoardId).map(e -> {
-            e.addComment(echoBoardComment);
-            return saveComment(echoBoardComment, userSubject);})
+                    e.addComment(echoBoardComment);
+                    return saveComment(echoBoardComment, userSubject);
+                })
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(EchoBoardNotFoundException::new);
     }
@@ -82,8 +82,9 @@ public class EchoBoardService {
     public EchoBoardSolutionResponse addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
 
         return echoBoardRepository.getEchoById(echoBoardId).map(e -> {
-            e.addSolution(echoBoardSolution);
-            return saveSolution(echoBoardSolution, userSubject);})
+                    e.addSolution(echoBoardSolution);
+                    return saveSolution(echoBoardSolution, userSubject);
+                })
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(EchoBoardNotFoundException::new);
     }
@@ -135,11 +136,11 @@ public class EchoBoardService {
     }
 
 
-    public  EchoBoardSolution.SolutionStatus getSolutionStatus(long solutionId){
+    public EchoBoardSolution.SolutionStatus getSolutionStatus(long solutionId) {
         return getSolutionById(solutionId).getStatus();
     }
 
-    public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user){
+    public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user) {
 
         return solutionRepository.getSolutionById(solutionId)
                 .map(this::validateSolutionStatusIsVolunteerRequired)
@@ -169,7 +170,6 @@ public class EchoBoardService {
                 .map(commentRepository::save)
                 .orElseThrow(UserNotFoundException::new);
     }
-
 
     private EchoBoardSolution saveSolution(EchoBoardSolution solution, String userSubject) {
         return userRepository.getUserBySubject(userSubject)

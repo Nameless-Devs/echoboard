@@ -25,15 +25,4 @@ public class UserController {
     public ResponseEntity<EchoBoardUserResponseDTO> getUser(@AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoBoardService.getUserBySubject(user.getSubject()));
     }
-
-
-    @GetMapping("mocked")
-    public ResponseEntity<EchoBoardUser> getMockedUser() {
-        EchoBoardUser user = EchoBoardUser.builder().name("Mikey Tester")
-                .subject("12345")
-                .email("mikey.mike@gmail.com")
-                .picture("https://lh3.googleusercontent.com/a/ACg8ocLAWnojfjPfMGVFs7PIJYrZjGtH_c4uHmIKOzXW29NT=s96-c")
-                .build();
-        return ResponseEntity.ok(user);
-    }
 }

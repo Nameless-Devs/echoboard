@@ -8,15 +8,26 @@ type UserPageProps = {
 export const UserPage: React.FC<UserPageProps> = ({ user }) => {
     return (
         <>
-            <Box sx={{ display: "flex" }}>
-                <Box>
+            <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "20px",
+                marginTop: "100px"
+            }}>
+                <Box sx={{ alignSelf: "center" }}>
                     <Typography variant="h3" color="textPrimary">
                         {user.name}
                     </Typography>
-                    <Chip label={"Problems solved: " + user.name.length} color="success" /> 
-                    <Chip label="Volunteered: 5" color="warning" />
-                    {/* number of solved problems and volunteered are just placeholder for now,
+                    <Box sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: "15px"
+                    }}>
+                        <Chip label={"Problems solved: " + user.name.length} color="success" />
+                        <Chip label="Volunteered: 5" color="warning" />
+                        {/* number of solved problems and volunteered are just placeholder for now,
                     real funtionality will be implemented later on */}
+                    </Box>
 
                 </Box>
                 <Avatar

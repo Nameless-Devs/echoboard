@@ -1,11 +1,18 @@
 import { UserResponseData } from '@/service/Types'
 import { Avatar, Box, Chip, Typography } from '@mui/material';
-import React from 'react'
+import React, { useState } from 'react'
+import { TabsManager } from '../CommentModal/commentModalComponents/TabsManager';
 
 type UserPageProps = {
     user: UserResponseData;
 }
 export const UserPage: React.FC<UserPageProps> = ({ user }) => {
+    const [value, setValue] = useState(0);
+
+    const handleTabChange = (newTabIndex: number) => {
+        setValue(newTabIndex);
+    };
+
     return (
         <>
             <Box sx={{
@@ -37,6 +44,14 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                         width: "150px",
                         height: "150px"
                     }} />
+            </Box>
+            <Box className="tabs-container">
+                <TabsManager
+                    labels={["Your posts", "Your solutions", "Your comments", "Volunteering"]}
+                    onTabChange={handleTabChange}
+                    currentTabIndex={value}
+                    defaultTabIndex={0}
+                />
             </Box>
         </>
     )

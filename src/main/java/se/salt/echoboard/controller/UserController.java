@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.salt.echoboard.controller.dto.DTOConvertor;
-import se.salt.echoboard.controller.dto.EchoBoardUserResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardUserResponseDTO;
 import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.EchoBoardService;
 
@@ -19,12 +19,10 @@ import se.salt.echoboard.service.EchoBoardService;
 public class UserController {
 
     private final EchoBoardService echoBoardService;
-    private final DTOConvertor convert;
 
     @GetMapping
-    public ResponseEntity<EchoBoardUserResponseDto> getUser(@AuthenticationPrincipal OidcUser user) {
-        var echoBoardUser = echoBoardService.getUserBySubject(user.getSubject());
-        return ResponseEntity.of(echoBoardUser.map(convert::convertEntityToResponseDto));
+    public ResponseEntity<EchoBoardUserResponseDTO> getUser(@AuthenticationPrincipal OidcUser user) {
+        return ResponseEntity.of(echoBoardService.getUserBySubject(user.getSubject()));
     }
 
 

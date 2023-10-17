@@ -6,9 +6,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import se.salt.echoboard.controller.dto.DTOConvertor;
-import se.salt.echoboard.controller.dto.EchoBoardCommentResponseDto;
-import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
-import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardCommentResponseDTO;
+import se.salt.echoboard.controller.dto.EchoBoardResponseDTO;
+import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDTO;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -24,20 +24,17 @@ import java.util.Set;
 public class EchoController {
 
     private final EchoBoardService echoService;
-    private final DTOConvertor convertor;
 
     @GetMapping("{echoId}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<EchoBoardResponseDto> getEcho(@PathVariable long echoId) {
-        return echoService.getEchoById(echoId)
-                .map(convertor::convertEntityToResponseDto);
+    public Optional<EchoBoardResponseDTO> getEcho(@PathVariable long echoId) {
+        return echoService.getEchoById(echoId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<EchoBoardResponseDto> getAllEchoes() {
-        return echoService.findAll().stream()
-                .map(convertor::convertEntityToResponseDto).toList();
+    public List<EchoBoardResponseDTO> getAllEchoes() {
+        return echoService.findAll();
     }
 
     @PatchMapping("{echoId}/upvote")
@@ -48,32 +45,29 @@ public class EchoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<EchoBoardResponseDto> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
-        return echoService.saveEcho(echoBoard, user.getSubject())
-                .map(convertor::convertEntityToResponseDto);
+    public Optional<EchoBoardResponseDTO> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
+        return echoService.saveEcho(echoBoard, user.getSubject());
     }
 
     @PostMapping("{echoId}/solutions")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<EchoBoardSolutionResponseDto> addSolutionToEchoBoard(@PathVariable long echoId,
+    public Optional<EchoBoardSolutionResponseDTO> addSolutionToEchoBoard(@PathVariable long echoId,
                                                                          @RequestBody EchoBoardSolution echoBoardSolution,
                                                                          @AuthenticationPrincipal OidcUser user) {
-        return echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject())
-                .map(convertor::convertEntityToResponseDto);
+        return echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
     }
 
     @PostMapping("{echoId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<EchoBoardCommentResponseDto> addCommentToEchoBoard(@PathVariable long echoId,
+    public Optional<EchoBoardCommentResponseDTO> addCommentToEchoBoard(@PathVariable long echoId,
                                                                        @RequestBody EchoBoardComment echoBoardComment,
                                                                        @AuthenticationPrincipal OidcUser user) {
-        return echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject())
-                .map(convertor::convertEntityToResponseDto);
+        return echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject());
     }
 
     @DeleteMapping("{echoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Optional<EchoBoard> deleteEcho(@PathVariable long echoId) {
+    public Optional<EchoBoardResponseDTO> deleteEcho(@PathVariable long echoId) {
         echoService.deleteEcho(echoId);
         return echoService.getEchoById(echoId);
     }

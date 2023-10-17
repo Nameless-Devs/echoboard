@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
+import se.salt.echoboard.controller.dto.EchoBoardCommentResponseDTO;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.service.EchoBoardService;
 
@@ -20,12 +21,12 @@ public class CommentController {
 
     @GetMapping("{commentId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<EchoBoardComment> getCommentById(@PathVariable long commentId) {
+    public ResponseEntity<EchoBoardCommentResponseDTO> getCommentById(@PathVariable long commentId) {
         return ResponseEntity.of(echoService.getCommentById(commentId));
     }
 
     @PatchMapping("{commentId}/upvote")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Integer> upvoteComment(@PathVariable long commentId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));
     }
@@ -33,9 +34,9 @@ public class CommentController {
 
     @PostMapping("{commentId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<EchoBoardComment> addCommentToEchoBoardComment(@PathVariable long commentId,
-                                                                   @RequestBody EchoBoardComment echoBoardComment,
-                                                                   @AuthenticationPrincipal OidcUser user) {
+    public Optional<EchoBoardCommentResponseDTO> addCommentToEchoBoardComment(@PathVariable long commentId,
+                                                                              @RequestBody EchoBoardComment echoBoardComment,
+                                                                              @AuthenticationPrincipal OidcUser user) {
         return echoService.addCommentToComment(commentId, echoBoardComment, user.getSubject());
     }
 }

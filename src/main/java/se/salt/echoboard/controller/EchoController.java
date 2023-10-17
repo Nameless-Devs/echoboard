@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping("api/echoes")
+@RequestMapping("api/v1/echoes")
 @RequiredArgsConstructor
 public class EchoController {
 

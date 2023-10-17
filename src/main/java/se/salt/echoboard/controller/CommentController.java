@@ -14,7 +14,7 @@ import se.salt.echoboard.service.EchoBoardService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/comments")
+@RequestMapping("api/v1/comments")
 @RequiredArgsConstructor
 public class CommentController {
 

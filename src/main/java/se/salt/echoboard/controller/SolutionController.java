@@ -15,7 +15,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("api/solutions")
+@RequestMapping("api/v1/solutions")
 @RequiredArgsConstructor
 public class SolutionController {
 

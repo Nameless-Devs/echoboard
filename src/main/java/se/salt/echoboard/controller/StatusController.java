@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @Controller
-@RequestMapping("api/status")
+@RequestMapping("api/v1/status")
 public class StatusController {
 
     @RequestMapping(method = {RequestMethod.HEAD})

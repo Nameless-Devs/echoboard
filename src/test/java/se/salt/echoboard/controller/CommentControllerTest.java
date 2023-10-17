@@ -57,7 +57,7 @@ public class CommentControllerTest {
         given(echoService.getCommentById(1L))
                 .willReturn(Optional.empty());
 
-        mvc.perform(get("/api/comments/1")
+        mvc.perform(get("/api/v1/comments/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -68,7 +68,7 @@ public class CommentControllerTest {
         given(echoService.getCommentById(2L))
                 .willReturn(Optional.of(COMMENTS_SALES.get(2)));
 
-        mvc.perform(get("/api/comments/2")
+        mvc.perform(get("/api/v1/comments/2")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(OBJECT_MAPPER.writeValueAsString(COMMENTS_SALES.get(2))))
@@ -80,7 +80,7 @@ public class CommentControllerTest {
     @WithMockOidcUser
     void upvoteComment_notFound() throws Exception {
 
-        mvc.perform(patch("/api/comments/1/upvote"))
+        mvc.perform(patch("/api/v1/comments/1/upvote"))
                 .andExpect(status().isNotFound())
                 .andReturn();
     }
@@ -92,7 +92,7 @@ public class CommentControllerTest {
         given(echoService.upvoteComment(eq(1L), anyString()))
                 .willReturn(Optional.of(COMMENTS_IT.get(1).upvote().size()));
 
-        mvc.perform(patch("/api/comments/1/upvote"))
+        mvc.perform(patch("/api/v1/comments/1/upvote"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
@@ -103,7 +103,7 @@ public class CommentControllerTest {
         given(echoService.upvoteComment(eq(1L), anyString()))
                 .willReturn(Optional.of(COMMENTS_IT.get(1).upvote().size()));
 
-        mvc.perform(patch("/api/comments/1/upvote"))
+        mvc.perform(patch("/api/v1/comments/1/upvote"))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -114,7 +114,7 @@ public class CommentControllerTest {
         given(echoService.addCommentToEcho(eq(1L), any(), anyString()))
                 .willReturn(Optional.of(COMMENTS_MARKET.get(2)));
 
-        mvc.perform(post("/api/comments/1"))
+        mvc.perform(post("/api/v1/comments/1"))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -127,7 +127,7 @@ public class CommentControllerTest {
         given(echoService.addCommentToEcho(eq(1L), any(), anyString()))
                 .willReturn(Optional.of(COMMENTS_MARKET.get(2)));
 
-        mvc.perform(post("/api/comments/1")
+        mvc.perform(post("/api/v1/comments/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(OBJECT_MAPPER.writeValueAsString(COMMENTS_MARKET.get(2))))
                 .andExpect(status().isCreated())

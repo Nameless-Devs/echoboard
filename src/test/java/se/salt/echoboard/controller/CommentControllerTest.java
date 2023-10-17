@@ -122,8 +122,7 @@ public class CommentControllerTest {
     @Test
     @Disabled
     @WithMockOidcUser
-    // TODO: Fix the test
-    // TODO: content is null for some reason
+    // TODO: Fix the test, content is null for some reason
     void addCommentToEchoBoardComment() throws Exception {
         given(echoService.addCommentToEcho(eq(1L), any(), anyString()))
                 .willReturn(Optional.of(COMMENTS_MARKET.get(2)));

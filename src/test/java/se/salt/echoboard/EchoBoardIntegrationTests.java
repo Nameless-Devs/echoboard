@@ -34,7 +34,7 @@ public class EchoBoardIntegrationTests {
         var requestEcho = TestUtilities.echoBoardSample();
         String jsonRequest = TestUtilities.convertJsonString(requestEcho);
 
-        MvcResult postResult = mockMvc.perform(post("/api/echoes")
+        MvcResult postResult = mockMvc.perform(post("/api/v1/echoes")
                         .contentType("application/json")
                         .content(jsonRequest))
                 .andExpect(status().isCreated())
@@ -50,7 +50,7 @@ public class EchoBoardIntegrationTests {
 
         for (EchoBoardRequestDto echoBoard : expectedEcho) {
             String jsonRequest = TestUtilities.convertJsonString(echoBoard);
-            mockMvc.perform(post("/api/echoes")
+            mockMvc.perform(post("/api/v1/echoes")
                             .contentType("application/json")
                             .content(jsonRequest))
                     .andExpect(status().isCreated())
@@ -58,7 +58,7 @@ public class EchoBoardIntegrationTests {
         }
 
 
-        MvcResult getResult = mockMvc.perform(get("/api/echoes"))
+        MvcResult getResult = mockMvc.perform(get("/api/v1/echoes"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -73,7 +73,7 @@ public class EchoBoardIntegrationTests {
     @Test
     public void testGetStatus() throws Exception {
 
-        mockMvc.perform(head("/api/status"))
+        mockMvc.perform(head("/api/v1/status"))
                 .andExpect(status().isOk())
                 .andReturn();
     }

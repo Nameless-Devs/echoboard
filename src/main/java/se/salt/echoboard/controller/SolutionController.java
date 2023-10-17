@@ -8,7 +8,8 @@ import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 
 @RestController

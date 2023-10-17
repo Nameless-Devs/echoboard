@@ -12,9 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import se.salt.echoboard.controller.dto.EchoBoardUserResponseDTO;
-import se.salt.echoboard.model.EchoBoardUser;
-import se.salt.echoboard.service.EchoBoardService;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;

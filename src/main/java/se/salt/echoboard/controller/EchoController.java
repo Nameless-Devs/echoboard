@@ -4,16 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
-import se.salt.echoboard.controller.dto.EchoBoardCommentResponseDTO;
-import se.salt.echoboard.controller.dto.EchoBoardResponseDTO;
-import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDTO;
+import se.salt.echoboard.controller.dto.EchoBoardCommentResponse;
+import se.salt.echoboard.controller.dto.EchoBoardResponse;
+import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -26,13 +25,13 @@ public class EchoController {
 
     @GetMapping("{echoId}")
     @ResponseStatus(OK)
-    public EchoBoardResponseDTO getEcho(@PathVariable long echoId) {
+    public EchoBoardResponse getEcho(@PathVariable long echoId) {
         return echoService.getEchoById(echoId);
     }
 
     @GetMapping
     @ResponseStatus(OK)
-    public List<EchoBoardResponseDTO> getAllEchoes() {
+    public List<EchoBoardResponse> getAllEchoes() {
         return echoService.findAll();
     }
 
@@ -44,29 +43,29 @@ public class EchoController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public EchoBoardResponseDTO saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
+    public EchoBoardResponse saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
         return echoService.saveEcho(echoBoard, user.getSubject());
     }
 
     @PostMapping("{echoId}/solutions")
     @ResponseStatus(CREATED)
-    public EchoBoardSolutionResponseDTO addSolutionToEchoBoard(@PathVariable long echoId,
-                                                                         @RequestBody EchoBoardSolution echoBoardSolution,
-                                                                         @AuthenticationPrincipal OidcUser user) {
+    public EchoBoardSolutionResponse addSolutionToEchoBoard(@PathVariable long echoId,
+                                                            @RequestBody EchoBoardSolution echoBoardSolution,
+                                                            @AuthenticationPrincipal OidcUser user) {
         return echoService.addSolutionToEcho(echoId, echoBoardSolution, user.getSubject());
     }
 
     @PostMapping("{echoId}/comments")
     @ResponseStatus(CREATED)
-    public EchoBoardCommentResponseDTO addCommentToEchoBoard(@PathVariable long echoId,
-                                                                       @RequestBody EchoBoardComment echoBoardComment,
-                                                                       @AuthenticationPrincipal OidcUser user) {
+    public EchoBoardCommentResponse addCommentToEchoBoard(@PathVariable long echoId,
+                                                          @RequestBody EchoBoardComment echoBoardComment,
+                                                          @AuthenticationPrincipal OidcUser user) {
         return echoService.addCommentToEcho(echoId, echoBoardComment, user.getSubject());
     }
 
     @DeleteMapping("{echoId}")
     @ResponseStatus(NO_CONTENT)
-    public EchoBoardResponseDTO deleteEcho(@PathVariable long echoId) {
+    public EchoBoardResponse deleteEcho(@PathVariable long echoId) {
         echoService.deleteEcho(echoId);
         return echoService.getEchoById(echoId);
     }

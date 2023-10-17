@@ -17,7 +17,6 @@ import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,7 +35,7 @@ public class EchoBoardService {
     private final DTOConvertor convertor;
 
 
-    public EchoBoardResponseDTO saveEcho(EchoBoard echoBoard, String userSubject) {
+    public EchoBoardResponse saveEcho(EchoBoard echoBoard, String userSubject) {
         return userRepository.getUserBySubject(userSubject)
                 .map(echoBoard::setUser)
                 .map(echoBoardRepository::save)
@@ -48,19 +47,19 @@ public class EchoBoardService {
         return commentRepository.save(comment);
     }
 
-    public EchoBoardResponseDTO getEchoById(long id) {
+    public EchoBoardResponse getEchoById(long id) {
         return echoBoardRepository.getEchoById(id)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(()-> new EchoBoardNotFoundException(id));
     }
 
-    public List<EchoBoardResponseDTO> findAll() {
+    public List<EchoBoardResponse> findAll() {
         return echoBoardRepository.findByOrderByCreatedDesc(Pageable.unpaged())
                 .stream().map(convertor::convertEntityToResponseDTO)
                 .toList();
     }
 
-    public EchoBoardCommentResponseDTO getCommentById(long commentId) {
+    public EchoBoardCommentResponse getCommentById(long commentId) {
         return commentRepository.getCommentById(commentId)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(() -> new CommentNotFoundException(commentId));
@@ -72,7 +71,7 @@ public class EchoBoardService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-    public EchoBoardCommentResponseDTO addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
+    public EchoBoardCommentResponse addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
         return echoBoardRepository.getEchoById(echoBoardId).map(e -> {
             e.addComment(echoBoardComment);
             return saveComment(echoBoardComment, userSubject);})
@@ -80,7 +79,7 @@ public class EchoBoardService {
                 .orElseThrow(EchoBoardNotFoundException::new);
     }
 
-    public EchoBoardSolutionResponseDTO addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
+    public EchoBoardSolutionResponse addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
 
         return echoBoardRepository.getEchoById(echoBoardId).map(e -> {
             e.addSolution(echoBoardSolution);
@@ -120,15 +119,15 @@ public class EchoBoardService {
         echoBoardRepository.deleteById(id);
     }
 
-    public EchoBoardUserResponseDTO getUserBySubject(String id) {
+    public EchoBoardUserResponse getUserBySubject(String id) {
         return userRepository.getUserBySubject(id)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    public EchoBoardCommentResponseDTO addCommentToComment(long commentId,
-                                                                     EchoBoardComment echoBoardComment,
-                                                                     String userSubject) {
+    public EchoBoardCommentResponse addCommentToComment(long commentId,
+                                                        EchoBoardComment echoBoardComment,
+                                                        String userSubject) {
         commentRepository.getCommentById(commentId)
                 .orElseThrow(CommentNotFoundException::new)
                 .addCommentToEchoBoardComment(echoBoardComment);
@@ -140,7 +139,7 @@ public class EchoBoardService {
         return getSolutionById(solutionId).getStatus();
     }
 
-    public EchoBoardSolutionResponseDTO addVolunteerToSolution(long solutionId, OidcUser user){
+    public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user){
 
         return solutionRepository.getSolutionById(solutionId)
                 .map(this::validateSolutionStatusIsVolunteerRequired)
@@ -151,8 +150,8 @@ public class EchoBoardService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-    public EchoBoardSolutionResponseDTO updateSolutionStatus(long solutionId,
-                                                             EchoBoardSolution.SolutionStatus updateToStage) {
+    public EchoBoardSolutionResponse updateSolutionStatus(long solutionId,
+                                                          EchoBoardSolution.SolutionStatus updateToStage) {
         return solutionRepository.getSolutionById(solutionId)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
                 .map(this::updateSolution)

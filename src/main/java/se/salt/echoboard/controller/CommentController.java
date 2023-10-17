@@ -1,17 +1,12 @@
 package se.salt.echoboard.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
-import se.salt.echoboard.controller.dto.EchoBoardCommentResponseDTO;
+import se.salt.echoboard.controller.dto.EchoBoardCommentResponse;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.service.EchoBoardService;
-
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -25,7 +20,7 @@ public class CommentController {
 
     @GetMapping("{commentId}")
     @ResponseStatus(OK)
-    public EchoBoardCommentResponseDTO getCommentById(@PathVariable long commentId) {
+    public EchoBoardCommentResponse getCommentById(@PathVariable long commentId) {
         return echoService.getCommentById(commentId);
     }
 
@@ -38,9 +33,9 @@ public class CommentController {
 
     @PostMapping("{commentId}")
     @ResponseStatus(CREATED)
-    public EchoBoardCommentResponseDTO addCommentToEchoBoardComment(@PathVariable long commentId,
-                                                                              @RequestBody EchoBoardComment echoBoardComment,
-                                                                              @AuthenticationPrincipal OidcUser user) {
+    public EchoBoardCommentResponse addCommentToEchoBoardComment(@PathVariable long commentId,
+                                                                 @RequestBody EchoBoardComment echoBoardComment,
+                                                                 @AuthenticationPrincipal OidcUser user) {
         return echoService.addCommentToComment(commentId, echoBoardComment, user.getSubject());
     }
 }

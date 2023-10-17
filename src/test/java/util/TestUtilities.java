@@ -4,6 +4,7 @@ package util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.test.web.servlet.MvcResult;
 import se.salt.echoboard.controller.dto.EchoBoardResponseDTO;
@@ -12,6 +13,7 @@ import util.dto.request.EchoBoardRequestDto;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+@Slf4j
 public class TestUtilities {
 
     public static final ObjectMapper OBJECT_MAPPER;
@@ -76,6 +78,7 @@ public class TestUtilities {
             String content = getResult.getResponse().getContentAsString();
             return OBJECT_MAPPER.readValue(content, inputClass);
         } catch (UnsupportedEncodingException | JsonProcessingException e) {
+            log.error("JSON error occurred: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

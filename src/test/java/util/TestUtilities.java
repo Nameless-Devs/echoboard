@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.test.web.servlet.MvcResult;
-import se.salt.echoboard.controller.dto.EchoBoardResponseDTO;
+import se.salt.echoboard.controller.dto.EchoBoardResponse;
 import util.dto.request.EchoBoardRequestDto;
 
 import java.io.UnsupportedEncodingException;
@@ -23,7 +23,7 @@ public class TestUtilities {
         OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
-    public static void assertEchoBoardEqual(EchoBoardRequestDto expected, EchoBoardResponseDTO actual) {
+    public static void assertEchoBoardEqual(EchoBoardRequestDto expected, EchoBoardResponse actual) {
         Assertions.assertNotNull(actual, "Actual EchoBoard should not be null");
         Assertions.assertEquals(expected.title(), actual.title());
         Assertions.assertEquals(expected.content(), actual.content());

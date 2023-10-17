@@ -1,7 +1,6 @@
 package se.salt.echoboard.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,22 +17,22 @@ public class GeneralExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(NOT_FOUND)
-    public String handleEntityNotFoundException(NoSuchElementException ex){
-        log.error("Entity not found", ex);
+    public String handleEntityNotFoundException(NoSuchElementException ex) {
+        log.error("Entity not found: " + ex.getMessage());
         return ex.getMessage();
     }
 
     @ExceptionHandler(IllegalSolutionArgumentException.class)
     @ResponseStatus(BAD_REQUEST)
-    public String handleIllegalArgumentException(IllegalSolutionArgumentException ex){
-        log.error("Illegal Argument", ex);
+    public String handleIllegalArgumentException(IllegalSolutionArgumentException ex) {
+        log.error("Illegal Argument: " + ex.getMessage());
         return ex.getMessage();
     }
 
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(BAD_REQUEST)
-    public String handleBadRequest(NullPointerException ex){
-        log.error("Null pointer encountered, something went wrong", ex);
+    public String handleBadRequest(NullPointerException ex) {
+        log.error("Null pointer encountered, something went wrong: "+ ex.getMessage());
         return ex.getMessage();
     }
 }

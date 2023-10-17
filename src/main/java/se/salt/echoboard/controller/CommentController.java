@@ -13,6 +13,9 @@ import se.salt.echoboard.service.EchoBoardService;
 
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
+
 @RestController
 @RequestMapping("api/v1/comments")
 @RequiredArgsConstructor
@@ -21,20 +24,20 @@ public class CommentController {
     private final EchoBoardService echoService;
 
     @GetMapping("{commentId}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public ResponseEntity<EchoBoardCommentResponseDTO> getCommentById(@PathVariable long commentId) {
         return ResponseEntity.of(echoService.getCommentById(commentId));
     }
 
     @PatchMapping("{commentId}/upvote")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public ResponseEntity<Integer> upvoteComment(@PathVariable long commentId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));
     }
 
 
     @PostMapping("{commentId}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public Optional<EchoBoardCommentResponseDTO> addCommentToEchoBoardComment(@PathVariable long commentId,
                                                                               @RequestBody EchoBoardComment echoBoardComment,
                                                                               @AuthenticationPrincipal OidcUser user) {

@@ -13,6 +13,8 @@ import se.salt.echoboard.service.EchoBoardService;
 
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.*;
+
 
 @RestController
 @RequestMapping("api/v1/solutions")
@@ -22,13 +24,13 @@ public class SolutionController {
     private final EchoBoardService echoService;
 
     @GetMapping("{solutionId}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public Optional<EchoBoardSolution> getEchoBoardSolution(@PathVariable long solutionId) {
         return echoService.getSolutionById(solutionId);
     }
 
     @PatchMapping("{solutionId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public Optional<EchoBoardSolutionResponseDTO> updateSolutionStatus(@PathVariable long solutionId
             , @RequestParam EchoBoardSolution.SolutionStatus updateToStage) {
 
@@ -36,13 +38,13 @@ public class SolutionController {
     }
 
     @PatchMapping("{solutionId}/upvote")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public ResponseEntity<Integer> upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.upvoteSolution(solutionId, user.getSubject()));
     }
 
     @PostMapping("{solutionId}/volunteer")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public ResponseEntity<EchoBoardSolutionResponseDTO> volunteerForSolutionTesting(@PathVariable long solutionId
             , @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.of(echoService.addVolunteerToSolution(solutionId, user));

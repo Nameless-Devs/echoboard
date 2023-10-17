@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @RequestMapping("api/v1/echoes")
 @RequiredArgsConstructor
@@ -27,31 +29,31 @@ public class EchoController {
     private final EchoBoardService echoService;
 
     @GetMapping("{echoId}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public Optional<EchoBoardResponseDTO> getEcho(@PathVariable long echoId) {
         return echoService.getEchoById(echoId);
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public List<EchoBoardResponseDTO> getAllEchoes() {
         return echoService.findAll();
     }
 
     @PatchMapping("{echoId}/upvote")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public Optional<Integer> upvoteEcho(@PathVariable long echoId, @AuthenticationPrincipal OidcUser user) {
         return echoService.upvoteEcho(echoId, user.getSubject()).map(Set::size);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public Optional<EchoBoardResponseDTO> saveEcho(@RequestBody EchoBoard echoBoard, @AuthenticationPrincipal OidcUser user) {
         return echoService.saveEcho(echoBoard, user.getSubject());
     }
 
     @PostMapping("{echoId}/solutions")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public Optional<EchoBoardSolutionResponseDTO> addSolutionToEchoBoard(@PathVariable long echoId,
                                                                          @RequestBody EchoBoardSolution echoBoardSolution,
                                                                          @AuthenticationPrincipal OidcUser user) {
@@ -59,7 +61,7 @@ public class EchoController {
     }
 
     @PostMapping("{echoId}/comments")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public Optional<EchoBoardCommentResponseDTO> addCommentToEchoBoard(@PathVariable long echoId,
                                                                        @RequestBody EchoBoardComment echoBoardComment,
                                                                        @AuthenticationPrincipal OidcUser user) {
@@ -67,7 +69,7 @@ public class EchoController {
     }
 
     @DeleteMapping("{echoId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(NO_CONTENT)
     public Optional<EchoBoardResponseDTO> deleteEcho(@PathVariable long echoId) {
         echoService.deleteEcho(echoId);
         return echoService.getEchoById(echoId);

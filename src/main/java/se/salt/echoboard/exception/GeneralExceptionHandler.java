@@ -9,26 +9,29 @@ import se.salt.echoboard.exception.custom.IllegalSolutionArgumentException;
 
 import java.util.NoSuchElementException;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @Slf4j
 @RestControllerAdvice
 public class GeneralExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(NOT_FOUND)
     public String handleEntityNotFoundException(NoSuchElementException ex){
         log.error("Entity not found", ex);
         return ex.getMessage();
     }
 
     @ExceptionHandler(IllegalSolutionArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     public String handleIllegalArgumentException(IllegalSolutionArgumentException ex){
         log.error("Illegal Argument", ex);
         return ex.getMessage();
     }
 
     @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     public String handleBadRequest(NullPointerException ex){
         log.error("Null pointer encountered, something went wrong", ex);
         return ex.getMessage();

@@ -5,11 +5,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 public class UserNotFoundException  extends ResponseStatusException {
     public UserNotFoundException() {
-        super(HttpStatus.NOT_FOUND);
+        super(NOT_FOUND);
     }
     public UserNotFoundException(long detail) {
-        super(HttpStatus.NOT_FOUND, "User with id %s not found".formatted(detail));
+        super(NOT_FOUND, "User with id %s not found".formatted(detail));
     }
 }

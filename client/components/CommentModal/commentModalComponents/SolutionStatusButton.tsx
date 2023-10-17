@@ -13,6 +13,7 @@ import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { changeSolutionStatus, volunteerForSolution } from '@/service/Functions';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { VolunteeringModal } from './VolunteeringModal';
 
 type SolutionStatusProps = {
     status: string;
@@ -188,26 +189,11 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                     </Grow>
                 )}
             </Popper>
-            <Dialog open={isConfirmationModalOpen} onClose={() => setIsConfirmationModalOpen(false)}>
-                <DialogTitle>Confirm Volunteer Action</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you sure you want to volunteer for solution testing?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setIsConfirmationModalOpen(false)}>Cancel</Button>
-                    <Button
-                        onClick={() => {
-                            setIsConfirmationModalOpen(false);
-                            handleVolunteeringConfirm();
-                        }}
-                        color="primary"
-                    >
-                        Confirm
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <VolunteeringModal
+                isOpen={isConfirmationModalOpen}
+                onConfirm={handleVolunteeringConfirm}
+                onClose={() => setIsConfirmationModalOpen(false)}
+            />
         </React.Fragment>
     );
 }

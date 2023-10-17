@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GeneralExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -22,15 +22,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalSolutionArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleIncorrectSolutionStatus(IllegalSolutionArgumentException ex){
-        log.error("Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED", ex);
-        return "Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED";
+    public String handleIllegalArgumentException(IllegalSolutionArgumentException ex){
+        log.error("Illegal Argument", ex);
+        return ex.getMessage();
     }
 
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleBadRequest(NullPointerException ex){
-        log.error("Null pointer encountered, went wrong", ex);
+        log.error("Null pointer encountered, something went wrong", ex);
         return ex.getMessage();
     }
 }

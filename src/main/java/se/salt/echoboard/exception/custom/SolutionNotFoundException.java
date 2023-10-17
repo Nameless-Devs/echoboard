@@ -1,10 +1,13 @@
 package se.salt.echoboard.exception.custom;
 
-import java.util.NoSuchElementException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-public class SolutionNotFoundException extends NoSuchElementException {
+public class SolutionNotFoundException  extends ResponseStatusException {
     public SolutionNotFoundException() {
-        super("Solution Not found");
+        super(HttpStatus.NOT_FOUND);
     }
-
+    public SolutionNotFoundException(long detail) {
+        super(HttpStatus.NOT_FOUND, "Solution with id %s not found".formatted(detail));
+    }
 }

@@ -1,10 +1,15 @@
 package se.salt.echoboard.exception.custom;
 
-import java.util.NoSuchElementException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-public class EchoBoardNotFoundException extends NoSuchElementException {
+public class EchoBoardNotFoundException extends ResponseStatusException {
     public EchoBoardNotFoundException() {
-        super("EchoBoard Not found");
+        super(HttpStatus.NOT_FOUND);
+    }
+
+    public EchoBoardNotFoundException(long detail) {
+        super(HttpStatus.NOT_FOUND, "EchoBoard with id %s not found".formatted(detail));
     }
 
 }

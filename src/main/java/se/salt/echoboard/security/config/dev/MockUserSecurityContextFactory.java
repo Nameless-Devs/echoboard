@@ -27,15 +27,24 @@ public interface MockUserSecurityContextFactory {
     default DefaultOidcUser createMockUser() {
         Faker faker = new Faker();
         String subject = UUID.randomUUID().toString();
+        return getDefaultOidcUser(subject, faker);
+    }
+
+    default DefaultOidcUser createMockUser(String userSubject) {
+        Faker faker = new Faker();
+        return getDefaultOidcUser(userSubject, faker);
+    }
+
+    private DefaultOidcUser getDefaultOidcUser(String userSubject, Faker faker) {
         String mockUserName = faker.name().firstName() + " " + faker.name().lastName();
 
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("sub", subject);
+        attributes.put("sub", userSubject);
         attributes.put("name", mockUserName);
         attributes.put("email", mockUserName + "@example.com");
         attributes.put("picture", "https://picsum.photos/id/"+generateRandomNumber()+"/200");
         OidcUserInfo mockUserInfo = new OidcUserInfo(Collections.singletonMap("name", mockUserName));
-        OidcIdToken idToken = new OidcIdToken(createTokenValue(subject, mockUserName), null, null, attributes);
+        OidcIdToken idToken = new OidcIdToken(createTokenValue(userSubject, mockUserName), null, null, attributes);
 
         return new DefaultOidcUser(Collections.emptyList(), idToken, mockUserInfo);
     }

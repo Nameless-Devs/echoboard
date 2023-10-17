@@ -31,7 +31,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
                                     @NonNull HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        DefaultOidcUser mockUser = createMockUser();
+        DefaultOidcUser mockUser = createMockUser(request.getSession().getId());
         SecurityContextHolder.setContext(setMockUserInSecurityContext(mockUser));
         createUserIfTheyDoNotExist(mockUser);
         response.setHeader("Access-Control-Allow-Origin", baseUrl);

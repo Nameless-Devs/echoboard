@@ -27,7 +27,7 @@ public class EchoBoardComment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-    @Column(length = 1000)
+    @Column(columnDefinition="TEXT")
     private String content;
     private Instant created;
     private boolean anonymous;

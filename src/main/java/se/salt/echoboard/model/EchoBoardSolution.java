@@ -27,12 +27,11 @@ public class EchoBoardSolution {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-    @Column(length = 1000)
+    @Column(columnDefinition="TEXT")
     private String content;
     private boolean anonymous;
     @Enumerated(EnumType.STRING)
     private SolutionStatus status;
-    @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
     @ManyToMany(cascade = CascadeType.ALL)
     @ToString.Exclude

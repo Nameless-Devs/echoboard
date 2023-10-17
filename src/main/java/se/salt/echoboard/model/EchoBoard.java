@@ -3,6 +3,7 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
@@ -18,10 +19,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class EchoBoard {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private final List<EchoBoardComment> echoBoardComments = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
     @ElementCollection
@@ -33,10 +34,9 @@ public class EchoBoard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-    @Column(length = 1000)
+    @Column(columnDefinition="TEXT")
     private String content;
     private boolean anonymous;
-    @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
 
     public EchoBoard addUpvote(String userSubject) {

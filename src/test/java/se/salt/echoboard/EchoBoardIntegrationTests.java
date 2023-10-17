@@ -7,15 +7,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import se.salt.echoboard.controller.dto.DTOConvertor;
-import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardResponseDTO;
 import util.dto.request.EchoBoardRequestDto;
 import util.TestUtilities;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static util.TestUtilities.*;
@@ -25,12 +23,10 @@ import static util.TestUtilities.*;
 public class EchoBoardIntegrationTests {
 
     private final MockMvc mockMvc;
-    private final DTOConvertor convertor;
 
     @Autowired
-    public EchoBoardIntegrationTests(MockMvc mockMvc, DTOConvertor convertor) {
+    public EchoBoardIntegrationTests(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
-        this.convertor = convertor;
     }
 
     @Test
@@ -44,14 +40,7 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        String locationUrl = postResult.getResponse().getHeader("Location");
-        assertNotNull(locationUrl, "Location URL should not be null!");
-
-        MvcResult getResult = mockMvc.perform(get(locationUrl))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        EchoBoardResponseDto actualEcho = getObjectFromResponse(getResult, EchoBoardResponseDto.class);
+        EchoBoardResponseDTO actualEcho = getObjectFromResponse(postResult, EchoBoardResponseDTO.class);
         assertEchoBoardEqual(requestEcho, actualEcho);
     }
 
@@ -73,7 +62,7 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<EchoBoardResponseDto> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
+        List<EchoBoardResponseDTO> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
                 .getContentAsString(), new TypeReference<>() {});
         Collections.reverse(echoBoards);
         for (int i = 0; i < echoBoards.size(); i++) {

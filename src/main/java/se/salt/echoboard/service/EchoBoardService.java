@@ -6,14 +6,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
+import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.exception.custom.CommentNotFoundException;
-import se.salt.echoboard.exception.custom.EchoBoardNotFoundException;
-import se.salt.echoboard.exception.custom.SolutionNotFoundException;
+import se.salt.echoboard.exception.custom.IllegalSolutionArgumentException;
 import se.salt.echoboard.exception.custom.UserNotFoundException;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
-import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.repository.EchoBoardCommentRepository;
 import se.salt.echoboard.service.repository.EchoBoardRepository;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
@@ -35,47 +34,35 @@ public class EchoBoardService {
 
     private final EchoBoardUserRepository userRepository;
 
+    private final DTOConvertor convertor;
+
 
     @Transactional
-    public EchoBoard saveEcho(EchoBoard echoBoard, String userSubject) {
+    public Optional<EchoBoardResponseDTO> saveEcho(EchoBoard echoBoard, String userSubject) {
         return userRepository.getUserBySubject(userSubject)
                 .map(echoBoard::setUser)
                 .map(echoBoardRepository::save)
-                .orElseThrow();
+                .map(convertor::convertEntityToResponseDTO);
     }
 
-    @Transactional
-    public Optional<EchoBoardComment> saveComment(EchoBoardComment comment, String userSubject) {
-        return userRepository.getUserBySubject(userSubject)
-                .map(comment::setEchoBoardUser).map(commentRepository::save);
-    }
-
-    @Transactional
-    public Optional<EchoBoardSolution> saveSolution(EchoBoardSolution solution, String userSubject) {
-        return userRepository.getUserBySubject(userSubject)
-                .map(solution::setEchoBoardUser).map(solutionRepository::save);
-    }
-
-    @Transactional
-    public EchoBoardSolution updateSolution(EchoBoardSolution solution) {
-        return solutionRepository.save(solution);
-    }
-
-    @Transactional
-    public EchoBoardComment updateComment(EchoBoardComment comment) {
+    private EchoBoardComment updateComment(EchoBoardComment comment) {
         return commentRepository.save(comment);
     }
 
-    public Optional<EchoBoard> getEchoById(Long id) {
-        return echoBoardRepository.getEchoById(id);
+    public Optional<EchoBoardResponseDTO> getEchoById(Long id) {
+        return echoBoardRepository.getEchoById(id)
+                .map(convertor::convertEntityToResponseDTO);
     }
 
-    public List<EchoBoard> findAll() {
-        return echoBoardRepository.findByOrderByCreatedDesc(Pageable.unpaged());
+    public List<EchoBoardResponseDTO> findAll() {
+        return echoBoardRepository.findByOrderByCreatedDesc(Pageable.unpaged())
+                .stream().map(convertor::convertEntityToResponseDTO)
+                .toList();
     }
 
-    public Optional<EchoBoardComment> getCommentById(long commentId) {
-        return commentRepository.getCommentById(commentId);
+    public Optional<EchoBoardCommentResponseDTO> getCommentById(long commentId) {
+        return commentRepository.getCommentById(commentId)
+                .map(convertor::convertEntityToResponseDTO);
     }
 
 
@@ -84,27 +71,27 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public EchoBoardComment addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
-        Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
-
-        return echoBoard.flatMap(e -> {
+    public Optional<EchoBoardCommentResponseDTO> addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
+        return echoBoardRepository.getEchoById(echoBoardId).flatMap(e -> {
             e.addComment(echoBoardComment);
-            return saveComment(echoBoardComment, userSubject);
-        }).orElseThrow(EchoBoardNotFoundException::new);
+            return saveComment(echoBoardComment, userSubject)
+                    .map(convertor::convertEntityToResponseDTO);
+        });
     }
 
     @Transactional
-    public EchoBoardSolution addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
-        Optional<EchoBoard> echoBoard = getEchoById(echoBoardId);
-        return echoBoard.flatMap(e -> {
+    public Optional<EchoBoardSolutionResponseDTO> addSolutionToEcho(long echoBoardId, EchoBoardSolution echoBoardSolution, String userSubject) {
+
+        return echoBoardRepository.getEchoById(echoBoardId).flatMap(e -> {
             e.addSolution(echoBoardSolution);
-            return saveSolution(echoBoardSolution, userSubject);
-        }).orElseThrow(EchoBoardNotFoundException::new);
+            return saveSolution(echoBoardSolution, userSubject)
+                    .map(convertor::convertEntityToResponseDTO);
+        });
     }
 
     @Transactional
     public Optional<Integer> upvoteComment(long commentId, String userSubject) {
-        return getCommentById(commentId)
+        return commentRepository.getCommentById(commentId)
                 .map(comment -> comment.addUpvote(userSubject))
                 .map(this::updateComment)
                 .map(EchoBoardComment::getUpvote)
@@ -112,12 +99,11 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public Optional<Integer> upvoteEcho(long echoId, String userSubject) {
-        return getEchoById(echoId)
+    public Optional<Set<String>> upvoteEcho(long echoId, String userSubject) {
+        return echoBoardRepository.getEchoById(echoId)
                 .map(echoBoard -> echoBoard.addUpvote(userSubject))
                 .map(echoBoardRepository::save)
-                .map(EchoBoard::getUpvote)
-                .map(Set::size);
+                .map(EchoBoard::getUpvote);
     }
 
     @Transactional
@@ -134,19 +120,22 @@ public class EchoBoardService {
         echoBoardRepository.deleteById(id);
     }
 
-    public Optional<EchoBoardUser> getUserBySubject(String id) {
-        return userRepository.getUserBySubject(id);
+    public Optional<EchoBoardUserResponseDTO> getUserBySubject(String id) {
+        return userRepository.getUserBySubject(id)
+                .map(convertor::convertEntityToResponseDTO);
     }
 
     @Transactional
-    public EchoBoardComment addCommentToComment(long commentId,
-                                              EchoBoardComment echoBoardComment,
-                                              String userSubject) {
-        return getCommentById(commentId).flatMap(c -> {
-            c.addCommentToEchoBoardComment(echoBoardComment);
-            return saveComment(echoBoardComment, userSubject);
-        }).orElseThrow(CommentNotFoundException::new);
+    public Optional<EchoBoardCommentResponseDTO> addCommentToComment(long commentId,
+                                                                     EchoBoardComment echoBoardComment,
+                                                                     String userSubject) {
+        commentRepository.getCommentById(commentId)
+                .orElseThrow(CommentNotFoundException::new)
+                .addCommentToEchoBoardComment(echoBoardComment);
+        return saveComment(echoBoardComment, userSubject)
+                .map(convertor::convertEntityToResponseDTO);
     }
+
 
     public  Optional<EchoBoardSolution.SolutionStatus> getSolutionStatus(long solutionId){
         return getSolutionById(solutionId)
@@ -154,19 +143,51 @@ public class EchoBoardService {
     }
 
     @Transactional
-    public Optional<EchoBoardSolution> addVolunteerToSolution(long solutionId, OidcUser user){
+    public Optional<EchoBoardSolutionResponseDTO> addVolunteerToSolution(long solutionId, OidcUser user){
 
-        var echoBoardSolutionStatus = getSolutionStatus(solutionId)
-                .orElseThrow(SolutionNotFoundException::new);
+        return getSolutionById(solutionId)
+                .map(this::validateSolutionStatusIsVolunteerRequired)
+                .map(s -> s.addVolunteer(userRepository.getUserBySubject(user.getSubject())
+                        .orElseThrow(UserNotFoundException::new)))
+                .map(this::updateSolution)
+                .map(convertor::convertEntityToResponseDTO);
+    }
 
-        if (!echoBoardSolutionStatus.equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
-            throw new IllegalArgumentException("Wrong Solution Status");
+    @Transactional
+    public Optional<EchoBoardSolutionResponseDTO> updateSolutionStatus(long solutionId,
+                                                                       EchoBoardSolution.SolutionStatus updateToStage) {
+        return getSolutionById(solutionId)
+                .map(solution -> solution.updateSolutionStatus(updateToStage))
+                .map(this::updateSolution)
+                .map(convertor::convertEntityToResponseDTO);
+    }
+
+    @Transactional
+    public void createUser(OidcUser oidcUser) {
+        userRepository.createUser(oidcUser);
+    }
+
+    private Optional<EchoBoardComment> saveComment(EchoBoardComment comment, String userSubject) {
+        return userRepository.getUserBySubject(userSubject)
+                .map(comment::setEchoBoardUser)
+                .map(commentRepository::save);
+    }
+
+
+    private Optional<EchoBoardSolution> saveSolution(EchoBoardSolution solution, String userSubject) {
+        return userRepository.getUserBySubject(userSubject)
+                .map(solution::setEchoBoardUser)
+                .map(solutionRepository::save);
+    }
+
+    private EchoBoardSolution updateSolution(EchoBoardSolution solution) {
+        return solutionRepository.save(solution);
+    }
+
+    private EchoBoardSolution validateSolutionStatusIsVolunteerRequired(EchoBoardSolution echoBoardSolution) {
+        if (!echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
+            throw new IllegalSolutionArgumentException();
         }
-
-        var volunteer = getUserBySubject(user.getSubject())
-                .orElseThrow(UserNotFoundException::new);
-        return  getSolutionById(solutionId)
-                .map(solution -> solution.addVolunteer(volunteer))
-                .map(this::updateSolution);
+        return echoBoardSolution;
     }
 }

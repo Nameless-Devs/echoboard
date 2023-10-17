@@ -4,13 +4,11 @@ import React from 'react'
 type VolunteeringModalProps = {
   isConfirmationModalOpen: boolean;
   setIsConfirmationModalOpen: (isOpen: boolean) => void;
-  setVolunteerConfirmed: (isConfirmed: boolean) => void;
  } 
 
 export const VolunteeringModal: React.FC<VolunteeringModalProps> = ({
   isConfirmationModalOpen,
   setIsConfirmationModalOpen,
-  setVolunteerConfirmed,
 }) => {
   return (
     <Dialog open={isConfirmationModalOpen} onClose={() => setIsConfirmationModalOpen(false)}>
@@ -25,7 +23,6 @@ export const VolunteeringModal: React.FC<VolunteeringModalProps> = ({
         <Button
             onClick={() => {
                 setIsConfirmationModalOpen(false);
-                setVolunteerConfirmed(true);
             }}
             color="primary"
         >

@@ -25,20 +25,20 @@ public class CommentController {
 
     @GetMapping("{commentId}")
     @ResponseStatus(OK)
-    public ResponseEntity<EchoBoardCommentResponseDTO> getCommentById(@PathVariable long commentId) {
-        return ResponseEntity.of(echoService.getCommentById(commentId));
+    public EchoBoardCommentResponseDTO getCommentById(@PathVariable long commentId) {
+        return echoService.getCommentById(commentId);
     }
 
     @PatchMapping("{commentId}/upvote")
     @ResponseStatus(OK)
-    public ResponseEntity<Integer> upvoteComment(@PathVariable long commentId, @AuthenticationPrincipal OidcUser user) {
-        return ResponseEntity.of(echoService.upvoteComment(commentId, user.getSubject()));
+    public Integer upvoteComment(@PathVariable long commentId, @AuthenticationPrincipal OidcUser user) {
+        return echoService.upvoteComment(commentId, user.getSubject());
     }
 
 
     @PostMapping("{commentId}")
     @ResponseStatus(CREATED)
-    public Optional<EchoBoardCommentResponseDTO> addCommentToEchoBoardComment(@PathVariable long commentId,
+    public EchoBoardCommentResponseDTO addCommentToEchoBoardComment(@PathVariable long commentId,
                                                                               @RequestBody EchoBoardComment echoBoardComment,
                                                                               @AuthenticationPrincipal OidcUser user) {
         return echoService.addCommentToComment(commentId, echoBoardComment, user.getSubject());

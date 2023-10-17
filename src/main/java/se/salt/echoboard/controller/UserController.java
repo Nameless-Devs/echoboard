@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(OK)
-    public ResponseEntity<EchoBoardUserResponseDTO> getUser(@AuthenticationPrincipal OidcUser user) {
-        return ResponseEntity.of(echoBoardService.getUserBySubject(user.getSubject()));
+    public EchoBoardUserResponseDTO getUser(@AuthenticationPrincipal OidcUser user) {
+        return echoBoardService.getUserBySubject(user.getSubject());
     }
 }

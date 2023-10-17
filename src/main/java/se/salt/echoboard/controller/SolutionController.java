@@ -25,28 +25,28 @@ public class SolutionController {
 
     @GetMapping("{solutionId}")
     @ResponseStatus(OK)
-    public Optional<EchoBoardSolution> getEchoBoardSolution(@PathVariable long solutionId) {
+    public EchoBoardSolution getEchoBoardSolution(@PathVariable long solutionId) {
         return echoService.getSolutionById(solutionId);
     }
 
     @PatchMapping("{solutionId}")
-    @ResponseStatus(ACCEPTED)
-    public Optional<EchoBoardSolutionResponseDTO> updateSolutionStatus(@PathVariable long solutionId
+    @ResponseStatus(OK)
+    public EchoBoardSolutionResponseDTO updateSolutionStatus(@PathVariable long solutionId
             , @RequestParam EchoBoardSolution.SolutionStatus updateToStage) {
 
         return echoService.updateSolutionStatus(solutionId, updateToStage);
     }
 
     @PatchMapping("{solutionId}/upvote")
-    @ResponseStatus(ACCEPTED)
-    public ResponseEntity<Integer> upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
-        return ResponseEntity.of(echoService.upvoteSolution(solutionId, user.getSubject()));
+    @ResponseStatus(OK)
+    public Integer upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
+        return echoService.upvoteSolution(solutionId, user.getSubject());
     }
 
     @PostMapping("{solutionId}/volunteer")
     @ResponseStatus(CREATED)
-    public ResponseEntity<EchoBoardSolutionResponseDTO> volunteerForSolutionTesting(@PathVariable long solutionId
+    public EchoBoardSolutionResponseDTO volunteerForSolutionTesting(@PathVariable long solutionId
             , @AuthenticationPrincipal OidcUser user) {
-        return ResponseEntity.of(echoService.addVolunteerToSolution(solutionId, user));
+        return echoService.addVolunteerToSolution(solutionId, user);
     }
 }

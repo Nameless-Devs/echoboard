@@ -54,8 +54,7 @@ public class CommentControllerTest {
 
     @Test
     public void testGetCommentById_notFound() throws Exception {
-        given(echoService.getCommentById(1L))
-                .willReturn(Optional.empty());
+        given(echoService.getCommentById(1L));
 
         mvc.perform(get("/api/v1/comments/1")
                         .accept(MediaType.APPLICATION_JSON))
@@ -66,7 +65,7 @@ public class CommentControllerTest {
     @Test
     void getCommentById() throws Exception {
         given(echoService.getCommentById(2L))
-                .willReturn(Optional.of(COMMENTS_SALES.get(2)));
+                .willReturn(COMMENTS_SALES.get(2));
 
         mvc.perform(get("/api/v1/comments/2")
                         .accept(MediaType.APPLICATION_JSON))
@@ -90,7 +89,7 @@ public class CommentControllerTest {
     void upvoteComment() throws Exception {
 
         given(echoService.upvoteComment(eq(1L), anyString()))
-                .willReturn(Optional.of(COMMENTS_IT.get(1).upvote().size()));
+                .willReturn(COMMENTS_IT.get(1).upvote().size());
 
         mvc.perform(patch("/api/v1/comments/1/upvote"))
                 .andExpect(status().isOk())
@@ -101,7 +100,7 @@ public class CommentControllerTest {
     void upvoteComment_WithoutUser() throws Exception {
 
         given(echoService.upvoteComment(eq(1L), anyString()))
-                .willReturn(Optional.of(COMMENTS_IT.get(1).upvote().size()));
+                .willReturn(COMMENTS_IT.get(1).upvote().size());
 
         mvc.perform(patch("/api/v1/comments/1/upvote"))
                 .andExpect(status().isBadRequest())
@@ -112,7 +111,7 @@ public class CommentControllerTest {
     @WithMockOidcUser
     void addCommentToEchoBoardComment_NoRequestBody() throws Exception {
         given(echoService.addCommentToEcho(eq(1L), any(), anyString()))
-                .willReturn(Optional.of(COMMENTS_MARKET.get(2)));
+                .willReturn(COMMENTS_MARKET.get(2));
 
         mvc.perform(post("/api/v1/comments/1"))
                 .andExpect(status().isBadRequest())
@@ -125,7 +124,7 @@ public class CommentControllerTest {
     // TODO: Fix the test, content is null for some reason
     void addCommentToEchoBoardComment() throws Exception {
         given(echoService.addCommentToEcho(eq(1L), any(), anyString()))
-                .willReturn(Optional.of(COMMENTS_MARKET.get(2)));
+                .willReturn(COMMENTS_MARKET.get(2));
 
         mvc.perform(post("/api/v1/comments/1")
                         .contentType(MediaType.APPLICATION_JSON)

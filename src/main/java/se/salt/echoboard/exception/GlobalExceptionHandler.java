@@ -26,4 +26,11 @@ public class GlobalExceptionHandler {
         log.error("Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED", ex);
         return "Cannot Add Volunteer, Solution Status is not VOLUNTEERS REQUIRED";
     }
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleBadRequest(NullPointerException ex){
+        log.error("Null pointer encountered, went wrong", ex);
+        return ex.getMessage();
+    }
 }

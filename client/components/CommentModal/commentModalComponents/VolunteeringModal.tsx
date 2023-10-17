@@ -2,13 +2,15 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from 'react'
 
 type VolunteeringModalProps = {
-  isConfirmationModalOpen: boolean;
-  setIsConfirmationModalOpen: (isOpen: boolean) => void;
+  isOpen: boolean;
+  onConfirm: () => void;
+  onClose: () => void;
  } 
 
 export const VolunteeringModal: React.FC<VolunteeringModalProps> = ({
-  isConfirmationModalOpen,
-  setIsConfirmationModalOpen,
+  isOpen, 
+  onConfirm, 
+  onClose
 }) => {
   return (
     <Dialog open={isConfirmationModalOpen} onClose={() => setIsConfirmationModalOpen(false)}>

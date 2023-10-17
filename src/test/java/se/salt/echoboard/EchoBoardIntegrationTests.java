@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import se.salt.echoboard.controller.dto.EchoBoardResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardResponseDTO;
 import util.dto.request.EchoBoardRequestDto;
 import util.TestUtilities;
 
@@ -40,7 +40,7 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        EchoBoardResponseDto actualEcho = getObjectFromResponse(postResult, EchoBoardResponseDto.class);
+        EchoBoardResponseDTO actualEcho = getObjectFromResponse(postResult, EchoBoardResponseDTO.class);
         assertEchoBoardEqual(requestEcho, actualEcho);
     }
 
@@ -62,7 +62,7 @@ public class EchoBoardIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<EchoBoardResponseDto> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
+        List<EchoBoardResponseDTO> echoBoards = OBJECT_MAPPER.readValue(getResult.getResponse()
                 .getContentAsString(), new TypeReference<>() {});
         Collections.reverse(echoBoards);
         for (int i = 0; i < echoBoards.size(); i++) {

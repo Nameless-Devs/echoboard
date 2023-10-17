@@ -12,7 +12,7 @@ import { getStatusInfo } from '@/service/GetStatusInfo';
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { changeSolutionStatus, volunteerForSolution } from '@/service/Functions';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Dialog, DialogContentText } from '@mui/material';
 import { VolunteeringModal } from './VolunteeringModal';
 
 type SolutionStatusProps = {
@@ -105,8 +105,8 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         <React.Fragment>
             {isSuccess && (
                 <Dialog open={isSuccess}>
-                    <DialogContentText style={{padding: "40px", color: "green", fontSize: "20px", textAlign: "center"}}>
-                    You request was send and is now waiting for confirmation for post owner
+                    <DialogContentText style={{ padding: "40px", color: "green", fontSize: "20px", textAlign: "center" }}>
+                        You request was send and is now waiting for confirmation for post owner
                     </DialogContentText>
                 </Dialog>
             )}

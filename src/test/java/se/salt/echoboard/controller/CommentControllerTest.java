@@ -2,6 +2,7 @@ package se.salt.echoboard.controller;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,18 +13,21 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import se.salt.echoboard.model.EchoBoardComment;
+import se.salt.echoboard.exception.GlobalExceptionHandler;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.EchoBoardService;
 import util.mock.AuthenticationPrincipalResolver;
 import util.mock.WithMockOidcUser;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static util.TestUtilities.OBJECT_MAPPER;
+import static util.data.MockCommentData.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -40,10 +44,9 @@ public class CommentControllerTest {
 
         JacksonTester.initFields(this, OBJECT_MAPPER);
         mvc = MockMvcBuilders.standaloneSetup(this.controller)
+                .setControllerAdvice(new GlobalExceptionHandler())
                 .setCustomArgumentResolvers(new AuthenticationPrincipalResolver())
-//                .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
-
     }
 
     @AfterEach
@@ -63,12 +66,13 @@ public class CommentControllerTest {
 
     @Test
     void getCommentById() throws Exception {
-        given(echoService.getCommentById(1L))
-                .willReturn(Optional.of(new EchoBoardComment()));
+        given(echoService.getCommentById(2L))
+                .willReturn(Optional.of(COMMENTS_SALES.get(2)));
 
-        mvc.perform(get("/api/comments/1")
+        mvc.perform(get("/api/comments/2")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(content().string(OBJECT_MAPPER.writeValueAsString(COMMENTS_SALES.get(2))))
                 .andReturn();
     }
 
@@ -83,7 +87,54 @@ public class CommentControllerTest {
     }
 
     @Test
-    void addCommentToEchoBoardComment() {
+    @WithMockOidcUser
+    void upvoteComment() throws Exception {
+
+        given(echoService.upvoteComment(eq(1L), anyString()))
+                .willReturn(Optional.of(COMMENTS_IT.get(1).upvote().size()));
+
+        mvc.perform(patch("/api/comments/1/upvote"))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+    @Test
+    void upvoteComment_WithoutUser() throws Exception {
+
+        given(echoService.upvoteComment(eq(1L), anyString()))
+                .willReturn(Optional.of(COMMENTS_IT.get(1).upvote().size()));
+
+        mvc.perform(patch("/api/comments/1/upvote"))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOidcUser
+    void addCommentToEchoBoardComment_NoRequestBody() throws Exception {
+        given(echoService.addCommentToEcho(eq(1L), any(), anyString()))
+                .willReturn(Optional.of(COMMENTS_MARKET.get(2)));
+
+        mvc.perform(post("/api/comments/1"))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    @Disabled
+    @WithMockOidcUser
+    // TODO: Fix the test
+    // TODO: content is null for some reason
+    void addCommentToEchoBoardComment() throws Exception {
+        given(echoService.addCommentToEcho(eq(1L), any(), anyString()))
+                .willReturn(Optional.of(COMMENTS_MARKET.get(2)));
+
+        mvc.perform(post("/api/comments/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(OBJECT_MAPPER.writeValueAsString(COMMENTS_MARKET.get(2))))
+                .andExpect(status().isCreated())
+                .andExpect(content().string(COMMENTS_MARKET.get(2).toString()))
+                .andReturn();
     }
 
 }

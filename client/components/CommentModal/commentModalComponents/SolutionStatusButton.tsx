@@ -34,7 +34,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [isClickble, setIsClickble] = useState(status == "VOLUNTEERS_REQUIRED");
     const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-    const [volunteerConfirmed, setVolunteerConfirmed] = useState(false);
+
 
     const queryClient = useQueryClient();
 
@@ -59,6 +59,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     }
       
     };
+
+    const handleVolunteeringConfirm = () => {
+        volunteerMutation.mutate(solutionId);
+    } 
 
     const handleMenuItemClick = (
         event: React.MouseEvent<HTMLLIElement, MouseEvent>,
@@ -183,7 +187,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                 <Button
                     onClick={() => {
                         setIsConfirmationModalOpen(false);
-                        setVolunteerConfirmed(true);
+                        handleVolunteeringConfirm();
                     }}
                     color="primary"
                 >

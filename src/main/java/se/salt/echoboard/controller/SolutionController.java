@@ -1,52 +1,48 @@
 package se.salt.echoboard.controller;
 
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
-import se.salt.echoboard.controller.dto.DTOConvertor;
-import se.salt.echoboard.controller.dto.EchoBoardSolutionResponseDto;
+import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.service.EchoBoardService;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 
 @RestController
-@AllArgsConstructor
-@RequestMapping("api/solutions")
+@RequestMapping("api/v1/solutions")
+@RequiredArgsConstructor
 public class SolutionController {
 
     private final EchoBoardService echoService;
-    private final DTOConvertor convertor;
 
     @GetMapping("{solutionId}")
-    public ResponseEntity<EchoBoardSolutionResponseDto> getEchoBoardSolution(@PathVariable long solutionId) {
-        return ResponseEntity.of(echoService.getSolutionById(solutionId)
-                .map(convertor::convertEntityToResponseDto));
+    @ResponseStatus(OK)
+    public EchoBoardSolution getEchoBoardSolution(@PathVariable long solutionId) {
+        return echoService.getSolutionById(solutionId);
     }
 
-
     @PatchMapping("{solutionId}")
-    public ResponseEntity<EchoBoardSolutionResponseDto> updateSolutionStatus(@PathVariable long solutionId
+    @ResponseStatus(OK)
+    public EchoBoardSolutionResponse updateSolutionStatus(@PathVariable long solutionId
             , @RequestParam EchoBoardSolution.SolutionStatus updateToStage) {
 
-        var echoBoardSolution = echoService.getSolutionById(solutionId)
-                .map(solution -> solution.updateSolutionStatus(updateToStage))
-                .map(echoService::updateSolution);
-
-        return ResponseEntity.of(echoBoardSolution.map(convertor::convertEntityToResponseDto));
+        return echoService.updateSolutionStatus(solutionId, updateToStage);
     }
 
     @PatchMapping("{solutionId}/upvote")
-    public ResponseEntity<Integer> upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
-        return ResponseEntity.of(echoService.upvoteSolution(solutionId, user.getSubject()));
+    @ResponseStatus(OK)
+    public Integer upvoteSolution(@PathVariable long solutionId, @AuthenticationPrincipal OidcUser user) {
+        return echoService.upvoteSolution(solutionId, user.getSubject());
     }
 
     @PostMapping("{solutionId}/volunteer")
-    public ResponseEntity<EchoBoardSolutionResponseDto> volunteerForSolutionTesting(@PathVariable long solutionId
+    @ResponseStatus(CREATED)
+    public EchoBoardSolutionResponse volunteerForSolutionTesting(@PathVariable long solutionId
             , @AuthenticationPrincipal OidcUser user) {
-            return ResponseEntity.of(echoService.addVolunteerToSolution(solutionId, user)
-                    .map(convertor::convertEntityToResponseDto));
+        return echoService.addVolunteerToSolution(solutionId, user);
     }
 }

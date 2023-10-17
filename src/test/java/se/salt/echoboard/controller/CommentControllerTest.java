@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import se.salt.echoboard.exception.GeneralExceptionHandler;
+import se.salt.echoboard.exception.custom.CommentNotFoundException;
 import se.salt.echoboard.service.EchoBoardService;
 import util.mock.AuthenticationPrincipalResolver;
 import util.mock.WithMockOidcUser;
@@ -54,7 +55,8 @@ public class CommentControllerTest {
 
     @Test
     public void testGetCommentById_notFound() throws Exception {
-        given(echoService.getCommentById(1L));
+        given(echoService.getCommentById(1L))
+                .willThrow(new CommentNotFoundException());
 
         mvc.perform(get("/api/v1/comments/1")
                         .accept(MediaType.APPLICATION_JSON))
@@ -79,9 +81,14 @@ public class CommentControllerTest {
     @WithMockOidcUser
     void upvoteComment_notFound() throws Exception {
 
-        mvc.perform(patch("/api/v1/comments/1/upvote"))
+        given(echoService.upvoteComment(eq(1L), anyString()))
+                .willThrow(new CommentNotFoundException());
+
+        var res = mvc.perform(patch("/api/v1/comments/1/upvote"))
                 .andExpect(status().isNotFound())
                 .andReturn();
+
+        System.out.println(res.getResponse().getContentAsString());
     }
 
     @Test

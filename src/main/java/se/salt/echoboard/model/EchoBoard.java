@@ -3,7 +3,6 @@ package se.salt.echoboard.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
@@ -19,6 +18,18 @@ import java.util.Set;
 @NoArgsConstructor
 public class EchoBoard {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String title;
+    @Column(columnDefinition = "TEXT")
+    private String content;
+    private boolean anonymous;
+
+    //TODO Refactor to use
+    // @CreatedDate and update field to createdAt
+    private Instant created = Instant.now();
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private final List<EchoBoardComment> echoBoardComments = new ArrayList<>();
@@ -30,14 +41,6 @@ public class EchoBoard {
     @ManyToOne
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String title;
-    @Column(columnDefinition="TEXT")
-    private String content;
-    private boolean anonymous;
-    private Instant created;
 
     public EchoBoard addUpvote(String userSubject) {
         this.upvote.add(userSubject);
@@ -52,13 +55,9 @@ public class EchoBoard {
         this.echoBoardSolutions.add(solution);
     }
 
-    @PrePersist
-    private void onCreate() {
-        this.created = Instant.now();
-    }
-
     public EchoBoard setUser(EchoBoardUser user) {
         this.echoBoardUser = user;
         return this;
     }
+
 }

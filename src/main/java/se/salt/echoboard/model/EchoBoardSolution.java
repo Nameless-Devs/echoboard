@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_IN_REVIEW;
 
 
 @Entity
@@ -27,12 +27,14 @@ public class EchoBoardSolution {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
     private boolean anonymous;
     @Enumerated(EnumType.STRING)
-    private SolutionStatus status;
-    private Instant created;
+    private SolutionStatus status = SOLUTION_IN_REVIEW;
+    //TODO Refactor to use
+    // @CreatedDate and update field to createdAt
+    private Instant created = Instant.now();
     @ManyToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
@@ -55,12 +57,6 @@ public class EchoBoardSolution {
     public EchoBoardSolution addVolunteer(EchoBoardUser volunteer) {
         this.volunteers.add(volunteer);
         return this;
-    }
-
-    @PrePersist
-    private void onCreate() {
-        this.created = Instant.now();
-        this.status = SolutionStatus.SOLUTION_IN_REVIEW;
     }
 
     @Getter

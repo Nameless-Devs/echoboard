@@ -5,9 +5,9 @@ spring:
   config:
     import: optional:secrets.yml
   datasource:
-    url: ${DATABASE_URL_DEV}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
+    url: ${DATABASE_URL_DEV1}
+    username: ${DATABASE_USER1}
+    password: ${DATABASE_PASSWORD1}
   jpa:
     hibernate:
       ddl-auto: update

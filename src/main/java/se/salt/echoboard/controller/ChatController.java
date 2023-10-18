@@ -1,26 +1,29 @@
-//package se.salt.echoboard.controller;
-//
-//import org.springframework.messaging.handler.annotation.MessageMapping;
-//import org.springframework.messaging.handler.annotation.Payload;
-//import org.springframework.messaging.handler.annotation.SendTo;
-//import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-//import org.springframework.stereotype.Controller;
-//import se.salt.echoboard.model.ChatRoom;
-//
-//@Controller
-//public class ChatController {
-//
-//    @MessageMapping("/chat.sendMessage")
-//    @SendTo("/topic/public")
-//    public ChatRoom sendMessage(@Payload ChatRoom chatRoom) {
-//        return chatRoom;
-//    }
-//
-//    @MessageMapping("/chat.sendMessage")
-//    @SendTo("/topic/public")
-//    public ChatRoom addUser(@Payload ChatRoom chatRoom, SimpMessageHeaderAccessor headerAccessor){
-//        headerAccessor.getSessionAttributes().put("username", chatRoom.getSender());
-//        return chatRoom;
-//    }
-//
-//}
+package se.salt.echoboard.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Controller;
+import se.salt.echoboard.model.Message;
+import se.salt.echoboard.service.WebSocketService;
+
+import java.util.List;
+
+@Controller
+public class ChatController {
+
+    @Autowired
+    private WebSocketService webSocketService;
+
+    @MessageMapping("/chat/{chatRoomId}/sendMessage")
+    @SendTo("/topic/chatrooms/{chatRoomId}")
+    public Message sendMessage(@Payload Message message) {
+        return webSocketService.saveMessage(message);
+    }
+
+    public List<Message> getChatHistory(Long chatRoomId) {
+        return webSocketService.getChatHistory(chatRoomId);
+    }
+
+}

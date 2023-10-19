@@ -1,3 +1,4 @@
+"use client"
 import { Message } from '@/service/Types'
 import { Client, IMessage } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
@@ -6,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 const Chat = () => {
 
     const [client, setClient] = useState<Client | null>(null);
-    const [message, setMessage] = useState('');
+    // const [message, setMessage] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
 
@@ -15,7 +16,7 @@ const Chat = () => {
     };
 
     const handleSendMessage = () => {
-        if (client && input) {
+        if (client && input && client.connected) {
             //Pass in user here and set the name as user.name
             const message = { sender: "user", content: input, timestamp: new Date() };
             client.publish({
@@ -37,18 +38,21 @@ const Chat = () => {
         const newClient = new Client({
             brokerURL: "ws://localhost:8080/w",
         });
-        newClient.activate();
+
+        newClient.onStompError = (frame) => {
+            console.log('STOMP Error:', frame);
+        };
         newClient.onConnect = () => {
             console.log("Connected")
             newClient.subscribe("/topic/chatrooms", (message) => {
                 onMessageReceived(message);
-                setMessage(message.body)
+                // setMessage(message.body)
                 console.log(message)
             });
         },
 
-
-            setClient(newClient);
+        newClient.activate();
+        setClient(newClient);
 
         return () => {
             if (newClient) {

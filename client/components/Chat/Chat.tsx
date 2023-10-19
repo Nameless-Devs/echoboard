@@ -16,7 +16,8 @@ const Chat = () => {
 
       const handleSendMessage = () => {
         if (client && input) {
-          const message = { content: input };
+            //Pass in user here and set the name as user.name
+          const message = { sender: "user", content: input, timestamp: new Date() };
           client.publish({
             destination: '/app/chat/sendMessage',
             body: JSON.stringify(message),
@@ -25,6 +26,10 @@ const Chat = () => {
         }
       };
     
+    const onMessageReceived = (message) => {
+        const newMessages = [...messages, JSON.parse(message.body)];
+        setMessages(newMessages);
+      };
     useEffect(() => {
         const newClient = new Client({
             brokerURL: "ws://localhost:8080/w",

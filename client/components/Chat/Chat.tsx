@@ -7,7 +7,7 @@ const Chat = () => {
     
     const [client, setClient] = useState<Client | null>(null);
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
 
     const handleMessageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,10 +26,11 @@ const Chat = () => {
         }
       };
     
-    const onMessageReceived = (message) => {
-        const newMessages = [...messages, JSON.parse(message.body)];
+    const onMessageReceived = (message: Message) => {
+        const newMessages = [...messages, message];
         setMessages(newMessages);
       };
+
     useEffect(() => {
         const newClient = new Client({
             brokerURL: "ws://localhost:8080/w",

@@ -1,4 +1,5 @@
 "use client"
+import Chat from '@/components/Chat/Chat';
 import { getUserInfo } from '@/service/Functions';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
@@ -19,7 +20,7 @@ export default function UserProfile () {
         <div>
           <h1>User Information</h1>
           <p>Name: {user?.name}</p>
-          <p>Email: {user?.email}</p>
+          <Chat />
         </div>
       );
 

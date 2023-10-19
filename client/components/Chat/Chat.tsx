@@ -3,11 +3,16 @@ import { Client } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 
 
-const Chat: React.FC<Message> = ({ id, sender, content}) => {
+const Chat = () => {
     
     const [client, setClient] = useState<Client | null>(null);
     const [message, setMessage] = useState('');
-    const [input, setinput] = useState<string>('');
+    const [messages, setMessages] = useState([]);
+    const [input, setInput] = useState('');
+
+    const handleMessageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInput(event.target.value);
+      };
 
     useEffect(() => {
         const newClient = new Client({
@@ -27,7 +32,8 @@ const Chat: React.FC<Message> = ({ id, sender, content}) => {
 
   return (
     <div>
-        <input type='text' value={input} onChange={(e) => setinput(e.target.value)}/>
+        <input type='text' value={input} onChange={ handleMessageInput}/>
+        {message}
     </div>
   )
 }

@@ -16,8 +16,8 @@ public class ChatController {
     @Autowired
     private WebSocketService webSocketService;
 
-    @MessageMapping("/chat/{chatRoomId}/sendMessage")
-    @SendTo("/topic/chatrooms/{chatRoomId}")
+    @MessageMapping("/chat/sendMessage")
+    @SendTo("/topic/chatrooms")
     public Message sendMessage(@Payload Message message) {
         return webSocketService.saveMessage(message);
     }

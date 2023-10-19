@@ -43,8 +43,12 @@ const Chat = () => {
 
   return (
     <div>
-        <input type='text' value={input} onChange={handleMessageInput}/>
-        {message}
+        <input 
+        type='text' 
+        placeholder="Type your message"
+        value={input} 
+        onChange={handleMessageInput}/>
+        <button onClick={handleSendMessage}>Send</button>
     </div>
   )
 }

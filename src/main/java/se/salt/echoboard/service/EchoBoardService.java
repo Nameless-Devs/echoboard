@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.controller.dto.EchoBoardDTO;
-import se.salt.echoboard.controller.dto.EchoBoardMapper;
+import se.salt.echoboard.controller.EchoBoardMapper;
 import se.salt.echoboard.exception.custom.CommentNotFoundException;
 import se.salt.echoboard.exception.custom.EchoBoardNotFoundException;
 import se.salt.echoboard.exception.custom.SolutionNotFoundException;
@@ -143,9 +143,9 @@ public class EchoBoardService {
     }
 
     public EchoBoardDTO getEchoBoardUserWithCommentsAndSolutions(String subject) {
-        EchoBoardUser user = userRepository.getUserBySubject1(subject);
-        if (user != null) {
-            EchoBoard echoBoard = user.getEchoBoards().stream().findFirst().orElse(null);
+        Optional<EchoBoardUser> user = userRepository.getUserBySubject(subject);
+        if (user.isPresent()) {
+            List<EchoBoard> echoBoard = user.get().getEchoBoards();
             if (echoBoard != null) {
                 return echoBoardMapper.echoBoardToEchoBoardDTO(echoBoard);
             }

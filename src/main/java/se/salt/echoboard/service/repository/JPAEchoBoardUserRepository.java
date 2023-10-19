@@ -9,5 +9,4 @@ public interface JPAEchoBoardUserRepository extends JpaRepository<EchoBoardUser,
 
     Optional<EchoBoardUser> findBySubject(String userSubject);
 
-    EchoBoardUser findBySubject1(String userSubject);
 }

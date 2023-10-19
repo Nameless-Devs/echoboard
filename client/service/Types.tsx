@@ -69,3 +69,9 @@ export type StatusInfo = {
   formattedStatus: string;
   color: string;
 }
+
+export interface Message {
+  id?: number;
+  sender: string;
+  content: string;
+}

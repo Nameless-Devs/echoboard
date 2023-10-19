@@ -1,5 +1,5 @@
 import { Message } from '@/service/Types'
-import { Client } from '@stomp/stompjs';
+import { Client, IMessage } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 
 
@@ -26,26 +26,37 @@ const Chat = () => {
         }
       };
     
-    const onMessageReceived = (message: Message) => {
-        const newMessages = [...messages, message];
-        setMessages(newMessages);
+    const onMessageReceived = (message: IMessage) => {
+        // const newMessages = [...messages, message];
+        //setMessages([...messages, message]);
+        const newMessage = JSON.parse(message.body);
+        setMessages([...messages, newMessage]);
       };
 
     useEffect(() => {
         const newClient = new Client({
             brokerURL: "ws://localhost:8080/w",
-            onConnect: () => {
+        });    
+            newClient.activate();
+            newClient.onConnect = () => {
                 console.log("Connected")
                 newClient.subscribe("/topic/chatrooms", (message) => {
+                    onMessageReceived(message);
                     setMessage(message.body)
                     console.log(message)
                 });
             },            
-        });
+        
 
         setClient(newClient);
-        newClient.activate();
-    });
+
+        return () => {
+            if (newClient) {
+              newClient.deactivate();
+            }
+          };
+        
+    }, [client]);
 
   return (
     <div>

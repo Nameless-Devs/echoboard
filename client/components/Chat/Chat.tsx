@@ -14,6 +14,17 @@ const Chat = () => {
         setInput(event.target.value);
       };
 
+      const handleSendMessage = () => {
+        if (client && input) {
+          const message = { content: input };
+          client.publish({
+            destination: '/app/chat/sendMessage',
+            body: JSON.stringify(message),
+          });
+          setInput('');
+        }
+      };
+    
     useEffect(() => {
         const newClient = new Client({
             brokerURL: "ws://localhost:8080/w",
@@ -32,7 +43,7 @@ const Chat = () => {
 
   return (
     <div>
-        <input type='text' value={input} onChange={ handleMessageInput}/>
+        <input type='text' value={input} onChange={handleMessageInput}/>
         {message}
     </div>
   )

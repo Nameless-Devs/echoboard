@@ -5,6 +5,8 @@ import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 import "../../app/styles/Chat.css"
 import { ChatMessage } from './ChatMessage';
+import { useQuery } from '@tanstack/react-query';
+import { fetchChatHistory } from '@/service/Functions';
 
 type ChatProps = {
     user: UserResponseData;
@@ -20,6 +22,14 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
         setInput(event.target.value);
     };
 
+    const { data: chatHistory } = useQuery<Message[]>(
+        ["messages"],
+        async () => {
+            console.log(chatHistory);
+            return await fetchChatHistory();
+        }
+    );
+
     const handleSendMessage = () => {
         if (client && input && client.connected) {
             const message = { sender: user.name, content: input, picture: user.picture, timestamp: new Date() };
@@ -28,6 +38,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
                 body: JSON.stringify(message),
             });
             setInput('');
+            if (chatHistory) setMessages(chatHistory);
         }
     };
 
@@ -36,7 +47,9 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
     };
 
     useEffect(() => {
+        
         const newClient = Stomp.client("ws://localhost:8080/w");
+       
 
         newClient.onStompError = (frame) => {
             console.log('STOMP Error:', frame);
@@ -65,7 +78,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             <h1>Chat Room</h1>
             <div>
                 {messages.map((msg, index) => (
-                  <ChatMessage index={index} msg={msg} /> 
+                    <ChatMessage index={index} msg={msg} />
                 ))}
             </div>
             <input

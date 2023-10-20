@@ -5,6 +5,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -17,11 +18,15 @@ import java.util.*;
 public interface MockUserSecurityContextFactory {
 
     default SecurityContext setMockUserInSecurityContext(OidcUser mockUser) {
-        Authentication auth = UsernamePasswordAuthenticationToken
-                .authenticated(mockUser, "password", Collections.emptyList());
+        Authentication auth = getAuthentication(mockUser);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(auth);
         return context;
+    }
+
+    default UsernamePasswordAuthenticationToken getAuthentication(OidcUser mockUser) {
+        return UsernamePasswordAuthenticationToken
+                .authenticated(mockUser, "password", Collections.singleton((GrantedAuthority) () -> "USER"));
     }
 
     default DefaultOidcUser createMockUser() {

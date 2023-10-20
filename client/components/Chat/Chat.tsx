@@ -1,4 +1,5 @@
 "use client"
+"use strict"
 import { Message, UserResponseData } from '@/service/Types'
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
@@ -38,7 +39,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
                 body: JSON.stringify(message),
             });
             setInput('');
-            if (chatHistory) setMessages(chatHistory);
+            
         }
     };
 
@@ -64,6 +65,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
 
             newClient.activate();
         setClient(newClient);
+        if (chatHistory) setMessages(chatHistory);
 
         return () => {
             if (newClient) {
@@ -71,7 +73,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             }
         };
 
-    }, []);
+    }, [chatHistory]);
 
     return (
         <div>

@@ -1,10 +1,13 @@
 "use client"
-import { Message } from '@/service/Types'
+import { Message, UserResponseData } from '@/service/Types'
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 
+type ChatProps = {
+    user: UserResponseData;
+}
 
-const Chat = () => {
+const Chat: React.FC<ChatProps> = ({ user }) => {
 
     const [client, setClient] = useState<Client | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -17,7 +20,7 @@ const Chat = () => {
     const handleSendMessage = () => {
         if (client && input && client.connected) {
             //Pass in user here and set the name as user.name
-            const message = { sender: "user", content: input, timestamp: new Date() };
+            const message = { sender: user.name, content: input, timestamp: new Date() };
             client.publish({
                 destination: '/app/chat/sendMessage',
                 body: JSON.stringify(message),

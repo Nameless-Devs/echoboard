@@ -16,14 +16,15 @@ export default function UserProfile () {
         return <div>Error!</div>;
       }
     
+      if (user) {
       return (
         <div>
           <h1>User Information</h1>
-          <p>Name: {user?.name}</p>
-          <Chat />
+          <p>Name: {user.name}</p>
+          <Chat user={user}  />
         </div>
       );
-
+      }
   
     };
     

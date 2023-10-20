@@ -3,6 +3,7 @@ import { Message, UserResponseData } from '@/service/Types'
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
+import "../../app/styles/Chat.css"
 
 type ChatProps = {
     user: UserResponseData;
@@ -64,7 +65,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             <h1>Chat Room</h1>
             <div>
                 {messages.map((msg, index) => (
-                    <ListItem className="comment-display__individual-comment">
+                    <ListItem className="message-display">
                     <Avatar src={msg.picture} style={{ marginRight: "15px" }} />
                     <ListItemText
                         primary={

@@ -21,6 +21,9 @@ public class Message {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column
+    private String picture;
+
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;
 

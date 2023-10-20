@@ -21,7 +21,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
     const handleSendMessage = () => {
         if (client && input && client.connected) {
             //Pass in user here and set the name as user.name
-            const message = { sender: user.name, content: input, timestamp: new Date() };
+            const message = { sender: user.name, content: input, picture: user.picture, timestamp: new Date() };
             client.publish({
                 destination: '/app/chat/sendMessage',
                 body: JSON.stringify(message),
@@ -65,7 +65,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             <div>
                 {messages.map((msg, index) => (
                     <ListItem className="comment-display__individual-comment">
-                    {/* <Avatar src={user.picture} style={{ marginRight: "15px" }} /> */}
+                    <Avatar src={msg.picture} style={{ marginRight: "15px" }} />
                     <ListItemText
                         primary={
                             <Typography variant="body2" color="textSecondary">

@@ -73,5 +73,6 @@ export type StatusInfo = {
 export interface Message {
   id?: number;
   sender: string;
+  picture: string;
   content: string;
 }

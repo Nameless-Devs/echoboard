@@ -5,6 +5,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import se.salt.echoboard.model.Message;
 import se.salt.echoboard.service.WebSocketService;
 
@@ -25,6 +27,10 @@ public class ChatController {
         return webSocketService.saveMessage(message);
     }
 
+//    @MessageMapping("/chat/messages")
+//    public List<Message> getAllMessages(){
+//        return webSocketService.getAllMessages();
+//    }
     public List<Message> getChatHistory(Long chatRoomId) {
         return webSocketService.getChatHistory(chatRoomId);
     }

@@ -60,7 +60,7 @@ const Chat = () => {
             }
         };
 
-    }, [client]);
+    }, []);
 
     return (
         <div>

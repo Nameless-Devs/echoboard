@@ -4,6 +4,7 @@ import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 import "../../app/styles/Chat.css"
+import { ChatMessage } from './ChatMessage';
 
 type ChatProps = {
     user: UserResponseData;
@@ -49,7 +50,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             });
         },
 
-        newClient.activate();
+            newClient.activate();
         setClient(newClient);
 
         return () => {
@@ -65,21 +66,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             <h1>Chat Room</h1>
             <div>
                 {messages.map((msg, index) => (
-                    <ListItem className="message-display">
-                    <Avatar src={msg.picture} style={{ marginRight: "15px" }} />
-                    <ListItemText
-                        primary={
-                            <Typography variant="body2" color="textSecondary">
-                                {msg.sender}
-                            </Typography>
-                        }
-                        secondary={
-                            <Typography variant="body1" color="textPrimary">
-                                {msg.content}
-                            </Typography>
-                        }
-                    ></ListItemText>
-                </ListItem>
+                  <ChatMessage index={index} msg={msg} /> 
                 ))}
             </div>
             <input

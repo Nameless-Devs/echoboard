@@ -5,6 +5,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,8 @@ public class ChatController {
         if (message.getContent() == null || message.getContent().isEmpty()) {
             throw new IllegalArgumentException("Message content cannot be null or empty");
         }
+
+//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return webSocketService.saveMessage(message);
     }
     public List<Message> getChatHistory(Long chatRoomId) {

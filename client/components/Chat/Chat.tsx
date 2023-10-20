@@ -22,7 +22,6 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
 
     const handleSendMessage = () => {
         if (client && input && client.connected) {
-            //Pass in user here and set the name as user.name
             const message = { sender: user.name, content: input, picture: user.picture, timestamp: new Date() };
             client.publish({
                 destination: '/app/chat/sendMessage',

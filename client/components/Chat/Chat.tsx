@@ -1,5 +1,6 @@
 "use client"
 import { Message, UserResponseData } from '@/service/Types'
+import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 
@@ -63,10 +64,21 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             <h1>Chat Room</h1>
             <div>
                 {messages.map((msg, index) => (
-                    <div key={index}>
-                        <div>Sender: {msg.sender}</div>
-                        <div>Message: {msg.content}</div>
-                    </div>
+                    <ListItem className="comment-display__individual-comment">
+                    {/* <Avatar src={user.picture} style={{ marginRight: "15px" }} /> */}
+                    <ListItemText
+                        primary={
+                            <Typography variant="body2" color="textSecondary">
+                                {msg.sender}
+                            </Typography>
+                        }
+                        secondary={
+                            <Typography variant="body1" color="textPrimary">
+                                {msg.content}
+                            </Typography>
+                        }
+                    ></ListItemText>
+                </ListItem>
                 ))}
             </div>
             <input

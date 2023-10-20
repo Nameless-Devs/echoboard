@@ -19,6 +19,9 @@ public class ChatController {
     @MessageMapping("/chat/sendMessage")
     @SendTo("/topic/chatrooms")
     public Message sendMessage(@Payload Message message) {
+        if (message.getContent() == null || message.getContent().isEmpty()) {
+            throw new IllegalArgumentException("Message content cannot be null or empty");
+        }
         return webSocketService.saveMessage(message);
     }
 

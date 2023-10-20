@@ -23,7 +23,7 @@ logging:
     org:
       springframework:
 #        security: TRACE
-        messaging: DEBUG
+        messaging: TRACE
 #      hibernate:
 #        sql: DEBUG
 #        type:

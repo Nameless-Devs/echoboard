@@ -1,13 +1,12 @@
 "use client"
 import { Message } from '@/service/Types'
-import { Client, IMessage } from '@stomp/stompjs';
+import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 
 
 const Chat = () => {
 
     const [client, setClient] = useState<Client | null>(null);
-    // const [message, setMessage] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
 
@@ -28,16 +27,11 @@ const Chat = () => {
     };
 
     const onMessageReceived = (message: IMessage) => {
-        // const newMessages = [...messages, message];
-        //setMessages([...messages, message]);
-        const newMessage = JSON.parse(message.body);
-        setMessages([...messages, newMessage]);
+        setMessages(prevMessages => [...prevMessages, JSON.parse(message.body)]);
     };
 
     useEffect(() => {
-        const newClient = new Client({
-            brokerURL: "ws://localhost:8080/w",
-        });
+        const newClient = Stomp.client("ws://localhost:8080/w");
 
         newClient.onStompError = (frame) => {
             console.log('STOMP Error:', frame);
@@ -46,7 +40,6 @@ const Chat = () => {
             console.log("Connected")
             newClient.subscribe("/topic/chatrooms", (message) => {
                 onMessageReceived(message);
-                // setMessage(message.body)
                 console.log(message)
             });
         },

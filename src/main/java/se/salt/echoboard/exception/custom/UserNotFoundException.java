@@ -1,10 +1,15 @@
 package se.salt.echoboard.exception.custom;
 
-import java.util.NoSuchElementException;
+import org.springframework.web.server.ResponseStatusException;
 
-public class UserNotFoundException extends NoSuchElementException {
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
+public class UserNotFoundException extends ResponseStatusException {
     public UserNotFoundException() {
-        super("User Not found");
+        super(NOT_FOUND);
     }
 
+    public UserNotFoundException(long detail) {
+        super(NOT_FOUND, "User with id %s not found".formatted(detail));
+    }
 }

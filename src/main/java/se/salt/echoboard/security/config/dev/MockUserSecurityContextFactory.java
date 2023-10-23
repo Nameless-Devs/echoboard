@@ -6,12 +6,12 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.core.context.SecurityContext;
 
 import java.util.*;
 
@@ -46,8 +46,8 @@ public interface MockUserSecurityContextFactory {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("sub", userSubject);
         attributes.put("name", mockUserName);
-        attributes.put("email", mockUserName + "@example.com");
-        attributes.put("picture", "https://picsum.photos/id/"+generateRandomNumber()+"/200");
+        attributes.put("email", mockUserName.replace(" ","") + "@example.com");
+        attributes.put("picture", "https://picsum.photos/id/" + generateRandomNumber() + "/200");
         OidcUserInfo mockUserInfo = new OidcUserInfo(Collections.singletonMap("name", mockUserName));
         OidcIdToken idToken = new OidcIdToken(createTokenValue(userSubject, mockUserName), null, null, attributes);
 

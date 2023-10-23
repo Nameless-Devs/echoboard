@@ -56,7 +56,6 @@ export type SolutionResponseData = {
 
 export type UserResponseData = {
   name: string;
-  email: string;
   picture: string;
   //add later: 
   //comments[]

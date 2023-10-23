@@ -2,7 +2,7 @@ import { SolutionResponseData } from '@/service/Types'
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import React from 'react'
 import UpvoteButton from '../../UpvoteButton';
-import { SolutionStatusButton } from '@/components/SolutionStatus/SolutionStatusButton';
+import { SolutionStatusButton } from '@/components/CommentModal/commentModalComponents/SolutionStatusButton';
 
 type SolutionItemProps = {
     solution: SolutionResponseData;

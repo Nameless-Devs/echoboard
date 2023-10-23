@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import se.salt.echoboard.service.EchoBoardService;
+import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -37,6 +37,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
     private final EchoBoardService service;
     private JWTParser parser;
 
+
     @Value("${frontend-details.base-url}")
     private String baseUrl;
 
@@ -53,6 +54,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
             try {
                 jwt =  JWTParser.parse(jwtTokenString.get());
                 OidcUser user = createOidcUserFromJwt(jwt);
+                createUserIfTheyDoNotExist(user)
                 SecurityContextHolder.setContext(setMockUserInSecurityContext(user));
                 log.info(String.valueOf(jwt));
             } catch (ParseException e) {
@@ -81,6 +83,12 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
         OidcIdToken oidcIdToken =
                 new OidcIdToken(Arrays.toString(jwt.getParsedParts()), null, null, jwt.getJWTClaimsSet().getClaims());
         return new DefaultOidcUser(Collections.emptyList(), oidcIdToken);
+    }
+  
+    private void createUserIfTheyDoNotExist(DefaultOidcUser oidcUser) {
+        if (repository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
+            repository.createUser(oidcUser);
+        }
     }
 
 }

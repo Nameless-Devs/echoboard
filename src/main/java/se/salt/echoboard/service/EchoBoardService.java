@@ -11,12 +11,15 @@ import se.salt.echoboard.exception.custom.*;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.repository.EchoBoardCommentRepository;
 import se.salt.echoboard.service.repository.EchoBoardRepository;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -124,6 +127,22 @@ public class EchoBoardService {
         return userRepository.getUserBySubject(id)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(UserNotFoundException::new);
+    }
+
+    public List<EchoBoardDTO> getEchoBoardUserWithCommentsAndSolutions(String subject) {
+        Optional<EchoBoardUser> user = userRepository.getUserBySubject(subject);
+        if (user.isPresent()) {
+            List<EchoBoard> echoBoard = user.get().getEchoBoards();
+            if (echoBoard != null) {
+                List<EchoBoardDTO> echoBoardDTOS = new ArrayList<>();
+                for (EchoBoard board : echoBoard) {
+                    EchoBoardDTO dto = convertor.convertEntityToEchoBoardDto(board);
+                    echoBoardDTOS.add(dto);
+                }
+                return echoBoardDTOS;
+            }
+        }
+        return null;
     }
 
     public EchoBoardCommentResponse addCommentToComment(long commentId,

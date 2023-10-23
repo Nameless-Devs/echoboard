@@ -1,8 +1,12 @@
 package se.salt.echoboard.exception.custom;
 
-public class IllegalSolutionArgumentException extends IllegalArgumentException{
+import org.springframework.web.server.ResponseStatusException;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
+public class IllegalSolutionArgumentException extends ResponseStatusException {
     public IllegalSolutionArgumentException() {
-        super();
+        super(BAD_REQUEST);
     }
 
 }

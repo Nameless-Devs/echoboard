@@ -20,10 +20,9 @@ import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withE
 @Profile({"dev", "test"})
 public class SecurityConfigDev {
 
+    private final MockUserAuthenticationFilter mockUserAuthenticationFilter;
     @Value("${frontend-details.base-url}")
     private String baseUrl;
-
-    private final MockUserAuthenticationFilter mockUserAuthenticationFilter;
 
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {

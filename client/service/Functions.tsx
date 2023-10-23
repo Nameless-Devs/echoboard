@@ -6,6 +6,7 @@ import {
   CommentToPost,
   SolutionToPost,
   UserResponseData,
+  Message,
 } from "./Types";
 
 export async function postEcho(
@@ -267,5 +268,21 @@ export async function volunteerForSolution(solutionId: string) {
     }
   } catch (error) {
     throw new Error("Fetch error: " + error);
+  }
+}
+
+export async function fetchChatHistory(
+): Promise<Message[]> {
+  try {
+    const response = await fetch(ENDPOINTS.CHAT_HISTORY, {
+      // credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: Message[] = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
   }
 }

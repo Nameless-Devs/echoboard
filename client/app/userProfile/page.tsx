@@ -21,7 +21,6 @@ export default function UserProfile () {
         <div>
           <h1>User Information</h1>
           <p>Name: {user.name}</p>
-          <Chat user={user}  />
         </div>
       );
       }

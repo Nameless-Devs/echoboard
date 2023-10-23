@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CommentToPost, UserResponseData } from "@/service/Types";
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, Dialog, DialogContentText } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from "@/service/Functions";
 import { useCookies } from "react-cookie";
@@ -49,9 +49,11 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   return (
     <>
       {isSuccess && (
-        <h3 className="post-comment__success-msg">
+        <Dialog open={isSuccess}>
+          <DialogContentText style={{padding: "40px", color: "green", fontSize: "20px", textAlign: "center"}}>
           Your comment was successfully posted
-        </h3>
+          </DialogContentText>
+        </Dialog>
       )}
       <form className="post-comment__form" onSubmit={(e) => e.preventDefault()}>
         <Box className="post-comment__box">

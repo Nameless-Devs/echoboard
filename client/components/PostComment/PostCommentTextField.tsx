@@ -59,6 +59,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         endAdornment: isSendButtonVisible && (
           <IconButton
             type="submit"
+            style={{position: "absolute", bottom: "0", right: "0" }}
             color="primary"
             onClick={() => {
               onCommentSubmit(content);

@@ -21,19 +21,21 @@ public class EchoBoardComment {
 
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private final List<EchoBoardComment> echoBoardComments = new LinkedList<>();
     @ManyToOne
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-    @Column(length = 1000)
+    @Column(columnDefinition = "TEXT")
     private String content;
-    private Instant created;
+    //TODO Refactor to use
+    // @CreatedDate and update field to createdAt
+    private Instant created = Instant.now();
     private boolean anonymous;
-    @OneToMany(cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private final List<EchoBoardComment> echoBoardComments = new LinkedList<>();
 
     public void addCommentToEchoBoardComment(EchoBoardComment echoBoardComment) {
         this.echoBoardComments.add(echoBoardComment);
@@ -47,10 +49,5 @@ public class EchoBoardComment {
     public EchoBoardComment addUpvote(String userSubject) {
         this.upvote.add(userSubject);
         return this;
-    }
-
-    @PrePersist
-    private void onCreate() {
-        this.created = Instant.now();
     }
 }

@@ -39,7 +39,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
                 body: JSON.stringify(message),
             });
             setInput('');
-            
+
         }
     };
 
@@ -48,9 +48,9 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
     };
 
     useEffect(() => {
-        
+
         const newClient = Stomp.client("ws://localhost:8080/w");
-       
+
 
         newClient.onStompError = (frame) => {
             console.log('STOMP Error:', frame);
@@ -80,7 +80,9 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
             <h1>Chat Room</h1>
             <div>
                 {messages.map((msg, index) => (
-                    <ChatMessage index={index} msg={msg} />
+                    <div key={index}>
+                        <ChatMessage index={index} msg={msg} />
+                    </div>
                 ))}
             </div>
             <input

@@ -14,20 +14,20 @@ public class DTOConvertor {
 
     private final ObjectMapper mapper;
 
-    public EchoBoardUserResponseDTO convertEntityToResponseDTO(EchoBoardUser echoBoardUser) {
-        return mapper.convertValue(echoBoardUser, EchoBoardUserResponseDTO.class);
+    public EchoBoardUserResponse convertEntityToResponseDTO(EchoBoardUser echoBoardUser) {
+        return mapper.convertValue(echoBoardUser, EchoBoardUserResponse.class);
     }
 
-    public EchoBoardResponseDTO convertEntityToResponseDTO(EchoBoard echoBoard) {
-        return mapper.convertValue(echoBoard, EchoBoardResponseDTO.class);
+    public EchoBoardResponse convertEntityToResponseDTO(EchoBoard echoBoard) {
+        return mapper.convertValue(echoBoard, EchoBoardResponse.class);
     }
 
-    public EchoBoardSolutionResponseDTO convertEntityToResponseDTO(EchoBoardSolution echoBoardSolution) {
-        return mapper.convertValue(echoBoardSolution, EchoBoardSolutionResponseDTO.class);
+    public EchoBoardSolutionResponse convertEntityToResponseDTO(EchoBoardSolution echoBoardSolution) {
+        return mapper.convertValue(echoBoardSolution, EchoBoardSolutionResponse.class);
     }
 
-    public EchoBoardCommentResponseDTO convertEntityToResponseDTO(EchoBoardComment echoBoardComment) {
-        return mapper.convertValue(echoBoardComment, EchoBoardCommentResponseDTO.class);
+    public EchoBoardCommentResponse convertEntityToResponseDTO(EchoBoardComment echoBoardComment) {
+        return mapper.convertValue(echoBoardComment, EchoBoardCommentResponse.class);
     }
 
 }

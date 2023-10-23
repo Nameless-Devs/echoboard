@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import se.salt.echoboard.service.EchoBoardService;
+import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ import java.io.IOException;
 @Profile({"dev", "test"})
 public class MockUserAuthenticationFilter extends OncePerRequestFilter implements MockUserSecurityContextFactory{
 
-    private final EchoBoardService service;
+    private final EchoBoardUserRepository repository;
 
     @Value("${frontend-details.base-url}")
     private String baseUrl;
@@ -39,8 +39,8 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
     }
 
     private void createUserIfTheyDoNotExist(DefaultOidcUser oidcUser) {
-        if (service.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
-            service.createUser(oidcUser);
+        if (repository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
+            repository.createUser(oidcUser);
         }
     }
 

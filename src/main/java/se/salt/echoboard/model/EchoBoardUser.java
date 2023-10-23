@@ -21,6 +21,7 @@ public class EchoBoardUser {
     private String email;
     private String picture;
 
+
     @OneToMany(mappedBy = "echoBoardUser")
     private List<EchoBoard> echoBoards;
 

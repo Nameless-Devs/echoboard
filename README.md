@@ -81,11 +81,12 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 ### Weekly Sprint result videos
 **Week 1:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/JhUpzNYnvzo?si=iRZY_Q1q3FMGLS8X)  
-**Week 2:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qr2D3bSNd78?si=0IqkzBUAO9xkli91)  
-**Week 3:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
-**Week 4:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
-**Week 5:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
-**Week 6:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc) 
+**Week 2:** [![Week 2](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qr2D3bSNd78?si=0IqkzBUAO9xkli91)  
+**Week 3:** [![Week 3](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
+**Week 4:** [![Week 4](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
+**Week 5:** [![Week 5](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
+**Week 6:** [![Week 6](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc)   
+**Week 7:** [![Week 7](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o8cCEqW_Zto) 
 
 
 #

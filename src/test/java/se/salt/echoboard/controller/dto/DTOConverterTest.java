@@ -1,31 +1,17 @@
 package se.salt.echoboard.controller.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import se.salt.echoboard.model.EchoBoard;
 import util.TestBuilders;
 
 import static org.mockito.Mockito.when;
+import static util.TestUtilities.OBJECT_MAPPER;
 
-@SpringBootTest
 public class DTOConverterTest {
-    @Autowired
-    private final DTOConvertor convert;
 
-    @Autowired
-    private ObjectMapper objectMapper;
 
-    public DTOConverterTest(DTOConvertor convert, ObjectMapper objectMapper) {
-        this.convert = convert;
-        this.objectMapper = objectMapper;
-    }
-
+    private final DTOConvertor convert = new DTOConvertor(OBJECT_MAPPER);
 
     @Test
     public void testEchoBoardToEchoBoardDTO() {
@@ -33,8 +19,8 @@ public class DTOConverterTest {
         EchoBoard echoBoard = TestBuilders.createRandomEchoBoard();
         // Set properties on the echoBoard object
 
-        EchoBoardDTO expectedDTO = new EchoBoardDTO(); // Replace with your expected DTO
-        when(objectMapper.convertValue(echoBoard, EchoBoardDTO.class)).thenReturn(expectedDTO);
+        EchoBoardDTO expectedDTO = EchoBoardDTO.builder().build(); // Replace with your expected DTO
+        when(OBJECT_MAPPER.convertValue(echoBoard, EchoBoardDTO.class)).thenReturn(expectedDTO);
 
         // Perform the mapping
         EchoBoardDTO echoBoardDTO = convert.convertEntityToEchoBoardDto(echoBoard);

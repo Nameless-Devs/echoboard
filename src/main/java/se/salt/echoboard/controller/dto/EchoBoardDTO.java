@@ -1,17 +1,15 @@
 package se.salt.echoboard.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
 
 import java.util.List;
-@NoArgsConstructor
+
+//@Getter
+//@Setter
 @Builder
-@AllArgsConstructor
-public class EchoBoardDTO {
-    public List<EchoBoardComment> echoBoardComments;
-    public List<EchoBoardSolution> echoBoardSolutions;
+//@AllArgsConstructor
+public record EchoBoardDTO (String name, String picture, List<EchoBoardComment> echoBoardComments,  List<EchoBoardSolution> echoBoardSolutions) {
 
 }

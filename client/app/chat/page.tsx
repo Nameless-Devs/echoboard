@@ -4,7 +4,7 @@ import { getUserInfo } from '@/service/Functions';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 
-const chat = () => {
+export default function UserChat() {
     const { data: user, error, isLoading } = useQuery(['userInfo'], getUserInfo)
 
     if (isLoading) {
@@ -23,5 +23,3 @@ const chat = () => {
     )
 }
 }
-
-export default chat; 

@@ -19,11 +19,10 @@ import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withE
 @Profile("deploy")
 public class SecurityConfiguration {
 
-    @Value("${frontend-details.base-url}")
-    private String baseUrl;
-
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     private final JwtCookieAuthenticationFilter jwtCookieAuthenticationFilter;
+    @Value("${frontend-details.base-url}")
+    private String baseUrl;
 
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {

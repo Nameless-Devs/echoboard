@@ -2,7 +2,6 @@ package se.salt.echoboard.security.config.deploy;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtException;
@@ -23,9 +20,9 @@ import se.salt.echoboard.security.config.JwtValidation;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.stream.Stream;
+
+import static se.salt.echoboard.security.config.JwtValidation.createOidcUserFromJwt;
+import static se.salt.echoboard.security.config.JwtValidation.getJwtTokenFromRequestCookie;
 
 @Component
 @RequiredArgsConstructor
@@ -33,7 +30,6 @@ import java.util.stream.Stream;
 @Profile("deploy")
 public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
     private final JwtValidation validation;
     private final EchoBoardUserRepository userRepository;
     @Value("${backend-details.base-url}")
@@ -62,21 +58,6 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
 
-    }
-
-    private Optional<String> getJwtTokenFromRequestCookie(HttpServletRequest request) {
-        Optional<Cookie[]> cookies = Optional.ofNullable(request.getCookies());
-        return cookies.stream().flatMap(Stream::of)
-                .filter(cookie -> JWT_TOKEN_COOKIE_NAME.equals(cookie.getName()))
-                .findFirst()
-                .map(Cookie::getValue);
-
-    }
-
-    private OidcUser createOidcUserFromJwt(Jwt jwt) {
-        OidcIdToken oidcIdToken =
-                new OidcIdToken(jwt.getTokenValue(), jwt.getIssuedAt(), jwt.getExpiresAt(), jwt.getClaims());
-        return new DefaultOidcUser(Collections.emptyList(), oidcIdToken);
     }
 
     private void redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated

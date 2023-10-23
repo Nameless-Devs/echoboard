@@ -1,10 +1,10 @@
 "use client"
+import Chat from '@/components/Chat/Chat';
 import { getUserInfo } from '@/service/Functions';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 
-export default function UserProfile () {
-
+export default function UserChat() {
     const { data: user, error, isLoading } = useQuery(['userInfo'], getUserInfo)
 
     if (isLoading) {
@@ -16,16 +16,10 @@ export default function UserProfile () {
       }
     
       if (user) {
-      return (
+    return (
         <div>
-          <h1>User Information</h1>
-          <p>Name: {user.name}</p>
+            <Chat user={user}  />
         </div>
-      );
-      }
-  
-    };
-    
-    
-    
-    
+    )
+}
+}

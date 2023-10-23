@@ -1,10 +1,14 @@
 package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "messages")
 public class Message {
     @Id
@@ -16,6 +20,9 @@ public class Message {
 
     @Column(name = "content", nullable = false)
     private String content;
+
+    @Column
+    private String picture;
 
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;

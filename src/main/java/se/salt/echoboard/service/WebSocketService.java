@@ -21,9 +21,13 @@ public class WebSocketService {
         return JPAMessageRepository.save(message);
     }
 
+    //fix once we have multiple rooms
     public List<Message> getChatHistory(Long chatRoomId) {
         return JPAMessageRepository.findByChatRoomId(chatRoomId);
     }
 
+    public List<Message> getAllMessages() {
+        return JPAMessageRepository.findAll();
+    }
 
 }

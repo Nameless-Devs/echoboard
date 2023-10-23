@@ -53,6 +53,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
             try {
                 jwt =  JWTParser.parse(jwtTokenString.get());
                 OidcUser user = createOidcUserFromJwt(jwt);
+                createUserIfTheyDoNotExist(user);
                 SecurityContextHolder.setContext(setMockUserInSecurityContext(user));
                 log.info(String.valueOf(jwt));
             } catch (ParseException e) {
@@ -81,6 +82,12 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
         OidcIdToken oidcIdToken =
                 new OidcIdToken(Arrays.toString(jwt.getParsedParts()), null, null, jwt.getJWTClaimsSet().getClaims());
         return new DefaultOidcUser(Collections.emptyList(), oidcIdToken);
+    }
+
+    private void createUserIfTheyDoNotExist(OidcUser oidcUser) {
+        if (service.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
+            service.createUser(oidcUser);
+        }
     }
 
 }

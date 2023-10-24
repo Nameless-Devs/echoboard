@@ -79,6 +79,15 @@ It aims to bridge the gap between employees and upper management by providing a 
 
 #  
 
+### Project Board
+
+![Static Badge](https://img.shields.io/badge/Board-black%20?logo=Github&logoColor=White&labelColor=Black&link=https%3A%2F%2Fgithub.com%2Forgs%2FNameless-Devs%2Fprojects%2F1)
+
+![Project Board Screen Shot](https://github.com/Nameless-Devs/echoboard/assets/128703708/f2dfdc86-f9d3-4592-b696-e7de558e0276&link=https%3A%2F%2Fgithub.com%2Forgs%2FNameless-Devs%2Fprojects%2F1)
+
+
+#
+
 ### Weekly Sprint result videos
 **Week 7:** [![Week 7](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o8cCEqW_Zto)   
 **Week 6:** [![Week 6](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc)   

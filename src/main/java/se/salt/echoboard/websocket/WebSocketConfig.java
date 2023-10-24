@@ -86,8 +86,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 if (StompCommand.CONNECT.equals(accessor.getCommand())) {
 //                    Map<String, Object> sessionAttributes = accessor.getSessionAttributes();
 //                    List<String> authorization = accessor.getNativeHeader("Authorization");
-                    OidcUser user = (OidcUser) accessor.getHeader("simpUser");
-                    accessor.setUser((Principal) user);
+                    Principal user = (Principal) accessor.getHeader("simpUser");
+                    accessor.setUser( user);
                     log.info(String.valueOf(user));
                 }
 

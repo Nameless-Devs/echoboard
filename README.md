@@ -82,7 +82,6 @@ It aims to bridge the gap between employees and upper management by providing a 
 ### Project Board
 
 [![Static Badge](https://img.shields.io/badge/Board-black%20?logo=Github&logoColor=White&labelColor=Black)](https://github.com/orgs/Nameless-Devs/projects/1)
-
 [![Project Board Screen Shot](https://github.com/Nameless-Devs/echoboard/assets/128703708/1abd1ad7-5268-4284-aa2d-fc01a80a3dd1)](https://github.com/orgs/Nameless-Devs/projects/1)
 
 

@@ -58,6 +58,9 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
             }
 
         } else {
+            if (request.getRequestURI().endsWith("chat")){
+                return;
+            }
             log.info("JWT not received");
             var user = createMockUser();
             repository.createUser(user);

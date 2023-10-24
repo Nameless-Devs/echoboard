@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("api/status").permitAll()
+                                .requestMatchers("login").permitAll()
                                 .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()
                 )

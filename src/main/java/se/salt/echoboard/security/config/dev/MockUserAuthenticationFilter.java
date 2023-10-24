@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static se.salt.echoboard.security.config.JwtValidation.*;
+import static se.salt.echoboard.security.config.JwtValidation.getJwtTokenFromRequestCookie;
 
 
 @Component

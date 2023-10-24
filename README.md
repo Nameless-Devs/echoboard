@@ -29,6 +29,10 @@ It aims to bridge the gap between employees and upper management by providing a 
 **Pitch Deck**  
 [![Pitch deck video](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/17zv-aNRXUQ?si=ifBuImKbhevp0ihR)
 
+
+**Conclusion**
+- EchoBoard aims to empower employees by providing a platform for sharing challenges, proposing solutions, and collaborating on problem-solving efforts. By embracing technology and open communication, EchoBoard has the potential to foster a culture of innovation and continuous improvement within your organisation.
+
 #
 
 ### 📱 Tech Stack
@@ -73,11 +77,6 @@ It aims to bridge the gap between employees and upper management by providing a 
     - Connect with Google Tasks to assign and manage tasks related to problem-solving.
 </details>
 
-
-#
-
-**Conclusion**
-- EchoBoard aims to empower employees by providing a platform for sharing challenges, proposing solutions, and collaborating on problem-solving efforts. By embracing technology and open communication, EchoBoard has the potential to foster a culture of innovation and continuous improvement within your organisation.
 #  
 
 ### Weekly Sprint result videos

@@ -57,9 +57,10 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
                 OidcUser user = createOidcUserFromJwt(jwt);
                 createUserIfTheyDoNotExist(user);
                 SecurityContextHolder.setContext(setMockUserInSecurityContext(user));
-                log.info(String.valueOf(jwt));
+                log.info("Security Context is: " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                log.trace("Invalid JWT token: {}", jwtTokenString);
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
 
         } else {

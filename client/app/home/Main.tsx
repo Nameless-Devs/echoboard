@@ -15,14 +15,15 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
     <Box
       sx={{
         marginTop: "30px",
-        height: 500,
+        minHeight: 500,
         p: { xs: 4, md: 4 },
         pr: { md: 0 },
         backgroundColor: "#fff",
         color: "black",
         borderRadius: '15px',
         display: "flex", 
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+  
       }}
     >
       <Box>
@@ -36,6 +37,13 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
         >
           {description}
         </Typography>
+        <Box sx={{maxWidth: "600px", marginTop: "50px"}}>
+        <Typography variant="h6">
+        EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
+        It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, 
+        propose solutions, and collaborate on addressing issues that impact the organisation.
+        </Typography>
+        </Box>
       </Box>
       <Box sx={{alignSelf: "center", margin: "auto"}}>
           <Image

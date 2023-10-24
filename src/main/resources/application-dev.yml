@@ -22,7 +22,8 @@ logging:
   level:
     org:
       springframework:
-        security: TRACE
+#        security: TRACE
+        messaging: TRACE
 #      hibernate:
 #        sql: DEBUG
 #        type:

@@ -18,7 +18,7 @@ const mainFeature = {
 const home = () => {
   return (
     
-    <main style={{ minHeight: "100vh", backgroundColor: "	#343434" }}>
+    <main style={{ minHeight: "100vh", backgroundColor: "#4581C7" }}>
       <CssBaseline />
       <Container maxWidth="lg">
         <Header title={echoBoardHeader.title} />
@@ -30,8 +30,6 @@ const home = () => {
         </Grid>
       </Container>
       <Footer
-        title="Developers"
-        description="Something here to give the footer a purpose!"
       />
     </main>
   );

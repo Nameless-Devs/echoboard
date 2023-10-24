@@ -30,7 +30,7 @@ public class ChatController {
         log.info("User: "+ user + "sent a message");
         return webSocketService.saveMessage(Message.builder()
                 .content(message.getContent())
-                .sender(user.getName())
+                .sender(message.getSender())
                 .picture(message.getPicture())
                         .timestamp(Instant.now())
                 .build());

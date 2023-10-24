@@ -30,8 +30,6 @@ const home = () => {
         </Grid>
       </Container>
       <Footer
-        title="Developers"
-        description="Something here to give the footer a purpose!"
       />
     </main>
   );

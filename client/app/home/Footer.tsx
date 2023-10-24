@@ -8,8 +8,8 @@ interface FooterProps {
   title: string;
 }
 
-export default function Footer(props: FooterProps) {
-  const { description, title } = props;
+export default function Footer() {
+  
 
   return (
     <Grid
@@ -20,9 +20,9 @@ export default function Footer(props: FooterProps) {
     >
       <Paper elevation={0} sx={{ p: 2, bgcolor: "#6c9bd3" }}>
         <Typography variant="h6" gutterBottom>
-          {title}
+          title
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography>description</Typography>
       </Paper>
     </Grid>
   );

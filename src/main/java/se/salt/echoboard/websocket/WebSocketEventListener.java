@@ -21,11 +21,9 @@ public class WebSocketEventListener {
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectEvent event) {
         String sessionId = event.getMessage().getHeaders().get("simpSessionId", String.class);
-        Principal principal = event.getUser();
-        log.info("Session connect " + sessionId + ": " + principal);
+        log.info("Session connect " + sessionId + ": " + event.getUser());
 //        sessions.put(sessionId, principal);
 //        SecurityContextHolder.getContext().setAuthentication((Authentication) event.getUser());
-//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
     @EventListener

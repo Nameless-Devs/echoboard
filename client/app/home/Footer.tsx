@@ -18,9 +18,35 @@ export default function Footer() {
       style={{ position: "fixed", bottom: 0, width: "100%" }}
     >
       <Paper elevation={0} sx={{ p: 2, bgcolor: "#6c9bd3" }}>
-        <Box>
-          <Box></Box>
+        <Box sx={{
+          display: "flex", 
+          justifyContent: "space-between",
+          alignItems: "center"
+      }}>
           <Box>
+            <Typography>
+            &copy; 2023
+            </Typography>
+          </Box>
+          {/* <Box>
+            <Typography>
+              <a href=""
+              target="_blank"
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+              >
+                Privacy policy
+              </a>
+            </Typography>
+          </Box> */}
+          <Box sx={{
+            display: "flex", 
+            flexDirection: "column",
+            alignItems: "flex-end",
+            marginRight: "30px",
+            }}>
             <Typography variant="subtitle1">
               Nameless_devs
             </Typography>
@@ -53,7 +79,6 @@ export default function Footer() {
               </a>
             </Typography>
           </Box>
-          <Box></Box>
         </Box>
       </Paper>
     </Grid>

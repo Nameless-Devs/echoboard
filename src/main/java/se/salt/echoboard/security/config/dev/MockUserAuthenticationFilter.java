@@ -18,7 +18,6 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import se.salt.echoboard.service.EchoBoardService;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
@@ -35,9 +34,8 @@ import static se.salt.echoboard.security.config.JwtValidation.*;
 @Profile({"dev", "test"})
 public class MockUserAuthenticationFilter extends OncePerRequestFilter implements MockUserSecurityContextFactory{
 
-    private final EchoBoardService service;
 
-    EchoBoardUserRepository repository;
+    private final EchoBoardUserRepository repository;
 
     @Value("${frontend-details.base-url}")
     private String baseUrl;
@@ -66,7 +64,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
         } else {
             log.info("JWT not received");
             var user = createMockUser();
-            service.createUser(user);
+            repository.createUser(user);
             response.addCookie(createNewCookie(user.getIdToken().getTokenValue()));
         }
         filterChain.doFilter(request, response);

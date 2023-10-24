@@ -18,7 +18,7 @@ const mainFeature = {
 const home = () => {
   return (
     
-    <main style={{ minHeight: "100vh", backgroundColor: "	#343434" }}>
+    <main style={{ minHeight: "100vh", backgroundColor: "#4581C7" }}>
       <CssBaseline />
       <Container maxWidth="lg">
         <Header title={echoBoardHeader.title} />

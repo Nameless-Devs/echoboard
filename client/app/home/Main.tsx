@@ -15,7 +15,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
         height: 400,
         p: { xs: 4, md: 4 },
         pr: { md: 0 },
-        backgroundColor: "#E5E4E2",
+        backgroundColor: "#fff",
         color: "black",
         borderRadius: '15px'
       }}

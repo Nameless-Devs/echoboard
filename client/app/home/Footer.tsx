@@ -18,7 +18,7 @@ export default function Footer(props: FooterProps) {
       md={4}
       style={{ position: "fixed", bottom: 0, width: "100%" }}
     >
-      <Paper elevation={0} sx={{ p: 2, bgcolor: "grey.200" }}>
+      <Paper elevation={0} sx={{ p: 2, bgcolor: "#6c9bd3" }}>
         <Typography variant="h6" gutterBottom>
           {title}
         </Typography>

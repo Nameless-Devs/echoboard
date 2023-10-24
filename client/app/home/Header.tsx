@@ -20,7 +20,7 @@ export default function Header(props: HeaderProps) {
         sx={{
           borderBottom: 1,
           borderColor: "divider",
-          bgcolor: "#E5E4E2",
+          bgcolor: "white",
           borderRadius: "8px",
         }}
       >

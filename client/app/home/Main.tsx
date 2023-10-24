@@ -9,27 +9,32 @@ interface MainFeaturedProp {
 
 export default function MainFeatured({ title, description }: MainFeaturedProp) {
   return (
-    <Box
-      sx={{
-        marginTop: "30px",
-        height: 400,
-        p: { xs: 4, md: 4 },
-        pr: { md: 0 },
-        backgroundColor: "#fff",
-        color: "black",
-        borderRadius: '15px'
-      }}
-    >
-      <Typography
-        variant="h2"
+    <Box>
+      <Box
+        sx={{
+          marginTop: "30px",
+          height: 400,
+          p: { xs: 4, md: 4 },
+          pr: { md: 0 },
+          backgroundColor: "#fff",
+          color: "black",
+          borderRadius: '15px'
+        }}
       >
-        {title}
-      </Typography>
-      <Typography
-        variant="h4"
-      >
-        {description}
-      </Typography>
+        <Typography
+          variant="h2"
+        >
+          {title}
+        </Typography>
+        <Typography
+          variant="h4"
+        >
+          {description}
+        </Typography>
+      </Box>
+      <Box>
+       
+      </Box>
     </Box>
   );
 }

@@ -33,8 +33,8 @@ It aims to bridge the gap between employees and upper management by providing a 
 ### 📱 Tech Stack
 ![Java](https://img.shields.io/badge/Java-6F4E37?style=for-the-badge&logo=java&logoColor=white)
 ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![DynamoDB](https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge&logo=amazon-dynamodb&logoColor=white)
+![Fly.io](https://img.shields.io/badge/Fly.io-800080?style=for-the-badge&logo=Fly.io&logoColor=Purple)
+![Postgres](https://img.shields.io/badge/Postgres-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![React.ts](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
@@ -80,12 +80,13 @@ It aims to bridge the gap between employees and upper management by providing a 
 #  
 
 ### Weekly Sprint result videos
+**Week 7:** [![Week 7](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o8cCEqW_Zto) 
+**Week 6:** [![Week 6](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc)   
+**Week 5:** [![Week 5](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
+**Week 4:** [![Week 4](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
+**Week 3:** [![Week 3](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
+**Week 2:** [![Week 2](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qr2D3bSNd78?si=0IqkzBUAO9xkli91)  
 **Week 1:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/JhUpzNYnvzo?si=iRZY_Q1q3FMGLS8X)  
-**Week 2:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qr2D3bSNd78?si=0IqkzBUAO9xkli91)  
-**Week 3:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
-**Week 4:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
-**Week 5:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
-**Week 6:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc) 
 
 
 #

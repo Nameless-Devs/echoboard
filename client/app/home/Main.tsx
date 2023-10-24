@@ -1,8 +1,9 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Paper, Typography } from "@mui/material";
+import { Button, Link, Paper, Typography } from "@mui/material";
 import Example from "../image/Example.png";
 import Image from "next/image";
+import { ENDPOINTS } from "@/service/config";
 
 interface MainFeaturedProp {
   title: string;
@@ -37,7 +38,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
         >
           {description}
         </Typography>
-        <Box sx={{maxWidth: "600px", marginTop: "50px"}}>
+        <Box sx={{maxWidth: "600px", marginTop: "50px", marginBottom: "30px"}}>
         <Typography variant="h6">
         EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
         It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, 
@@ -46,6 +47,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
         </Box>
       </Box>
       <Box sx={{alignSelf: "center", margin: "auto"}}>
+        <Box sx={{display: "flex", flexDirection: "column"}}>
           <Image
             src={Example}
             alt={"EchoBoard solution screenshot"}
@@ -54,6 +56,18 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
               boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
             }}
           />
+          <Button 
+          variant="contained" 
+          size="medium" 
+          style={{
+            maxWidth: "200px",
+            alignSelf: "center",
+            marginTop: "40px"}}>
+          <Link href={ENDPOINTS.LOGIN} style={{color: "white"}}>
+            Join the Community
+          </Link>
+        </Button>
+        </Box>
       </Box>
     </Box>
   );

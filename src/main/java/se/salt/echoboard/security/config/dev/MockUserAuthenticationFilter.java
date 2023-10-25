@@ -60,6 +60,11 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
         } else {
             if (SecurityContextHolder.getContext().getAuthentication() != null){
                 createUserIfTheyDoNotExist((OidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+                filterChain.doFilter(request, response);
+                return;
+            }
+            if (request.getRequestURI().endsWith("chat")){
+                return;
             }
             log.info("JWT not received");
             var user = createMockUser();

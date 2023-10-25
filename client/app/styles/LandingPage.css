@@ -1,0 +1,6 @@
+.main__background-picture{
+    background-image: url("./../image/Final_background.jpeg");
+    background-color: #4589e3;
+    background-size: cover; 
+    height: 100vh;
+}

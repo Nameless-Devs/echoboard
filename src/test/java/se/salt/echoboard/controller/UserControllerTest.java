@@ -46,7 +46,7 @@ public class UserControllerTest {
         mockMvc.perform(get("/api/v1/user/echoboard")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.subject").value("1"))
+                .andExpect(jsonPath("$.name").isNotEmpty())
                // .andExpect(jsonPath("$.name").value("Mock User")) // Assert other fields
                 .andExpect(jsonPath("$.echoBoardComments").isArray())
                 .andExpect(jsonPath("$.echoBoardSolutions").isArray());

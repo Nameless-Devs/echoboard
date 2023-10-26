@@ -11,6 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: off
 #    defer-datasource-initialization: true
 #  sql:
 #    init:
@@ -25,8 +26,9 @@ logging:
       springframework:
 #        security: TRACE
         messaging: TRACE
-#      hibernate:
-#        sql: DEBUG
+#        http: DEBUG
+      hibernate:
+        sql: INFO
 #        type:
 #          descriptor:
 #            sql:

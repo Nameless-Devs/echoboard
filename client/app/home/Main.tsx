@@ -49,7 +49,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
               marginTop: "40px",
              
             }}>
-            <Link href={ENDPOINTS.LOGIN} style={{ color: "white" }}>
+            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none"  }}>
               Log in
             </Link>
           </Button>
@@ -95,7 +95,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
               alignSelf: "center",
               marginTop: "40px",
             }}>
-            <Link href={ENDPOINTS.LOGIN} style={{ color: "white" }}>
+            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none"  }}>
               Log in
             </Link>
           </Button>

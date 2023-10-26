@@ -3,13 +3,14 @@ import * as React from "react";
 import "../styles/LandingPage.css"
 import EchoLogoWhite from "../image/EchoBoard_logo_white.png"
 import Image from "next/image";
+import NavBar from "./NavBar";
 
-
+const pages = ['Home', 'About', 'Features', 'Contact'];
 const home = () => {
   return (
     <>
       <Box className="main__background-picture">
-        <AppBar sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)'}} >
+        {/* <AppBar sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)'}} >
           <Container maxWidth="xl" >
             <Toolbar disableGutters >
             <Image src={EchoLogoWhite} alt="EchoBoard logo white" width={40} />
@@ -34,7 +35,9 @@ const home = () => {
 
             </Toolbar>
           </Container>
-        </AppBar>
+        </AppBar> */}
+
+        <NavBar />
 
       </Box>
     </>

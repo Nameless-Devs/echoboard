@@ -18,8 +18,8 @@ public class DTOConvertor {
         return mapper.convertValue(echoBoardUser, EchoBoardUserResponse.class);
     }
 
-    public EchoBoardDTO convertEntityToEchoBoardDto(EchoBoard echoBoard) {
-        return mapper.convertValue(echoBoard, EchoBoardDTO.class);
+    public EchoBoardUserInfo convertEntityToEchoBoardUserWithInfoDTO(EchoBoardUser echoBoardUser) {
+        return mapper.convertValue(echoBoardUser, EchoBoardUserInfo.class);
     }
 
     public EchoBoardResponse convertEntityToResponseDTO(EchoBoard echoBoard) {

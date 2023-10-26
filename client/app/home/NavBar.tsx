@@ -11,6 +11,8 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import EchoLogoWhite from "../image/EchoBoard_logo_white.png"
+import Image from "next/image";
 
 const pages = ['Home', 'About', 'Features', 'Contact'];
 
@@ -27,10 +29,10 @@ function NavBar() {
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)'}} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }} />
+          <Image src={EchoLogoWhite} alt="EchoBoard logo white" width={40} style={{ marginRight: "15px"}} />
           <Typography
             variant="h6"
             noWrap
@@ -40,13 +42,13 @@ function NavBar() {
               mr: 2,
               display: { xs: 'flex', md: 'flex' },
               fontFamily: 'monospace',
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'white',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            EchoBoard
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end'  }}>

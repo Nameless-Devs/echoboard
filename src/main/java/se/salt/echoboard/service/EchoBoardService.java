@@ -1,7 +1,6 @@
 package se.salt.echoboard.service;
 
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -11,15 +10,9 @@ import se.salt.echoboard.exception.custom.*;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
-import se.salt.echoboard.model.EchoBoardUser;
-import se.salt.echoboard.service.repository.EchoBoardCommentRepository;
-import se.salt.echoboard.service.repository.EchoBoardRepository;
-import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
-import se.salt.echoboard.service.repository.EchoBoardUserRepository;
+import se.salt.echoboard.service.repository.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service

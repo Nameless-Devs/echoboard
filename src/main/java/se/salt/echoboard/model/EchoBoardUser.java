@@ -10,8 +10,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,9 +25,10 @@ public class EchoBoardUser {
     @OneToMany(mappedBy = "echoBoardUser")
     @JsonIgnoreProperties({"echoBoardUser", "echoBoardComments", "echoBoardSolutions"})
     private List<EchoBoard> echoBoards;
-
-    @OneToMany(mappedBy = "echoBoardUser")
-    @JsonIgnoreProperties({"echoBoardUser", "upvote", "id", "content", "created", "anonymous"})
+//
+    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"echoBoardUser"})
+    @JsonBackReference
     private List<EchoBoardComment> echoBoardComments;
 
     @OneToMany(mappedBy = "echoBoardUser")

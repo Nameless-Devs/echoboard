@@ -1,11 +1,7 @@
 package se.salt.echoboard.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -23,14 +19,12 @@ public class EchoBoardUser {
     private String email;
     private String picture;
 
-
     @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"echoBoardUser", "echoBoardComments", "echoBoardSolutions"})
     private List<EchoBoard> echoBoards;
 
-    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"echoBoardUser"})
-    @JsonBackReference
     private List<EchoBoardComment> echoBoardComments;
 
     @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)

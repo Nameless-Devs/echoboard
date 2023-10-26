@@ -1,7 +1,7 @@
 package se.salt.echoboard.model;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,7 +34,7 @@ public class EchoBoardComment {
     @OneToMany(cascade = CascadeType.ALL)
     private final List<EchoBoardComment> echoBoardComments = new LinkedList<>();
     @ManyToOne
-    @JsonManagedReference
+    @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
 

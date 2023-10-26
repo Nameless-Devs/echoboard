@@ -128,24 +128,10 @@ public class EchoBoardService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    public EchoBoardDTO getEchoBoardUserWithCommentsAndSolutions(String subject) {
-        Optional<EchoBoardUser> userOptional = userRepository.getUserBySubject(subject);
-        if (userOptional.isPresent()) {
-            EchoBoardUser user = userOptional.get();
-
-            List<EchoBoardComment> comments = commentRepository.findByEchoBoardUser(user);
-            List<EchoBoardSolution> solutions = solutionRepository.findByEchoBoardUser(user);
-
-            return EchoBoardDTO.builder()
-                    .name(user.getName())
-                    .picture(user.getPicture())
-                    .echoBoardComments(comments)
-                    .echoBoardSolutions(solutions)
-                    .echoBoards(user.getEchoBoards())
-                    .build();
-
-        }
-        return null;
+    public EchoBoardUserInfo getEchoBoardUserWithCommentsAndSolutions(String subject) {
+        return userRepository.getUserBySubject(subject)
+                .map(convertor::convertEntityToEchoBoardUserWithInfoDTO)
+                .orElseThrow(UserNotFoundException::new);
     }
 
     public EchoBoardCommentResponse addCommentToComment(long commentId,

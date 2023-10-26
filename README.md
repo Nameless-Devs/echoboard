@@ -1,7 +1,8 @@
 # Echoboard
 
 **[EchoBoard](https://app.echoboard.site/home) is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
-It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, propose solutions, and collaborate on addressing issues that impact the organisation.**
+It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, propose solutions, and collaborate on addressing issues that impact the organisation.**  
+[![Week 7](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o8cCEqW_Zto)  
 
 #
 
@@ -24,6 +25,8 @@ It aims to bridge the gap between employees and upper management by providing a 
 	- Problem Resolution: 
 		- If a solution is tested successfully, the associated problem is marked as solved and archived for reference.
 
+**Conclusion**
+- EchoBoard aims to empower employees by providing a platform for sharing challenges, proposing solutions, and collaborating on problem-solving efforts. By embracing technology and open communication, EchoBoard has the potential to foster a culture of innovation and continuous improvement within your organisation.
 
 **Pitch Deck**  
 [![Pitch deck video](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/17zv-aNRXUQ?si=ifBuImKbhevp0ihR)
@@ -33,8 +36,8 @@ It aims to bridge the gap between employees and upper management by providing a 
 ### 📱 Tech Stack
 ![Java](https://img.shields.io/badge/Java-6F4E37?style=for-the-badge&logo=java&logoColor=white)
 ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![DynamoDB](https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge&logo=amazon-dynamodb&logoColor=white)
+![Fly.io](https://img.shields.io/badge/Fly.io-800080?style=for-the-badge&logo=Fly.io&logoColor=Purple)
+![Postgres](https://img.shields.io/badge/Postgres-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![React.ts](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
@@ -72,20 +75,27 @@ It aims to bridge the gap between employees and upper management by providing a 
     - Connect with Google Tasks to assign and manage tasks related to problem-solving.
 </details>
 
+#  
+
+### Project Board
+
+<a href="https://github.com/orgs/Nameless-Devs/projects/1" target="_blank">
+    <img src="https://img.shields.io/badge/Board-black%20?logo=Github&logoColor=White&labelColor=Black" alt="Static Badge">
+</a>
+<a href="https://github.com/orgs/Nameless-Devs/projects/1" target="_blank">
+    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/128703708/277663153-f2dfdc86-f9d3-4592-b696-e7de558e0276.png" alt="Project Board Screen Shot">
+</a>
 
 #
 
-**Conclusion**
-- EchoBoard aims to empower employees by providing a platform for sharing challenges, proposing solutions, and collaborating on problem-solving efforts. By embracing technology and open communication, EchoBoard has the potential to foster a culture of innovation and continuous improvement within your organisation.
-#  
-
 ### Weekly Sprint result videos
+**Week 7:** [![Week 7](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o8cCEqW_Zto)   
+**Week 6:** [![Week 6](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc)   
+**Week 5:** [![Week 5](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
+**Week 4:** [![Week 4](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
+**Week 3:** [![Week 3](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
+**Week 2:** [![Week 2](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qr2D3bSNd78?si=0IqkzBUAO9xkli91)  
 **Week 1:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/JhUpzNYnvzo?si=iRZY_Q1q3FMGLS8X)  
-**Week 2:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qr2D3bSNd78?si=0IqkzBUAO9xkli91)  
-**Week 3:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/PDs0mfecejo?si=nPDCwoK5u0de6NP0)  
-**Week 4:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hcqsbh3kdII?si=u6RiLA5WqnOkoPdY)  
-**Week 5:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o9SIcRQ68fY?si=Pg4NmJm8K_QhnWyS)   
-**Week 6:** [![Week 1](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/cdqUh1Uf_uc) 
 
 
 #
@@ -130,6 +140,8 @@ It will allow you to run the application in **dev mode**.
 | Nate Arafayne           | [![Github-Nate](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/NateAra) [![LinkedIn-Nate](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nate-tklay-arafayne-20898925a/) |
 | Anastasia Kurayshevich  | [![Github-Anastasia](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnastasiaKurayshevich) [![LinkedIn-Anastasia](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anastasia-kurayshevich/) |
 | Ibrahim Iqbal           | [![Github-Ibrahim](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dIB59) [![LinkedIn-Ibrahim](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/) |
+| Ariel Shaka             | [![Github-Ariel](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ArielShaka) [![LinkedIn-Ariel](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/arielshaka/) |
+
 
 #  
 

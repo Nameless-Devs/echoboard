@@ -56,7 +56,6 @@ export type SolutionResponseData = {
 
 export type UserResponseData = {
   name: string;
-  email: string;
   picture: string;
   //add later: 
   //comments[]
@@ -68,4 +67,11 @@ export type UserResponseData = {
 export type StatusInfo = {
   formattedStatus: string;
   color: string;
+}
+
+export interface Message {
+  id?: number;
+  sender: string;
+  picture: string;
+  content: string;
 }

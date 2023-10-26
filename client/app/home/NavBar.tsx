@@ -30,7 +30,7 @@ function NavBar() {
 
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
+        <AppBar position='static' sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Image src={EchoLogoWhite} alt="EchoBoard logo white" width={40} style={{ marginRight: "15px" }} />

@@ -12,6 +12,9 @@ const home = () => {
         <NavBar />
         <Main title="EchoBoard" description="Where Your Voice Amplifies Change!"/>
       </Box>
+      <Box> 
+        Something here
+      </Box>
     </>
   );
 };

@@ -23,17 +23,24 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     defer-datasource-initialization: true
   sql:
     init:
       mode: always
   profiles:
     default: dev
-
 frontend-details:
     base-url: https://app.echoboard.site/
 #  base-url: http://localhost:3000/
 backend-details:
     base-url: https://api.echoboard.site/
 #  base-url: http://localhost:8080/
+logging:
+  level:
+    org:
+      springframework:
+        messaging: DEBUG
+        http : DEBUG
+      hibernate:
+        sql: DEBUG

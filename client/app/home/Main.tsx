@@ -18,6 +18,8 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
         minHeight: 500,
         p: { xs: 4, md: 4 },
         pr: { md: 0 },
+        ml: { md: 5},
+        mt: {md: 6},
         color: "white",
         borderRadius: '15px',
         display: "flex",
@@ -31,10 +33,10 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
             src={Example}
             alt={"EchoBoard solution screenshot"}
             layout="responsive"
-            width= { 450 }
             style={{
               boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
               borderRadius: "7px",
+              maxWidth: "600px"
             }}
           />
           <Button

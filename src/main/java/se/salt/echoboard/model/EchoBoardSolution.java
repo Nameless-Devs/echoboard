@@ -19,11 +19,7 @@ import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_
 @Table(name = "echo_board_solution")
 public class EchoBoardSolution {
 
-    @ElementCollection
-    private final Set<String> upvote = new HashSet<>();
-    @ManyToOne
-    @JoinColumn(name = "subject")
-    private EchoBoardUser echoBoardUser;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -35,9 +31,14 @@ public class EchoBoardSolution {
     //TODO Refactor to use
     // @CreatedDate and update field to createdAt
     private Instant created = Instant.now();
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
+    @ElementCollection
+    private final Set<String> upvote = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    private EchoBoardUser echoBoardUser;
 
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);

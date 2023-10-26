@@ -25,10 +25,10 @@ logging:
     org:
       springframework:
 #        security: TRACE
-        messaging: TRACE
+        messaging: INFO
 #        http: DEBUG
       hibernate:
-        sql: INFO
+        sql: TRACE
 #        type:
 #          descriptor:
 #            sql:

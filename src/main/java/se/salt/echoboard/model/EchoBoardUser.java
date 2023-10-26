@@ -22,7 +22,7 @@ public class EchoBoardUser {
     private String picture;
 
 
-    @OneToMany(mappedBy = "echoBoardUser")
+    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"echoBoardUser", "echoBoardComments", "echoBoardSolutions"})
     private List<EchoBoard> echoBoards;
 //
@@ -31,8 +31,8 @@ public class EchoBoardUser {
     @JsonBackReference
     private List<EchoBoardComment> echoBoardComments;
 
-    @OneToMany(mappedBy = "echoBoardUser")
-    @JsonIgnoreProperties({"echoBoardUser", "upvote", "id", "content", "created", "anonymous"})
+    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"echoBoardUser"})
     private List<EchoBoardSolution> echoBoardSolutions;
 
 }

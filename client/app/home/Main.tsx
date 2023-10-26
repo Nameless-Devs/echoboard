@@ -25,7 +25,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
 
       }}
     >
-      <Box sx={{}}>
+      <Box sx={{marginTop: { xs:"", md: "55px"}}}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Image
             src={Example}
@@ -70,7 +70,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
             fontFamily: 'popins',
             letterSpacing: '.1rem',
             fontWeight: 800,
-            fontSize: { xs: "3rem", md: "5rem"}
+            fontSize: { xs: "3.5rem", md: "5rem"}
           }}
         >
           {title}
@@ -80,6 +80,8 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
           sx={{
             fontFamily: 'popins',
             fontWeight: 500,
+            fontSize: { xs: "2rem", md: "2.5rem"},
+            marginTop: "10px",
           }}
         >
           {description}

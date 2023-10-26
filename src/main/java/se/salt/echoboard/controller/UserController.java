@@ -27,7 +27,7 @@ public class UserController {
         return echoBoardService.getUserBySubject(user.getSubject());
     }
 
-    @GetMapping("/echoboard")
+    @GetMapping("/info")
     @ResponseStatus(OK)
     public EchoBoardUserInfo getEchoBoardWithCommentsAndSolutions (@AuthenticationPrincipal OidcUser user) {
         return echoBoardService.getEchoBoardUserWithCommentsAndSolutions(user.getSubject());

@@ -1,5 +1,9 @@
 # Echoboard
 
+
+https://github.com/Nameless-Devs/echoboard/assets/63118347/692a990c-647e-4a9b-9b57-a61d29443176
+
+
 **[EchoBoard](https://app.echoboard.site/home) is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, propose solutions, and collaborate on addressing issues that impact the organisation.**  
 [![Week 7](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/o8cCEqW_Zto)  

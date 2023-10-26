@@ -13,6 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import EchoLogoWhite from "../image/EchoBoard_logo_white.png"
 import Image from "next/image";
+import Link from 'next/link';
+import { ENDPOINTS } from '@/service/config';
 
 const pages = ['Home', 'About', 'Features', 'Contact'];
 
@@ -97,6 +99,15 @@ function NavBar() {
                 {page}
               </Button>
             ))}
+                <Button
+            variant="outlined"
+            style={{
+              alignSelf: "center",
+            }}>
+            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+              Log in
+            </Link>
+          </Button>
           </Box>
         </Toolbar>
       </Container>

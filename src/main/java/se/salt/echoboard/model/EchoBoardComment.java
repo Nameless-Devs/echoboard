@@ -35,6 +35,7 @@ public class EchoBoardComment {
     // @CreatedDate and update field to createdAt
     private Instant created = Instant.now();
     private boolean anonymous;
+    @JsonManagedReference
 
     public void addCommentToEchoBoardComment(EchoBoardComment echoBoardComment) {
         this.echoBoardComments.add(echoBoardComment);

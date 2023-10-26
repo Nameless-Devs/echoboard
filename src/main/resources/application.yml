@@ -29,7 +29,7 @@ spring:
     init:
       mode: always
   profiles:
-    default: deploy
+    default: dev
 
 frontend-details:
     base-url: https://app.echoboard.site/

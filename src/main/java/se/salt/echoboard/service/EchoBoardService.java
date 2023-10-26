@@ -129,18 +129,22 @@ public class EchoBoardService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    public List<EchoBoardDTO> getEchoBoardUserWithCommentsAndSolutions(String subject) {
-        Optional<EchoBoardUser> user = userRepository.getUserBySubject(subject);
-        if (user.isPresent()) {
-            List<EchoBoard> echoBoard = user.get().getEchoBoards();
-            if (echoBoard != null) {
-                List<EchoBoardDTO> echoBoardDTOS = new ArrayList<>();
-                for (EchoBoard board : echoBoard) {
-                    EchoBoardDTO dto = convertor.convertEntityToEchoBoardDto(board);
-                    echoBoardDTOS.add(dto);
-                }
-                return echoBoardDTOS;
-            }
+    public EchoBoardDTO getEchoBoardUserWithCommentsAndSolutions(String subject) {
+        Optional<EchoBoardUser> userOptional = userRepository.getUserBySubject(subject);
+        if (userOptional.isPresent()) {
+            EchoBoardUser user = userOptional.get();
+
+            List<EchoBoardComment> comments = commentRepository.findByEchoBoardUser(user);
+            List<EchoBoardSolution> solutions = solutionRepository.findByEchoBoardUser(user);
+
+            return EchoBoardDTO.builder()
+                    .name(user.getName())
+                    .picture(user.getPicture())
+                    .echoBoardComments(comments)
+                    .echoBoardSolutions(solutions)
+                    .echoBoards(user.getEchoBoards())
+                    .build();
+
         }
         return null;
     }

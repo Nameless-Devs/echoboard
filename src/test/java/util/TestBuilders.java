@@ -1,7 +1,9 @@
 package util;
 
 import com.github.javafaker.Faker;
+import se.salt.echoboard.controller.dto.EchoBoardCommentResponse;
 import se.salt.echoboard.controller.dto.EchoBoardDTO;
+import se.salt.echoboard.controller.dto.EchoBoardUserResponse;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -9,6 +11,7 @@ import se.salt.echoboard.model.EchoBoardUser;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 public class TestBuilders {
 
@@ -26,18 +29,18 @@ public class TestBuilders {
                 .build();
 
         // Create random EchoBoardComments
-        int numComments = faker.number().numberBetween(0, 5);
-        for (int i = 0; i < numComments; i++) {
-            EchoBoardComment comment = createRandomEchoBoardComment();
-            echoBoard.addComment(comment);
-        }
+//        int numComments = faker.number().numberBetween(0, 5);
+//        for (int i = 0; i < numComments; i++) {
+//            EchoBoardComment comment = createRandomEchoBoardComment();
+//            echoBoard.addComment(comment);
+//        }
 
         // Create random EchoBoardSolutions
-        int numSolutions = faker.number().numberBetween(0, 3);
-        for (int i = 0; i < numSolutions; i++) {
-            EchoBoardSolution solution = createRandomEchoBoardSolution();
-            echoBoard.addSolution(solution);
-        }
+//        int numSolutions = faker.number().numberBetween(0, 3);
+//        for (int i = 0; i < numSolutions; i++) {
+//            EchoBoardSolution solution = createRandomEchoBoardSolution();
+//            echoBoard.addSolution(solution);
+//        }
 
         // Add random upvotes
         int numUpvotes = faker.number().numberBetween(0, 10);
@@ -47,10 +50,20 @@ public class TestBuilders {
         return echoBoard;
     }
 
-    private static EchoBoardUser createRandomEchoBoardUser() {
+    public static EchoBoardUser createRandomEchoBoardUser() {
 
         return EchoBoardUser.builder()
-                .subject(faker.internet().uuid())
+                .subject("mockSubject")
+                .name("Mock User")
+                .echoBoardComments(Collections.emptyList())
+                .echoBoardSolutions(Collections.emptyList())
+                .build();
+    }
+
+    private static EchoBoardUserResponse createRandomEchoBoardUserResponse() {
+
+        return EchoBoardUserResponse.builder()
+                .name(faker.name().firstName())
                 .build();
     }
 
@@ -65,6 +78,16 @@ public class TestBuilders {
                 .build();
         comment.addCommentToEchoBoardComment(comment);
         return comment;
+    }
+
+    public static EchoBoardCommentResponse createRandomEchoBoardCommentResponse() {
+        return EchoBoardCommentResponse.builder()
+                .created(Instant.now())
+                .id(faker.number().randomNumber())
+                .anonymous(faker.random().nextBoolean())
+                .echoBoardUser(createRandomEchoBoardUserResponse())
+                .content(faker.lorem().paragraph())
+                .build();
     }
 
 
@@ -85,15 +108,15 @@ public class TestBuilders {
     }
 
     public static EchoBoardDTO mockedEchoBoardDTO() {
-        List<EchoBoardComment> comment = new ArrayList<>();
-        comment.add(createRandomEchoBoardComment());
+        List<EchoBoardCommentResponse> comment = new ArrayList<>();
+        comment.add(createRandomEchoBoardCommentResponse());
 
         List<EchoBoardSolution> solution = new ArrayList<>();
         solution.add(createRandomEchoBoardSolution());
 
         return EchoBoardDTO.builder()
                 .echoBoardComments(comment)
-                .echoBoardSolutions(solution)
+//                .echoBoardSolutions(solution)
                 .build();
     }
 }

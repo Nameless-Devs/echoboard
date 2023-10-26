@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import se.salt.echoboard.controller.dto.EchoBoardDTO;
 import se.salt.echoboard.controller.dto.EchoBoardUserResponse;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.EchoBoardService;
 
 import java.util.List;
@@ -31,9 +32,10 @@ public class UserController {
         return echoBoardService.getUserBySubject(user.getSubject());
     }
 
-    @GetMapping("/{subject}/echoboard")
-    public ResponseEntity<List<EchoBoardDTO>> getEchoBoardWithCommentsAndSolutions (@AuthenticationPrincipal OidcUser user) {
+    @GetMapping("/echoboard")
+    public ResponseEntity<EchoBoardDTO> getEchoBoardWithCommentsAndSolutions (@AuthenticationPrincipal OidcUser user) {
         var echoBoardUser = echoBoardService.getEchoBoardUserWithCommentsAndSolutions(user.getSubject());
-        return ResponseEntity.of(Optional.ofNullable(echoBoardUser));
+        return ResponseEntity.ok(echoBoardUser);
     }
+
 }

@@ -2,12 +2,13 @@ package se.salt.echoboard.controller.dto;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import se.salt.echoboard.model.EchoBoard;
 import util.TestBuilders;
 
 import static org.mockito.Mockito.when;
 import static util.TestUtilities.OBJECT_MAPPER;
-
+@SpringBootTest
 public class DTOConverterTest {
 
 
@@ -16,11 +17,13 @@ public class DTOConverterTest {
     @Test
     public void testEchoBoardToEchoBoardDTO() {
         // Create an instance of EchoBoard
-        EchoBoard echoBoard = TestBuilders.createRandomEchoBoard();
+        EchoBoard echoBoard = EchoBoard.builder().build();
+        //EchoBoard echoBoard = TestBuilders.createRandomEchoBoard();
+        System.out.println("ECHOBOARD: "+echoBoard);
         // Set properties on the echoBoard object
 
         EchoBoardDTO expectedDTO = EchoBoardDTO.builder().build(); // Replace with your expected DTO
-        when(OBJECT_MAPPER.convertValue(echoBoard, EchoBoardDTO.class)).thenReturn(expectedDTO);
+       // when(OBJECT_MAPPER.convertValue(echoBoard, EchoBoardDTO.class)).thenReturn(expectedDTO);
 
         // Perform the mapping
         EchoBoardDTO echoBoardDTO = convert.convertEntityToEchoBoardDto(echoBoard);

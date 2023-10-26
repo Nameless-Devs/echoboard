@@ -1,10 +1,12 @@
 package se.salt.echoboard.controller.dto;
 
+import lombok.Builder;
 import se.salt.echoboard.model.EchoBoardComment;
 
 import java.time.Instant;
 import java.util.Set;
 
+@Builder
 /**
  * DTO for {@link EchoBoardComment}
  */

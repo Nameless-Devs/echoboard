@@ -41,9 +41,9 @@ function NavBar() {
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'popins',
               fontWeight: 800,
-              letterSpacing: '.3rem',
+              letterSpacing: '.2rem',
               color: 'white',
               textDecoration: 'none',
             }}

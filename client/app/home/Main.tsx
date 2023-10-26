@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Button, Link, Paper, Typography } from "@mui/material";
+import { Button, Link, Typography } from "@mui/material";
 import Example from "../image/Example.png";
 import Image from "next/image";
 import { ENDPOINTS } from "@/service/config";

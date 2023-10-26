@@ -29,7 +29,8 @@ public class SecurityConfiguration {
         return http
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("api/status").permitAll()
+                                .requestMatchers("api/v1/status").permitAll()
+                                .requestMatchers("login").permitAll()
                                 .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()
                 )

@@ -24,7 +24,6 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
-@Transactional
 public class EchoBoardService {
 
     private final EchoBoardRepository echoBoardRepository;

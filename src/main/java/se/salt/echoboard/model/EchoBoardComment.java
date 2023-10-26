@@ -1,9 +1,7 @@
 package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -16,6 +14,8 @@ import java.util.Set;
 @Getter
 @ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "echo_board_comment")
 public class EchoBoardComment {
 

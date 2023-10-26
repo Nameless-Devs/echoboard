@@ -1,9 +1,7 @@
 package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -16,6 +14,8 @@ import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_
 @Getter
 @ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "echo_board_solution")
 public class EchoBoardSolution {
 

@@ -86,6 +86,18 @@ function NavBar() {
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
+                            <MenuItem>
+                            <Button
+                            variant="text"
+                            style={{
+                                alignSelf: "center",
+                                borderColor: "black"
+                            }}>
+                            <Link href={ENDPOINTS.LOGIN} style={{ color: "black", textDecoration: "none" }}>
+                                Log in
+                            </Link>
+                        </Button>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>

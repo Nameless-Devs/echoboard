@@ -1,9 +1,7 @@
 package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import java.util.Set;
 @Getter
 @ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class EchoBoard {
 
     @Id
@@ -38,7 +38,7 @@ public class EchoBoard {
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // Use FetchType.LAZY for EchoBoardUser
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
 

@@ -6,6 +6,7 @@ import Main from "./Main";
 import Grid from '@mui/material/Grid';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
 const pages = ['Home', 'About', 'Features', 'Contact'];
 const home = () => {
@@ -101,8 +102,39 @@ const home = () => {
 
 
             <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
-              <Typography>Content</Typography>
+            <Box sx={{ 
+                textAlign: { xs: "left", md: "right"},
+                display: "flex", 
+                padding: "1rem", 
+                m: { xs: "0.5rem" , md: "1rem 2rem 1rem 0"},
+                borderRadius: "10px", 
+                backgroundColor: "#f9e8dd",
+                boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
+                }}>
+                <TipsAndUpdatesIcon 
+                sx={{ 
+                  fontSize: "3rem",
+                  mr: "10px",
+                  display: {xs: "block", md: "none"}
+                   }} />
+                <Box>
+                  <Typography variant="h5" sx={{ fontSize: {md: "2rem"}}}>
+                    Get solutions
+                    </Typography>
+                  <Typography variant="body1" sx={{ fontSize: {md: "1.2rem"}}}>
+                    Get suggestions from peers and help other to solve their problems
+                    </Typography>
+                </Box>
+                <TipsAndUpdatesIcon 
+                sx={{ 
+                  fontSize: "4rem",
+                  ml: "10px",
+                  display: {xs: "none", md: "block"},
+                   }} />
+              </Box>
             </Grid>
+
+            
             <Grid sx={{ border: "black 2px solid", display: { xs: "none", md: "block" } }} item xs={0} md={6}>
               <Typography></Typography>
             </Grid>

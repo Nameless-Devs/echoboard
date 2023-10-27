@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.exception.custom.*;
+import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -188,6 +189,13 @@ public class EchoBoardService {
     private EchoBoardSolution validateSolutionStatusIsVolunteerRequired(EchoBoardSolution echoBoardSolution) {
         if (!echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
             throw new IllegalSolutionArgumentException();
+        }
+        return echoBoardSolution;
+    }
+
+    private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVoluteersRequired(EchoBoardSolution echoBoardSolution) {
+        if (!echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
+            return echoBoardSolution.setChatRoom(new ChatRoom());
         }
         return echoBoardSolution;
     }

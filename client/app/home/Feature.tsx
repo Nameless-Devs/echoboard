@@ -1,5 +1,9 @@
-import React from "react";
+"use client"
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
+import "../styles/Feature.css";
+import VisibilitySensor from 'react-visibility-sensor';
+
 
 type FeatureProps = {
     icon: React.ReactElement;
@@ -14,8 +18,14 @@ export const Feature: React.FC<FeatureProps> = ({
     description,
     reverseOnDesktop,
 }) => {
+    const [animate, setAnimate] = useState(false);
+
+    const onVisibilityChange = (isVisible: boolean) => {
+        setAnimate(isVisible);
+    };
     return (
-        <Box
+        <VisibilitySensor onChange={onVisibilityChange}>
+        <Box className={`pop-up ${animate ? 'active' : ''}`}
             sx={{
                 textAlign: { xs: "left", md: reverseOnDesktop ? "right" : "left" },
                 display: "flex",
@@ -69,6 +79,7 @@ export const Feature: React.FC<FeatureProps> = ({
                 </>
             )}
         </Box>
+        </VisibilitySensor>
     );
 };
 

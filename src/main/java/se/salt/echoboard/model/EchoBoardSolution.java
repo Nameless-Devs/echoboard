@@ -46,6 +46,9 @@ public class EchoBoardSolution {
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
 
+    @OneToOne
+    private ChatRoom chatRoom;
+
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);
         return this;
@@ -63,6 +66,11 @@ public class EchoBoardSolution {
 
     public EchoBoardSolution addVolunteer(EchoBoardUser volunteer) {
         this.volunteers.add(volunteer);
+        return this;
+    }
+
+    public EchoBoardSolution setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
         return this;
     }
 

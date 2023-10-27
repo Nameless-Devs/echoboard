@@ -19,6 +19,7 @@ public class ChatRoom {
     private List<Message> messages = new ArrayList<>();
 
     @OneToOne
+    @JsonBackReference
     private EchoBoardSolution echoBoardSolution;
 
 //    public ChatRoom setEchoBoardSolution(EchoBoardSolution echoBoardSolution) {

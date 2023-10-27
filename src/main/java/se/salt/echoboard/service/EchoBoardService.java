@@ -27,6 +27,8 @@ public class EchoBoardService {
 
     private final EchoBoardUserRepository userRepository;
 
+    private final JPAChatRoomRepository chatRoomRepository;
+
     private final DTOConvertor convertor;
 
 

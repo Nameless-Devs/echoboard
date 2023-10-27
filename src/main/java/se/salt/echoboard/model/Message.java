@@ -34,4 +34,19 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
+
+    public Message setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+        return this;
+    }
+
+    public Message setSender(String sender) {
+        this.sender = sender;
+        return this;
+    }
+
+    public Message setPicture(String picture) {
+        this.picture = picture;
+        return this;
+    }
 }

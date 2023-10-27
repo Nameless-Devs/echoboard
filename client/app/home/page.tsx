@@ -127,24 +127,12 @@ const home = () => {
 
 
             <Grid item xs={12} md={6}>
-            <Box sx={{ 
-                display: "flex", 
-                padding: "1rem", 
-                m: { xs: "0.5rem" , md: "0 0.5rem 0 1.5rem"},
-                borderRadius: "10px", 
-                backgroundColor: "#f9e8dd",
-                boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
-                }}>
-                 <PsychologyAltIcon sx={{ fontSize: {xs: "3.5rem", md: "4rem"}, mr: "10px" }} />
-                <Box>
-                  <Typography variant="h5" sx={{ fontSize: {md: "2rem"}}}>
-                    Safe space
-                    </Typography>
-                  <Typography variant="body1" sx={{ fontSize: {md: "1.2rem"}}}>
-                    Choose to share your struggles anonymously if you wish not to disclose your identity
-                    </Typography>
-                </Box>
-              </Box>
+            <Feature
+          icon={<PsychologyAltIcon sx={{ fontSize: { xs: "3.5rem", md: "4rem" } }} />}
+          title="Safe space"
+          description="Choose to share your struggles anonymously if you wish not to disclose your identity"
+          reverseOnDesktop={false}
+        /> 
             </Grid>
 
 

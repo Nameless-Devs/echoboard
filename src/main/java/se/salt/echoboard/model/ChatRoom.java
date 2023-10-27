@@ -24,4 +24,12 @@ public class ChatRoom {
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Message> messages = new ArrayList<>();
+
+    @OneToOne
+    private EchoBoardSolution echoBoardSolution;
+
+//    public ChatRoom setEchoBoardSolution(EchoBoardSolution echoBoardSolution) {
+//        this.echoBoardSolution = echoBoardSolution;
+//        return this;
+//    }
 }

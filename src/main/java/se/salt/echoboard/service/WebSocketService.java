@@ -38,4 +38,13 @@ public class WebSocketService {
         return messageRepository.findAll();
     }
 
+    public List<EchoBoardUserResponse> getListOfVolunteers(long chatRoomId) {
+        var chatRoom = chatRoomRepository.findById(chatRoomId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return chatRoom.getEchoBoardSolution()
+                .getVolunteers().stream()
+                .map(convertor::convertEntityToResponseDTO).toList();
+    }
+
 }

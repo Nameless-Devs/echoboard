@@ -11,7 +11,8 @@ import java.util.Set;
 public record EchoBoardSolutionResponse(long id, String content, Set<String> upvote, boolean anonymous,
                                         EchoBoardSolution.SolutionStatus status, Instant created,
                                         EchoBoardUserResponse echoBoardUser,
-                                        Set<EchoBoardUserResponse> volunteers) {
+                                        Set<EchoBoardUserResponse> volunteers,
+                                        ChatRoom chatRoom) {
 
     @Override
     public EchoBoardUserResponse echoBoardUser() {

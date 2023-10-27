@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import se.salt.echoboard.controller.dto.EchoBoardResponse;
 import util.dto.request.EchoBoardRequestDto;
 import util.TestUtilities;
+import util.mock.WithMockOidcUser;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +31,7 @@ public class EchoBoardIntegrationTests {
     }
 
     @Test
+    @WithMockOidcUser
     public void testPublishEchoBoard() throws Exception {
         var requestEcho = TestUtilities.echoBoardSample();
         String jsonRequest = TestUtilities.convertJsonString(requestEcho);
@@ -45,6 +47,7 @@ public class EchoBoardIntegrationTests {
     }
 
     @Test
+    @WithMockOidcUser
     public void testGetAllEchoes() throws Exception {
         List<EchoBoardRequestDto> expectedEcho = echoBoardListSample();
 
@@ -71,6 +74,7 @@ public class EchoBoardIntegrationTests {
     }
 
     @Test
+    @WithMockOidcUser
     public void testGetStatus() throws Exception {
 
         mockMvc.perform(head("/api/v1/status"))

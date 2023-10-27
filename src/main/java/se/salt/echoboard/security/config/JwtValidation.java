@@ -1,20 +1,31 @@
 package se.salt.echoboard.security.config;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.oidc.authentication.OidcIdTokenValidator;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 @Component
 public class JwtValidation {
+
+    private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleClientId;
@@ -51,5 +62,20 @@ public class JwtValidation {
         Jwt jwt = jwtDecoder.decode(JWTToken);
         validator.validate(jwt);
         return jwt;
+    }
+
+    public static Optional<String> getJwtTokenFromRequestCookie(HttpServletRequest request) {
+        Optional<Cookie[]> cookies = Optional.ofNullable(request.getCookies());
+        return cookies.stream().flatMap(Stream::of)
+                .filter(cookie -> JWT_TOKEN_COOKIE_NAME.equals(cookie.getName()))
+                .findFirst()
+                .map(Cookie::getValue);
+
+    }
+
+    public static OidcUser createOidcUserFromJwt(Jwt jwt) {
+        OidcIdToken oidcIdToken =
+                new OidcIdToken(jwt.getTokenValue(), jwt.getIssuedAt(), jwt.getExpiresAt(), jwt.getClaims());
+        return new DefaultOidcUser(Collections.emptyList(), oidcIdToken);
     }
 }

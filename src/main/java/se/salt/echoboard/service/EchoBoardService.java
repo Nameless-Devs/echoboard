@@ -154,10 +154,10 @@ public class EchoBoardService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-    public EchoBoardSolutionResponse updateSolutionStatus(long solutionId,
-                                                          EchoBoardSolution.SolutionStatus updateToStage) {
+    public EchoBoardSolutionResponse updateSolutionStatus(long solutionId, EchoBoardSolution.SolutionStatus updateToStage) {
         return solutionRepository.getSolutionById(solutionId)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
+                .map(this::createChatRoomForEchoBoardSolutionIfVoluteersRequired)
                 .map(this::updateSolution)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(SolutionNotFoundException::new);

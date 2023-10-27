@@ -194,8 +194,9 @@ public class EchoBoardService {
     }
 
     private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVoluteersRequired(EchoBoardSolution echoBoardSolution) {
-        if (!echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
-            return echoBoardSolution.setChatRoom(new ChatRoom());
+        if (echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
+            return echoBoardSolution
+                    .setChatRoom(chatRoomRepository.save(new ChatRoom().setEchoBoardSolution(echoBoardSolution)));
         }
         return echoBoardSolution;
     }

@@ -1,5 +1,6 @@
 package se.salt.echoboard.controller.dto;
 
+import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.model.EchoBoardSolution;
 
 import java.time.Instant;

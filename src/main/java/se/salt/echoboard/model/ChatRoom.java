@@ -22,8 +22,8 @@ public class ChatRoom {
     @JsonBackReference
     private EchoBoardSolution echoBoardSolution;
 
-//    public ChatRoom setEchoBoardSolution(EchoBoardSolution echoBoardSolution) {
-//        this.echoBoardSolution = echoBoardSolution;
-//        return this;
-//    }
+    public ChatRoom setEchoBoardSolution(EchoBoardSolution echoBoardSolution) {
+        this.echoBoardSolution = echoBoardSolution;
+        return this;
+    }
 }

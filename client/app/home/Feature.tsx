@@ -1,11 +1,5 @@
 import React from "react";
 import { Box, Typography, Grid } from "@mui/material";
-import AddCommentIcon from "@mui/icons-material/AddComment";
-import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
-import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
-import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import ForumIcon from "@mui/icons-material/Forum";
-import HistoryIcon from "@mui/icons-material/History";
 
 type FeatureProps = {
     icon: React.ReactElement;
@@ -21,7 +15,6 @@ export const Feature: React.FC<FeatureProps> = ({
   reverseOnDesktop,
 }) => {
 
-  const isReverseOnDesktop = reverseOnDesktop !== undefined ? reverseOnDesktop : false;
   return (
         <Box
           sx={{

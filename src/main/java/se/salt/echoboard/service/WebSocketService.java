@@ -47,4 +47,12 @@ public class WebSocketService {
                 .map(convertor::convertEntityToResponseDTO).toList();
     }
 
+    public List<Long> getChatRoomIds(String echoBoardUserId) {
+        var some = userRepository.getUserBySubject(echoBoardUserId)
+                .orElseThrow(UserNotFoundException::new);
+        return some.getVolunteeredSolutions().stream()
+                .map(EchoBoardSolution::getChatRoom)
+                .map(ChatRoom::getId).toList();
+    }
+
 }

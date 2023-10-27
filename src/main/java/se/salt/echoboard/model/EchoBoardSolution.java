@@ -47,6 +47,7 @@ public class EchoBoardSolution {
     private EchoBoardUser echoBoardUser;
 
     @OneToOne
+    @JsonManagedReference
     private ChatRoom chatRoom;
 
     public EchoBoardSolution addUpvote(String userSubject) {

@@ -1,5 +1,7 @@
 package se.salt.echoboard.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +20,6 @@ import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_
 @AllArgsConstructor
 @Table(name = "echo_board_solution")
 public class EchoBoardSolution {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

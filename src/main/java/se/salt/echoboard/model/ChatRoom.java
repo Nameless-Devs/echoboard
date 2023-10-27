@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "chat_rooms")
 public class ChatRoom {
 

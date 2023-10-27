@@ -33,4 +33,10 @@ public class UserController {
         return echoBoardService.getEchoBoardUserWithCommentsAndSolutions(user.getSubject());
     }
 
+    @GetMapping("/chatrooms")
+    @ResponseStatus(OK)
+    public List<Long> getUserChatRooms (@AuthenticationPrincipal OidcUser user) {
+        return webSocketService.getChatRoomIds(user.getSubject());
+    }
+
 }

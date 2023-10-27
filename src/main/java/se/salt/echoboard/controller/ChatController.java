@@ -32,8 +32,8 @@ public class ChatController {
 //        return webSocketService.saveMessageWithChatroom(message, user, 100);
 //    }
 
-    public List<Message> getChatHistory(Long chatRoomId) {
-        return webSocketService.getChatHistory(chatRoomId);
-    }
+//    public List<Message> getChatHistory(Long chatRoomId) {
+//        return webSocketService.getChatHistory(chatRoomId);
+//    }
 
 }

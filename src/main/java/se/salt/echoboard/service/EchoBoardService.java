@@ -140,9 +140,9 @@ public class EchoBoardService {
     }
 
 
-    public EchoBoardSolution.SolutionStatus getSolutionStatus(long solutionId) {
-        return getSolutionById(solutionId).getStatus();
-    }
+//    public EchoBoardSolution.SolutionStatus getSolutionStatus(long solutionId) {
+//        return getSolutionById(solutionId).getStatus();
+//    }
 
     public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user) {
 
@@ -164,9 +164,9 @@ public class EchoBoardService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-    public void createUser(OidcUser oidcUser) {
-        userRepository.createUser(oidcUser);
-    }
+//    public void createUser(OidcUser oidcUser) {
+//        userRepository.createUser(oidcUser);
+//    }
 
     private EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {
         return userRepository.getUserBySubject(userSubject)

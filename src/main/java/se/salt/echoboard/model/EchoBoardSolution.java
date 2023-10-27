@@ -23,19 +23,25 @@ public class EchoBoardSolution {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+
     @Column(columnDefinition = "TEXT")
     private String content;
     private boolean anonymous;
+
     @Enumerated(EnumType.STRING)
     private SolutionStatus status = SOLUTION_IN_REVIEW;
+
     //TODO Refactor to use
     // @CreatedDate and update field to createdAt
     private Instant created = Instant.now();
+
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
+
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;

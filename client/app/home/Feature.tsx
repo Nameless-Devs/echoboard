@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 type FeatureProps = {
     icon: React.ReactElement;
@@ -21,7 +21,7 @@ export const Feature: React.FC<FeatureProps> = ({
                 display: "flex",
                 padding: "1rem",
                 m: { xs: "0.5rem", md: reverseOnDesktop ? "0 1.5rem 0 0" : "0 0 0 1.5rem" },
-                borderRadius: "10px",
+                borderRadius: { xs: "50px", md: "20px"},
                 backgroundColor: "#f9e8dd",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
             }}
@@ -31,10 +31,10 @@ export const Feature: React.FC<FeatureProps> = ({
                     <Box sx={{ display: { xs: "flex", md: "none" } }}  >
                         {icon}
                         <Box ml={"10px"}>
-                            <Typography variant="h5" sx={{ fontSize: { md: "2rem" } }}>
+                            <Typography variant="h5" sx={{ fontSize: "1.4rem"}}>
                                 {title}
                             </Typography>
-                            <Typography variant="body1" sx={{ fontSize: { md: "1.2rem" } }}>
+                            <Typography variant="body1">
                                 {description}
                             </Typography>
                         </Box>
@@ -58,7 +58,7 @@ export const Feature: React.FC<FeatureProps> = ({
                     <Box display={"flex"}>
                         {icon} 
                         <Box ml={"5px"}>
-                        <Typography variant="h5" sx={{ fontSize: { md: "2rem" } }}>
+                        <Typography variant="h5" sx={{ fontSize: { xs: "1.4rem", md: "2rem" } }}>
                             {title}
                         </Typography>
                         <Typography variant="body1" sx={{ fontSize: { md: "1.2rem" } }}>

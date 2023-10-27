@@ -10,7 +10,6 @@ import java.time.Instant;
 
 @Entity
 @Getter
-@Builder
 @Table(name = "messages")
 @NoArgsConstructor
 @AllArgsConstructor

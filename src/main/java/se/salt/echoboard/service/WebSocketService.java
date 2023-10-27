@@ -14,11 +14,17 @@ public class WebSocketService {
     @Autowired
     private JPAChatRoomRepository JPAChatRoomRepository;
 
-    @Autowired
-    private JPAMessageRepository JPAMessageRepository;
-
-    public Message saveMessage(Message message) {
-        return JPAMessageRepository.save(message);
+    public Message saveMessageWithChatroom(Message message, Authentication user, long chatRoomId) {
+        log.info("User: "+ user + "sent a message");
+        if (message.getContent() == null || message.getContent().isEmpty()) {
+            throw new IllegalArgumentException("Message content cannot be null or empty");
+        }
+        var chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow();
+        var echoboardUser = userRepository.getUserBySubject(user.getName()).orElseThrow(UserNotFoundException::new);
+        return messageRepository.save(message
+                        .setPicture(echoboardUser.getPicture())
+                        .setSender(echoboardUser.getName())
+                .setChatRoom(chatRoom));
     }
 
     //fix once we have multiple rooms

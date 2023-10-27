@@ -11,6 +11,7 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import ForumIcon from '@mui/icons-material/Forum';
 import HistoryIcon from '@mui/icons-material/History';
+import { Feature } from "./Feature";
 
 const pages = ['Home', 'About', 'Features', 'Contact'];
 const home = () => {
@@ -21,7 +22,74 @@ const home = () => {
         <Main title="EchoBoard" description="Where Your Voice Amplifies Change!" />
       </Box>
       <Box>
-        <Typography
+
+         {/* ... previous code ... */}
+      <Typography
+        variant="h5"
+        sx={{
+          textAlign: "center",
+          m: "2rem 0",
+          fontSize: { md: "2.5rem" },
+        }}
+      >
+        Features
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          m: { xs: "10px", md: "auto" },
+          alignItems: "center",
+          maxWidth: { md: "1100px" },
+        }}
+      >
+        {/* Feature 1 */}
+        <Feature
+          icon={<AddCommentIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" } }} />}
+          title="Make posts"
+          description="Share your problem with others and ask for help"
+          reverseOnDesktop={true}
+        />
+
+        {/* Feature 2 */}
+        {/* <Feature
+          icon={<PsychologyAltIcon sx={{ fontSize: { xs: "3.5rem", md: "4rem" }, mr: "10px" }}
+          title="Safe space"
+          description="Choose to share your struggles anonymously if you wish not to disclose your identity"
+          reverseOnDesktop
+        />
+
+        
+        <Feature
+          icon={<TipsAndUpdatesIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" }, mr: "10px" }}
+          title="Get solutions"
+          description="Get suggestions from peers and help others to solve their problems"
+        />
+
+    
+        <Feature
+          icon={<VolunteerActivismIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" }, mr: "10px" }}
+          title="Volunteer"
+          description="Step forward to help your peers implement the solutions"
+          reverseOnDesktop
+        />
+
+      
+        <Feature
+          icon={<ForumIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" }, mr: "10px" }}
+          title="Communicate"
+          description="Chat with other volunteers in assigned group chat rooms"
+        />
+
+       
+        <Feature
+          icon={<HistoryIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" }, mr: "10px" }}
+          title="History"
+          description="Access your personal archives through your profile"
+          reverseOnDesktop
+        /> */}
+
+      </Box>
+        {/* <Typography
           variant="h5"
           sx={{
             textAlign: "center",
@@ -41,12 +109,12 @@ const home = () => {
           <Grid container spacing={1}>
 
 
-            <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box sx={{ 
                 textAlign: { xs: "left", md: "right"},
                 display: "flex", 
                 padding: "1rem", 
-                m: { xs: "0.5rem" , md: "1rem 2rem 1rem 0"},
+                m: { xs: "0.5rem" , md: "0 2rem 0 0"},
                 borderRadius: "10px", 
                 backgroundColor: "#f9e8dd",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
@@ -75,19 +143,19 @@ const home = () => {
             </Grid>
 
 
-            <Grid sx={{ border: "black 2px solid", display: { xs: "none", md: "block" } }} item xs={0} md={6}>
+            <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={0} md={6}>
               <Typography></Typography>
             </Grid>
-            <Grid sx={{ border: "black 2px solid", display: { xs: "none", md: "block" } }} item xs={0} md={6}>
+            <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={0} md={6}>
               <Typography></Typography>
             </Grid>
 
 
-            <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
             <Box sx={{ 
                 display: "flex", 
                 padding: "1rem", 
-                m: { xs: "0.5rem" , md: "1rem 0.5rem 1rem 1.5rem"},
+                m: { xs: "0.5rem" , md: "0 0.5rem 0 1.5rem"},
                 borderRadius: "10px", 
                 backgroundColor: "#f9e8dd",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
@@ -95,7 +163,7 @@ const home = () => {
                  <PsychologyAltIcon sx={{ fontSize: {xs: "3.5rem", md: "4rem"}, mr: "10px" }} />
                 <Box>
                   <Typography variant="h5" sx={{ fontSize: {md: "2rem"}}}>
-                    Anonymity
+                    Safe space
                     </Typography>
                   <Typography variant="body1" sx={{ fontSize: {md: "1.2rem"}}}>
                     Choose to share your struggles anonymously if you wish not to disclose your identity
@@ -105,12 +173,12 @@ const home = () => {
             </Grid>
 
 
-            <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
             <Box sx={{ 
                 textAlign: { xs: "left", md: "right"},
                 display: "flex", 
                 padding: "1rem", 
-                m: { xs: "0.5rem" , md: "1rem 2rem 1rem 0"},
+                m: { xs: "0.5rem" , md: "0 2rem 0 0"},
                 borderRadius: "10px", 
                 backgroundColor: "#f9e8dd",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
@@ -139,18 +207,18 @@ const home = () => {
             </Grid>
 
             
-            <Grid sx={{ border: "black 2px solid", display: { xs: "none", md: "block" } }} item xs={0} md={6}>
+            <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={0} md={6}>
               <Typography></Typography>
             </Grid>
-            <Grid sx={{ border: "black 2px solid", display: { xs: "none", md: "block" } }} item xs={0} md={6}>
+            <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={0} md={6}>
               <Typography></Typography>
             </Grid>
           
-            <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
             <Box sx={{ 
                 display: "flex", 
                 padding: "1rem", 
-                m: { xs: "0.5rem" , md: "1rem 0.5rem 1rem 1.5rem"},
+                m: { xs: "0.5rem" , md: "0 0.5rem 0 1.5rem"},
                 borderRadius: "10px", 
                 backgroundColor: "#f9e8dd",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
@@ -167,12 +235,12 @@ const home = () => {
               </Box>
             </Grid>
 
-            <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
             <Box sx={{ 
                 textAlign: { xs: "left", md: "right"},
                 display: "flex", 
                 padding: "1rem", 
-                m: { xs: "0.5rem" , md: "1rem 2rem 1rem 0"},
+                m: { xs: "0.5rem" , md: "0 2rem 0 0"},
                 borderRadius: "10px", 
                 backgroundColor: "#f9e8dd",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
@@ -201,19 +269,19 @@ const home = () => {
             </Grid>
 
 
-            <Grid sx={{ border: "black 2px solid", display: { xs: "none", md: "block" } }} item xs={0} md={6}>
+            <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={0} md={6}>
               <Typography></Typography>
             </Grid>
-            <Grid sx={{ border: "black 2px solid", display: { xs: "none", md: "block" } }} item xs={0} md={6}>
+            <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={0} md={6}>
               <Typography></Typography>
             </Grid>
 
 
-            <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
                 <Box sx={{ 
                 display: "flex", 
                 padding: "1rem", 
-                m: { xs: "0.5rem" , md: "1rem 0.5rem 1rem 1.5rem"},
+                m: { xs: "0.5rem" , md: "0 0.5rem 0 1.5rem"},
                 borderRadius: "10px", 
                 backgroundColor: "#f9e8dd",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
@@ -231,7 +299,7 @@ const home = () => {
             </Grid>
 
 
-            <Grid sx={{ border: "black 2px solid" }} item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
                    <Box sx={{ 
                 textAlign: { xs: "left", md: "right"},
                 display: "flex", 
@@ -264,7 +332,7 @@ const home = () => {
               </Box>
             </Grid>
           </Grid>
-        </Box>
+        </Box> */}
       </Box>
     </>
   );

@@ -1,14 +1,20 @@
 package se.salt.echoboard.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import se.salt.echoboard.exception.custom.UserNotFoundException;
 import se.salt.echoboard.model.Message;
+import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import se.salt.echoboard.service.repository.JPAChatRoomRepository;
 import se.salt.echoboard.service.repository.JPAMessageRepository;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class WebSocketService {
 
     @Autowired
@@ -27,7 +33,6 @@ public class WebSocketService {
                 .setChatRoom(chatRoom));
     }
 
-    //fix once we have multiple rooms
     public List<Message> getChatHistory(Long chatRoomId) {
         return JPAMessageRepository.findByChatRoomId(chatRoomId);
     }

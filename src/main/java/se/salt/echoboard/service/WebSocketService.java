@@ -17,8 +17,9 @@ import java.util.List;
 @Slf4j
 public class WebSocketService {
 
-    @Autowired
-    private JPAChatRoomRepository JPAChatRoomRepository;
+    private final JPAChatRoomRepository chatRoomRepository;
+    private final JPAMessageRepository messageRepository;
+    private final EchoBoardUserRepository userRepository;
 
     public Message saveMessageWithChatroom(Message message, Authentication user, long chatRoomId) {
         log.info("User: "+ user + "sent a message");
@@ -34,11 +35,11 @@ public class WebSocketService {
     }
 
     public List<Message> getChatHistory(Long chatRoomId) {
-        return JPAMessageRepository.findByChatRoomId(chatRoomId);
+        return messageRepository.findByChatRoomId(chatRoomId);
     }
 
     public List<Message> getAllMessages() {
-        return JPAMessageRepository.findAll();
+        return messageRepository.findAll();
     }
 
 }

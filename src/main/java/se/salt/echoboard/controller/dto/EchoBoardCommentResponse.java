@@ -4,6 +4,7 @@ import lombok.Builder;
 import se.salt.echoboard.model.EchoBoardComment;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -11,6 +12,8 @@ import java.util.Set;
  * DTO for {@link EchoBoardComment}
  */
 public record EchoBoardCommentResponse(long id, String content, Set<String> upvote, Instant created,
+
+                                       List<EchoBoardCommentResponse> echoBoardComments,
                                        boolean anonymous,
                                        EchoBoardUserResponse echoBoardUser) {
 

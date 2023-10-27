@@ -2,7 +2,7 @@ package util;
 
 import com.github.javafaker.Faker;
 import se.salt.echoboard.controller.dto.EchoBoardCommentResponse;
-import se.salt.echoboard.controller.dto.EchoBoardDTO;
+import se.salt.echoboard.controller.dto.EchoBoardUserInfo;
 import se.salt.echoboard.controller.dto.EchoBoardUserResponse;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 public class TestBuilders {
 
     private static final Faker faker = new Faker();
@@ -80,15 +81,15 @@ public class TestBuilders {
         return comment;
     }
 
-    public static EchoBoardCommentResponse createRandomEchoBoardCommentResponse() {
-        return EchoBoardCommentResponse.builder()
-                .created(Instant.now())
-                .id(faker.number().randomNumber())
-                .anonymous(faker.random().nextBoolean())
-                .echoBoardUser(createRandomEchoBoardUserResponse())
-                .content(faker.lorem().paragraph())
-                .build();
-    }
+//    public static EchoBoardCommentResponse createRandomEchoBoardCommentResponse() {
+//        return EchoBoardCommentResponse.builder()
+//                .created(Instant.now())
+//                .id(faker.number().randomNumber())
+//                .anonymous(faker.random().nextBoolean())
+//                .echoBoardUser(createRandomEchoBoardUserResponse())
+//                .content(faker.lorem().paragraph())
+//                .build();
+//    }
 
 
 
@@ -107,16 +108,16 @@ public class TestBuilders {
         return solution;
     }
 
-    public static EchoBoardDTO mockedEchoBoardDTO() {
-        List<EchoBoardCommentResponse> comment = new ArrayList<>();
-        comment.add(createRandomEchoBoardCommentResponse());
-
-        List<EchoBoardSolution> solution = new ArrayList<>();
-        solution.add(createRandomEchoBoardSolution());
-
-        return EchoBoardDTO.builder()
-                .echoBoardComments(comment)
-//                .echoBoardSolutions(solution)
-                .build();
-    }
+//    public static EchoBoardUserInfo mockedEchoBoardDTO() {
+//        List<EchoBoardCommentResponse> comment = new ArrayList<>();
+//        comment.add(createRandomEchoBoardCommentResponse());
+//
+////        List<EchoBoardSolution> solution = new ArrayList<>();
+////        solution.add(createRandomEchoBoardSolution());
+//
+//        return EchoBoardUserInfo.builder()
+//                .echoBoardComments(comment)
+////                .echoBoardSolutions(solution)
+//                .build();
+//    }
 }

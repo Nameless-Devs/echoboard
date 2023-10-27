@@ -1,17 +1,13 @@
 package se.salt.echoboard.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,17 +19,16 @@ public class EchoBoardUser {
     private String email;
     private String picture;
 
-
-    @OneToMany(mappedBy = "echoBoardUser")
+    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"echoBoardUser", "echoBoardComments", "echoBoardSolutions"})
     private List<EchoBoard> echoBoards;
 
-    @OneToMany(mappedBy = "echoBoardUser")
-    @JsonIgnoreProperties({"echoBoardUser", "upvote", "id", "content", "created", "anonymous"})
+    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"echoBoardUser"})
     private List<EchoBoardComment> echoBoardComments;
 
-    @OneToMany(mappedBy = "echoBoardUser")
-    @JsonIgnoreProperties({"echoBoardUser", "upvote", "id", "content", "created", "anonymous"})
+    @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"echoBoardUser"})
     private List<EchoBoardSolution> echoBoardSolutions;
 
 }

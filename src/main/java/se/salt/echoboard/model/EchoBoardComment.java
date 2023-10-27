@@ -1,5 +1,7 @@
 package se.salt.echoboard.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,21 +14,12 @@ import java.util.Set;
 
 @Entity
 @Getter
-@ToString
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @Table(name = "echo_board_comment")
 public class EchoBoardComment {
 
-    @ElementCollection
-    private final Set<String> upvote = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private final List<EchoBoardComment> echoBoardComments = new LinkedList<>();
-    @ManyToOne
-    @JoinColumn(name = "subject")
-    private EchoBoardUser echoBoardUser;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -36,6 +29,14 @@ public class EchoBoardComment {
     // @CreatedDate and update field to createdAt
     private Instant created = Instant.now();
     private boolean anonymous;
+    @ElementCollection
+    private final Set<String> upvote = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private final List<EchoBoardComment> echoBoardComments = new LinkedList<>();
+    @ManyToOne
+    @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
+    @JoinColumn(name = "subject")
+    private EchoBoardUser echoBoardUser;
 
     public void addCommentToEchoBoardComment(EchoBoardComment echoBoardComment) {
         this.echoBoardComments.add(echoBoardComment);

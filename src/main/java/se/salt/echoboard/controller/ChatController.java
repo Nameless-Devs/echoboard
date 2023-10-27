@@ -24,15 +24,4 @@ public class ChatController {
         return webSocketService.saveMessageWithChatroom(message, user, id);
     }
 
-//    @MessageMapping("/chat/sendMessage")
-//    @SendTo("/topic/chatrooms")
-//    public Message sendMessage(@Payload Message message,
-//                               @Header(value = "simpUser") Authentication user) {
-//        return webSocketService.saveMessageWithChatroom(message, user, 100);
-//    }
-
-//    public List<Message> getChatHistory(Long chatRoomId) {
-//        return webSocketService.getChatHistory(chatRoomId);
-//    }
-
 }

@@ -1,10 +1,15 @@
 package se.salt.echoboard.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import se.salt.echoboard.controller.dto.DTOConvertor;
+import se.salt.echoboard.controller.dto.EchoBoardUserResponse;
 import se.salt.echoboard.exception.custom.UserNotFoundException;
+import se.salt.echoboard.model.ChatRoom;
+import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.Message;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import se.salt.echoboard.service.repository.JPAChatRoomRepository;
@@ -20,6 +25,7 @@ public class WebSocketService {
     private final JPAChatRoomRepository chatRoomRepository;
     private final JPAMessageRepository messageRepository;
     private final EchoBoardUserRepository userRepository;
+    private final DTOConvertor convertor;
 
     public Message saveMessageWithChatroom(Message message, Authentication user, long chatRoomId) {
         log.info("User: "+ user + "sent a message");

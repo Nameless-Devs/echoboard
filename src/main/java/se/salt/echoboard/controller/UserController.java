@@ -39,4 +39,10 @@ public class UserController {
         return webSocketService.getChatRoomIds(user.getSubject());
     }
 
+    @GetMapping("/chatrooms/{chatRoomId}")
+    @ResponseStatus(OK)
+    public List<EchoBoardUserResponse> getChatRoomVolunteers(@PathVariable long chatRoomId) {
+        return webSocketService.getListOfVolunteers(chatRoomId);
+    }
+
 }

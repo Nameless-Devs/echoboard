@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import se.salt.echoboard.model.Message;
 import se.salt.echoboard.service.WebSocketService;
 
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

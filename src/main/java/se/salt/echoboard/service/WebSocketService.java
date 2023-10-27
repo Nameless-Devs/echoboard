@@ -34,9 +34,9 @@ public class WebSocketService {
                 .setChatRoom(chatRoom));
     }
 
-    public List<Message> getChatHistory(Long chatRoomId) {
-        return messageRepository.findByChatRoomId(chatRoomId);
-    }
+//    public List<Message> getChatHistory(Long chatRoomId) {
+//        return messageRepository.findByChatRoomId(chatRoomId);
+//    }
 
     public List<Message> getAllMessages() {
         return messageRepository.findAll();

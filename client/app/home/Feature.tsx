@@ -14,11 +14,10 @@ export const Feature: React.FC<FeatureProps> = ({
     description,
     reverseOnDesktop,
 }) => {
-
     return (
         <Box
             sx={{
-                textAlign: { xs: "left", md: "right" },
+                textAlign: { xs: "left", md: reverseOnDesktop ? "right" : "left" },
                 display: "flex",
                 padding: "1rem",
                 m: { xs: "0.5rem", md: reverseOnDesktop ? "0 1.5rem 0 0" : "0 0 0 1.5rem" },
@@ -56,15 +55,17 @@ export const Feature: React.FC<FeatureProps> = ({
             )}
             {!reverseOnDesktop && (
                 <>
-                    <Box>
+                    <Box display={"flex"}>
+                        {icon} 
+                        <Box ml={"5px"}>
                         <Typography variant="h5" sx={{ fontSize: { md: "2rem" } }}>
                             {title}
                         </Typography>
                         <Typography variant="body1" sx={{ fontSize: { md: "1.2rem" } }}>
                             {description}
                         </Typography>
+                        </Box>
                     </Box>
-                    {icon}
                 </>
             )}
         </Box>

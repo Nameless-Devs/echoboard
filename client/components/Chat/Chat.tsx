@@ -76,7 +76,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
 
     return (
         <div>
-            <h1>Chat Room</h1>
+            <h1 style={{margin: '0px'}}>Chat Room</h1>
             <div>
                 {messages.map((msg, index) => (
                     <div key={index}>
@@ -84,12 +84,12 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
                     </div>
                 ))}
             </div>
-            <input
+            {/* <input
                 type='text'
                 placeholder="Type your message"
                 value={input}
                 onChange={handleMessageInput} />
-            <button onClick={handleSendMessage}>Send</button>
+            <button onClick={handleSendMessage}>Send</button> */}
         </div>
     )
 }

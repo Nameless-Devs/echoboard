@@ -24,7 +24,7 @@ const home = () => {
       <Box>
 
          {/* ... previous code ... */}
-      <Typography
+      {/* <Typography
         variant="h5"
         sx={{
           textAlign: "center",
@@ -41,24 +41,22 @@ const home = () => {
           alignItems: "center",
           maxWidth: { md: "1100px" },
         }}
-      >
-        {/* Feature 1 */}
-        <Feature
+      > */}
+        {/* <Feature
           icon={<AddCommentIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" } }} />}
           title="Make posts"
           description="Share your problem with others and ask for help"
           reverseOnDesktop={true}
         />
 
-        {/* Feature 2 */}
-        {/* <Feature
-          icon={<PsychologyAltIcon sx={{ fontSize: { xs: "3.5rem", md: "4rem" }, mr: "10px" }}
+    
+        <Feature
+          icon={<PsychologyAltIcon sx={{ fontSize: { xs: "3.5rem", md: "4rem" } }} />}
           title="Safe space"
           description="Choose to share your struggles anonymously if you wish not to disclose your identity"
-          reverseOnDesktop
-        />
+        /> */}
 
-        
+        {/* 
         <Feature
           icon={<TipsAndUpdatesIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" }, mr: "10px" }}
           title="Get solutions"
@@ -89,7 +87,7 @@ const home = () => {
         /> */}
 
       </Box>
-        {/* <Typography
+        <Typography
           variant="h5"
           sx={{
             textAlign: "center",
@@ -110,36 +108,13 @@ const home = () => {
 
 
             <Grid item xs={12} md={6}>
-              <Box sx={{ 
-                textAlign: { xs: "left", md: "right"},
-                display: "flex", 
-                padding: "1rem", 
-                m: { xs: "0.5rem" , md: "0 2rem 0 0"},
-                borderRadius: "10px", 
-                backgroundColor: "#f9e8dd",
-                boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
-                }}>
-                <AddCommentIcon 
-                sx={{ 
-                  fontSize: "3rem",
-                  mr: "10px",
-                  display: {xs: "block", md: "none"}
-                   }} />
-                <Box>
-                  <Typography variant="h5" sx={{ fontSize: {md: "2rem"}}}>
-                    Make posts
-                    </Typography>
-                  <Typography variant="body1" sx={{ fontSize: {md: "1.2rem"}}}>
-                    Share your problem with others and ask for help
-                    </Typography>
-                </Box>
-                <AddCommentIcon 
-                sx={{ 
-                  fontSize: "4rem",
-                  ml: "10px",
-                  display: {xs: "none", md: "block"},
-                   }} />
-              </Box>
+            <Feature
+          icon={<AddCommentIcon sx={{ fontSize: { xs: "3rem", md: "3.5rem" } }} />}
+          title="Make posts"
+          description="Share your problem with others and ask for help"
+          reverseOnDesktop={true}
+        />
+
             </Grid>
 
 
@@ -332,8 +307,8 @@ const home = () => {
               </Box>
             </Grid>
           </Grid>
-        </Box> */}
-      </Box>
+        </Box>
+      {/* </Box> */}
     </>
   );
 };

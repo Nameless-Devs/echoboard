@@ -23,14 +23,12 @@ export const Feature: React.FC<FeatureProps> = ({
 
   const isReverseOnDesktop = reverseOnDesktop !== undefined ? reverseOnDesktop : false;
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} md={6}>
         <Box
           sx={{
             textAlign: { xs: "left", md: "right" },
             display: "flex",
             padding: "1rem",
-            m: { xs: "0.5rem", md: reverseOnDesktop ? "0 0 0 1.5rem" : "0 1.5rem 0 0" },
+            m: { xs: "0.5rem", md: reverseOnDesktop ?  "0 1.5rem 0 0" : "0 0 0 1.5rem" },
             borderRadius: "10px",
             backgroundColor: "#f9e8dd",
             boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
@@ -38,7 +36,7 @@ export const Feature: React.FC<FeatureProps> = ({
         >
           {reverseOnDesktop && (
             <>
-             <Box sx={{ display: {xs: "flex", md: "none"} }}>
+             <Box sx={{ display: {xs: "flex", md: "none"} }}  >
               {icon}
               <Box ml={"10px"}>
                 <Typography variant="h5" sx={{ fontSize: { md: "2rem" } }}>
@@ -51,7 +49,7 @@ export const Feature: React.FC<FeatureProps> = ({
               </Box>
 
               <Box sx={{ display: {xs: "none", md: "flex"} }}>
-              <Box mr={"10px"}>
+              <Box mr={"20px"}>
                 <Typography variant="h5" sx={{ fontSize: { md: "2rem" } }}>
                   {title}
                 </Typography>
@@ -79,8 +77,6 @@ export const Feature: React.FC<FeatureProps> = ({
             </>
           )}
         </Box>
-      </Grid>
-    </Grid>
   );
 };
 

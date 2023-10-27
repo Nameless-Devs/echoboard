@@ -28,7 +28,12 @@ public class EchoBoardUser {
     private List<EchoBoardComment> echoBoardComments;
 
     @OneToMany(mappedBy = "echoBoardUser", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"echoBoardUser"})
+    @JsonIgnoreProperties({"echoBoardUser", "volunteers"})
     private List<EchoBoardSolution> echoBoardSolutions;
+
+    @ManyToMany(mappedBy = "volunteers",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnoreProperties({"echoBoardUser", "volunteers"})
+    private List<EchoBoardSolution> volunteeredSolutions;
 
 }

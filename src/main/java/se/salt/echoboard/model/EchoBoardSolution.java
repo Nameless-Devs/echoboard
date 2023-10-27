@@ -37,6 +37,7 @@ public class EchoBoardSolution {
     private Instant created = Instant.now();
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
     @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
 

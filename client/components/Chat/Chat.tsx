@@ -1,7 +1,6 @@
 "use client"
 "use strict"
 import { Message, UserResponseData } from '@/service/Types'
-import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import React, { useEffect, useState } from 'react'
 import "../../app/styles/Chat.css"
@@ -35,7 +34,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
         if (client && input && client.connected) {
             const message = { sender: user.name, content: input, picture: user.picture, timestamp: new Date() };
             client.publish({
-                destination: '/app/chat/sendMessage',
+                destination: '/app/chat/sendMessage/1',
                 body: JSON.stringify(message),
             });
             setInput('');
@@ -57,7 +56,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
         };
         newClient.onConnect = () => {
             console.log("Connected")
-            newClient.subscribe("/topic/chatrooms", (message) => {
+            newClient.subscribe("/topic/chatrooms/1", (message) => {
                 onMessageReceived(message);
                 console.log(message)
             });
@@ -77,7 +76,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
 
     return (
         <div>
-            <h1>Chat Room</h1>
+            <h1 style={{margin: '0px'}}>Chat Room</h1>
             <div>
                 {messages.map((msg, index) => (
                     <div key={index}>
@@ -85,12 +84,12 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
                     </div>
                 ))}
             </div>
-            <input
+            {/* <input
                 type='text'
                 placeholder="Type your message"
                 value={input}
                 onChange={handleMessageInput} />
-            <button onClick={handleSendMessage}>Send</button>
+            <button onClick={handleSendMessage}>Send</button> */}
         </div>
     )
 }

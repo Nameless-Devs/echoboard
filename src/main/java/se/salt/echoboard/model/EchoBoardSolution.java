@@ -1,5 +1,7 @@
 package se.salt.echoboard.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,26 +21,37 @@ import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_
 @Table(name = "echo_board_solution")
 public class EchoBoardSolution {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+
     @Column(columnDefinition = "TEXT")
     private String content;
     private boolean anonymous;
+
     @Enumerated(EnumType.STRING)
     private SolutionStatus status = SOLUTION_IN_REVIEW;
+
     //TODO Refactor to use
     // @CreatedDate and update field to createdAt
     private Instant created = Instant.now();
+
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
     @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
+
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
+
+    @OneToOne
+    @JsonManagedReference
+    @JsonIgnoreProperties({"messages"})
+    private ChatRoom chatRoom;
 
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);
@@ -57,6 +70,11 @@ public class EchoBoardSolution {
 
     public EchoBoardSolution addVolunteer(EchoBoardUser volunteer) {
         this.volunteers.add(volunteer);
+        return this;
+    }
+
+    public EchoBoardSolution setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
         return this;
     }
 

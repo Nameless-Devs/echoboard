@@ -29,8 +29,7 @@ const home = () => {
           />
         </Grid>
       </Container>
-      <Footer
-      />
+      {/*<Footer/>*/}
     </main>
   );
 };

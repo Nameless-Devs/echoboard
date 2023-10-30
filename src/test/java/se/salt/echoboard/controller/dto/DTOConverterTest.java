@@ -1,36 +1,41 @@
 package se.salt.echoboard.controller.dto;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.*;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import se.salt.echoboard.model.EchoBoard;
+import se.salt.echoboard.model.EchoBoardUser;
+import util.TestBuilders;
 
-import static util.TestUtilities.OBJECT_MAPPER;
+import static org.mockito.Mockito.when;
 @SpringBootTest
 public class DTOConverterTest {
+    private DTOConvertor dtoConvertor;
 
+    @Mock
+    private ObjectMapper objectMapper;
 
-    private final DTOConvertor convert = new DTOConvertor(OBJECT_MAPPER);
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this); // Initialize mocks
+        dtoConvertor = new DTOConvertor(objectMapper);
+    }
 
     @Test
     @Disabled
-    public void testEchoBoardToEchoBoardDTO() {
-        // Create an instance of EchoBoard
-        EchoBoard echoBoard = EchoBoard.builder().build();
-        //EchoBoard echoBoard = TestBuilders.createRandomEchoBoard();
-        System.out.println("ECHOBOARD: "+echoBoard);
-        // Set properties on the echoBoard object
+    @DisplayName("Should map EchoBoardUser to EchoBoardUserResponse")
+    public void testEchoBoardUserToEchoBoardUserResponse() {
 
-//        var expectedDTO = EchoBoardUserInfo.builder().build(); // Replace with your expected DTO
-       // when(OBJECT_MAPPER.convertValue(echoBoard, EchoBoardDTO.class)).thenReturn(expectedDTO);
+        EchoBoardUser echoBoardUser = TestBuilders.createRandomEchoBoardUser();
 
-        // Perform the mapping
-        var echoBoardDTO = convert.convertEntityToEchoBoardUserWithInfoDTO(echoBoard.getEchoBoardUser());
+        EchoBoardUserResponse expectedResponse = TestBuilders.createRandomEchoBoardUserResponse();
 
-        // Verify that the mapping is correct
-        //Assertions.assertEquals(echoBoard.getEchoBoardComments(), echoBoardDTO.echoBoardComments);
-//        Assertions.assertEquals(expectedDTO, echoBoardDTO);
-        // Add more assertions for other properties as needed
+        when(objectMapper.convertValue(echoBoardUser, EchoBoardUserResponse.class)).thenReturn(expectedResponse);
+
+        EchoBoardUserResponse actualResponse = dtoConvertor.convertEntityToResponseDTO(echoBoardUser);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
+
     }
 }

@@ -53,18 +53,19 @@ public class TestBuilders {
 
     public static EchoBoardUser createRandomEchoBoardUser() {
 
-        return EchoBoardUser.builder()
-                .subject("mockSubject")
-                .name("Mock User")
-                .echoBoardComments(Collections.emptyList())
-                .echoBoardSolutions(Collections.emptyList())
-                .build();
+        return new EchoBoardUser(
+                "subject",
+                "John Doe",
+                "john@example.com",
+                "image-url",
+                null, null, null, null);
     }
 
-    private static EchoBoardUserResponse createRandomEchoBoardUserResponse() {
+    public static EchoBoardUserResponse createRandomEchoBoardUserResponse() {
 
         return EchoBoardUserResponse.builder()
-                .name(faker.name().firstName())
+                .name("John Doe")
+                .picture("image-url")
                 .build();
     }
 

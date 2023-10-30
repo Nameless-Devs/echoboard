@@ -1,13 +1,14 @@
 package se.salt.echoboard.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import se.salt.echoboard.controller.dto.EchoBoardUserResponse;
 import se.salt.echoboard.model.Message;
 import se.salt.echoboard.service.WebSocketService;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/chat")

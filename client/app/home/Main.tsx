@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Button, Link, Typography } from "@mui/material";
+import { Button, Grid, Link, Typography } from "@mui/material";
 import Example from "../image/Example.png";
 import Image from "next/image";
 import { ENDPOINTS } from "@/service/config";
@@ -27,8 +27,10 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
 
       }}
     >
-      <Box sx={{ marginTop: { xs: "", md: "55px" } }}>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Grid container spacing={1} 
+      sx={{marginTop: {md: '2rem'}}}
+      >
+        <Grid item xs={12} md={6}>
           <Image
             src={Example}
             alt={"EchoBoard solution screenshot"}
@@ -36,7 +38,6 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
             style={{
               boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
               borderRadius: "7px",
-              maxWidth: "600px"
             }}
           />
           <Button
@@ -48,62 +49,64 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
               width: "200px",
               maxWidth: "200px",
               alignSelf: "center",
-              marginTop: "40px",
+              margin: "40px auto 0",
 
             }}>
             <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
               Log in
             </Link>
           </Button>
-        </Box>
-      </Box>
-      <Box sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: { xs: "auto", md: "auto" },
-        textAlign: "center"
-      }}
-      >
-        <Typography
-          variant="h3"
-          sx={{
-            fontFamily: 'popins',
-            letterSpacing: '.1rem',
-            fontWeight: 800,
-            fontSize: { xs: "3.5rem", md: "5rem" }
+        </Grid>
+        <Grid item xs={12} md={6} display={'flex'} justifyContent={'center'}>
+          <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: { xs: "auto", md: "auto" },
+            textAlign: "center"
           }}
-        >
-          {title}
-        </Typography>
-        <Typography
-          variant="h4"
-          sx={{
-            fontFamily: 'popins',
-            fontWeight: 500,
-            fontSize: { xs: "2rem", md: "2.5rem" },
-            marginTop: "10px",
-          }}
-        >
-          {description}
-        </Typography>
-        <Button
-          variant="contained"
-          size="medium"
-          color="warning"
-          sx={{ display: { xs: "none", md: "block" } }}
-          style={{
-            width: "200px",
-            maxWidth: "200px",
-            alignSelf: "center",
-            marginTop: "40px",
-          }}>
-          <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
-            Log in
-          </Link>
-        </Button>
-      </Box>
+          >
+            <Typography
+              variant="h3"
+              sx={{
+                fontFamily: 'popins',
+                letterSpacing: '.1rem',
+                fontWeight: 800,
+                fontSize: { xs: "3.5rem", md: "5rem" }
+              }}
+            >
+              {title}
+            </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                fontFamily: 'popins',
+                fontWeight: 500,
+                fontSize: { xs: "2rem", md: "2.5rem" },
+                marginTop: "10px",
+              }}
+            >
+              {description}
+            </Typography>
+            <Button
+              variant="contained"
+              size="medium"
+              color="warning"
+              sx={{ display: { xs: "none", md: "block" } }}
+              style={{
+                width: "200px",
+                maxWidth: "200px",
+                alignSelf: "center",
+                marginTop: "40px",
+              }}>
+              <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+                Log in
+              </Link>
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

@@ -5,17 +5,19 @@ spring:
   config:
     import: optional:secrets.yml
   datasource:
-    url: ${DATABASE_URL_DEV1}
-    username: ${DATABASE_USER1}
-    password: ${DATABASE_PASSWORD1}
+    url: ${DATABASE_URL_DEV2}
+    username: ${DATABASE_USER2}
+    password: ${DATABASE_PASSWORD2}
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: off
 #    defer-datasource-initialization: true
 #  sql:
 #    init:
 #      mode: always
-
+backend-details:
+ base-url: http://localhost:8080/
 frontend-details:
   base-url: http://localhost:3000
 logging:
@@ -23,9 +25,10 @@ logging:
     org:
       springframework:
 #        security: TRACE
-        messaging: TRACE
-#      hibernate:
-#        sql: DEBUG
+        messaging: INFO
+#        http: DEBUG
+      hibernate:
+        sql: TRACE
 #        type:
 #          descriptor:
 #            sql:

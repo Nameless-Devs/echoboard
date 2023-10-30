@@ -60,16 +60,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         cookie.setMaxAge(3500);
         cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setDomain("localhost");
+        cookie.setDomain("echoboard.site");
         return cookie;
     }
 
-//    private String extractDomain(String url) {
-//        try {
-//            URI uri = new URI(url);
-//            return uri.getHost();
-//        } catch (URISyntaxException e) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-//        }
-//    }
 }

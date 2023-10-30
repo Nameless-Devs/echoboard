@@ -28,7 +28,7 @@ public class SecurityConfigDev {
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("api/status").permitAll()
+                        .requestMatchers("api/v1/status").permitAll()
                         .requestMatchers("error").permitAll()
                         .anyRequest().authenticated())
                 .csrf(CsrfConfigurer::disable)

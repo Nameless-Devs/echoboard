@@ -1,16 +1,20 @@
 package se.salt.echoboard.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+
 
 @Entity
 @Getter
-@Setter
 @Table(name = "messages")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,9 +29,24 @@ public class Message {
     private String picture;
 
     @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
+    private Instant timestamp;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
+
+    public Message setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+        return this;
+    }
+
+    public Message setSender(String sender) {
+        this.sender = sender;
+        return this;
+    }
+
+    public Message setPicture(String picture) {
+        this.picture = picture;
+        return this;
+    }
 }

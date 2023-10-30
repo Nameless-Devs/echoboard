@@ -1,27 +1,23 @@
 package se.salt.echoboard.service;
 
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.exception.custom.*;
+import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
-import se.salt.echoboard.service.repository.EchoBoardCommentRepository;
-import se.salt.echoboard.service.repository.EchoBoardRepository;
-import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
-import se.salt.echoboard.service.repository.EchoBoardUserRepository;
+import se.salt.echoboard.service.repository.*;
 
 import java.util.List;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
-@Transactional
 public class EchoBoardService {
 
     private final EchoBoardRepository echoBoardRepository;
@@ -31,6 +27,8 @@ public class EchoBoardService {
     private final EchoBoardSolutionRepository solutionRepository;
 
     private final EchoBoardUserRepository userRepository;
+
+    private final JPAChatRoomRepository chatRoomRepository;
 
     private final DTOConvertor convertor;
 
@@ -126,6 +124,12 @@ public class EchoBoardService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
+    public EchoBoardUserInfo getEchoBoardUserWithCommentsAndSolutions(String subject) {
+        return userRepository.getUserBySubject(subject)
+                .map(convertor::convertEntityToEchoBoardUserWithInfoDTO)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
     public EchoBoardCommentResponse addCommentToComment(long commentId,
                                                         EchoBoardComment echoBoardComment,
                                                         String userSubject) {
@@ -136,9 +140,9 @@ public class EchoBoardService {
     }
 
 
-    public EchoBoardSolution.SolutionStatus getSolutionStatus(long solutionId) {
-        return getSolutionById(solutionId).getStatus();
-    }
+//    public EchoBoardSolution.SolutionStatus getSolutionStatus(long solutionId) {
+//        return getSolutionById(solutionId).getStatus();
+//    }
 
     public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user) {
 
@@ -151,18 +155,18 @@ public class EchoBoardService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-    public EchoBoardSolutionResponse updateSolutionStatus(long solutionId,
-                                                          EchoBoardSolution.SolutionStatus updateToStage) {
+    public EchoBoardSolutionResponse updateSolutionStatus(long solutionId, EchoBoardSolution.SolutionStatus updateToStage) {
         return solutionRepository.getSolutionById(solutionId)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
+                .map(this::createChatRoomForEchoBoardSolutionIfVoluteersRequired)
                 .map(this::updateSolution)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-    public void createUser(OidcUser oidcUser) {
-        userRepository.createUser(oidcUser);
-    }
+//    public void createUser(OidcUser oidcUser) {
+//        userRepository.createUser(oidcUser);
+//    }
 
     private EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {
         return userRepository.getUserBySubject(userSubject)
@@ -185,6 +189,14 @@ public class EchoBoardService {
     private EchoBoardSolution validateSolutionStatusIsVolunteerRequired(EchoBoardSolution echoBoardSolution) {
         if (!echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
             throw new IllegalSolutionArgumentException();
+        }
+        return echoBoardSolution;
+    }
+
+    private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVoluteersRequired(EchoBoardSolution echoBoardSolution) {
+        if (echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
+            return echoBoardSolution
+                    .setChatRoom(chatRoomRepository.save(new ChatRoom().setEchoBoardSolution(echoBoardSolution)));
         }
         return echoBoardSolution;
     }

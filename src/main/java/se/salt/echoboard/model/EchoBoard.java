@@ -1,9 +1,8 @@
 package se.salt.echoboard.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,8 +13,9 @@ import java.util.Set;
 
 @Entity
 @Getter
-@ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class EchoBoard {
 
     @Id
@@ -31,15 +31,12 @@ public class EchoBoard {
     private Instant created = Instant.now();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @ToString.Exclude
     private final List<EchoBoardComment> echoBoardComments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @ToString.Exclude
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
     @ManyToOne
-    @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
 
     public EchoBoard addUpvote(String userSubject) {
@@ -59,5 +56,4 @@ public class EchoBoard {
         this.echoBoardUser = user;
         return this;
     }
-
 }

@@ -1,38 +1,27 @@
 package se.salt.echoboard.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.handler.annotation.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import se.salt.echoboard.model.Message;
 import se.salt.echoboard.service.WebSocketService;
 
-import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 public class ChatController {
 
-    @Autowired
-    private WebSocketService webSocketService;
+    private final WebSocketService webSocketService;
 
-    @MessageMapping("/chat/sendMessage")
-    @SendTo("/topic/chatrooms")
-    public Message sendMessage(@Payload Message message) {
-        if (message.getContent() == null || message.getContent().isEmpty()) {
-            throw new IllegalArgumentException("Message content cannot be null or empty");
-        }
-        return webSocketService.saveMessage(message);
-    }
-
-//    @MessageMapping("/chat/messages")
-//    public List<Message> getAllMessages(){
-//        return webSocketService.getAllMessages();
-//    }
-    public List<Message> getChatHistory(Long chatRoomId) {
-        return webSocketService.getChatHistory(chatRoomId);
+    @MessageMapping("/chat/sendMessage/{id}")
+    @SendTo("/topic/chatrooms/{id}")
+    public Message sendMessage(@Payload Message message,
+                               @Header(value = "simpUser") Authentication user,
+                               @DestinationVariable long id) {
+        return webSocketService.saveMessageWithChatroom(message, user, id);
     }
 
 }

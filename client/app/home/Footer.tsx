@@ -17,7 +17,7 @@ export default function Footer() {
       md={4}
       style={{ width: "100%" }}
     >
-      <Box sx={{ p: 2, bgcolor: "#c7c0c0" }}>
+      <Box sx={{ p: 2, bgcolor: "#c3c3c3" }}>
         <Box sx={{
           display: "flex", 
           justifyContent: "space-between",

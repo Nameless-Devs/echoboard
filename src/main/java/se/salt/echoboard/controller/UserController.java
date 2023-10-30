@@ -38,13 +38,7 @@ public class UserController {
     @GetMapping("/chatrooms")
     @ResponseStatus(OK)
     public List<Long> getUserChatRooms (@AuthenticationPrincipal OidcUser user) {
-        return webSocketService.getChatRoomIds(user.getSubject());
-    }
-
-    @GetMapping("/chatrooms/{chatRoomId}")
-    @ResponseStatus(OK)
-    public List<EchoBoardUserResponse> getChatRoomVolunteers(@PathVariable long chatRoomId) {
-        return webSocketService.getListOfVolunteers(chatRoomId);
+        return echoBoardService.getChatRoomIds(user.getSubject());
     }
 
 }

@@ -15,7 +15,7 @@ export default function UserChat() {
   const [input, setInput] = useState("");
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
-
+  const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms)
   const { data: chatHistory } = useQuery<Message[]>(["messages"], async () => {
     return await fetchChatHistory();
   });

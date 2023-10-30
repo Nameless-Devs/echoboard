@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 import Main from "./Main";
 import { FeatureList } from "./FeatureList";
 import { About } from "./About";
-import { ExtraFeatures } from "./ExtraFeatures";
+import { ExtraFeaturesList } from "./ExtraFeaturesList";
 
 const pages = ['Home', 'Features', 'About', 'Contact'];
 const home = () => {
@@ -17,7 +17,7 @@ const home = () => {
       </Box>
       <FeatureList />
       <About />
-      <ExtraFeatures />
+      <ExtraFeaturesList />
     </>
   );
 };

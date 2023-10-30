@@ -40,8 +40,8 @@ public class WebSocketService {
                 .setChatRoom(chatRoom));
     }
 
-    public List<Message> getAllMessages() {
-        return messageRepository.findAll();
+    public List<Message> getAllMessages(long chatRoomId) {
+        return messageRepository.findByChatRoomId(chatRoomId);
     }
 
     public List<EchoBoardUserResponse> getListOfVolunteers(long chatRoomId) {

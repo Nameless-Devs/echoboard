@@ -21,7 +21,7 @@ export const Feature: React.FC<FeatureProps> = ({
     const [animate, setAnimate] = useState(false);
 
     const onVisibilityChange = (isVisible: boolean) => {
-        setAnimate(isVisible);
+        if(isVisible) setAnimate(isVisible);
     };
     return (
         <VisibilitySensor onChange={onVisibilityChange}>

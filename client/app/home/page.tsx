@@ -5,8 +5,9 @@ import NavBar from "./NavBar";
 import Main from "./Main";
 import { FeatureList } from "./FeatureList";
 import { About } from "./About";
+import { ExtraFeatures } from "./ExtraFeatures";
 
-const pages = ['Home', 'About', 'Features', 'Contact'];
+const pages = ['Home', 'Features', 'About', 'Contact'];
 const home = () => {
   return (
     <>
@@ -16,6 +17,7 @@ const home = () => {
       </Box>
       <FeatureList />
       <About />
+      <ExtraFeatures />
     </>
   );
 };

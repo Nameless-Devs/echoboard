@@ -1,6 +1,6 @@
 "use client"
 import { Box, Typography, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { Feature } from './Feature';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
@@ -9,7 +9,6 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import ForumIcon from '@mui/icons-material/Forum';
 import HistoryIcon from '@mui/icons-material/History';
-import VisibilitySensor from 'react-visibility-sensor';
 
 const features = [
     {
@@ -63,14 +62,9 @@ const emptyGridItem = (
 );
 
 export const FeatureList = () => {
-    const [animate, setAnimate] = useState(false);
-
-    const onVisibilityChange = (isVisible: boolean) => {
-        setAnimate(isVisible);
-    }
     return (
         <>
-        <VisibilitySensor onChange={onVisibilityChange}>
+       
             <Box>
                 <Typography
                     variant="h5"
@@ -103,7 +97,7 @@ export const FeatureList = () => {
                     </Grid>
                 </Box>
             </Box>
-            </VisibilitySensor>
+           
         </>
     );
 };

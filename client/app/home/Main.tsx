@@ -103,13 +103,6 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
               Log in
             </Link>
           </Button>
-        {/* <Box sx={{maxWidth: "600px", marginTop: "50px", marginBottom: "30px"}}>
-        <Typography variant="h6">
-        EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 
-        It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns, 
-        propose solutions, and collaborate on addressing issues that impact the organisation.
-        </Typography>
-        </Box> */}
       </Box>
     </Box>
   );

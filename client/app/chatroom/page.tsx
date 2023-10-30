@@ -86,7 +86,11 @@ export default function UserChat() {
             elevation={3}
             style={{ height: "100vh", background: "#E0E0E0" }}
           >
-            {user?.name}
+            <div>
+              {chatrooms?.map((chatroom, index) => (
+                  <div key={index}>{chatroom}</div>
+              ))}
+            </div>
           </Paper>
         </Grid>
 

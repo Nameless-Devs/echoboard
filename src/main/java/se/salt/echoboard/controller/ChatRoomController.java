@@ -15,8 +15,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequiredArgsConstructor
 public class ChatRoomController {
 
-    @Autowired
-    private WebSocketService webSocketService;
+    private final WebSocketService webSocketService;
 
     @GetMapping
     public List<Message> getAllMessages(){

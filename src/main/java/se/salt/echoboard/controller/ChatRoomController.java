@@ -17,7 +17,7 @@ public class ChatRoomController {
 
     private final WebSocketService webSocketService;
 
-    @GetMapping
+    @GetMapping("{chatRoomId}")
     @ResponseStatus(OK)
     public List<Message> getAllMessages(@PathVariable long chatRoomId){
         return webSocketService.getAllMessages(chatRoomId);

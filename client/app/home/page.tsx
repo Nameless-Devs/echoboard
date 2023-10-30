@@ -4,6 +4,7 @@ import "../styles/LandingPage.css"
 import NavBar from "./NavBar";
 import Main from "./Main";
 import { FeatureList } from "./FeatureList";
+import { About } from "./About";
 
 const pages = ['Home', 'About', 'Features', 'Contact'];
 const home = () => {
@@ -14,6 +15,7 @@ const home = () => {
         <Main title="EchoBoard" description="Where Your Voice Amplifies Change!" />
       </Box>
       <FeatureList />
+      <About /> 
     </>
   );
 };

@@ -1,8 +1,9 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Link, Typography } from '@mui/material';
 import React from 'react';
 import PhonePicture from "../image/Phone_example.png";
 import Image from "next/image";
-
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import { YOUTUBE_LINK } from '@/service/config';
 
 export const About = () => {
     return (
@@ -23,34 +24,43 @@ export const About = () => {
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <Box 
-                        display={'flex'} 
-                        flexDirection={"column"}
-                        sx={{
-                            textAlign: "left",
-                            margin: { xs: "0 1.5rem", md: "0 0 0 3rem"},
-                            alignItems: "center",
-                            justifyContent: "center",
-                            height: "100%"
-                    
-                        }}>
+                        <Box
+                            display={'flex'}
+                            flexDirection={"column"}
+                            sx={{
+                                textAlign: "left",
+                                margin: { xs: "0 1.5rem", md: "0 0 0 3rem" },
+                                alignItems: "center",
+                                justifyContent: "center",
+                                height: "100%"
+
+                            }}>
                             <Typography variant='h6'
-                                sx={{ 
+                                sx={{
                                     color: "white",
-                        
-                                     }}>
+                                }}>
                                 EchoBoard is a platform designed to address the challenge of effectively sharing and solving problems within the workplace.
                             </Typography>
                             <Typography variant='h6'
-                                sx={{ 
+                                sx={{
                                     color: "white",
                                     marginTop: "1.5rem",
-                                     }}>
+                                }}>
                                 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns,
                                 propose solutions, and collaborate on addressing issues that impact the organisation.
                             </Typography>
-                            <Button component="label" variant="contained" sx={{margin: "2rem"}}>
-                                Watch video
+                            <Button
+                                component="label"
+                                size="large"
+                                color="error"
+                                variant="contained"
+                                startIcon={<YouTubeIcon />}
+                                sx={{
+                                    margin: "2rem",
+                                }}>
+                                <Link href={YOUTUBE_LINK} style={{ color: "white", textDecoration: "none" }}>
+                                    Watch video
+                                </Link>
                             </Button>
                         </Box>
                     </Grid>

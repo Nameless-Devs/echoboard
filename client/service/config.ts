@@ -13,6 +13,8 @@ export const ENDPOINTS = {
   CHAT_HISTORY: `${process.env.NEXT_PUBLIC_API_BASE_URL}/chat`
 };
 
+export const YOUTUBE_LINK = "https://youtu.be/5ZnpfD93y64"; 
+
 // example from Marcus
 // if(process.env.NEXT_PUBLIC_FF_MY_FEATURE === "ON"){
 // alert("WIP");

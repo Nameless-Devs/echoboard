@@ -223,6 +223,22 @@ export async function getUserInfo() {
     throw new Error("Error fetching data: " + error);
   }
 }
+
+export async function getUserChatRooms(): Promise<number[]> {
+  try {
+    const response = await fetch( ENDPOINTS.USER_CHATROOMS, {
+      headers: {
+        // Authorization: "Bearer " + token,
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
 export async function changeSolutionStatus(solutionId: string, status: string) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.UPDATE_SOLUTION_STATUS, {

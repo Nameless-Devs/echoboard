@@ -2,7 +2,7 @@ import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { Box, Icon } from "@mui/material";
+import { Box } from "@mui/material";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -11,13 +11,14 @@ export default function Footer() {
 
 
   return (
-    <Grid
+    <Grid 
+      id="contact"
       item
       xs={12}
       md={4}
-      style={{ position: "fixed", bottom: 0, width: "100%" }}
+      style={{ width: "100%" }}
     >
-      <Paper elevation={0} sx={{ p: 2, bgcolor: "#6c9bd3" }}>
+      <Box sx={{ p: 2, bgcolor: "#c3c3c3" }}>
         <Box sx={{
           display: "flex", 
           justifyContent: "space-between",
@@ -28,24 +29,11 @@ export default function Footer() {
             &copy; 2023
             </Typography>
           </Box>
-          {/* <Box>
-            <Typography>
-              <a href=""
-              target="_blank"
-              style={{
-                textDecoration: "none",
-                color: "black",
-              }}
-              >
-                Privacy policy
-              </a>
-            </Typography>
-          </Box> */}
           <Box sx={{
             display: "flex", 
             flexDirection: "column",
             alignItems: "flex-end",
-            marginRight: "30px",
+            marginRight: {xs: '0.5rem', md: "1rem"},
             }}>
             <Typography variant="subtitle1">
               Nameless_devs
@@ -80,7 +68,7 @@ export default function Footer() {
             </Typography>
           </Box>
         </Box>
-      </Paper>
+      </Box>
     </Grid>
   );
 }

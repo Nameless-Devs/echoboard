@@ -1,36 +1,26 @@
+import { Box } from "@mui/material";
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import Header from "./Header";
+import "../styles/LandingPage.css"
+import NavBar from "./NavBar";
+import Main from "./Main";
+import { FeatureList } from "./FeatureList";
+import { About } from "./About";
+import { ExtraFeaturesList } from "./ExtraFeaturesList";
 import Footer from "./Footer";
-import MainFeatured from "./Main";
 
-const echoBoardHeader = {
-  title: "EchoBoard",
-};
-
-const mainFeature = {
-  title: "EchoBoard",
-  description: "Where Your Voice Amplifies Change!",
-};
-
+const pages = ['Home', 'Features', 'About', 'Contact'];
 const home = () => {
   return (
-    
-    <main style={{ minHeight: "100vh", backgroundColor: "#4581C7" }}>
-      <CssBaseline />
-      <Container maxWidth="lg">
-        <Header title={echoBoardHeader.title} />
-        <Grid>
-          <MainFeatured
-            title={mainFeature.title}
-            description={mainFeature.description}
-          />
-        </Grid>
-      </Container>
-      {/*<Footer/>*/}
-    </main>
+    <>
+      <Box className="main__background-picture">
+        <NavBar />
+        <Main title="EchoBoard" description="Where Your Voice Amplifies Change!" />
+      </Box>
+      <FeatureList />
+      <About />
+      <ExtraFeaturesList />
+      <Footer />
+    </>
   );
 };
 

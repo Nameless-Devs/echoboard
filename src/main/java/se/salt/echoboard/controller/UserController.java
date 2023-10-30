@@ -24,7 +24,6 @@ import static org.springframework.http.HttpStatus.OK;
 public class UserController {
 
     private final EchoBoardService echoBoardService;
-    private final WebSocketService webSocketService;
 
     @GetMapping
     @ResponseStatus(OK)

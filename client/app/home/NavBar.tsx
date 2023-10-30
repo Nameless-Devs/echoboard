@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import { ENDPOINTS } from '@/service/config';
 
-const pages = ['Home', 'About', 'Features', 'Contact'];
+const pages = ['Home', 'Features', 'About', 'Contact'];
 
 function NavBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -33,7 +33,13 @@ function NavBar() {
         <AppBar position='static' sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Image src={EchoLogoWhite} alt="EchoBoard logo white" width={40} style={{ marginRight: "15px" }} />
+                    <Image 
+                    src={EchoLogoWhite} 
+                    alt="EchoBoard logo white" 
+                    width={40} 
+                    style={{ 
+                        margin: "0 1rem",  
+                        }} />
                     <Typography
                         variant="h6"
                         noWrap

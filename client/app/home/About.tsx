@@ -23,13 +23,13 @@ export const About = () => {
                     About
                 </Typography>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={7}>
                         <Box
                             display={'flex'}
                             flexDirection={"column"}
                             sx={{
                                 textAlign: "left",
-                                margin: { xs: "0 1.5rem", md: "0 0 0 3rem" },
+                                margin: { xs: "0 1.5rem", md: "0 0 0 5rem" },
                                 alignItems: "center",
                                 justifyContent: "center",
                                 height: "100%"
@@ -56,7 +56,7 @@ export const About = () => {
                                 variant="contained"
                                 startIcon={<YouTubeIcon />}
                                 sx={{
-                                    margin: "2rem",
+                                    margin: {xs: '2rem', md: '3rem'},
                                 }}>
                                 <Link href={YOUTUBE_LINK} target='_blank' style={{ color: "white", textDecoration: "none" }}>
                                     Watch video
@@ -64,7 +64,7 @@ export const About = () => {
                             </Button>
                         </Box>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={5}>
                         <Box display={{ xs: "none", md: "flex" }} justifyContent={"center"}>
                             <Image
                                 src={PhonePicture}

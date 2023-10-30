@@ -6,6 +6,7 @@ import Main from "./Main";
 import { FeatureList } from "./FeatureList";
 import { About } from "./About";
 import { ExtraFeaturesList } from "./ExtraFeaturesList";
+import Footer from "./Footer";
 
 const pages = ['Home', 'Features', 'About', 'Contact'];
 const home = () => {
@@ -18,6 +19,7 @@ const home = () => {
       <FeatureList />
       <About />
       <ExtraFeaturesList />
+      <Footer />
     </>
   );
 };

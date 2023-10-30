@@ -29,7 +29,7 @@ const ExtraFeature: React.FC<ExtraFeatureProps> = ({ icon, text }) => (
     </Box>
   );
   
-const iconSx = { fontSize: { xs: '4rem', md: '5.5rem' } };
+const iconSx = { fontSize: { xs: '4rem', md: '5rem' } };
 
 export const ExtraFeaturesList = () => {
   
@@ -44,9 +44,9 @@ export const ExtraFeaturesList = () => {
         alignItems: "center"
     }}
     >
-      <ExtraFeature icon={<DesignServicesIcon color='primary' />} text="Clean design" />
-      <ExtraFeature icon={<LockIcon color='primary' />} text="Google Authentication" />
-      <ExtraFeature icon={<PeopleIcon color='primary'/>} text="Community" />
+      <ExtraFeature icon={<DesignServicesIcon />} text="Clean design" />
+      <ExtraFeature icon={<LockIcon />} text="Google Authentication" />
+      <ExtraFeature icon={<PeopleIcon />} text="Community" />
     </Box>
   )
 }

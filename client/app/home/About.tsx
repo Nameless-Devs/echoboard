@@ -8,7 +8,9 @@ import { YOUTUBE_LINK } from '@/service/config';
 export const About = () => {
     return (
         <>
-            <Box sx={{
+            <Box
+             id="about"
+             sx={{
                 background: "linear-gradient(135deg, hsla(215, 91%, 18%, 1) 2%, hsla(187, 61%, 28%, 1) 100%)"
             }}>
                 <Typography

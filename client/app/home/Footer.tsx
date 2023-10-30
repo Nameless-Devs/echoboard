@@ -11,7 +11,8 @@ export default function Footer() {
 
 
   return (
-    <Grid
+    <Grid 
+      id="contact"
       item
       xs={12}
       md={4}

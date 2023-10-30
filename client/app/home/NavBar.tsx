@@ -113,7 +113,9 @@ function NavBar() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
+                                <Link href={`#${page.toLowerCase()}`} style={{ color: "white", textDecoration: "none" }}>
                                 {page}
+                                </Link>
                             </Button>
                         ))}
                         <Button

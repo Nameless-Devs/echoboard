@@ -13,6 +13,7 @@ interface MainFeaturedProp {
 export default function MainFeatured({ title, description }: MainFeaturedProp) {
   return (
     <Box
+      id="home"
       sx={{
         marginTop: "10px",
         minHeight: 500,

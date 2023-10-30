@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/chat")
-public class ChatHistoryController {
+@RequiredArgsConstructor
+public class ChatRoomController {
 
     @Autowired
     private WebSocketService webSocketService;

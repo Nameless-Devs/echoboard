@@ -87,16 +87,16 @@ function NavBar() {
                                 </MenuItem>
                             ))}
                             <MenuItem>
-                            <Button
-                            variant="text"
-                            style={{
-                                alignSelf: "center",
-                                borderColor: "black"
-                            }}>
-                            <Link href={ENDPOINTS.LOGIN} style={{ color: "black", textDecoration: "none" }}>
-                                Log in
-                            </Link>
-                        </Button>
+                                <Button
+                                    variant="text"
+                                    style={{
+                                        alignSelf: "center",
+                                        borderColor: "black"
+                                    }}>
+                                    <Link href={ENDPOINTS.LOGIN} style={{ color: "black", textDecoration: "none" }}>
+                                        Log in
+                                    </Link>
+                                </Button>
                             </MenuItem>
                         </Menu>
                     </Box>

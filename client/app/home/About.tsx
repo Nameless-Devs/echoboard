@@ -58,7 +58,7 @@ export const About = () => {
                                 sx={{
                                     margin: "2rem",
                                 }}>
-                                <Link href={YOUTUBE_LINK} style={{ color: "white", textDecoration: "none" }}>
+                                <Link href={YOUTUBE_LINK} target='_blank' style={{ color: "white", textDecoration: "none" }}>
                                     Watch video
                                 </Link>
                             </Button>
@@ -87,9 +87,7 @@ export const About = () => {
                         </Box>
                     </Grid>
                 </Grid>
-
             </Box>
-
         </>
     )
 }

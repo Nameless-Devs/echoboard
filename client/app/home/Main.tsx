@@ -18,8 +18,8 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
         minHeight: 500,
         p: { xs: 4, md: 4 },
         pr: { md: 0 },
-        ml: { md: 5},
-        mt: {md: 6},
+        ml: { md: 5 },
+        mt: { md: 6 },
         color: "white",
         borderRadius: '15px',
         display: "flex",
@@ -27,7 +27,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
 
       }}
     >
-      <Box sx={{marginTop: { xs:"", md: "55px"}}}>
+      <Box sx={{ marginTop: { xs: "", md: "55px" } }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Image
             src={Example}
@@ -43,36 +43,36 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
             variant="contained"
             size="medium"
             color="warning"
-            sx={{ display: { xs: "block", md: "none"}} } 
+            sx={{ display: { xs: "block", md: "none" } }}
             style={{
               width: "200px",
               maxWidth: "200px",
               alignSelf: "center",
               marginTop: "40px",
-             
+
             }}>
-            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none"  }}>
+            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
               Log in
             </Link>
           </Button>
         </Box>
       </Box>
       <Box sx={{
-        display: "flex", 
-        flexDirection: "column", 
+        display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center", 
-        margin: { xs: "auto", md: "auto"},
+        justifyContent: "center",
+        margin: { xs: "auto", md: "auto" },
         textAlign: "center"
-        }}
-        >
+      }}
+      >
         <Typography
           variant="h3"
           sx={{
             fontFamily: 'popins',
             letterSpacing: '.1rem',
             fontWeight: 800,
-            fontSize: { xs: "3.5rem", md: "5rem"}
+            fontSize: { xs: "3.5rem", md: "5rem" }
           }}
         >
           {title}
@@ -82,27 +82,27 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
           sx={{
             fontFamily: 'popins',
             fontWeight: 500,
-            fontSize: { xs: "2rem", md: "2.5rem"},
+            fontSize: { xs: "2rem", md: "2.5rem" },
             marginTop: "10px",
           }}
         >
           {description}
         </Typography>
         <Button
-            variant="contained"
-            size="medium"
-            color="warning"
-            sx={{ display: { xs: "none", md: "block"}} } 
-            style={{
-              width: "200px",
-              maxWidth: "200px",
-              alignSelf: "center",
-              marginTop: "40px",
-            }}>
-            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none"  }}>
-              Log in
-            </Link>
-          </Button>
+          variant="contained"
+          size="medium"
+          color="warning"
+          sx={{ display: { xs: "none", md: "block" } }}
+          style={{
+            width: "200px",
+            maxWidth: "200px",
+            alignSelf: "center",
+            marginTop: "40px",
+          }}>
+          <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+            Log in
+          </Link>
+        </Button>
       </Box>
     </Box>
   );

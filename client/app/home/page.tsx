@@ -1,4 +1,4 @@
-import { Box} from "@mui/material";
+import { Box } from "@mui/material";
 import * as React from "react";
 import "../styles/LandingPage.css"
 import NavBar from "./NavBar";
@@ -15,7 +15,7 @@ const home = () => {
         <Main title="EchoBoard" description="Where Your Voice Amplifies Change!" />
       </Box>
       <FeatureList />
-      <About /> 
+      <About />
     </>
   );
 };

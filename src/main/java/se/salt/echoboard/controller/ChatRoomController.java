@@ -23,10 +23,10 @@ public class ChatRoomController {
         return webSocketService.getAllMessages(chatRoomId);
     }
 
-    @GetMapping("{chatroomId}/volunteers")
+    @GetMapping("{chatRoomId}/volunteers")
     @ResponseStatus(OK)
-    public List<EchoBoardUserResponse> getListOfVolunteersForChatRoom(@PathVariable long chatroomId) {
-        return webSocketService.getListOfVolunteers(chatroomId);
+    public List<EchoBoardUserResponse> getListOfVolunteersForChatRoom(@PathVariable long chatRoomId) {
+        return webSocketService.getListOfVolunteers(chatRoomId);
     }
 
 }

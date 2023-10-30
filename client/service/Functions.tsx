@@ -287,9 +287,10 @@ export async function volunteerForSolution(solutionId: string) {
   }
 }
 
-export async function fetchChatHistory(
-): Promise<Message[]> {
+export async function fetchChatHistory(chatRoomId: number): Promise<Message[]> {
   try {
+    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION,
+        { chatRoomId: chatRoomId.toString() });
     const response = await fetch(ENDPOINTS.CHAT_HISTORY, {
       // credentials: "include",
     });

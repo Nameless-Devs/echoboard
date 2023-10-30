@@ -1,5 +1,4 @@
 "use client";
-import Chat from "@/components/Chat/Chat";
 import { ChatMessage } from "@/components/Chat/ChatMessage";
 import { Client, IMessage, Stomp } from "@stomp/stompjs";
 import {fetchChatHistory, getUserChatRooms, getUserInfo} from "@/service/Functions";

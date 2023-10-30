@@ -2,7 +2,7 @@
 import Chat from "@/components/Chat/Chat";
 import { ChatMessage } from "@/components/Chat/ChatMessage";
 import { Client, IMessage, Stomp } from "@stomp/stompjs";
-import { fetchChatHistory, getUserInfo } from "@/service/Functions";
+import {fetchChatHistory, getUserChatRooms, getUserInfo} from "@/service/Functions";
 import { Message, UserResponseData } from "@/service/Types";
 import { Grid, Paper } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";

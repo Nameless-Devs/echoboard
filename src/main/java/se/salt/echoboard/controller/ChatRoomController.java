@@ -18,8 +18,9 @@ public class ChatRoomController {
     private final WebSocketService webSocketService;
 
     @GetMapping
-    public List<Message> getAllMessages(){
-        return webSocketService.getAllMessages();
+    @ResponseStatus(OK)
+    public List<Message> getAllMessages(@PathVariable long chatRoomId){
+        return webSocketService.getAllMessages(chatRoomId);
     }
 
     @GetMapping("{chatroomId}/volunteers")

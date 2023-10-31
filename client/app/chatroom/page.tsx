@@ -85,7 +85,9 @@ export default function UserChat() {
     setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
   };
 
-  
+  const handleChatRoomChange = (chatRoomId: number) => {
+    return <ChatRoomHistory chatRoomId={chatRoomId}/> 
+  };
 
   return (
     <>
@@ -97,7 +99,12 @@ export default function UserChat() {
           >
             <div>
               {chatrooms?.map((chatroom, index) => (
-                  <div key={index}>{chatroom}</div>
+                <ListItemButton
+                  key={index}
+                  onClick={() => handleChatRoomChange(chatroom)}
+                >
+                  {chatroom}
+                </ListItemButton>
               ))}
             </div>
           </Paper>

@@ -42,7 +42,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         try {
             jwtValidation.validateJWTString(oidcUser.getIdToken().getTokenValue());
         } catch (JwtException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+            response.sendRedirect(backendBaseUrl+"login");
         }
         createUserIfTheyDoNotExist(oidcUser);
         response.setHeader("Access-Control-Allow-Credentials", "true");

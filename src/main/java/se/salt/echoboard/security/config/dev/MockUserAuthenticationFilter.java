@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -36,12 +37,20 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
 
     private final EchoBoardUserRepository repository;
 
+    @Value("${frontend-details.base-url}")
+    private String frontendBaseUrl;
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
         var jwtTokenString = getJwtTokenFromRequestCookie(request);
+
+        if (request.getRequestURI().endsWith("/login")){
+            response.sendRedirect(frontendBaseUrl);
+            return;
+        }
 
         if (jwtTokenString.isPresent()) {
             log.info("Received JWT token: {}", jwtTokenString.get());

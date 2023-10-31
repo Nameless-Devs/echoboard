@@ -24,7 +24,6 @@ import java.io.IOException;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final EchoBoardUserRepository userRepository;
-
     private final JwtValidation jwtValidation;
 
     @Value("${frontend-details.base-url}")

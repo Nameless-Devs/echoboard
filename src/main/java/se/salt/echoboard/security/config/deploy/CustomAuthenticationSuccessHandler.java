@@ -47,7 +47,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         createUserIfTheyDoNotExist(oidcUser);
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.addCookie(createNewCookie(oidcUser.getIdToken().getTokenValue()));
-        response.sendRedirect(baseUrl);
+        response.sendRedirect(frontendBaseUrl);
     }
 
     private void createUserIfTheyDoNotExist(OidcUser oidcUser) {

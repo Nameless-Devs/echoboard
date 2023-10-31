@@ -51,8 +51,7 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
                 redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated(user, response);
             } catch (JwtException e) {
                 log.error("Failed to validate JWT token: {}", e.getMessage());
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Unauthorized: " + e.getMessage());
+                response.sendRedirect(baseUrl+"login");
                 return;
             }
         }

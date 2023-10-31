@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import se.salt.echoboard.security.config.CustomLogoutSuccessHandler;
 
 import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withEchoBoardDefaults;
 
@@ -20,6 +21,7 @@ import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withE
 public class SecurityConfiguration {
 
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     private final JwtCookieAuthenticationFilter jwtCookieAuthenticationFilter;
     @Value("${frontend-details.base-url}")
     private String baseUrl;
@@ -38,6 +40,7 @@ public class SecurityConfiguration {
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler))
                 .addFilterBefore(jwtCookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout(logout -> logout.logoutSuccessHandler(customLogoutSuccessHandler))
                 .csrf(CsrfConfigurer::disable)
                 .build();
     }

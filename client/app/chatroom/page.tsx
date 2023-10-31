@@ -14,16 +14,23 @@ import subscribeToUserChatRooms from "@/service/chatRoomService";
 import ChatRoomHistory from "@/components/Chat/ChatRoomHistory";
 
 export default function UserChat() {
+  const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms);
+
+  const [selectedChatRoomId, setSelectedChatRoomId] = useState<number>();
   const [client, setClient] = useState<Client | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
 
-  const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms);
+  
 
-  const { data: chatHistory } = useQuery<Message[]>(["messages"], async () => {
-    return await fetchChatRoomHistory(1);
+  const { data: chatHistory } = useQuery<Message[]>(["messages", selectedChatRoomId], async () => {
+    if (selectedChatRoomId) {
+      return await fetchChatRoomHistory(selectedChatRoomId);
+    }
+    return [];
+
   });
 
   useEffect(() => {
@@ -86,7 +93,7 @@ export default function UserChat() {
   };
 
   const handleChatRoomChange = (chatRoomId: number) => {
-    return <ChatRoomHistory chatRoomId={chatRoomId}/> 
+    setSelectedChatRoomId(chatRoomId);
   };
 
   return (
@@ -121,15 +128,8 @@ export default function UserChat() {
             }}
           >
             <h1 style={{ margin: "0px" }}>Message</h1>
-            <div>
-              {messages.map((msg, index) => (
-                <div key={index}>
-                  <ChatMessage index={index} msg={msg} />
-                </div>
-              ))}
-            </div>
+            {selectedChatRoomId && <ChatRoomHistory chatRoomId={selectedChatRoomId} />}
           </Paper>
-
           <Paper
             elevation={0}
             style={{ height: "15vh", padding: 16, background: "gray" }}

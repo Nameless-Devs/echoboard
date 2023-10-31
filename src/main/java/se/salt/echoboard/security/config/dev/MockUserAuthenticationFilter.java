@@ -53,7 +53,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
                 SecurityContextHolder.setContext(setMockUserInSecurityContext(user));
                 log.info("Security Context is: " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             } catch (ParseException e) {
-                log.trace("Invalid JWT token: {}", jwtTokenString);
+                log.error("Invalid JWT token: {}", jwtTokenString);
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
 

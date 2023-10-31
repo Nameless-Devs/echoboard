@@ -1,11 +1,13 @@
 package se.salt.echoboard.controller.dto;
 
+import lombok.Builder;
 import se.salt.echoboard.model.EchoBoard;
 
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
+@Builder
 
 /**
  * DTO for {@link EchoBoard}

@@ -287,7 +287,7 @@ export async function volunteerForSolution(solutionId: string) {
   }
 }
 
-export async function fetchChatHistory(chatRoomId: number): Promise<Message[]> {
+export async function fetchChatRoomHistory(chatRoomId: number): Promise<Message[]> {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.CHAT_HISTORY,
         { chatRoomId: chatRoomId.toString() });

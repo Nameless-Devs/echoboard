@@ -14,15 +14,16 @@ import subscribeToUserChatRooms from "@/service/chatRoomService";
 import ChatRoomHistory from "@/components/Chat/ChatRoomHistory";
 
 export default function UserChat() {
-
   const [client, setClient] = useState<Client | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
-  const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms)
+
+  const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms);
+
   const { data: chatHistory } = useQuery<Message[]>(["messages"], async () => {
-    return await fetchChatHistory(1);
+    return await fetchChatRoomHistory(1);
   });
 
   useEffect(() => {

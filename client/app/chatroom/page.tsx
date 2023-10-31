@@ -1,11 +1,17 @@
 "use client";
 import { ChatMessage } from "@/components/Chat/ChatMessage";
 import { Client, IMessage, Stomp } from "@stomp/stompjs";
-import {fetchChatHistory, getUserChatRooms, getUserInfo} from "@/service/Functions";
+import {
+  fetchChatRoomHistory,
+  getUserChatRooms,
+  getUserInfo,
+} from "@/service/Functions";
 import { Message, UserResponseData } from "@/service/Types";
-import { Grid, Paper } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
+import { Grid, ListItemButton, Paper } from "@mui/material";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
+import subscribeToUserChatRooms from "@/service/chatRoomService";
+import ChatRoomHistory from "@/components/Chat/ChatRoomHistory";
 
 export default function UserChat() {
 

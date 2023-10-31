@@ -28,7 +28,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     private final JwtValidation jwtValidation;
 
     @Value("${frontend-details.base-url}")
-    private String baseUrl;
+    private String frontendBaseUrl;
+    @Value("${backend-details.base-url}")
+    private String backendBaseUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

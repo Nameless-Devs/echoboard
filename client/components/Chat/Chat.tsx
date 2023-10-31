@@ -26,7 +26,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
         ["messages"],
         async () => {
             console.log(chatHistory);
-            return await fetchChatHistory();
+            return await fetchChatHistory(1);
         }
     );
 

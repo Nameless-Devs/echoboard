@@ -289,10 +289,10 @@ export async function volunteerForSolution(solutionId: string) {
 
 export async function fetchChatHistory(chatRoomId: number): Promise<Message[]> {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION,
+    const endpoint = formatEndpoint(ENDPOINTS.CHAT_HISTORY,
         { chatRoomId: chatRoomId.toString() });
-    const response = await fetch(ENDPOINTS.CHAT_HISTORY, {
-      // credentials: "include",
+    const response = await fetch(endpoint, {
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);

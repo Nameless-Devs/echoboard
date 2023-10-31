@@ -76,7 +76,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
     private Cookie createNewCookie(String tokenValue) {
         Cookie cookie = new Cookie("JwtToken", tokenValue);
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(-1);
+        cookie.setMaxAge(100000);
         cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setDomain("localhost");

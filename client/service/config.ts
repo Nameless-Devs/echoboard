@@ -9,7 +9,8 @@ export const ENDPOINTS = {
   USER: `${process.env.NEXT_PUBLIC_API_BASE_URL}/user`,
   UPDATE_SOLUTION_STATUS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}?updateToStage={status}`,
   VOLUNTEER_FOR_SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/volunteer`,
-  CHAT_HISTORY: `${process.env.NEXT_PUBLIC_API_BASE_URL}/chat`
+  CHAT_HISTORY: `${process.env.NEXT_PUBLIC_API_BASE_URL}/chat`,
+  LOGIN: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
 };
 

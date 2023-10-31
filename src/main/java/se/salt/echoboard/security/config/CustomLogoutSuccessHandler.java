@@ -18,12 +18,11 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     private String baseUrl;
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        if (session != null){
-            System.out.println(session.getAttribute("user"));
-            session.removeAttribute("user");
-        }
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws IOException {
+        Cookie JwtToken = new Cookie("JwtToken", null);
+        JwtToken.setMaxAge(0);
+        response.addCookie(JwtToken);
         response.sendRedirect(baseUrl+"/home");
     }
 }

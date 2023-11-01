@@ -40,8 +40,8 @@ public class WebSocketService {
                 .setChatRoom(chatRoom));
     }
 
-    public List<Message> getAllMessages() {
-        return messageRepository.findAll();
+    public List<Message> getAllMessages(long chatRoomId) {
+        return messageRepository.findByChatRoomId(chatRoomId);
     }
 
     public List<EchoBoardUserResponse> getListOfVolunteers(long chatRoomId) {
@@ -51,14 +51,6 @@ public class WebSocketService {
         return chatRoom.getEchoBoardSolution()
                 .getVolunteers().stream()
                 .map(convertor::convertEntityToResponseDTO).toList();
-    }
-
-    public List<Long> getChatRoomIds(String echoBoardUserId) {
-        var some = userRepository.getUserBySubject(echoBoardUserId)
-                .orElseThrow(UserNotFoundException::new);
-        return some.getVolunteeredSolutions().stream()
-                .map(EchoBoardSolution::getChatRoom)
-                .map(ChatRoom::getId).toList();
     }
 
 }

@@ -139,11 +139,6 @@ public class EchoBoardService {
         return convertor.convertEntityToResponseDTO(saveComment(echoBoardComment, userSubject));
     }
 
-
-//    public EchoBoardSolution.SolutionStatus getSolutionStatus(long solutionId) {
-//        return getSolutionById(solutionId).getStatus();
-//    }
-
     public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user) {
 
         return solutionRepository.getSolutionById(solutionId)
@@ -164,9 +159,13 @@ public class EchoBoardService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-//    public void createUser(OidcUser oidcUser) {
-//        userRepository.createUser(oidcUser);
-//    }
+    public List<Long> getChatRoomIds(String echoBoardUserId) {
+        var some = userRepository.getUserBySubject(echoBoardUserId)
+                .orElseThrow(UserNotFoundException::new);
+        return some.getVolunteeredSolutions().stream()
+                .map(EchoBoardSolution::getChatRoom)
+                .map(ChatRoom::getId).toList();
+    }
 
     private EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {
         return userRepository.getUserBySubject(userSubject)

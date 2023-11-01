@@ -94,40 +94,40 @@ function NavBar() {
                                     </MenuItem>
                                 </Link>
                             ))}
-                            <MenuItem>
-                                <Link href={ENDPOINTS.LOGIN} style={{ color: "black", textDecoration: "none" }}>
-                                    <Button
-                                        variant="text"
-                                        style={{
-                                            alignSelf: "center",
-                                            borderColor: "black"
-                                        }}>
-                                        Log in
-                                    </Button>
-                                </Link>
-                            </MenuItem>
+
+                            <Link href={ENDPOINTS.LOGIN}
+                                style={{
+                                    color: "blue",
+                                    textDecoration: "none",
+                                    alignSelf: "center",
+                                }}>
+                                <MenuItem>
+                                    LOG IN
+                                </MenuItem>
+                            </Link>
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                         {pages.map((page) => (
                             <Link href={`#${page.toLowerCase()}`} key={page} style={{ color: "white", textDecoration: "none" }}>
                                 <Button
-                                    onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
                                     {page}
                                 </Button>
                             </Link>
                         ))}
-                        <Link href={ENDPOINTS.LOGIN} style={{ textDecoration: "none", alignSelf: "center", }}>
-                            <Button
-                                variant="outlined"
-                                style={{
-                                    borderColor: "white",
-                                    color: "white"
-                                }}>
-                                Log in
-                            </Button>
+                        <Link href={ENDPOINTS.LOGIN} 
+                        style={{ 
+                            textDecoration: "none", 
+                            alignSelf: "center",
+                            border: "1px solid white",
+                            color: "white", 
+                            padding: "0.4rem 0.8rem",
+                            borderRadius: "5px",
+                            fontSize: "0.875rem"
+                             }}>
+                                LOG IN
                         </Link>
                     </Box>
                 </Toolbar>

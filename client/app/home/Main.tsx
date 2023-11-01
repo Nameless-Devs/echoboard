@@ -90,7 +90,11 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
             >
               {description}
             </Typography>
-            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+            <Link href={ENDPOINTS.LOGIN} 
+            style={{ 
+              color: "white", 
+              textDecoration: "none",
+               }}>
               <Button
                 variant="contained"
                 size="medium"
@@ -100,7 +104,7 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
                   width: "200px",
                   maxWidth: "200px",
                   alignSelf: "center",
-                  marginTop: "40px",
+                  marginTop: "2rem",
                 }}>
                 Log in
               </Button>

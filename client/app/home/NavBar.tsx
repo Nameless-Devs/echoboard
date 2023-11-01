@@ -99,17 +99,9 @@ function NavBar() {
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
-
-                            <Link href={ENDPOINTS.LOGIN}
-                                style={{
-                                    color: "blue",
-                                    textDecoration: "none",
-                                    alignSelf: "center",
-                                }}>
-                                <MenuItem>
-                                    LOG IN
-                                </MenuItem>
-                            </Link>
+                            <MenuItem onClick={() => window.location.href = ENDPOINTS.LOGIN}>
+                                LOG IN
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
@@ -122,18 +114,17 @@ function NavBar() {
                                 {page}
                             </Button>
                         ))}
-                        <Link href={ENDPOINTS.LOGIN}
+                        <Button
+                            onClick={() => window.location.href = ENDPOINTS.LOGIN}
+                            variant="outlined"
+                            size='medium'
                             style={{
-                                textDecoration: "none",
-                                alignSelf: "center",
-                                border: "1px solid white",
+                                borderColor: "white",
                                 color: "white",
-                                padding: "0.4rem 0.8rem",
-                                borderRadius: "5px",
-                                fontSize: "0.875rem"
+                                alignSelf: "center"
                             }}>
-                            LOG IN
-                        </Link>
+                            Log in
+                        </Button>
                     </Box>
                 </Toolbar>
             </Container>

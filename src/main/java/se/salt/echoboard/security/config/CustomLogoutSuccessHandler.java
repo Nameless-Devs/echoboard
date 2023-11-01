@@ -21,6 +21,28 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             throws IOException {
         logout(request, response);
         response.sendRedirect(baseUrl+"/home");
+
+    }
+
+    public void logout(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
+        boolean isSecure = false;
+        String contextPath = null;
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        isSecure = request.isSecure();
+        contextPath = request.getContextPath();
+
+        SecurityContext context = SecurityContextHolder.getContext();
+        SecurityContextHolder.clearContext();
+        context.setAuthentication(null);
+
+        deleteCookie("JSESSIONID", isSecure, response, contextPath);
+        deleteCookie("JwtToken", isSecure, response, contextPath);
+
+    }
+
     private void deleteCookie(String cookieName, boolean isSecure,
                                      HttpServletResponse response, String contextPath) {
         String cookiePath = StringUtils.hasText(contextPath) ? contextPath : "/";

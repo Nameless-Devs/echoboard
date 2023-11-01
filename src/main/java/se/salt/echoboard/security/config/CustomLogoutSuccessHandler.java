@@ -22,6 +22,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         request.getSession().invalidate();
         Cookie JwtToken = new Cookie("JwtToken", null);
         JwtToken.setMaxAge(0);
+        JwtToken.setDomain("hello");
         response.addCookie(JwtToken);
         response.sendRedirect(baseUrl+"/home");
     }

@@ -12,7 +12,6 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import EchoLogoWhite from "../image/EchoBoard_logo_white.png"
 import Image from "next/image";
-import Link from 'next/link';
 import { ENDPOINTS } from '@/service/config';
 
 const pages = ['Home', 'Features', 'About', 'Contact'];

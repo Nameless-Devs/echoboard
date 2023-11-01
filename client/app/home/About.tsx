@@ -1,5 +1,5 @@
 "use client"
-import { Box, Button, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import PhonePicture from "../image/Phone_example.png";
 import Image from "next/image";

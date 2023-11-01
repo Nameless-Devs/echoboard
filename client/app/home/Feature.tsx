@@ -25,7 +25,7 @@ export const Feature: React.FC<FeatureProps> = ({
     };
     return (
         <VisibilitySensor onChange={onVisibilityChange}>
-            <Box id="features" className={`pop-up ${animate ? 'active' : ''}`}
+            <Box className={`pop-up ${animate ? 'active' : ''}`}
                 sx={{
                     textAlign: { xs: "left", md: reverseOnDesktop ? "right" : "left" },
                     display: "flex",

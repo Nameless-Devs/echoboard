@@ -39,11 +39,6 @@ export default function UserChat() {
       console.log("STOMP Error:", frame);
     };
     (newClient.onConnect = () => {
-      // console.log("Connected");
-      // newClient.subscribe("/topic/chatrooms/1", (message) => {
-      //   onMessageReceived(message);
-      //   console.log(message);
-      // });
       if (chatrooms) {
         subscribeToUserChatRooms(newClient, chatrooms, onMessageReceived);
       }

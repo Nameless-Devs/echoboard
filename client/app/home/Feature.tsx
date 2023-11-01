@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import "../styles/Feature.css";
 import VisibilitySensor from 'react-visibility-sensor';

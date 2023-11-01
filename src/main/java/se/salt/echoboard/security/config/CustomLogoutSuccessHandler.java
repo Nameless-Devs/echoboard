@@ -21,5 +21,14 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             throws IOException {
         logout(request, response);
         response.sendRedirect(baseUrl+"/home");
+    private void deleteCookie(String cookieName, boolean isSecure,
+                                     HttpServletResponse response, String contextPath) {
+        String cookiePath = StringUtils.hasText(contextPath) ? contextPath : "/";
+
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setPath(cookiePath);
+        cookie.setMaxAge(0);
+        cookie.setSecure(isSecure);
+        response.addCookie(cookie);
     }
 }

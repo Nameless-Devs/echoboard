@@ -122,7 +122,11 @@ export default function UserChat() {
             }}
           >
             <h1 style={{ margin: "0px" }}>Message</h1>
-            {selectedChatRoomId && <ChatRoomHistory chatRoomId={selectedChatRoomId} />}
+              {messages.map((msg, index) => (
+                  <div key={index}>
+                    <ChatMessage index={index} msg={msg} />
+                  </div>
+              ))}
           </Paper>
           <Paper
             elevation={0}

@@ -13,7 +13,7 @@ import Logout from "@mui/icons-material/Logout";
 import Link from "next/link";
 import { UserResponseData } from "@/service/Types";
 import "../app/styles/AccountMenu.css";
-import { useRouter } from 'next/navigation';
+
 
 export const AccountMenu: React.FC<UserResponseData> = (
   user: UserResponseData

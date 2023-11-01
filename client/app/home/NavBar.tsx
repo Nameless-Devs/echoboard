@@ -33,12 +33,12 @@ function NavBar() {
         <AppBar position='static' sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Image 
-                    src={EchoLogoWhite} 
-                    alt="EchoBoard logo white" 
-                    width={40} 
-                    style={{ 
-                        margin: "0 1rem",  
+                    <Image
+                        src={EchoLogoWhite}
+                        alt="EchoBoard logo white"
+                        width={40}
+                        style={{
+                            margin: "0 1rem",
                         }} />
                     <Typography
                         variant="h6"
@@ -88,46 +88,48 @@ function NavBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
+                                <Link href={`#${page.toLowerCase()}`} style={{ color: "black", textDecoration: "none" }}>
+                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">{page}</Typography>
+                                    </MenuItem>
+                                </Link>
                             ))}
                             <MenuItem>
-                                <Button
-                                    variant="text"
-                                    style={{
-                                        alignSelf: "center",
-                                        borderColor: "black"
-                                    }}>
-                                    <Link href={ENDPOINTS.LOGIN} style={{ color: "black", textDecoration: "none" }}>
+                                <Link href={ENDPOINTS.LOGIN} style={{ color: "black", textDecoration: "none" }}>
+                                    <Button
+                                        variant="text"
+                                        style={{
+                                            alignSelf: "center",
+                                            borderColor: "black"
+                                        }}>
                                         Log in
-                                    </Link>
-                                </Button>
+                                    </Button>
+                                </Link>
                             </MenuItem>
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                         {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                <Link href={`#${page.toLowerCase()}`} style={{ color: "white", textDecoration: "none" }}>
-                                {page}
-                                </Link>
-                            </Button>
-                        ))}
-                        <Button
-                            variant="outlined"
-                            style={{
-                                alignSelf: "center",
-                                borderColor: "white"
-                            }}>
-                            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
-                                Log in
+                            <Link href={`#${page.toLowerCase()}`} style={{ color: "white", textDecoration: "none" }}>
+                                <Button
+                                    key={page}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    {page}
+                                </Button>
                             </Link>
-                        </Button>
+                        ))}
+                        <Link href={ENDPOINTS.LOGIN} style={{ textDecoration: "none", alignSelf: "center", }}>
+                            <Button
+                                variant="outlined"
+                                style={{
+                                    borderColor: "white",
+                                    color: "white"
+                                }}>
+                                Log in
+                            </Button>
+                        </Link>
                     </Box>
                 </Toolbar>
             </Container>

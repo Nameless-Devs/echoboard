@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import "../../app/styles/Chat.css"
 import { ChatMessage } from './ChatMessage';
 import { useQuery } from '@tanstack/react-query';
-import { fetchChatHistory } from '@/service/Functions';
+import { fetchChatRoomHistory } from '@/service/Functions';
 
 type ChatProps = {
     user: UserResponseData;
@@ -26,7 +26,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
         ["messages"],
         async () => {
             console.log(chatHistory);
-            return await fetchChatHistory();
+            return await fetchChatRoomHistory(1);
         }
     );
 

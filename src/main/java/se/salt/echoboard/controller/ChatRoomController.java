@@ -11,22 +11,22 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/api/chat")
+@RequestMapping("/api/v1/chat")
 @RequiredArgsConstructor
 public class ChatRoomController {
 
     private final WebSocketService webSocketService;
 
-    @GetMapping
+    @GetMapping("{chatRoomId}")
     @ResponseStatus(OK)
     public List<Message> getAllMessages(@PathVariable long chatRoomId){
         return webSocketService.getAllMessages(chatRoomId);
     }
 
-    @GetMapping("{chatroomId}/volunteers")
+    @GetMapping("{chatRoomId}/volunteers")
     @ResponseStatus(OK)
-    public List<EchoBoardUserResponse> getListOfVolunteersForChatRoom(@PathVariable long chatroomId) {
-        return webSocketService.getListOfVolunteers(chatroomId);
+    public List<EchoBoardUserResponse> getListOfVolunteersForChatRoom(@PathVariable long chatRoomId) {
+        return webSocketService.getListOfVolunteers(chatRoomId);
     }
 
 }

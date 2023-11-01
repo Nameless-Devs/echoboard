@@ -24,10 +24,9 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     private String baseUrl;
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException {
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         try {
-            logout(request, response);
+//            logout(request, response);
             log.info("Logout successful. Redirecting to the homepage.");
             response.sendRedirect(baseUrl + "/home");
         } catch (IOException e) {

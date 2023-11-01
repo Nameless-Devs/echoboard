@@ -40,7 +40,8 @@ public class SecurityConfiguration {
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler))
                 .addFilterBefore(jwtCookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout(logout -> logout.logoutSuccessHandler(customLogoutSuccessHandler))
+                .logout(logout -> logout.logoutSuccessHandler(customLogoutSuccessHandler)
+                        .deleteCookies("JwtToken"))
                 .csrf(CsrfConfigurer::disable)
                 .build();
     }

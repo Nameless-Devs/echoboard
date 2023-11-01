@@ -1,23 +1,35 @@
 "use client";
-import Chat from "@/components/Chat/Chat";
 import { ChatMessage } from "@/components/Chat/ChatMessage";
 import { Client, IMessage, Stomp } from "@stomp/stompjs";
-import { fetchChatHistory, getUserInfo } from "@/service/Functions";
-import { Message, UserResponseData } from "@/service/Types";
-import { Grid, Paper } from "@mui/material";
+import {
+  fetchChatRoomHistory,
+  getUserChatRooms,
+  getUserInfo,
+} from "@/service/Functions";
+import { Message } from "@/service/Types";
+import { Grid, ListItemButton, Paper } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
+import subscribeToUserChatRooms from "@/service/chatRoomService";
 
 export default function UserChat() {
+  const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms);
 
+  const [selectedChatRoomId, setSelectedChatRoomId] = useState<number>();
   const [client, setClient] = useState<Client | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
 
-  const { data: chatHistory } = useQuery<Message[]>(["messages"], async () => {
-    return await fetchChatHistory();
+  
+
+  const { data: chatHistory } = useQuery<Message[]>(["messages", selectedChatRoomId], async () => {
+    if (selectedChatRoomId) {
+      return await fetchChatRoomHistory(selectedChatRoomId);
+    }
+    return [];
+
   });
 
   useEffect(() => {
@@ -27,11 +39,9 @@ export default function UserChat() {
       console.log("STOMP Error:", frame);
     };
     (newClient.onConnect = () => {
-      console.log("Connected");
-      newClient.subscribe("/topic/chatrooms/1", (message) => {
-        onMessageReceived(message);
-        console.log(message);
-      });
+      if (chatrooms) {
+        subscribeToUserChatRooms(newClient, chatrooms, onMessageReceived);
+      }
     }),
       newClient.activate();
     setClient(newClient);
@@ -65,7 +75,7 @@ export default function UserChat() {
         timestamp: new Date(),
       };
       client.publish({
-        destination: "/app/chat/sendMessage/1",
+        destination: "/app/chat/sendMessage/" +selectedChatRoomId,
         body: JSON.stringify(message),
       });
       setInput("");
@@ -76,7 +86,9 @@ export default function UserChat() {
     setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
   };
 
-  
+  const handleChatRoomChange = (chatRoomId: number) => {
+    setSelectedChatRoomId(chatRoomId);
+  };
 
   return (
     <>
@@ -86,7 +98,16 @@ export default function UserChat() {
             elevation={3}
             style={{ height: "100vh", background: "#E0E0E0" }}
           >
-            {user?.name}
+            <div>
+              {chatrooms?.map((chatroom, index) => (
+                <ListItemButton
+                  key={index}
+                  onClick={() => handleChatRoomChange(chatroom)}
+                >
+                  {chatroom}
+                </ListItemButton>
+              ))}
+            </div>
           </Paper>
         </Grid>
 
@@ -101,15 +122,12 @@ export default function UserChat() {
             }}
           >
             <h1 style={{ margin: "0px" }}>Message</h1>
-            <div>
               {messages.map((msg, index) => (
-                <div key={index}>
-                  <ChatMessage index={index} msg={msg} />
-                </div>
+                  <div key={index}>
+                    <ChatMessage index={index} msg={msg} />
+                  </div>
               ))}
-            </div>
           </Paper>
-
           <Paper
             elevation={0}
             style={{ height: "15vh", padding: 16, background: "gray" }}

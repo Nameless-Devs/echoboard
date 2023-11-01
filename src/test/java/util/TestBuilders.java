@@ -91,20 +91,17 @@ public class TestBuilders {
 
     public static EchoBoardSolution createRandomEchoBoardSolution() {
 
-        EchoBoardSolution.EchoBoardSolutionBuilder builder = EchoBoardSolution.builder();
-        builder.anonymous(faker.random().nextBoolean());
-        builder.created(Instant.now());
-        builder.id(faker.number().randomNumber());
-        builder.status(EchoBoardSolution.SolutionStatus.SOLVED);
-        builder.echoBoardUser(createRandomEchoBoardUser());
-        builder.content(faker.lorem().paragraph());
-        EchoBoardSolution solution = builder
-                .build();
-//        solution.addVolunteer(createRandomEchoBoardUser());
-        return solution;
+        return EchoBoardSolution.builder()
+        .anonymous(faker.random().nextBoolean())
+        .created(Instant.now())
+        .id(faker.number().randomNumber())
+        .status(EchoBoardSolution.SolutionStatus.SOLVED)
+        .echoBoardUser(createRandomEchoBoardUser())
+        .content(faker.lorem().paragraph()).build();
+
     }
 
-    public EchoBoardSolutionResponse mockedEchoBoardSolutionResponse() {
+    public static EchoBoardSolutionResponse mockedEchoBoardSolutionResponse() {
         return EchoBoardSolutionResponse.builder()
                 .id(faker.number().randomNumber())
                 .content(faker.lorem().paragraph())
@@ -121,8 +118,8 @@ public class TestBuilders {
                 .name("John Doe")
                 .picture("image-url")
                 .echoBoardComments(List.of())
-                .echoBoardSolutions(List.of(/* Create EchoBoardSolutionResponse instances */))
-                .echoBoards(List.of(/* Create EchoBoardResponse instances */))
+                .echoBoardSolutions(List.of())
+                .echoBoards(List.of())
                 .build();
     }
 }

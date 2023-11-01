@@ -11,9 +11,6 @@ import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
 import util.TestBuilders;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 @SpringBootTest
 public class DTOConverterTest {
@@ -42,8 +39,8 @@ public class DTOConverterTest {
         EchoBoardUserResponse actualResponse = dtoConvertor.convertEntityToResponseDTO(echoBoardUser);
 
         Assertions.assertEquals(expectedResponse, actualResponse);
-        Assertions.assertEquals(echoBoardUser.getName(), actualResponse.name());
-        Assertions.assertEquals(echoBoardUser.getPicture(), actualResponse.picture());
+        Assertions.assertEquals(expectedResponse.name(), actualResponse.name());
+        Assertions.assertEquals(expectedResponse.picture(), actualResponse.picture());
 
     }
 
@@ -60,39 +57,13 @@ public class DTOConverterTest {
 
         EchoBoardUserInfo actualUserInfo = dtoConvertor.convertEntityToEchoBoardUserWithInfoDTO(echoBoardUser);
 
-        List<EchoBoardComment> expectedComments = echoBoardUser.getEchoBoardComments();
-
-        List<EchoBoardCommentResponse> actualComments = actualUserInfo.echoBoardComments();
-
-        List<EchoBoardSolution> expectedSolutions = echoBoardUser.getEchoBoardSolutions();
-
-        List<EchoBoardSolutionResponse> actualSolutions = actualUserInfo.echoBoardSolutions();
-
         Assertions.assertEquals(expectedUserInfo, actualUserInfo);
-        Assertions.assertEquals(echoBoardUser.getEchoBoardComments().size(), actualUserInfo.echoBoardComments().size());
-        Assertions.assertEquals(echoBoardUser.getName(), actualUserInfo.name());
-        Assertions.assertEquals(expectedComments, actualComments);
-        Assertions.assertEquals(expectedSolutions, actualSolutions);
+        Assertions.assertEquals(expectedUserInfo.echoBoardComments().size(), actualUserInfo.echoBoardComments().size());
+        Assertions.assertEquals(expectedUserInfo.name(), actualUserInfo.name());
+        Assertions.assertEquals(expectedUserInfo.echoBoardComments(), actualUserInfo.echoBoardComments());
+        Assertions.assertEquals(expectedUserInfo.echoBoardSolutions(), actualUserInfo.echoBoardSolutions());
+        Assertions.assertEquals(expectedUserInfo.echoBoards(), actualUserInfo.echoBoards());
 
-        for (int i = 0; i < expectedComments.size(); i++) {
-            EchoBoardComment expected = expectedComments.get(i);
-            EchoBoardCommentResponse actual = actualComments.get(i);
-
-            Assertions.assertEquals(expected.getId(), actual.id());
-            Assertions.assertEquals(expected.getContent(), actual.content());
-            Assertions.assertEquals(expected.getCreated(), actual.created());
-            Assertions.assertEquals(expected.isAnonymous(), actual.anonymous());
-        }
-
-        for (int i = 0; i < expectedSolutions.size(); i++) {
-            EchoBoardSolution expected = expectedSolutions.get(i);
-            EchoBoardSolutionResponse actual = actualSolutions.get(i);
-
-            Assertions.assertEquals(expected.getId(), actual.id());
-            Assertions.assertEquals(expected.getContent(), actual.content());
-            Assertions.assertEquals(expected.getCreated(), actual.created());
-            Assertions.assertEquals(expected.isAnonymous(), actual.anonymous());
-        }
     }
 
     @Test
@@ -109,8 +80,64 @@ public class DTOConverterTest {
         EchoBoardResponse actualResponse = dtoConvertor.convertEntityToResponseDTO(echoBoard);
 
         Assertions.assertEquals(expectedResponse, actualResponse);
-        Assertions.assertEquals(echoBoard.getId(), actualResponse.id());
+        Assertions.assertEquals(expectedResponse.id(), actualResponse.id());
         Assertions.assertEquals(expectedResponse.title(), actualResponse.title());
+        Assertions.assertEquals(expectedResponse.content(), actualResponse.content());
+        Assertions.assertEquals(expectedResponse.anonymous(), actualResponse.anonymous());
+        Assertions.assertEquals(expectedResponse.upvote(), actualResponse.upvote());
+        Assertions.assertEquals(expectedResponse.echoBoardSolutions(), actualResponse.echoBoardSolutions());
+        Assertions.assertEquals(expectedResponse.echoBoardComments(), actualResponse.echoBoardComments());
+        Assertions.assertEquals(expectedResponse.echoBoardUser(), actualResponse.echoBoardUser());
+
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("Should map EchoBoardSolution to EchoBoardUserSolutionResponse")
+    public void testEchoBoardSolutionToEchoBoardSolutionResponse() {
+
+        EchoBoardSolution echoBoardSolution = TestBuilders.createRandomEchoBoardSolution();
+
+        EchoBoardSolutionResponse expectedResponse = TestBuilders.mockedEchoBoardSolutionResponse();
+
+        when(objectMapper.convertValue(echoBoardSolution, EchoBoardSolutionResponse.class)).thenReturn(expectedResponse);
+
+        EchoBoardSolutionResponse actualResponse = dtoConvertor.convertEntityToResponseDTO(echoBoardSolution);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
+        Assertions.assertEquals(expectedResponse.id(), actualResponse.id());
+        Assertions.assertEquals(expectedResponse.anonymous(), actualResponse.anonymous());
+        Assertions.assertEquals(expectedResponse.created(), actualResponse.created());
+        Assertions.assertEquals(expectedResponse.content(), actualResponse.content());
+        Assertions.assertEquals(expectedResponse.echoBoardUser(), actualResponse.echoBoardUser());
+        Assertions.assertEquals(expectedResponse.volunteers(), actualResponse.volunteers());
+        Assertions.assertEquals(expectedResponse.upvote(), actualResponse.upvote());
+        Assertions.assertEquals(expectedResponse.chatRoom(), actualResponse.chatRoom());
+        Assertions.assertEquals(expectedResponse.status(), actualResponse.status());
+
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("Should map EchoBoardComment to EchoBoardCommentResponse")
+    public void testEchoBoardCommentToEchoBoardCommentResponse() {
+
+        EchoBoardComment echoBoardComment = TestBuilders.createRandomEchoBoardComment();
+
+        EchoBoardCommentResponse expectedResponse = TestBuilders.createRandomEchoBoardCommentResponse();
+
+        when(objectMapper.convertValue(echoBoardComment, EchoBoardCommentResponse.class)).thenReturn(expectedResponse);
+
+        EchoBoardCommentResponse actualResponse = dtoConvertor.convertEntityToResponseDTO(echoBoardComment);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
+        Assertions.assertEquals(expectedResponse.id(), actualResponse.id());
+        Assertions.assertEquals(expectedResponse.content(), actualResponse.content());
+        Assertions.assertEquals(expectedResponse.created(), actualResponse.created());
+        Assertions.assertEquals(expectedResponse.upvote(), actualResponse.upvote());
+        Assertions.assertEquals(expectedResponse.anonymous(), actualResponse.anonymous());
+        Assertions.assertEquals(expectedResponse.echoBoardUser(), actualResponse.echoBoardUser());
+        Assertions.assertEquals(expectedResponse.echoBoardComments(), actualResponse.echoBoardComments());
 
     }
 }

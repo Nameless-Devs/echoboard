@@ -1,4 +1,5 @@
-import { Box, Button, Grid, Link, Typography } from '@mui/material';
+"use client"
+import { Box, Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import PhonePicture from "../image/Phone_example.png";
 import Image from "next/image";
@@ -51,19 +52,18 @@ export const About = () => {
                                 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns,
                                 propose solutions, and collaborate on addressing issues that impact the organisation.
                             </Typography>
-                            <Link href={YOUTUBE_LINK} target='_blank' style={{ color: "white", textDecoration: "none" }}>
-                                <Button
-                                    component="label"
-                                    size="large"
-                                    color="error"
-                                    variant="contained"
-                                    startIcon={<YouTubeIcon />}
-                                    sx={{
-                                        margin: { xs: '2rem', md: '3rem' },
-                                    }}>
-                                    Watch video
-                                </Button>
-                            </Link>
+                            <Button
+                                onClick={() => window.open(YOUTUBE_LINK, "_blank")}
+                                component="label"
+                                size="large"
+                                color="error"
+                                variant="contained"
+                                startIcon={<YouTubeIcon />}
+                                sx={{
+                                    margin: { xs: '2rem', md: '3rem' },
+                                }}>
+                                Watch video
+                            </Button>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={5}>

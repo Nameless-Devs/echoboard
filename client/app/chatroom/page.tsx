@@ -11,6 +11,7 @@ import { Grid, ListItemButton, Paper } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
+import { WEBSOCKET } from "@/service/config";
 
 export default function UserChat() {
   const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms);
@@ -33,7 +34,7 @@ export default function UserChat() {
   });
 
   useEffect(() => {
-    const newClient = Stomp.client("ws://localhost:8080/w");
+    const newClient = Stomp.client("ws://" + WEBSOCKET.BASE_URL +"/w");
 
     newClient.onStompError = (frame) => {
       console.log("STOMP Error:", frame);

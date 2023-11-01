@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Button, Grid, Link, Typography } from "@mui/material";
@@ -90,25 +91,20 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
             >
               {description}
             </Typography>
-            <Link href={ENDPOINTS.LOGIN} 
-            style={{ 
-              color: "white", 
-              textDecoration: "none",
-               }}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="warning"
-                sx={{ display: { xs: "none", md: "block" } }}
-                style={{
-                  width: "200px",
-                  maxWidth: "200px",
-                  alignSelf: "center",
-                  marginTop: "2rem",
-                }}>
-                Log in
-              </Button>
-            </Link>
+            <Button
+              onClick={() => window.location.href = ENDPOINTS.LOGIN}
+              variant="contained"
+              size="medium"
+              color="warning"
+              sx={{ display: { xs: "none", md: "block" } }}
+              style={{
+                width: "200px",
+                maxWidth: "200px",
+                alignSelf: "center",
+                marginTop: "2rem",
+              }}>
+              Log in
+            </Button>
           </Box>
         </Grid>
       </Grid>

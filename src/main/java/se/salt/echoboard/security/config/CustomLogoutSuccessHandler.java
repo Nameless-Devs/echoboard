@@ -19,9 +19,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
-        Cookie JwtToken = new Cookie("JwtToken", null);
-        JwtToken.setMaxAge(0);
-        response.addCookie(JwtToken);
+        logout(request, response);
         response.sendRedirect(baseUrl+"/home");
     }
 }

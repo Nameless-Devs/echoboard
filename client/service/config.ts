@@ -15,6 +15,11 @@ export const ENDPOINTS = {
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
 };
 
+export const WEBSOCKET = { 
+  BASE_URL: `${process.env.NEXT_PUBLIC_DOMAIN}`,
+
+}
+
 export const YOUTUBE_LINK = "https://youtu.be/5ZnpfD93y64"; 
 
 // example from Marcus

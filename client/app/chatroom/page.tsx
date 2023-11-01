@@ -6,12 +6,11 @@ import {
   getUserChatRooms,
   getUserInfo,
 } from "@/service/Functions";
-import { Message, UserResponseData } from "@/service/Types";
+import { Message } from "@/service/Types";
 import { Grid, ListItemButton, Paper } from "@mui/material";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
-import ChatRoomHistory from "@/components/Chat/ChatRoomHistory";
 
 export default function UserChat() {
   const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms);

@@ -28,8 +28,8 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
 
       }}
     >
-      <Grid container spacing={1} 
-      sx={{marginTop: {md: '2rem'}}}
+      <Grid container spacing={1}
+        sx={{ marginTop: { md: '2rem' } }}
       >
         <Grid item xs={12} md={6}>
           <Image
@@ -41,22 +41,22 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
               borderRadius: "7px",
             }}
           />
-          <Button
-            variant="contained"
-            size="medium"
-            color="warning"
-            sx={{ display: { xs: "block", md: "none" } }}
-            style={{
-              width: "200px",
-              maxWidth: "200px",
-              alignSelf: "center",
-              margin: "40px auto 0",
+          <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              size="medium"
+              color="warning"
+              sx={{ display: { xs: "block", md: "none" } }}
+              style={{
+                width: "200px",
+                maxWidth: "200px",
+                alignSelf: "center",
+                margin: "40px auto 0",
 
-            }}>
-            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+              }}>
               Log in
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </Grid>
         <Grid item xs={12} md={6} display={'flex'} justifyContent={'center'}>
           <Box sx={{
@@ -90,21 +90,21 @@ export default function MainFeatured({ title, description }: MainFeaturedProp) {
             >
               {description}
             </Typography>
-            <Button
-              variant="contained"
-              size="medium"
-              color="warning"
-              sx={{ display: { xs: "none", md: "block" } }}
-              style={{
-                width: "200px",
-                maxWidth: "200px",
-                alignSelf: "center",
-                marginTop: "40px",
-              }}>
-              <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+            <Link href={ENDPOINTS.LOGIN} style={{ color: "white", textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                size="medium"
+                color="warning"
+                sx={{ display: { xs: "none", md: "block" } }}
+                style={{
+                  width: "200px",
+                  maxWidth: "200px",
+                  alignSelf: "center",
+                  marginTop: "40px",
+                }}>
                 Log in
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </Box>
         </Grid>
       </Grid>

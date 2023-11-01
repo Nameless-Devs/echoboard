@@ -65,7 +65,7 @@ export const FeatureList = () => {
     return (
         <>
        
-            <Box sx={{marginBottom: {xs: "3rem", md: "5rem"}}}>
+            <Box id="features" sx={{marginBottom: {xs: "3rem", md: "5rem"}}}>
                 <Typography
                     variant="h5"
                     sx={{

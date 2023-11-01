@@ -84,12 +84,12 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
                     </div>
                 ))}
             </div>
-            {/* <input
+            <input
                 type='text'
                 placeholder="Type your message"
                 value={input}
                 onChange={handleMessageInput} />
-            <button onClick={handleSendMessage}>Send</button> */}
+            <button onClick={handleSendMessage}>Send</button>
         </div>
     )
 }

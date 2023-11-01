@@ -16,7 +16,7 @@ export const ENDPOINTS = {
 };
 
 export const WEBSOCKET = { 
-  BASE_URL: `${process.env.NEXT_PUBLIC_DOMAIN}`,
+  BASE_URL: `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`,
 
 }
 

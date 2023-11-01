@@ -88,8 +88,8 @@ function NavBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <Link href={`#${page.toLowerCase()}`} style={{ color: "black", textDecoration: "none" }}>
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <Link href={`#${page.toLowerCase()}`} key={page} style={{ color: "black", textDecoration: "none" }}>
+                                    <MenuItem onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">{page}</Typography>
                                     </MenuItem>
                                 </Link>
@@ -110,9 +110,8 @@ function NavBar() {
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                         {pages.map((page) => (
-                            <Link href={`#${page.toLowerCase()}`} style={{ color: "white", textDecoration: "none" }}>
+                            <Link href={`#${page.toLowerCase()}`} key={page} style={{ color: "white", textDecoration: "none" }}>
                                 <Button
-                                    key={page}
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >

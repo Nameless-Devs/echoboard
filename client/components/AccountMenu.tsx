@@ -15,8 +15,6 @@ import { UserResponseData } from "@/service/Types";
 import "../app/styles/AccountMenu.css";
 import {ENDPOINTS} from "@/service/config";
 import { useRouter } from 'next/navigation';
-import {ENDPOINTS} from "@/service/config";
-import { useRouter } from 'next/navigation';
 
 export const AccountMenu: React.FC<UserResponseData> = (
   user: UserResponseData

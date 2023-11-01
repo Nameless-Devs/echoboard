@@ -1,11 +1,14 @@
 package util;
 
 import com.github.javafaker.Faker;
+import org.mockito.Mock;
 import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
+import se.salt.echoboard.service.EchoBoardService;
+import se.salt.echoboard.service.repository.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -13,6 +16,30 @@ import java.util.Collections;
 import java.util.List;
 
 public class TestBuilders {
+
+    @Mock
+    private static EchoBoardRepository echoBoardRepository;
+
+    @Mock
+    private static EchoBoardUserRepository userRepository;
+    @Mock
+    private static EchoBoardCommentRepository commentRepository;
+    @Mock
+    private static JPAChatRoomRepository chatRoomRepository;
+    @Mock
+    private static EchoBoardSolutionRepository solutionRepository;
+
+    @Mock
+    private static DTOConvertor convertor;
+
+    public static EchoBoardService mockedService() {
+        EchoBoardService echoBoardService = new EchoBoardService(
+                echoBoardRepository, commentRepository, solutionRepository, userRepository, chatRoomRepository, convertor);
+        return echoBoardService;
+    }
+
+    // Create an instance of EchoBoardService with the mocked dependencies
+
 
     private static final Faker faker = new Faker();
 

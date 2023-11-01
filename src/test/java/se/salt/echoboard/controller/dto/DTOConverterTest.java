@@ -26,7 +26,6 @@ public class DTOConverterTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Should map EchoBoardUser to EchoBoardUserResponse")
     public void testEchoBoardUserToEchoBoardUserResponse() {
 
@@ -45,7 +44,6 @@ public class DTOConverterTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Should map EchoBoardUser to EchoBoardUserInfo")
     public void testEchoBoardUserToEchoBoardUserInfo() {
 
@@ -67,7 +65,6 @@ public class DTOConverterTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Should map EchoBoard to EchoBoardResponse")
     public void testConvertEchoBoardToEchoBoardResponse() {
 
@@ -92,7 +89,6 @@ public class DTOConverterTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Should map EchoBoardSolution to EchoBoardUserSolutionResponse")
     public void testEchoBoardSolutionToEchoBoardSolutionResponse() {
 
@@ -118,7 +114,6 @@ public class DTOConverterTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Should map EchoBoardComment to EchoBoardCommentResponse")
     public void testEchoBoardCommentToEchoBoardCommentResponse() {
 

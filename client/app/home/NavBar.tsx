@@ -28,6 +28,13 @@ function NavBar() {
         setAnchorElNav(null);
     };
 
+    const navigateToPage = (page: string) => {
+        const element = document.getElementById(page.toLowerCase());
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
 
     return (
         <AppBar position='static' sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
@@ -88,11 +95,9 @@ function NavBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <Link href={`#${page.toLowerCase()}`} key={page} style={{ color: "black", textDecoration: "none" }}>
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                </Link>
+                                <MenuItem key={page} onClick={() => navigateToPage(page)}>
+                                    <Typography textAlign="center">{page}</Typography>
+                                </MenuItem>
                             ))}
 
                             <Link href={ENDPOINTS.LOGIN}
@@ -109,25 +114,25 @@ function NavBar() {
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                         {pages.map((page) => (
-                            <Link href={`#${page.toLowerCase()}`} key={page} style={{ color: "white", textDecoration: "none" }}>
-                                <Button
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
-                                >
-                                    {page}
-                                </Button>
-                            </Link>
+                            <Button
+                                key={page}
+                                onClick={() => navigateToPage(page)}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                {page}
+                            </Button>
                         ))}
-                        <Link href={ENDPOINTS.LOGIN} 
-                        style={{ 
-                            textDecoration: "none", 
-                            alignSelf: "center",
-                            border: "1px solid white",
-                            color: "white", 
-                            padding: "0.4rem 0.8rem",
-                            borderRadius: "5px",
-                            fontSize: "0.875rem"
-                             }}>
-                                LOG IN
+                        <Link href={ENDPOINTS.LOGIN}
+                            style={{
+                                textDecoration: "none",
+                                alignSelf: "center",
+                                border: "1px solid white",
+                                color: "white",
+                                padding: "0.4rem 0.8rem",
+                                borderRadius: "5px",
+                                fontSize: "0.875rem"
+                            }}>
+                            LOG IN
                         </Link>
                     </Box>
                 </Toolbar>

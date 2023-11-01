@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
@@ -24,8 +26,13 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
-        logout(request, response);
-        response.sendRedirect(baseUrl+"/home");
+        try {
+            logout(request, response);
+            log.info("Logout successful. Redirecting to the homepage.");
+            response.sendRedirect(baseUrl + "/home");
+        } catch (IOException e) {
+            log.error("Error redirecting after logout", e);
+        }
 
     }
 
@@ -56,6 +63,8 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         cookie.setPath(cookiePath);
         cookie.setMaxAge(0);
         cookie.setSecure(isSecure);
+        log.info("Deleting cookie - Name: {}, Path: {}, Max Age: {}, Secure: {}",
+                cookie.getName(), cookie.getPath(), cookie.getMaxAge(), cookie.getSecure());
         response.addCookie(cookie);
     }
 }

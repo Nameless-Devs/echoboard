@@ -34,7 +34,7 @@ export default function UserChat() {
   });
 
   useEffect(() => {
-    const newClient = Stomp.client("ws://" + WEBSOCKET.BASE_URL +"/w");
+    const newClient = Stomp.client(WEBSOCKET.BASE_URL);
 
     newClient.onStompError = (frame) => {
       console.log("STOMP Error:", frame);

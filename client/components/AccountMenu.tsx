@@ -13,6 +13,8 @@ import Logout from "@mui/icons-material/Logout";
 import Link from "next/link";
 import { UserResponseData } from "@/service/Types";
 import "../app/styles/AccountMenu.css";
+import {ENDPOINTS} from "@/service/config";
+import { useRouter } from 'next/navigation';
 
 
 export const AccountMenu: React.FC<UserResponseData> = (
@@ -60,7 +62,7 @@ export const AccountMenu: React.FC<UserResponseData> = (
             <Avatar /> Profile
           </MenuItem>
           <Divider />
-          <Link href={""} className="account-menu__link">
+          <Link href={ENDPOINTS.LOGOUT} className="account-menu__link">
             <MenuItem>
               <ListItemIcon>
                 <Logout fontSize="small" />

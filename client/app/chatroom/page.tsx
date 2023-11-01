@@ -75,7 +75,7 @@ export default function UserChat() {
         timestamp: new Date(),
       };
       client.publish({
-        destination: "/app/chat/sendMessage/1",
+        destination: "/app/chat/sendMessage/" +selectedChatRoomId,
         body: JSON.stringify(message),
       });
       setInput("");

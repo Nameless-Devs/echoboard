@@ -9,10 +9,10 @@ export const About = () => {
     return (
         <>
             <Box
-             id="about"
-             sx={{
-                background: "linear-gradient(135deg, hsla(215, 91%, 18%, 1) 2%, hsla(187, 61%, 28%, 1) 100%)"
-            }}>
+                id="about"
+                sx={{
+                    background: "linear-gradient(135deg, hsla(215, 91%, 18%, 1) 2%, hsla(187, 61%, 28%, 1) 100%)"
+                }}>
                 <Typography
                     variant="h5"
                     sx={{
@@ -51,19 +51,19 @@ export const About = () => {
                                 It aims to bridge the gap between employees and upper management by providing a platform for employees to voice their concerns,
                                 propose solutions, and collaborate on addressing issues that impact the organisation.
                             </Typography>
-                            <Button
-                                component="label"
-                                size="large"
-                                color="error"
-                                variant="contained"
-                                startIcon={<YouTubeIcon />}
-                                sx={{
-                                    margin: {xs: '2rem', md: '3rem'},
-                                }}>
-                                <Link href={YOUTUBE_LINK} target='_blank' style={{ color: "white", textDecoration: "none" }}>
+                            <Link href={YOUTUBE_LINK} target='_blank' style={{ color: "white", textDecoration: "none" }}>
+                                <Button
+                                    component="label"
+                                    size="large"
+                                    color="error"
+                                    variant="contained"
+                                    startIcon={<YouTubeIcon />}
+                                    sx={{
+                                        margin: { xs: '2rem', md: '3rem' },
+                                    }}>
                                     Watch video
-                                </Link>
-                            </Button>
+                                </Button>
+                            </Link>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={5}>

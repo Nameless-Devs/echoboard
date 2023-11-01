@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import se.salt.echoboard.security.config.CustomLogoutSuccessHandler;
 
 import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withEchoBoardDefaults;
 
@@ -21,6 +22,7 @@ import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withE
 public class SecurityConfigDev {
 
     private final MockUserAuthenticationFilter mockUserAuthenticationFilter;
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     @Value("${frontend-details.base-url}")
     private String baseUrl;
 
@@ -29,11 +31,13 @@ public class SecurityConfigDev {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("api/v1/status").permitAll()
+                        .requestMatchers("login").permitAll()
                         .requestMatchers("error").permitAll()
                         .anyRequest().authenticated())
                 .csrf(CsrfConfigurer::disable)
                 .cors(withEchoBoardDefaults(baseUrl))
                 .addFilterBefore(mockUserAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout(logout -> logout.logoutSuccessHandler(customLogoutSuccessHandler))
                 .build();
     }
 }

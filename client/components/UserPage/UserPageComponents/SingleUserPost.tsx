@@ -1,7 +1,7 @@
 import { timeConverter } from '@/service/TimeConverter'
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types'
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
@@ -15,6 +15,16 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     echoBoard,
     user
 }) => {
+
+    const [contentVisible, setContentVisible] = useState(false);
+
+    const showContent = () => {
+        setContentVisible(true);
+      };
+      
+      const hideContent = () => {
+        setContentVisible(false);
+      };
     return (
         <>
             {/* <Box
@@ -54,11 +64,20 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                 </Typography>
                 <Box sx={{
                     display: "flex",
-                    
+                    alignItems: "center",
+                    gap: "1.5rem",
+                    color: "#3874cb",
+
                 }}>
-                    <ThumbUpIcon /> {echoBoard.upvote?.length}
-                    <ModeCommentIcon /> {echoBoard.echoBoardComments?.length || 0}
-                    <LightbulbIcon /> {echoBoard.echoBoardSolutions?.length || 0}
+                    <Box sx={{display: "flex", alignItems: "center" }}>
+                        <ThumbUpIcon color='primary' /> {echoBoard.upvote?.length}
+                    </Box>
+                    <Box sx={{display: "flex", alignItems: "center" }}> 
+                        <ModeCommentIcon color='primary' /> {echoBoard.echoBoardComments?.length || 0}
+                    </Box>
+                    <Box sx={{display: "flex", alignItems: "center" }}>
+                        <LightbulbIcon color='primary' /> {echoBoard.echoBoardSolutions?.length || 0}
+                    </Box>
                 </Box>
             </Box>
         </>

@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("api/v1/status").permitAll()
                                 .requestMatchers("login").permitAll()
                                 .requestMatchers("chat").permitAll()
+                                .requestMatchers("w").permitAll()
                                 .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()
                 )

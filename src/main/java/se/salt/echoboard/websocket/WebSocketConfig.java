@@ -4,6 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
@@ -32,6 +33,9 @@ import java.util.Map;
 @Slf4j
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+    @Value("${frontend-details.base-url}")
+    private String frontendBaseUrl;
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/topic/chatrooms");
@@ -42,7 +46,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/w")
                 .addInterceptors(httpSessionHandshakeInterceptor())
-                .setAllowedOrigins("http://localhost:3000");
+                .setAllowedOrigins(frontendBaseUrl);
 
     }
 

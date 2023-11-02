@@ -1,6 +1,6 @@
 import { timeConverter } from '@/service/TimeConverter'
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Chip, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
@@ -52,6 +52,9 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                 >
                     {echoBoard.title}
                 </Typography>
+                <Box>
+                    {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}
+                </Box>
                 <Typography variant="caption" style={{ color: "gray" }}>
                     {timeConverter(echoBoard.created)}
                 </Typography>

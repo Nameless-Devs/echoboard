@@ -7,6 +7,7 @@ import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomT
 import { PostComment } from "../PostComment/PostComment";
 import { SinglePost } from "../SinglePost/SinglePost";
 import { timeConverter } from "@/service/TimeConverter";
+import { SingleUserPost } from "./SingleUserPost";
 
 type UserPageProps = {
   user: UserResponseData;
@@ -78,48 +79,14 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
             currentTabIndex={value}
             defaultTabIndex={0}
           />
-            <CustomTabContent value={value} index={0}>
+          <CustomTabContent value={value} index={0}>
             <Box>
               {user.echoBoards.map((echoBoard, index) => {
                 return (
-                  <>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: "8px",
-                      alignItems: "center",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    <Avatar src={echoBoard.anonymous ? " " : user.picture} />
-                    <Box>
-                      <Typography variant="subtitle1" style={{ marginBottom: "-5px" }}>
-                        {echoBoard.anonymous ? "Anonymous" : user.name}
-                      </Typography>
-                      <Typography variant="caption" style={{ color: "gray" }}>
-                        {timeConverter(echoBoard.created)}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="div"
-                    style={{ margin: "10px 0px 4px" }}
-                  >
-                    {echoBoard.title}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    style={{ margin: "0px" }}
-                  >
-                    {echoBoard.content}
-                  </Typography>
-                </>
+                  <SingleUserPost key={index} echoBoard={echoBoard} user={user} />
                 )
               })}
-           
+
             </Box>
           </CustomTabContent>
         </Box>

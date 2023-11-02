@@ -1,6 +1,6 @@
 import { timeConverter } from '@/service/TimeConverter'
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types'
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
@@ -20,11 +20,11 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 
     const showContent = () => {
         setContentVisible(true);
-      };
-      
-      const hideContent = () => {
+    };
+
+    const hideContent = () => {
         setContentVisible(false);
-      };
+    };
     return (
         <>
             {/* <Box
@@ -60,8 +60,15 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     color="text.secondary"
                     style={{ margin: "0px" }}
                 >
-                    {echoBoard.content}
+                    {contentVisible ? echoBoard.content : ''}
                 </Typography>
+                <div>
+                    {contentVisible ? (
+                        <Button size='small' onClick={hideContent}>Hide Content</Button>
+                    ) : (
+                        <Button size='small' onClick={showContent}>Show Content</Button>
+                    )}
+                </div>
                 <Box sx={{
                     display: "flex",
                     alignItems: "center",
@@ -69,13 +76,13 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     color: "#3874cb",
 
                 }}>
-                    <Box sx={{display: "flex", alignItems: "center" }}>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
                         <ThumbUpIcon color='primary' /> {echoBoard.upvote?.length}
                     </Box>
-                    <Box sx={{display: "flex", alignItems: "center" }}> 
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
                         <ModeCommentIcon color='primary' /> {echoBoard.echoBoardComments?.length || 0}
                     </Box>
-                    <Box sx={{display: "flex", alignItems: "center" }}>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
                         <LightbulbIcon color='primary' /> {echoBoard.echoBoardSolutions?.length || 0}
                     </Box>
                 </Box>

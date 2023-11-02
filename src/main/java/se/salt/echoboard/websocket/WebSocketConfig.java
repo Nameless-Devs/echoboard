@@ -54,9 +54,17 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                                            @NonNull ServerHttpResponse response,
                                            @NonNull WebSocketHandler wsHandler,
                                            @NonNull Map<String, Object> attributes) {
+                //TODO: change this to TRACE
+                log.info("""
+                    --------------------------------------------------------------------------------------------------------
+                    HandshakeInterceptor started
+                    --------------------------------------------------------------------------------------------------------
+                    """);
+
                 log.info(String.valueOf(request.getPrincipal()));
                 if (request instanceof ServletServerHttpRequest servletServerRequest) {
                     HttpServletRequest servletRequest = servletServerRequest.getServletRequest();
+                    log.info(String.valueOf(WebUtils.getCookie(servletRequest, "JSESSIONID")));
                     Cookie token = WebUtils.getCookie(servletRequest, "JwtToken");
                     assert token != null;
                     log.info("Cookie with value in Http Session Handshake: " + token.getValue());
@@ -78,14 +86,20 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.interceptors(
         new ChannelInterceptor() {
+
             @Override
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
+                //TODO: change this to TRACE
+                log.info("""
+                    --------------------------------------------------------------------------------------------------------
+                    Channel interceptor started
+                    --------------------------------------------------------------------------------------------------------
+                    """);
                 StompHeaderAccessor accessor =
                         MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 //                if (StompCommand.CONNECT.equals(accessor.getCommand())) {
                     log.info(String.valueOf(accessor.getUser()));
-//                }
-//                System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
                 SecurityContextHolder.getContext().setAuthentication((Authentication) accessor.getUser());
 
                 return message;

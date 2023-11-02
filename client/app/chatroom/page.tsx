@@ -7,7 +7,7 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { Message } from "@/service/Types";
-import { Grid, ListItemButton, Paper } from "@mui/material";
+import {Button, Grid, Input, ListItemButton, Paper} from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
@@ -91,49 +91,58 @@ export default function UserChat() {
   };
 
   return (
-    <>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <Paper
-            elevation={3}
-            style={{ height: "100vh", background: "#E0E0E0" }}
+              elevation={3}
+              style={{
+                height: "100%",
+                background: "#ffffff",
+                borderRadius: "10px",
+                padding: "16px",
+              }}
           >
             <div>
               {chatrooms?.map((chatroom, index) => (
-                <ListItemButton
-                  key={index}
-                  onClick={() => handleChatRoomChange(chatroom)}
-                >
-                  {chatroom}
-                </ListItemButton>
+                  <ListItemButton
+                      key={index}
+                      onClick={() => handleChatRoomChange(chatroom)}
+                      style={{ borderRadius: "10px", padding: "16px" }}
+                  >
+                    {chatroom}
+                  </ListItemButton>
               ))}
             </div>
           </Paper>
         </Grid>
 
-        <Grid item xs={8}>
-          <Paper elevation={0} style={{ height: "75vh", padding: 16, background: "gray", marginBottom: "2.2em", overflowY: "scroll" }}>
-            <h1 style={{ margin: "0px" }}>Message</h1>
+        <Grid item xs={8} gridAutoColumns={3}>
+          <Paper
+              elevation={0}
+              style={{
+                height: "85vh",
+                overflowY: "scroll",
+                padding: "16px",
+                borderRadius: "10px",
+              }}
+          >
             {messages.map((msg, index) => (
                 <div key={index}>
                   <ChatMessage index={index} msg={msg} />
                 </div>
             ))}
           </Paper>
-          <Paper
-            elevation={0}
-            style={{ height: "15vh", padding: 16, background: "gray" }}
-          >
-            <input
-              type="text"
-              placeholder="Type your message"
-              value={input}
-              onChange={handleMessageInput}
+          <Paper elevation={1} style={{ padding: "16px", borderRadius: "10px" }}>
+            <Input
+                type="text"
+                placeholder="Enter a message"
+                value={input}
+                onChange={handleMessageInput}
+                style={{ width: "90%" }}
             />
-            <button onClick={handleSendMessage}>Send</button>
+            <Button onClick={handleSendMessage}>Send</Button>
           </Paper>
         </Grid>
       </Grid>
-    </>
-  );
+    );
 }

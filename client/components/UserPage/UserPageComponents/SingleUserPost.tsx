@@ -28,16 +28,24 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     };
     return (
         <>
-            <Box sx={{ border: "solid black 1px" }}>
-                <ExtraActionsMenu />
-                <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="div"
-                    style={{ margin: "10px 0px 4px" }}
-                >
-                    {echoBoard.title}
-                </Typography>
+            <Box
+                sx={{
+                    border: "solid black 1px",
+                    padding: "1rem",
+                    margin: "1rem 0",
+                    borderRadius: "1rem",
+                }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        style={{ margin: "0" }}
+                    >
+                        {echoBoard.title}
+                    </Typography>
+                    <ExtraActionsMenu />
+                </Box>
                 <Box>
                     {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}
                 </Box>
@@ -58,21 +66,29 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                         <Button size='small' onClick={showContent}>Show Content</Button>
                     )}
                 </div>
-                <Box sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1.5rem",
-                    color: "#3874cb",
+                <Box sx={{display: {xs: "", md: "flex"}, justifyContent: "space-between"}}>
+                    <Box sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "1.5rem",
+                        color: "#3874cb",
 
-                }}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <ThumbUpIcon color='primary' /> {echoBoard.upvote?.length}
+                    }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <ThumbUpIcon color='primary' /> {echoBoard.upvote?.length}
+                        </Box>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <ModeCommentIcon color='primary' /> {echoBoard.echoBoardComments?.length || 0}
+                        </Box>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <LightbulbIcon color='primary' /> {echoBoard.echoBoardSolutions?.length || 0}
+                        </Box>
                     </Box>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <ModeCommentIcon color='primary' /> {echoBoard.echoBoardComments?.length || 0}
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <LightbulbIcon color='primary' /> {echoBoard.echoBoardSolutions?.length || 0}
+                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
+                        <Typography>
+                            0 people vounteered for 0 solutions
+                        </Typography>
+                        <Button>Manage</Button>
                     </Box>
                 </Box>
             </Box>

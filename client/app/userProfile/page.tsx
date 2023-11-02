@@ -26,6 +26,7 @@ export default function UserProfile() {
   }
 
   if (user) {
+    console.log(user);
     return (
       <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
         {/* Nav Bar */}

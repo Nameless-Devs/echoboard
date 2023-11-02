@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import ExtraActionsMenu from './ExtraActionsMenu';
 
 type SingleUserPostProps = {
     echoBoard: EchoBoardResponseData;
@@ -27,23 +28,8 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     };
     return (
         <>
-            {/* <Box
-                sx={{
-                    display: "flex",
-                    gap: "8px",
-                    alignItems: "center",
-                    marginBottom: "10px",
-                }}
-            >
-                <Avatar src={echoBoard.anonymous ? " " : user.picture} />
-                <Box>
-                    <Typography variant="subtitle1" style={{ marginBottom: "-5px" }}>
-                        {echoBoard.anonymous ? "Anonymous" : user.name}
-                    </Typography>
-                    
-                </Box>
-            </Box> */}
             <Box sx={{ border: "solid black 1px" }}>
+                <ExtraActionsMenu />
                 <Typography
                     gutterBottom
                     variant="h5"

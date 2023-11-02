@@ -1,6 +1,7 @@
 package se.salt.echoboard;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,10 +24,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static util.TestUtilities.*;
 
 @SpringBootTest
@@ -123,6 +124,60 @@ public class EchoBoardIntegrationTests {
         // Verify that the chat room was created
         Optional<ChatRoom> chatRoom = chatRoomRepository.findById(solution.getChatRoom().getId());
         Assertions.assertTrue(chatRoom.isPresent());
+
+    }
+
+    @Test
+    @WithMockOidcUser
+    @DisplayName("Should get the EchoBoard solution ")
+    public void testGetEchoBoardSolution() throws Exception {
+
+        // Create a sample EchoBoardSolution with known solutionId and initial solutionStatus in the test database
+        EchoBoardSolution solution = TestBuilders.createRandomEchoBoardSolution();
+
+        solutionRepository.save(solution);
+
+        // Send a GET request to get the EchoBoard solution
+        String jsonRequest = TestUtilities.convertJsonString(solution);
+        mockMvc.perform(get("/api/v1/solutions/{solutionId}", solution.getId())
+                        .contentType("application/json")
+                        .content(jsonRequest))
+                .andExpect(status().isOk())
+                .andReturn();
+
+    }
+
+    @Test
+    @WithMockOidcUser
+    @Transactional
+    @DisplayName("Should add an upvote to the solution ")
+    public void testUpvoteSolution() throws Exception {
+
+        // Create a sample EchoBoardSolution with known solutionId and initial solutionStatus in the test database
+        EchoBoardSolution solution = TestBuilders.createRandomEchoBoardSolution();
+
+        solutionRepository.save(solution);
+
+
+        String jsonRequest = TestUtilities.convertJsonString(solution);
+        // Perform an upvote by sending a PATCH request to the endpoint
+        mockMvc.perform(patch("/api/v1/solutions/{solutionId}/upvote", solution.getId())
+                        .contentType("application/json")
+                        .content(jsonRequest))
+                .andExpect(status().isOk())
+                .andExpect(content().string("1"));
+
+        // Verify that the upvote was recorded correctly in the database
+        Optional<EchoBoardSolution> optionalSolution = solutionRepository.getSolutionById(solution.getId());
+        Assertions.assertTrue(optionalSolution.isPresent());
+
+        // Verify that the upvote was recorded correctly in the database
+        EchoBoardSolution updatedSolution = optionalSolution.get();
+        Assertions.assertEquals(1, updatedSolution.getUpvote().size());
+
+
+
+
 
     }
 

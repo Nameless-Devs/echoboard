@@ -39,12 +39,11 @@ export default function UserChat() {
     newClient.onStompError = (frame) => {
       console.log("STOMP Error:", frame);
     };
-    (newClient.onConnect = () => {
+    newClient.onConnect = () => {
       if (chatrooms) {
         subscribeToUserChatRooms(newClient, chatrooms, onMessageReceived);
-      }
-    }),
-      newClient.activate();
+      }}
+    newClient.activate();
     setClient(newClient);
     if (chatHistory) setMessages(chatHistory);
 
@@ -113,21 +112,13 @@ export default function UserChat() {
         </Grid>
 
         <Grid item xs={8}>
-          <Paper
-            elevation={0}
-            style={{
-              height: "75vh",
-              padding: 16,
-              background: "gray",
-              marginBottom: "2.2em",
-            }}
-          >
+          <Paper elevation={0} style={{ height: "75vh", padding: 16, background: "gray", marginBottom: "2.2em", overflowY: "scroll" }}>
             <h1 style={{ margin: "0px" }}>Message</h1>
-              {messages.map((msg, index) => (
-                  <div key={index}>
-                    <ChatMessage index={index} msg={msg} />
-                  </div>
-              ))}
+            {messages.map((msg, index) => (
+                <div key={index}>
+                  <ChatMessage index={index} msg={msg} />
+                </div>
+            ))}
           </Paper>
           <Paper
             elevation={0}

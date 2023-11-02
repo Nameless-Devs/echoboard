@@ -57,11 +57,9 @@ export type SolutionResponseData = {
 export type UserResponseData = {
   name: string;
   picture: string;
-  //add later: 
-  //comments[]
-  //posts[]
-  //solutions[]
-  //upvotes? 
+  echoBoardComments: CommentResponseData[];
+  echoBoardSolutions: SolutionResponseData[];
+  echoBoards: EchoBoardResponseData[];
 }
 
 export type StatusInfo = {

@@ -24,7 +24,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "15px",
+          marginTop: "1rem",
         }}
       >
         <Box className="tabs-container">

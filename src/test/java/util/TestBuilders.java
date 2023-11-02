@@ -17,30 +17,6 @@ import java.util.List;
 
 public class TestBuilders {
 
-    @Mock
-    private static EchoBoardRepository echoBoardRepository;
-
-    @Mock
-    private static EchoBoardUserRepository userRepository;
-    @Mock
-    private static EchoBoardCommentRepository commentRepository;
-    @Mock
-    private static JPAChatRoomRepository chatRoomRepository;
-    @Mock
-    private static EchoBoardSolutionRepository solutionRepository;
-
-    @Mock
-    private static DTOConvertor convertor;
-
-    public static EchoBoardService mockedService() {
-        EchoBoardService echoBoardService = new EchoBoardService(
-                echoBoardRepository, commentRepository, solutionRepository, userRepository, chatRoomRepository, convertor);
-        return echoBoardService;
-    }
-
-    // Create an instance of EchoBoardService with the mocked dependencies
-
-
     private static final Faker faker = new Faker();
 
     public static EchoBoard createRandomEchoBoard() {
@@ -119,12 +95,11 @@ public class TestBuilders {
     public static EchoBoardSolution createRandomEchoBoardSolution() {
 
         return EchoBoardSolution.builder()
-        .anonymous(faker.random().nextBoolean())
-        .created(Instant.now())
-        .id(faker.number().randomNumber())
-        .status(EchoBoardSolution.SolutionStatus.SOLVED)
-        .echoBoardUser(createRandomEchoBoardUser())
-        .content(faker.lorem().paragraph()).build();
+                .id(1L)
+                .content("Sample content")
+                .anonymous(true)
+                .status(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)
+                .build();
 
     }
 

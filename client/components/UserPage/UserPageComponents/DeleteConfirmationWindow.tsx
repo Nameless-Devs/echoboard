@@ -28,9 +28,11 @@ const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
     handleClose,
     echoBoard,
 }) => {
-    // const [open, setOpen] = React.useState(false);
-    // const handleOpen = () => setOpen(true);
-    // const handleClose = () => setOpen(false);
+
+    const handleDeletePost = (echoBoard: EchoBoardResponseData) => {
+
+    };
+
     return (
         <Modal
             open={open}
@@ -45,8 +47,11 @@ const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     Are you sure you want to delete this post? 
                 </Typography>
-                <Button>Yes</Button>
-                <Button>No</Button>
+                <Typography variant='h5'>
+                    {echoBoard.title}
+                </Typography>
+                <Button onClick={() => handleDeletePost(echoBoard)}>Yes</Button>
+                <Button onClick={handleClose}>No</Button>
             </Box>
         </Modal>
     )

@@ -7,11 +7,12 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { Message } from "@/service/Types";
-import { Button, Grid, Input, ListItemButton, Typography } from "@mui/material";
+import { Button, Grid, Input, ListItemButton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
+import {useScrollToLatestMessage} from "@/components/Chat/scrollToLatestMessage";
 
 export default function UserChat() {
   const { data: chatRooms } = useQuery(["chatRooms"], getUserChatRooms);

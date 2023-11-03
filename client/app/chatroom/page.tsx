@@ -101,26 +101,8 @@ export default function UserChat() {
         style={{position: "absolute", height: "100%", width: "100%"}}
     >
       {/*Left Grid*/}
-      <Grid item xs={2} sx={{ height: "100%", backgroundColor: "#292b2f" }}>
-        <h1 style={{ margin: "1em" }}>ChatRoom</h1>
-        {chatRooms?.map((chatroom, index) => (
-          <ListItemButton
-            key={index}
-            onClick={() => {
-              handleChatRoomChange(chatroom);
-              setSelectedIndex(index);
-            }}
-            style={{
-              borderRadius: "10px",
-              padding: "16px",
-              color: "#f1f1f1",
-              backgroundColor: selectedIndex === index ? "#424549" : "",
-              margin: "0 0.5rem 0 0.5rem",
-            }}
-          >
-            {chatroom}
-          </ListItemButton>
-        ))}
+      <Grid item xs={2} sx={{height: "100%", backgroundColor: "#292b2f"}}>
+        {displayUserChatrooms()}
       </Grid>
       <Grid item xs={10} sx={{height: "100%", backgroundColor: "#424549"}}>
         {/*Top Right*/}
@@ -170,4 +152,28 @@ export default function UserChat() {
       </Grid>
     </Grid>
   );
+
+  function displayUserChatrooms() {
+    return <>
+      <h1 style={{margin: "1em"}}>ChatRoom</h1>
+      {chatRooms?.map((chatroom, index) => (
+          <ListItemButton
+              key={index}
+              onClick={() => {
+                handleChatRoomChange(chatroom);
+                setSelectedIndex(index);
+              }}
+              style={{
+                borderRadius: "10px",
+                padding: "16px",
+                color: "#f1f1f1",
+                backgroundColor: selectedIndex === index ? "#424549" : "",
+                margin: "0 0.5rem 0 0.5rem",
+              }}
+          >
+            {chatroom}
+          </ListItemButton>
+      ))}
+    </>;
+  }
 }

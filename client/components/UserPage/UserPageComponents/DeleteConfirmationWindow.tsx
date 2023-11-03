@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { EchoBoardResponseData } from '@/service/Types';
+import { deleteEchoBoard } from '@/service/Functions';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -18,7 +20,7 @@ const style = {
 };
 
 type DeleteConfirmationWindowProp = {
-    open: boolean; 
+    open: boolean;
     handleClose: () => void;
     echoBoard: EchoBoardResponseData;
 }
@@ -28,10 +30,20 @@ const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
     handleClose,
     echoBoard,
 }) => {
+    
+    const queryClient = useQueryClient();
 
-    const handleDeletePost = (echoBoard: EchoBoardResponseData) => {
-
-    };
+    const deleteEchoBoardMutation = useMutation(deleteEchoBoard, {
+        onSuccess: async () => {
+          handleClose();
+          queryClient.invalidateQueries(['userInfo']);
+          queryClient.refetchQueries(['userInfo']);
+        },
+      });
+    
+      const handleDeletePost = async (echoBoard: EchoBoardResponseData) => {
+        deleteEchoBoardMutation.mutate(echoBoard.id);
+      };
 
     return (
         <Modal
@@ -45,12 +57,20 @@ const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
                     Confirm
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Are you sure you want to delete this post? 
+                    Are you sure you want to delete this post?
                 </Typography>
                 <Typography variant='h5'>
                     {echoBoard.title}
                 </Typography>
-                <Button onClick={() => handleDeletePost(echoBoard)}>Yes</Button>
+                <Typography>
+                    You will not be able to reverse this process.
+                </Typography>
+                <Button onClick={() => {
+                    handleDeletePost(echoBoard)
+                }
+                }>
+                    Yes
+                </Button>
                 <Button onClick={handleClose}>No</Button>
             </Box>
         </Modal>

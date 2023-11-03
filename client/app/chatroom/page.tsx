@@ -7,7 +7,7 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { Message } from "@/service/Types";
-import { Button, Grid, Input, ListItemButton } from "@mui/material";
+import { Button, Grid, Input, ListItemButton, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
@@ -20,7 +20,7 @@ export default function UserChat() {
   const [client, setClient] = useState<Client | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
 
@@ -99,18 +99,21 @@ export default function UserChat() {
     >
       {/*Left Grid*/}
       <Grid item xs={2} sx={{ height: "100%", backgroundColor: "#292b2f" }}>
+        <h1 style={{ margin: "1em" }}>ChatRoom</h1>
         {chatRooms?.map((chatroom, index) => (
           <ListItemButton
             key={index}
             onClick={() => {
               handleChatRoomChange(chatroom);
-              setSelectedIndex(index)
+              setSelectedIndex(index);
             }}
-            style={{ borderRadius: "10px", padding: "16px", color: "#f1f1f1",
+            style={{
+              borderRadius: "10px",
+              padding: "16px",
+              color: "#f1f1f1",
               backgroundColor: selectedIndex === index ? "#424549" : "",
-              margin: "0 0.5rem 0 0.5rem"
+              margin: "0 0.5rem 0 0.5rem",
             }}
-
           >
             {chatroom}
           </ListItemButton>
@@ -118,7 +121,7 @@ export default function UserChat() {
       </Grid>
       <Grid item xs={10} sx={{ height: "100%", backgroundColor: "#424549" }}>
         {/*Top Right*/}
-        <Grid item xs={12} sx={{ height: "90%", overflowY: "scroll"}}>
+        <Grid item xs={12} sx={{ height: "90%", overflowY: "scroll" }}>
           {messages.map((msg, index) => (
             <div key={index}>
               <ChatMessage index={index} msg={msg} />
@@ -143,13 +146,13 @@ export default function UserChat() {
               justifyContent: "space-between",
               padding: "1rem",
               backgroundColor: "#4a4c51",
-              borderRadius: "5px"
+              borderRadius: "5px",
             }}
           >
             <Input
               sx={{
                 width: "80%",
-                color: "#f1f1f1"
+                color: "#f1f1f1",
               }}
               type="text"
               placeholder="Enter a message"

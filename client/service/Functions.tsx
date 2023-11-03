@@ -304,11 +304,12 @@ export async function fetchChatRoomHistory(chatRoomId: number): Promise<Message[
   }
 }
 
-export async function deleteEchoBoard(echoId: string): Promise<void> {
+export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.DELETE_ECHOBOARD,
-      { echoId });
+      { echoBoardId });
     const response = await fetch(endpoint, {
+      credentials: "include",
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json', 

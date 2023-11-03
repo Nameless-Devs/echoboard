@@ -7,7 +7,7 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { Message } from "@/service/Types";
-import { Button, Grid, Input, ListItemButton, Paper } from "@mui/material";
+import { Button, Grid, Input, ListItemButton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
@@ -20,6 +20,7 @@ export default function UserChat() {
   const [client, setClient] = useState<Client | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(-1)
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
 
@@ -101,8 +102,15 @@ export default function UserChat() {
         {chatRooms?.map((chatroom, index) => (
           <ListItemButton
             key={index}
-            onClick={() => handleChatRoomChange(chatroom)}
-            style={{ borderRadius: "10px", padding: "16px", color: "#f1f1f1" }}
+            onClick={() => {
+              handleChatRoomChange(chatroom);
+              setSelectedIndex(index)
+            }}
+            style={{ borderRadius: "10px", padding: "16px", color: "#f1f1f1",
+              backgroundColor: selectedIndex === index ? "#424549" : "",
+              margin: "0 0.5rem 0 0.5rem"
+            }}
+
           >
             {chatroom}
           </ListItemButton>

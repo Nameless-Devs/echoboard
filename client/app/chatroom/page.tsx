@@ -132,7 +132,7 @@ export default function UserChat() {
           ))}
           <div ref={scrollToLatestMessage} />
         </Grid>
-        {/*Top Left*/}
+        {/*Bottom Right*/}
         <Grid
           item
           xs={12}

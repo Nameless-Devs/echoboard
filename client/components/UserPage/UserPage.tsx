@@ -1,5 +1,5 @@
 import { UserResponseData } from "@/service/Types";
-import { Avatar, Box, Chip, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { TabsManager } from "../CommentModal/commentModalComponents/TabsManager";
 import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomTabContent";

@@ -8,7 +8,8 @@ import { getUserInfo } from "@/service/Functions";
 import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
 import { AccountMenu } from "@/components/AccountMenu";
 import EchoBoardLogo from "@/components/EchoBoardLogo";
-import "./styles/UserPage.css"
+import "./styles/UserPage.css";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const { data: user, isLoading, error } = useQuery(['userInfo'], getUserInfo);
@@ -17,6 +18,7 @@ export default function Home() {
   const handleClick = () => {
     setIsVisiblePostEcho(!isVisiblePostEcho);
   }
+  const router = useRouter()
 
   if (user) {
     return (
@@ -27,8 +29,8 @@ export default function Home() {
               <EchoBoardLogo />
             </Box>
             <Stack direction="row" spacing={2}>
-              <Button color="inherit">Home</Button>
-              <Button color="inherit">Chat</Button>
+              <Button color="inherit" onClick={() => router.push('/home')}>Starting page</Button>
+              <Button color="inherit" onClick={() => router.push('/chatroom')}>Chat</Button>
               <AccountMenu {...user} />
             </Stack>
           </Toolbar>

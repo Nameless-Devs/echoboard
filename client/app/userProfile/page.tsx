@@ -5,17 +5,19 @@ import {
   AppBar,
   Button,
   Stack,
-  Toolbar,
-  Typography,
+  Toolbar
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import React from "react";
 import "../styles/UserPage.css"
 import EchoBoardLogo from "@/components/EchoBoardLogo";
+import { useRouter } from "next/navigation";
 
 export default function UserProfile() {
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
+
+  const router = useRouter()
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -39,8 +41,8 @@ export default function UserProfile() {
               <EchoBoardLogo />
             </Box>
             <Stack direction="row" spacing={2}>
-              <Button color="inherit">Home</Button>
-              <Button color="inherit">Chat</Button>
+              <Button color="inherit" onClick={() => router.push('/')}>Home</Button>
+              <Button color="inherit" onClick={() => router.push('/chatroom')}>Chat</Button>
             </Stack>
           </Toolbar>
         </AppBar>

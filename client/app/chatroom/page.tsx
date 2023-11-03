@@ -91,58 +91,51 @@ export default function UserChat() {
   };
 
   return (
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <Paper
-              elevation={3}
-              style={{
-                height: "100%",
-                background: "#ffffff",
-                borderRadius: "10px",
-                padding: "16px",
-              }}
-          >
-            <div>
-              {chatRooms?.map((chatroom, index) => (
-                  <ListItemButton
-                      key={index}
-                      onClick={() => handleChatRoomChange(chatroom)}
-                      style={{ borderRadius: "10px", padding: "16px" }}
-                  >
-                    {chatroom}
-                  </ListItemButton>
-              ))}
-            </div>
-          </Paper>
+      <Grid container style={{ position: 'absolute', height: '100%', width: '100%' }}>
+        {/*Left Grid*/}
+        <Grid item xs={2} sx={{ height: '100%', backgroundColor: "#f1f1f1"}}>
+             {chatRooms?.map((chatroom, index) => (
+                 <ListItemButton
+                     key={index}
+                     onClick={() => handleChatRoomChange(chatroom)}
+                     style={{ borderRadius: "10px", padding: "16px" }}
+                 >
+                   {chatroom}
+                 </ListItemButton>
+             ))}
         </Grid>
-
-        <Grid item xs={8} gridAutoColumns={3}>
-          <Paper
-              elevation={0}
-              style={{
-                height: "85vh",
-                overflowY: "scroll",
-                padding: "16px",
-                borderRadius: "10px",
-              }}
-          >
+        <Grid item xs={10} sx={{ height: '100%'}}>
+          {/*Top Right*/}
+          <Grid item xs={12} sx={{ height: '90%', overflowY: "scroll" }}>
             {messages.map((msg, index) => (
                 <div key={index}>
                   <ChatMessage index={index} msg={msg} />
                 </div>
             ))}
-          </Paper>
-          <Paper elevation={1} style={{ padding: "16px", borderRadius: "10px" }}>
+          </Grid>
+          {/*Top Left*/}
+          <Grid item xs={12} sx={{
+            height: '10%',
+            outline: '10px blue',
+            backgroundColor: "#f1f1f1",
+            paddingLeft: "1rem",
+          }}>
+            <div style={{display:"flex",
+              flexDirection: "row",
+              justifyContent:"space-between",
+              paddingTop: "2rem",
+              paddingRight: "1rem"}}>
             <Input
                 type="text"
                 placeholder="Enter a message"
                 value={input}
+                disableUnderline={true}
                 onChange={handleMessageInput}
-                style={{ width: "90%" }}
             />
             <Button onClick={handleSendMessage}>Send</Button>
-          </Paper>
+            </div>
+          </Grid>
         </Grid>
       </Grid>
-    );
+  );
 }

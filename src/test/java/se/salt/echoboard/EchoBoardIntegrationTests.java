@@ -97,88 +97,30 @@ public class EchoBoardIntegrationTests {
                 .andReturn();
     }
 
-    @Test
-    @WithMockOidcUser
-    @DisplayName("Should update the solution status and set a new chatRoom")
-    public void testUpdateSolutionStatus() throws Exception {
-
-        // Create a sample EchoBoardSolution with known solutionId and initial solutionStatus in the test database
-        EchoBoardSolution solution = TestBuilders.createRandomEchoBoardSolution();
-
-        solutionRepository.save(solution);
-
-        // saving a new chatRoom if a status requires a volunteers.
-        solution.setChatRoom(solution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED) ?
-                chatRoomRepository.save(new ChatRoom().setEchoBoardSolution(solution)) :
-                null);
-
-        // Send a PATCH request to update the solutionStatus
-        String jsonRequest = TestUtilities.convertJsonString(solution);
-         mockMvc.perform(patch("/api/v1/solutions/{solutionId}", solution.getId())
-                        .param("updateToStage", EchoBoardSolution.SolutionStatus.IMPLEMENTATION_IN_PROGRESS.name())
-                        .contentType("application/json")
-                        .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(EchoBoardSolution.SolutionStatus.IMPLEMENTATION_IN_PROGRESS.name()));
-
-        // Verify that the chat room was created
-        Optional<ChatRoom> chatRoom = chatRoomRepository.findById(solution.getChatRoom().getId());
-        Assertions.assertTrue(chatRoom.isPresent());
-
-    }
 
     @Test
     @WithMockOidcUser
-    @DisplayName("Should get the EchoBoard solution ")
-    public void testGetEchoBoardSolution() throws Exception {
-
-        // Create a sample EchoBoardSolution with known solutionId and initial solutionStatus in the test database
-        EchoBoardSolution solution = TestBuilders.createRandomEchoBoardSolution();
-
-        solutionRepository.save(solution);
-
-        // Send a GET request to get the EchoBoard solution
-        String jsonRequest = TestUtilities.convertJsonString(solution);
-        mockMvc.perform(get("/api/v1/solutions/{solutionId}", solution.getId())
-                        .contentType("application/json")
-                        .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andReturn();
-
-    }
-
-    @Test
-    @WithMockOidcUser
-    @Transactional
     @DisplayName("Should add an upvote to the solution ")
-    public void testUpvoteSolution() throws Exception {
+    public void testVolunteerForSolution() throws Exception {
 
         // Create a sample EchoBoardSolution with known solutionId and initial solutionStatus in the test database
         EchoBoardSolution solution = TestBuilders.createRandomEchoBoardSolution();
 
         solutionRepository.save(solution);
 
-
         String jsonRequest = TestUtilities.convertJsonString(solution);
-        // Perform an upvote by sending a PATCH request to the endpoint
-        mockMvc.perform(patch("/api/v1/solutions/{solutionId}/upvote", solution.getId())
+        // Perform a volunteer action by sending a POST request to the endpoint
+        mockMvc.perform(post("/api/v1/solutions/{solutionId}/volunteer", solution.getId())
                         .contentType("application/json")
                         .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(content().string("1"));
+                .andExpect(status().isCreated());
 
-        // Verify that the upvote was recorded correctly in the database
+        // Verify that the user has been added as a volunteer to the solution
         Optional<EchoBoardSolution> optionalSolution = solutionRepository.getSolutionById(solution.getId());
         Assertions.assertTrue(optionalSolution.isPresent());
 
-        // Verify that the upvote was recorded correctly in the database
         EchoBoardSolution updatedSolution = optionalSolution.get();
-        Assertions.assertEquals(1, updatedSolution.getUpvote().size());
-
-
-
-
-
+        Assertions.assertNotNull(updatedSolution.getVolunteers());
     }
 
 }

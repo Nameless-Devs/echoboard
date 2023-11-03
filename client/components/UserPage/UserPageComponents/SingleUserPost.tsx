@@ -34,6 +34,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     padding: "1rem",
                     margin: "1rem 0",
                     borderRadius: "1rem",
+                    backgroundColor: "white",
                 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography

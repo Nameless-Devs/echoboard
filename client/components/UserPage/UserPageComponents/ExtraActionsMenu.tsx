@@ -72,6 +72,7 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
 
   const handleDelete = () => {
    setIsDeleteModalOpen(true);
+   handleClose();
   };
 
   const handleCloseDeleteWindow = () => {

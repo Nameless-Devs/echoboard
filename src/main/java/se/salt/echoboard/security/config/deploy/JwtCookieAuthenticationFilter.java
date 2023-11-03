@@ -43,7 +43,7 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
         var jwtTokenString = getJwtTokenFromRequestCookie(request);
 
-        if (jwtTokenString.isPresent()) {
+        if ( !request.getRequestURI().equals("/login") & jwtTokenString.isPresent()) {
             log.info("Received JWT token: {}", jwtTokenString.get());
             try {
                 Jwt jwt = validation.validateJWTString(jwtTokenString.get());
@@ -51,7 +51,6 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
                 redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated(user, response);
             } catch (JwtException e) {
                 log.error("Failed to validate JWT token: {}", e.getMessage());
-                response.sendRedirect(baseUrl+"login");
                 return;
             }
         }

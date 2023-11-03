@@ -48,7 +48,7 @@ public class EchoBoardSolution {
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     @JsonIgnoreProperties({"messages"})
     private ChatRoom chatRoom;

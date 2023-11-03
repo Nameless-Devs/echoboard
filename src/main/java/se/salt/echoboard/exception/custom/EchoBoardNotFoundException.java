@@ -3,6 +3,7 @@ package se.salt.echoboard.exception.custom;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 public class EchoBoardNotFoundException extends ResponseStatusException {
     public EchoBoardNotFoundException() {
@@ -10,7 +11,7 @@ public class EchoBoardNotFoundException extends ResponseStatusException {
     }
 
     public EchoBoardNotFoundException(long detail) {
-        super(NOT_FOUND, "EchoBoard with id %s not found".formatted(detail));
+        super(NO_CONTENT, "EchoBoard with id %s not found".formatted(detail));
     }
 
 }

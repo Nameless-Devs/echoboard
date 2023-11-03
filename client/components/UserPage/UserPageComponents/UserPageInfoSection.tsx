@@ -39,7 +39,8 @@ export const UserPageInfoSection: React.FC<UserPageInfoSectionProp> = ({user}) =
                     sx={{
                         display: "flex",
                         justifyContent: {xs: "space-around" , md: "center"},
-                        gap: { xs: "0.5rem", md: "1rem"}
+                        gap: { xs: "0.5rem", md: "1rem"},
+                        mr: { xs: "1rem", md: "0"}
                     }}
                 >
                     <Chip

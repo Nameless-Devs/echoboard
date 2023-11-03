@@ -45,7 +45,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     >
                         {echoBoard.title}
                     </Typography>
-                    <ExtraActionsMenu />
+                    <ExtraActionsMenu  echoBoard={echoBoard}/>
                 </Box>
                 <Box>
                     {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}

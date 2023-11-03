@@ -10,6 +10,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import DeleteConfirmationWindow from './DeleteConfirmationWindow';
+import { EchoBoardResponseData } from '@/service/Types';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -52,7 +53,11 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-export default function ExtraActionsMenu() {
+type ExtraActionsMenuProps = {
+  echoBoard: EchoBoardResponseData;
+}
+
+export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -110,7 +115,7 @@ export default function ExtraActionsMenu() {
           Mark as resolved
         </MenuItem>
       </StyledMenu>
-      <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  /> 
+      <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> 
     </div>
   );
 }

@@ -20,13 +20,13 @@ const style = {
 type DeleteConfirmationWindowProp = {
     open: boolean; 
     handleClose: () => void;
-    echoBoard?: EchoBoardResponseData;
+    echoBoard: EchoBoardResponseData;
 }
 
 const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
     open,
     handleClose,
-   
+    echoBoard,
 }) => {
     // const [open, setOpen] = React.useState(false);
     // const handleOpen = () => setOpen(true);

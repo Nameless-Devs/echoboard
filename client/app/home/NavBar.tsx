@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { ENDPOINTS } from '@/service/config';
-import EchoBoardLogo from './EchoBoardLogo';
+import EchoBoardLogo from '../../components/EchoBoardLogo';
 
 const pages = ['Home', 'Features', 'About', 'Contact'];
 

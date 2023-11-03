@@ -1,11 +1,11 @@
 import React from 'react';
-import EchoLogoWhite from "../image/EchoBoard_logo_white.png";
+import EchoLogoWhite from "../app/image/EchoBoard_logo_white.png";
 import Image from "next/image";
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export default function EchoBoardLogo() {
     return (
-        <>
+        <Box sx={{ display: "flex", flexDirection: 'row', alignItems: "center"}}>
             <Image
                 src={EchoLogoWhite}
                 alt="EchoBoard logo white"
@@ -17,7 +17,6 @@ export default function EchoBoardLogo() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="#app-bar-with-responsive-menu"
                 sx={{
                     mr: 2,
                     display: { xs: 'flex', md: 'flex' },
@@ -30,6 +29,6 @@ export default function EchoBoardLogo() {
             >
                 EchoBoard
             </Typography>
-        </>
+        </Box>
     )
 }

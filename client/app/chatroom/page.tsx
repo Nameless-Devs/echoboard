@@ -14,7 +14,7 @@ import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
 
 export default function UserChat() {
-  const { data: chatrooms } = useQuery(["chatRooms"], getUserChatRooms);
+  const { data: chatRooms } = useQuery(["chatRooms"], getUserChatRooms);
 
   const [selectedChatRoomId, setSelectedChatRoomId] = useState<number>();
   const [client, setClient] = useState<Client | null>(null);
@@ -40,8 +40,8 @@ export default function UserChat() {
       console.log("STOMP Error:", frame);
     };
     newClient.onConnect = () => {
-      if (chatrooms) {
-        subscribeToUserChatRooms(newClient, chatrooms, onMessageReceived);
+      if (chatRooms) {
+        subscribeToUserChatRooms(newClient, chatRooms, onMessageReceived);
       }}
     newClient.activate();
     setClient(newClient);
@@ -103,7 +103,7 @@ export default function UserChat() {
               }}
           >
             <div>
-              {chatrooms?.map((chatroom, index) => (
+              {chatRooms?.map((chatroom, index) => (
                   <ListItemButton
                       key={index}
                       onClick={() => handleChatRoomChange(chatroom)}

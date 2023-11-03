@@ -4,8 +4,6 @@ import { getUserInfo } from "@/service/Functions";
 import {
   AppBar,
   Button,
-  Grid,
-  Paper,
   Stack,
   Toolbar,
   Typography,
@@ -13,6 +11,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import React from "react";
+import "../styles/UserPage.css"
 
 export default function UserProfile() {
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
@@ -26,11 +25,14 @@ export default function UserProfile() {
   }
 
   if (user) {
-    console.log(user);
     return (
-      <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <Box sx={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        height: "100vh",
+      }}>
         {/* Nav Bar */}
-        <AppBar position="static">
+        <AppBar className="nav-bar__user-page" position="static">
           <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               Logo

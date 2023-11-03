@@ -10,9 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import EchoLogoWhite from "../image/EchoBoard_logo_white.png"
-import Image from "next/image";
 import { ENDPOINTS } from '@/service/config';
+import EchoBoardLogo from './EchoBoardLogo';
 
 const pages = ['Home', 'Features', 'About', 'Contact'];
 
@@ -39,30 +38,7 @@ function NavBar() {
         <AppBar position='static' sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Image
-                        src={EchoLogoWhite}
-                        alt="EchoBoard logo white"
-                        width={40}
-                        style={{
-                            margin: "0 1rem",
-                        }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'flex' },
-                            fontFamily: 'popins',
-                            fontWeight: 800,
-                            letterSpacing: '.2rem',
-                            color: 'white',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        EchoBoard
-                    </Typography>
+                   <EchoBoardLogo />
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
                         <IconButton

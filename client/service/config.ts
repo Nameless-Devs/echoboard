@@ -13,6 +13,7 @@ export const ENDPOINTS = {
   CHAT_HISTORY: `${process.env.NEXT_PUBLIC_API_BASE_URL}/chat/{chatRoomId}`,
   LOGIN: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
+  DELETE_ECHOBOARD: `${process.env.NEXT_PUBLIC_API_BASE_URL}/{echoBoardId}`,
 };
 
 export const WEBSOCKET = { 

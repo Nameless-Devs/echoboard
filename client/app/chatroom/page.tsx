@@ -57,6 +57,8 @@ export default function UserChat() {
     };
   }, [chatHistory]);
 
+  const scrollToLatestMessage = useScrollToLatestMessage(messages);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -128,6 +130,7 @@ export default function UserChat() {
               <ChatMessage index={index} msg={msg} />
             </div>
           ))}
+          <div ref={scrollToLatestMessage} />
         </Grid>
         {/*Top Left*/}
         <Grid

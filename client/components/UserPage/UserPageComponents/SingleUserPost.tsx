@@ -34,6 +34,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     padding: "1rem",
                     margin: "1rem 0",
                     borderRadius: "1rem",
+                    backgroundColor: "white",
                 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography
@@ -44,7 +45,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     >
                         {echoBoard.title}
                     </Typography>
-                    <ExtraActionsMenu />
+                    <ExtraActionsMenu  echoBoard={echoBoard}/>
                 </Box>
                 <Box>
                     {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}

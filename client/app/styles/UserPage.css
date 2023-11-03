@@ -1,0 +1,4 @@
+.nav-bar__user-page {
+    background: rgb(6, 37, 79);
+    background: linear-gradient(90deg, rgba(6, 37, 79, 1) 5%, rgba(28, 84, 112, 1) 52%, rgba(4, 39, 88, 1) 97%);
+}

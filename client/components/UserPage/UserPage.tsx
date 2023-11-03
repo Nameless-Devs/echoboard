@@ -1,5 +1,5 @@
 import { UserResponseData } from "@/service/Types";
-import { Avatar, Box, Chip, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { TabsManager } from "../CommentModal/commentModalComponents/TabsManager";
 import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomTabContent";
@@ -27,7 +27,8 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           marginTop: "1rem",
         }}
       >
-        <Box className="tabs-container">
+        <Box 
+        >
           <TabsManager
             labels={[
               "Your posts",
@@ -41,7 +42,12 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           />
           <CustomTabContent value={value} index={0}>
             <Box>
-              {user.echoBoards.map((echoBoard, index) => {
+              {user.echoBoards
+              .slice() 
+              .sort((a, b) => {
+                return new Date(b.created).getTime() - new Date(a.created).getTime();
+              })
+              .map((echoBoard, index) => {
                 return (
                   <SingleUserPost key={index} echoBoard={echoBoard} user={user} />
                 )

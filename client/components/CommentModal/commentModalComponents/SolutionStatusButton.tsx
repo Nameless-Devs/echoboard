@@ -140,7 +140,6 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                     color={formatedStatus.color as ButtonProps['color']}
                     aria-controls={open ? 'split-button-menu' : undefined}
                     aria-expanded={open ? 'true' : undefined}
-                    aria-label="select merge strategy"
                     aria-haspopup="menu"
                     onClick={handleToggle}
                     disabled={false} //fix logic later

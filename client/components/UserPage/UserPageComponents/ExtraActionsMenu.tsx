@@ -70,6 +70,7 @@ export default function ExtraActionsMenu() {
         variant="text"
         disableElevation
         onClick={handleClick}
+        sx={{padding: 0}}
       >
        <MoreHorizIcon />
       </Button>

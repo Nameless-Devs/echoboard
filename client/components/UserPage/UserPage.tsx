@@ -41,7 +41,12 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           />
           <CustomTabContent value={value} index={0}>
             <Box>
-              {user.echoBoards.map((echoBoard, index) => {
+              {user.echoBoards
+              .slice() 
+              .sort((a, b) => {
+                return new Date(b.created).getTime() - new Date(a.created).getTime();
+              })
+              .map((echoBoard, index) => {
                 return (
                   <SingleUserPost key={index} echoBoard={echoBoard} user={user} />
                 )

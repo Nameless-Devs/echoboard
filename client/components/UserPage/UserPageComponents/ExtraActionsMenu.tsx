@@ -8,6 +8,8 @@ import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useState } from 'react';
+import DeleteConfirmationWindow from './DeleteConfirmationWindow';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -51,13 +53,24 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 export default function ExtraActionsMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const [ isDeleteWindowOpen, setIsDeleteModalOpen ] = useState(false);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDelete = () => {
+   setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteWindow = () => {
+   setIsDeleteModalOpen(false);
   };
 
   return (
@@ -87,7 +100,7 @@ export default function ExtraActionsMenu() {
           <EditIcon />
           Edit
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleDelete} disableRipple>
           <DeleteIcon />
           Delete
         </MenuItem>
@@ -97,6 +110,7 @@ export default function ExtraActionsMenu() {
           Mark as resolved
         </MenuItem>
       </StyledMenu>
+      <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  /> 
     </div>
   );
 }

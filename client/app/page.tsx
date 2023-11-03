@@ -22,7 +22,7 @@ export default function Home() {
 
   if (user) {
     return (
-      <main style={{ display: "flex", flexDirection: "column" }}>
+      <main style={{ display: "flex", flexDirection: "column", backgroundColor: "#FAF9F6"}}>
         <AppBar className="nav-bar__user-page" position="static">
           <Toolbar>
             <Box sx={{ flexGrow: 1 }} >

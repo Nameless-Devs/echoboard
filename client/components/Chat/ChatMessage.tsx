@@ -13,12 +13,12 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({index, msg}) => {
             <Avatar src={msg.picture} style={{ marginRight: "15px" }} />
             <ListItemText
                 primary={
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="#f1f1f1">
                         {msg.sender}
                     </Typography>
                 }
                 secondary={
-                    <Typography variant="body1" color="textPrimary">
+                    <Typography variant="body1" color="#f1f1f1">
                         {msg.content}
                     </Typography>
                 }

@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import PostEchoBoard from "../components/PostEchoBoard/PostEchoBoard";
-import { EchoBoard } from "../components/EchoBoard/EchoBoard";
-import JwtAuth from "@/components/JwtAuth";
+import { EchoBoard } from "@/components/EchoBoard/EchoBoard";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
 import { Button } from "@mui/material";
@@ -30,8 +29,6 @@ export default function Home() {
       </Button>
       { isVisiblePostEcho &&  <PostEchoBoard {...user}    /> }
       <EchoBoard {...user} />
-      <JwtAuth /> 
-  
     </main>
   )
   }

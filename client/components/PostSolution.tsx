@@ -77,7 +77,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
           borderRadius: "5px",
           width: {xs: "80%", md: "60%"},
           textAlign: "center",
-          height: "50%",
+          height: { xs: "40%", md: "50%"},
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-evenly",

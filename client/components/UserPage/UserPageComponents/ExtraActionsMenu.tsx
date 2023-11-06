@@ -62,7 +62,8 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
   const open = Boolean(anchorEl);
 
   const [ isDeleteWindowOpen, setIsDeleteModalOpen ] = useState(false);
-
+  const [ isEditWindowOpen, setIsEdiWindowOpen] = useState(false);
+ 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -75,6 +76,11 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
    handleClose();
   };
 
+  const handleEdit = () => {
+    setIsEdiWindowOpen(true);
+    handleClose();
+  }
+   
   const handleCloseDeleteWindow = () => {
    setIsDeleteModalOpen(false);
   };
@@ -102,7 +108,7 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleEdit} disableRipple>
           <EditIcon />
           Edit
         </MenuItem>

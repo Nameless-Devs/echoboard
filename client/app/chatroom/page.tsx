@@ -59,13 +59,11 @@ export default function UserChat() {
 
   const scrollToLatestMessage = useScrollToLatestMessage(messages);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return (<LoadingPage/>);
 
-  if (error) {
-    return <div>Error!</div>;
-  }
+
+  if (error) return (<div>Error</div>)
+
 
   const handleMessageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);

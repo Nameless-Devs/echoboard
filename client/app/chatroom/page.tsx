@@ -12,7 +12,8 @@ import { useQuery } from "@tanstack/react-query";
 import React, {useState, useEffect} from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
-import {useScrollToLatestMessage} from "@/components/Chat/scrollToLatestMessage";
+import {useScrollToLatestMessage} from "@/hooks/useScrollToLatestMessage";
+import {LoadingPage} from "@/components/Shared/LoadingPage/LoadingPage";
 
 export default function UserChat() {
   const { data: chatRooms } = useQuery(["chatRooms"], getUserChatRooms);

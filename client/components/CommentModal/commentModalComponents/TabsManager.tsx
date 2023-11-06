@@ -34,11 +34,18 @@ export const TabsManager: FC<TabsManagerProps> = ({
   }, [defaultTabIndex, initialized, onTabChange]);
 
   return (
-    <Box className="tabs-container">
+    <Box className="tabs-container" 
+    sx={{
+      width: { xs: "90vw", md: "75vw"},
+      maxWidth: "1200px",
+      }}>
       <Tabs
         value={currentTabIndex}
         onChange={handleChange}
         aria-label="basic tabs example"
+        variant="scrollable"
+        scrollButtons="auto"
+        allowScrollButtonsMobile
       >
         {labels.map((label, index) => (
           <Tab label={label} {...a11yProps(index)} key={index} />

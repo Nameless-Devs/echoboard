@@ -303,3 +303,25 @@ export async function fetchChatRoomHistory(chatRoomId: number): Promise<Message[
     throw new Error("Error fetching data: " + error);
   }
 }
+
+export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.DELETE_ECHOBOARD,
+      { echoBoardId });
+    const response = await fetch(endpoint, {
+      credentials: "include",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    });
+
+    if (response.status === 204) {
+      console.log('Echo board deleted successfully');
+    } else {
+      console.error('Failed to delete echo board');
+    }
+  } catch (error) {
+    console.error('An error occurred while deleting the echo board:', error);
+  }
+}

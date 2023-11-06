@@ -30,8 +30,25 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
             open={open}
             onClose={handleClose}
         >
-            <Box>
-                <form>
+            <Box sx={{
+                   position: 'absolute',
+                   top: '50%',
+                   left: '50%',
+                   transform: 'translate(-50%, -50%)',
+                   width: {xs: "90%", md: "60%"},
+                   height: {xs: "50%", md: "60%"},
+                   bgcolor: 'background.paper',
+                   border: '2px solid #000',
+                   boxShadow: 24,
+                   p: 4,
+            }}>
+                <form 
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "2rem",
+                    marginTop: "2rem"
+                    }}>
                     <TextField
                         label="Title"
                         variant="outlined"
@@ -44,15 +61,18 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
                         variant="outlined"
                         fullWidth
                         multiline
-                        rows={4}
+                        rows={8}
                         value={formData.content}
                         onChange={(e) => handleFieldChange('content', e.target.value)}
                     />
-                    <Button variant="contained" color="primary" onClick={() => handleFormSubmit}>
+                    <Button variant="contained" color="primary" onClick={() => handleFormSubmit}
+                    sx={{
+                        maxWidth: "60%",
+                        margin: "1.5rem auto 0"
+                    }}
+                    >
                         Save Changes
                     </Button>
-
-
                 </form>
             </Box>
         </Modal>

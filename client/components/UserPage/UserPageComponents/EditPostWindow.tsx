@@ -1,5 +1,5 @@
 import { EchoBoardResponseData } from '@/service/Types';
-import { Box, TextField } from '@mui/material'
+import { Box, Button, TextField } from '@mui/material'
 import Modal from '@mui/material/Modal';
 import React, { useState } from 'react'
 
@@ -8,25 +8,55 @@ type EditPostWindowProps = {
     onClose: () => void;
     echoBoard: EchoBoardResponseData;
 }
-export const EditPostWindow: React.FC<EditPostWindowProps> = ({open, onClose, echoBoard}) => {
+export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, onClose, echoBoard }) => {
     const [formData, setFormData] = useState({
         title: echoBoard.title,
         content: echoBoard.content,
-      });
+    });
 
-  return (
-    <Modal
-    open={open}
-    onClose={onClose}
-     >
-        <Box>
-            <form>
+    const handleFieldChange = (field: string, value: string) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            [field]: value,
+        }));
+    };
+
+    const handleFormSubmit = {
+        
+    }
+
+    return (
+        <Modal
+            open={open}
+            onClose={onClose}
+        >
+            <Box>
+                <form>
+                    <TextField
+                        label="Title"
+                        variant="outlined"
+                        fullWidth
+                        value={formData.title}
+                        onChange={(e) => handleFieldChange('title', e.target.value)}
+                    />
+                    <TextField
+                        label="Content"
+                        variant="outlined"
+                        fullWidth
+                        multiline
+                        rows={4}
+                        value={formData.content}
+                        onChange={(e) => handleFieldChange('content', e.target.value)}
+                    />
+                    <Button variant="contained" color="primary" onClick={() => handleFormSubmit}>
+                        Save Changes
+                    </Button>
 
 
-            </form>
-        </Box>
-     </Modal>
-    
+                </form>
+            </Box>
+        </Modal>
 
-  )
+
+    )
 }

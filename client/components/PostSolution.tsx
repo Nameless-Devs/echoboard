@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SolutionToPost, UserResponseData } from "@/service/Types";
-import { Button, Modal, TextField } from "@mui/material";
+import { Box, Button, Modal, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postSolution } from "@/service/Functions";
 import { useCookies } from "react-cookie";
@@ -66,8 +66,8 @@ export const PostSolution: React.FC<SolutionProps> = ({
   };
   return (
     <Modal open={isOpen} onClose={handleClose}>
-      <div
-        style={{
+      <Box
+        sx={{
           padding: "20px",
           background: "#fff",
           position: "absolute",
@@ -75,6 +75,12 @@ export const PostSolution: React.FC<SolutionProps> = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: "5px",
+          width: {xs: "80%", md: "60%"},
+          textAlign: "center",
+          height: "50%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
         }}
       >
         {isSuccess ? (
@@ -91,7 +97,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
                 variant="outlined"
                 name="content"
                 multiline
-                rows={4}
+                rows={6}
                 value={solutionToPost.content}
                 onChange={(e) =>
                   setSolutionToPost({
@@ -105,13 +111,14 @@ export const PostSolution: React.FC<SolutionProps> = ({
                 className="post-comment__button"
                 variant="outlined"
                 type="submit"
+                sx={{marginTop: "2rem"}}
               >
                 Suggest solution
               </Button>
             </form>
           </>
         )}
-      </div>
+      </Box>
     </Modal>
   );
 };

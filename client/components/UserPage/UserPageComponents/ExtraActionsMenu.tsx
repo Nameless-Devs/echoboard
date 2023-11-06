@@ -11,6 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import DeleteConfirmationWindow from './DeleteConfirmationWindow';
 import { EchoBoardResponseData } from '@/service/Types';
+import { EditPostWindow } from './EditPostWindow';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -79,10 +80,14 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
   const handleEdit = () => {
     setIsEdiWindowOpen(true);
     handleClose();
-  }
+  };
    
   const handleCloseDeleteWindow = () => {
    setIsDeleteModalOpen(false);
+  };
+
+  const handleCloseEditWindow = () => {
+    setIsEdiWindowOpen(false);
   };
 
   return (
@@ -122,6 +127,7 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
           Mark as resolved
         </MenuItem>
       </StyledMenu>
+      <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />
       <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> 
     </div>
   );

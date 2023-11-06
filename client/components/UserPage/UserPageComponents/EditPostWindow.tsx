@@ -5,10 +5,10 @@ import React, { useState } from 'react'
 
 type EditPostWindowProps = {
     open: boolean;
-    onClose: () => void;
+    handleClose: () => void;
     echoBoard: EchoBoardResponseData;
 }
-export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, onClose, echoBoard }) => {
+export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClose, echoBoard }) => {
     const [formData, setFormData] = useState({
         title: echoBoard.title,
         content: echoBoard.content,
@@ -28,7 +28,7 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, onClose, e
     return (
         <Modal
             open={open}
-            onClose={onClose}
+            onClose={handleClose}
         >
             <Box>
                 <form>

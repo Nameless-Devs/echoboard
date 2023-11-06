@@ -325,3 +325,7 @@ export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
     console.error('An error occurred while deleting the echo board:', error);
   }
 }
+
+export async function editEchoBoard(echoBoard: EchoBoardResponseData) { 
+  //finish it once BE has the endpoint to edit the post
+}

@@ -13,15 +13,18 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
         title: echoBoard.title,
         content: echoBoard.content,
     });
+    const [hasPostChanged, setHasPostChanged] = useState(false);
 
     const handleFieldChange = (field: string, value: string) => {
         setFormData((prevData) => ({
             ...prevData,
             [field]: value,
         }));
+        setHasPostChanged(true);
     };
 
     const handleFormSubmit = {
+    
         
     }
 
@@ -65,7 +68,11 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
                         value={formData.content}
                         onChange={(e) => handleFieldChange('content', e.target.value)}
                     />
-                    <Button variant="contained" color="primary" onClick={() => handleFormSubmit}
+                    <Button 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={() => handleFormSubmit}
+                    disabled={!hasPostChanged}
                     sx={{
                         maxWidth: "60%",
                         margin: "1.5rem auto 0"

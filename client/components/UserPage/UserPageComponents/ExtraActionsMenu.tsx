@@ -11,6 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import DeleteConfirmationWindow from './DeleteConfirmationWindow';
 import { EchoBoardResponseData } from '@/service/Types';
+import { EditPostWindow } from './EditPostWindow';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -62,7 +63,8 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
   const open = Boolean(anchorEl);
 
   const [ isDeleteWindowOpen, setIsDeleteModalOpen ] = useState(false);
-
+  const [ isEditWindowOpen, setIsEdiWindowOpen] = useState(false);
+ 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -75,8 +77,17 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
    handleClose();
   };
 
+  const handleEdit = () => {
+    setIsEdiWindowOpen(true);
+    handleClose();
+  };
+   
   const handleCloseDeleteWindow = () => {
    setIsDeleteModalOpen(false);
+  };
+
+  const handleCloseEditWindow = () => {
+    setIsEdiWindowOpen(false);
   };
 
   return (
@@ -102,7 +113,7 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleEdit} disableRipple>
           <EditIcon />
           Edit
         </MenuItem>
@@ -116,6 +127,7 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
           Mark as resolved
         </MenuItem>
       </StyledMenu>
+      <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />
       <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> 
     </div>
   );

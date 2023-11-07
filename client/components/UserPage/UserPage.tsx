@@ -18,7 +18,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
 
   return (
     <>
-      <UserPageInfoSection user={user} /> 
+      <UserPageInfoSection user={user} />
       <Box
         sx={{
           display: "flex",
@@ -27,7 +27,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           marginTop: "1rem",
         }}
       >
-        <Box 
+        <Box
         >
           <TabsManager
             labels={[
@@ -42,17 +42,18 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           />
           <CustomTabContent value={value} index={0}>
             <Box>
-              {user.echoBoards
-              .slice() 
-              .sort((a, b) => {
-                return new Date(b.created).getTime() - new Date(a.created).getTime();
-              })
-              .map((echoBoard, index) => {
-                return (
-                  <SingleUserPost key={index} echoBoard={echoBoard} user={user} />
-                )
-              })}
-
+              {user.echoBoards.length === 0 ? (
+                <p>You have not made any posts yet.</p>
+              ) : (
+                user.echoBoards
+                  .slice()
+                  .sort((a, b) => {
+                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                  })
+                  .map((echoBoard, index) => {
+                    return <SingleUserPost key={index} echoBoard={echoBoard} user={user} />;
+                  })
+              )}
             </Box>
           </CustomTabContent>
         </Box>

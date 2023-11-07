@@ -69,5 +69,12 @@ public class EchoController {
         echoService.deleteEcho(echoId);
         return echoService.getEchoById(echoId);
     }
+
+    @PatchMapping("{echoId}/edit")
+    @ResponseStatus(OK)
+    public EchoBoardResponse editEcho(@PathVariable long echoId,
+                                      @RequestBody EchoBoard echoBoard) {
+        return echoService.updateEcho(echoId, echoBoard);
+    }
 }
 

@@ -43,7 +43,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           <CustomTabContent value={value} index={0}>
             <Box>
               {user.echoBoards.length === 0 ? (
-                <p>You haven't made any posts yet.</p>
+                <p>You have not made any posts yet.</p>
               ) : (
                 user.echoBoards
                   .slice()

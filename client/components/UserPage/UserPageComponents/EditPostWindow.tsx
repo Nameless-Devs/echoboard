@@ -32,8 +32,9 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
     
         mutation.mutate(formData, {
             onSuccess: () => {
-              queryClient.invalidateQueries(["echoBoards"]);
-             ;
+              queryClient.invalidateQueries(["userInfo"]);
+              queryClient.refetchQueries(["userInfo"]);
+              handleClose();
             },
             onError: (error) => {
               console.error("Error:", error);
@@ -84,7 +85,7 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
                     <Button 
                     variant="contained" 
                     color="primary" 
-                    onClick={() => handleFormSubmit}
+                    onClick={() => handleFormSubmit()}
                     disabled={!hasPostChanged}
                     sx={{
                         maxWidth: "60%",

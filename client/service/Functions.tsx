@@ -326,6 +326,25 @@ export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
   }
 }
 
-export async function editEchoBoard(echoBoard: EchoBoardResponseData) { 
-  //finish it once BE has the endpoint to edit the post
+export async function editEchoBoard( echoBoardId: string, echoBoard: EchoBoardResponseData) { 
+   try {
+    const endpoint = formatEndpoint(ENDPOINTS.UPDATE_ECHOBOARD, {echoBoardId});
+
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(echoBoard),
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      return response;
+    } else {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
 }

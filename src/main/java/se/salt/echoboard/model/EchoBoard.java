@@ -21,7 +21,11 @@ public class EchoBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Getter
+    @Setter
     private String title;
+    @Getter
+    @Setter
     @Column(columnDefinition = "TEXT")
     private String content;
     private boolean anonymous;

@@ -1,6 +1,8 @@
+import { editEchoBoard } from '@/service/Functions';
 import { EchoBoardResponseData } from '@/service/Types';
 import { Box, Button, TextField } from '@mui/material'
 import Modal from '@mui/material/Modal';
+import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react'
 
 type EditPostWindowProps = {
@@ -14,6 +16,11 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
         content: echoBoard.content,
     });
     const [hasPostChanged, setHasPostChanged] = useState(false);
+
+    const mutation = useMutation((data: EchoBoardResponseData) => 
+    editEchoBoard(echoBoard.id, data)
+    ); 
+    
 
     const handleFieldChange = (field: string, value: string) => {
         setFormData((prevData) => ({

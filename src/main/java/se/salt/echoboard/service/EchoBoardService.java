@@ -153,7 +153,7 @@ public class EchoBoardService {
     public EchoBoardSolutionResponse updateSolutionStatus(long solutionId, EchoBoardSolution.SolutionStatus updateToStage) {
         return solutionRepository.getSolutionById(solutionId)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
-                .map(this::createChatRoomForEchoBoardSolutionIfVoluteersRequired)
+                .map(this::createChatRoomForEchoBoardSolutionIfVolunteersRequired)
                 .map(this::updateSolution)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(SolutionNotFoundException::new);
@@ -165,6 +165,13 @@ public class EchoBoardService {
         return some.getVolunteeredSolutions().stream()
                 .map(EchoBoardSolution::getChatRoom)
                 .map(ChatRoom::getId).toList();
+    }
+
+    public EchoBoardResponse updateEcho(long echoId, EchoBoard echoBoard) {
+        EchoBoard echoToEdit = echoBoardRepository.getEchoById(echoId).orElseThrow(() -> new EchoBoardNotFoundException(echoId));
+        echoToEdit.setTitle(echoBoard.getTitle());
+        echoToEdit.setContent(echoBoard.getContent());
+        return convertor.convertEntityToResponseDTO(echoBoardRepository.save(echoToEdit));
     }
 
     private EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {
@@ -192,11 +199,12 @@ public class EchoBoardService {
         return echoBoardSolution;
     }
 
-    private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVoluteersRequired(EchoBoardSolution echoBoardSolution) {
+    private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVolunteersRequired(EchoBoardSolution echoBoardSolution) {
         if (echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
             return echoBoardSolution
                     .setChatRoom(chatRoomRepository.save(new ChatRoom().setEchoBoardSolution(echoBoardSolution)));
         }
         return echoBoardSolution;
     }
+
 }

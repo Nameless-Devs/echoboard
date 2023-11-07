@@ -49,14 +49,14 @@ const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
         <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            aria-labelledby="delete-comfirmation-modal"
+            aria-describedby="delete-confirmation-description"
         >
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography id="delete-comfirmation-modal" variant="h6" component="h2">
                     Confirm
                 </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <Typography id="delete-confirmation-description" sx={{ mt: 2 }}>
                     Are you sure you want to delete this post?
                 </Typography>
                 <Typography variant='h5'>

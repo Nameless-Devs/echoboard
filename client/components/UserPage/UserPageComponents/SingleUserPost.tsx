@@ -35,10 +35,10 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     margin: "1rem 0",
                     borderRadius: "1rem",
                     backgroundColor: "white",
+                    width: { xs: "85vw", md: "75vw"},
                 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography
-                        gutterBottom
                         variant="h5"
                         component="div"
                         style={{ margin: "0" }}
@@ -51,7 +51,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}
                 </Box>
                 <Typography variant="caption" style={{ color: "gray" }}>
-                    {timeConverter(echoBoard.created)}
+                    {timeConverter(echoBoard.created)} 
                 </Typography>
                 <Typography
                     variant="body1"

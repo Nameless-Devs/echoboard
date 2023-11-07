@@ -3,7 +3,6 @@ package se.salt.echoboard.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.exception.custom.*;

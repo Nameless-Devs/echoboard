@@ -6,7 +6,6 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
 import se.salt.echoboard.model.EchoBoardSolution;
-import se.salt.echoboard.service.EchoBoardService;
 import se.salt.echoboard.service.SolutionService;
 
 import static org.springframework.http.HttpStatus.CREATED;

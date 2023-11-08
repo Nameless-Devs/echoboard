@@ -6,6 +6,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ExtraActionsMenu from './ExtraActionsMenu';
+import { Upvote } from '@/components/Upvote';
 
 type SingleUserPostProps = {
     echoBoard: EchoBoardResponseData;
@@ -76,7 +77,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 
                     }}>
                         <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <ThumbUpIcon color='primary' /> {echoBoard.upvote?.length}
+                            <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <ModeCommentIcon color='primary' /> {echoBoard.echoBoardComments?.length || 0}

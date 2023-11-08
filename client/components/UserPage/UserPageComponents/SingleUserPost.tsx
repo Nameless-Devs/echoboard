@@ -1,6 +1,6 @@
 import { timeConverter } from '@/service/TimeConverter'
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types'
-import { Box, Button, Chip, Typography } from '@mui/material'
+import { Box, Button, Chip, Skeleton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
@@ -57,53 +57,53 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 
     return (
         <>
-         {echoBoardExtended &&
-         <>
-            <Box
-                sx={{
-                    border: "solid black 1px",
-                    padding: "1rem",
-                    margin: "1rem 0",
-                    borderRadius: "1rem",
-                    backgroundColor: "white",
-                    width: { xs: "85vw", md: "75vw" },
-                }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Typography
-                        variant="h5"
-                        component="div"
-                        style={{ margin: "0" }}
-                    >
-                        {echoBoard.title}
-                    </Typography>
-                    <ExtraActionsMenu echoBoard={echoBoard} />
-                </Box>
-                <Box>
-                    {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}
-                </Box>
-                <Typography variant="caption" style={{ color: "gray" }}>
-                    {timeConverter(echoBoard.created)}
-                </Typography>
-                <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    style={{ margin: "0px" }}
-                >
-                    {contentVisible ? echoBoard.content : ''}
-                </Typography>
-                <div>
-                    {contentVisible ? (
-                        <Button size='small' onClick={hideContent}>Hide Content</Button>
-                    ) : (
-                        <Button size='small' onClick={showContent}>Show Content</Button>
-                    )}
-                </div>
-                <Box sx={{ display: { xs: "", md: "flex" }, justifyContent: "space-between" }}>
-                    <Box sx={{
-                        display: "flex",
-                        alignItems: "center",
-                    }}>
-                        <Upvote upvote={echoBoardExtended.upvote} echoBoardId={echoBoardExtended.id} />
+            {echoBoardExtended ? (
+                <>
+                    <Box
+                        sx={{
+                            border: "solid black 1px",
+                            padding: "1rem",
+                            margin: "1rem 0",
+                            borderRadius: "1rem",
+                            backgroundColor: "white",
+                            width: { xs: "85vw", md: "75vw" },
+                        }}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                            <Typography
+                                variant="h5"
+                                component="div"
+                                style={{ margin: "0" }}
+                            >
+                                {echoBoard.title}
+                            </Typography>
+                            <ExtraActionsMenu echoBoard={echoBoard} />
+                        </Box>
+                        <Box>
+                            {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}
+                        </Box>
+                        <Typography variant="caption" style={{ color: "gray" }}>
+                            {timeConverter(echoBoard.created)}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            color="text.secondary"
+                            style={{ margin: "0px" }}
+                        >
+                            {contentVisible ? echoBoard.content : ''}
+                        </Typography>
+                        <div>
+                            {contentVisible ? (
+                                <Button size='small' onClick={hideContent}>Hide Content</Button>
+                            ) : (
+                                <Button size='small' onClick={showContent}>Show Content</Button>
+                            )}
+                        </div>
+                        <Box sx={{ display: { xs: "", md: "flex" }, justifyContent: "space-between" }}>
+                            <Box sx={{
+                                display: "flex",
+                                alignItems: "center",
+                            }}>
+                                <Upvote upvote={echoBoardExtended.upvote} echoBoardId={echoBoardExtended.id} />
 
                                 <Button size="small" onClick={() => {
                                     handleOpen();
@@ -117,24 +117,41 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                                 }}>
                                     <LightbulbIcon /> {echoBoardExtended.echoBoardSolutions?.length || 0}
                                 </Button>
-                    
+
+                            </Box>
+                            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                                <Typography>
+                                    0 people vounteered for 0 solutions
+                                </Typography>
+                                <Button>Manage</Button>
+                            </Box>
+                        </Box>
                     </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                        <Typography>
-                            0 people vounteered for 0 solutions
-                        </Typography>
-                        <Button>Manage</Button>
-                    </Box>
+                    <CommentModal
+                        post={echoBoardExtended}
+                        handleClose={handleClose}
+                        isOpen={isOpen}
+                        user={user}
+                        defaultTabIndex={defaultTabIndex}
+                    />
+                </>
+            ) : (
+                <Box 
+                sx={{
+                    border: "solid black 1px",
+                    padding: "1rem",
+                    margin: "1rem 0",
+                    borderRadius: "1rem",
+                    backgroundColor: "white",
+                    width: { xs: "85vw", md: "75vw" },
+                    height: { xs: "10rem", md: "8rem"},
+                }}>
+                    <Skeleton animation="wave" height={40}/>
+                    <Skeleton animation="wave" height={20}/>
+                    <Skeleton animation="wave" height={20} />
+                    <Skeleton animation="wave" height={30} width={150} />
                 </Box>
-            </Box>
-            <CommentModal
-                post={echoBoardExtended}
-                handleClose={handleClose}
-                isOpen={isOpen}
-                user={user}
-                defaultTabIndex={defaultTabIndex}
-            />
-            </> 
+            )
             }
         </>
     )

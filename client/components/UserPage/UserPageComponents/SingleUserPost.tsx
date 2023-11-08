@@ -57,6 +57,8 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 
     return (
         <>
+         {echoBoardExtended &&
+         <>
             <Box
                 sx={{
                     border: "solid black 1px",
@@ -101,9 +103,8 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                         display: "flex",
                         alignItems: "center",
                     }}>
-                        <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-                        {echoBoardExtended &&
-                            <>
+                        <Upvote upvote={echoBoardExtended.upvote} echoBoardId={echoBoardExtended.id} />
+
                                 <Button size="small" onClick={() => {
                                     handleOpen();
                                     handleOpenCommentsTab();;
@@ -116,8 +117,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                                 }}>
                                     <LightbulbIcon /> {echoBoardExtended.echoBoardSolutions?.length || 0}
                                 </Button>
-                            </>
-                        }
+                    
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                         <Typography>
@@ -127,7 +127,6 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     </Box>
                 </Box>
             </Box>
-            {echoBoardExtended && 
             <CommentModal
                 post={echoBoardExtended}
                 handleClose={handleClose}
@@ -135,7 +134,8 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                 user={user}
                 defaultTabIndex={defaultTabIndex}
             />
-}
+            </> 
+            }
         </>
     )
 }

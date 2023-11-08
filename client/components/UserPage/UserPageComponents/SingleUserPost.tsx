@@ -7,6 +7,8 @@ import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ExtraActionsMenu from './ExtraActionsMenu';
 import { Upvote } from '@/components/Upvote';
 import CommentModal from '@/components/CommentModal/CommentModal';
+import { useQuery } from '@tanstack/react-query';
+import { fetchEchoBoardById } from '@/service/Functions';
 
 type SingleUserPostProps = {
     echoBoard: EchoBoardResponseData;
@@ -22,6 +24,13 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     const [defaultTabIndex, setDefaultTabIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
 
+    const { data: echoBoardExtended } = useQuery<EchoBoardResponseData>(
+        ["echoBoards", echoBoard.id],
+        async () => {
+            return await fetchEchoBoardById(echoBoard.id);
+        }
+    );
+
     const showContent = () => {
         setContentVisible(true);
     };
@@ -32,19 +41,19 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 
     const handleOpen = () => {
         setIsOpen(true);
-      };
-    
-      const handleClose = () => {
+    };
+
+    const handleClose = () => {
         setIsOpen(false);
-      };
+    };
 
     const handleOpenCommentsTab = () => {
-        setDefaultTabIndex(0); 
-      };
-      
-      const handleOpenSolutionsTab = () => {
-        setDefaultTabIndex(1); 
-      };
+        setDefaultTabIndex(0);
+    };
+
+    const handleOpenSolutionsTab = () => {
+        setDefaultTabIndex(1);
+    };
 
     return (
         <>
@@ -93,18 +102,22 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                         alignItems: "center",
                     }}>
                         <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-                        <Button size="small" onClick={() => {
-                            handleOpen();
-                            handleOpenCommentsTab();;
-                        }}>
-                            <ModeCommentIcon /> {echoBoard.echoBoardComments?.length || 0}
-                        </Button>
-                        <Button size="small" onClick={() => {
-                            handleOpen();
-                            handleOpenSolutionsTab()
-                        }}>
-                            <LightbulbIcon /> {echoBoard.echoBoardSolutions?.length || 0}
-                        </Button>
+                        {echoBoardExtended &&
+                            <>
+                                <Button size="small" onClick={() => {
+                                    handleOpen();
+                                    handleOpenCommentsTab();;
+                                }}>
+                                    <ModeCommentIcon /> {echoBoardExtended.echoBoardComments.length || 0}
+                                </Button>
+                                <Button size="small" onClick={() => {
+                                    handleOpen();
+                                    handleOpenSolutionsTab()
+                                }}>
+                                    <LightbulbIcon /> {echoBoardExtended.echoBoardSolutions?.length || 0}
+                                </Button>
+                            </>
+                        }
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                         <Typography>
@@ -114,13 +127,15 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     </Box>
                 </Box>
             </Box>
-            <CommentModal 
-            post={echoBoard}
-            handleClose={handleClose}
-            isOpen={isOpen}
-            user={user}
-            defaultTabIndex={defaultTabIndex}
+            {echoBoardExtended && 
+            <CommentModal
+                post={echoBoardExtended}
+                handleClose={handleClose}
+                isOpen={isOpen}
+                user={user}
+                defaultTabIndex={defaultTabIndex}
             />
+}
         </>
     )
 }

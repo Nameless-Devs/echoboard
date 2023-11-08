@@ -75,7 +75,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
     ["echoBoard", selectedPost?.id],
     () => {
       if (!selectedPost?.id) throw new Error("No post selected");
-      return fetchEchoBoardById(selectedPost.id, cookies.JwtToken);
+      return fetchEchoBoardById(selectedPost.id);
     },
     {
       enabled: !!selectedPost,

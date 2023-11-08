@@ -59,7 +59,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {
-      return await fetchEchoBoardById(post.id, cookies.JwtToken);
+      return await fetchEchoBoardById(post.id);
     }
   );
 

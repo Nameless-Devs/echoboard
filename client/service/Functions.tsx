@@ -103,14 +103,11 @@ export async function upvoteComment(
   }
 }
 
-export async function fetchEchoBoardById(echoBoardId: string, token: string) {
+export async function fetchEchoBoardById(echoBoardId: string) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.ECHO, { echoBoardId });
 
     const response = await fetch(endpoint, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       credentials: "include",
     });
     if (!response.ok) {

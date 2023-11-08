@@ -6,6 +6,7 @@ import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ExtraActionsMenu from './ExtraActionsMenu';
 import { Upvote } from '@/components/Upvote';
+import CommentModal from '@/components/CommentModal/CommentModal';
 
 type SingleUserPostProps = {
     echoBoard: EchoBoardResponseData;
@@ -18,6 +19,8 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 }) => {
 
     const [contentVisible, setContentVisible] = useState(false);
+    const [defaultTabIndex, setDefaultTabIndex] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
 
     const showContent = () => {
         setContentVisible(true);
@@ -26,6 +29,23 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     const hideContent = () => {
         setContentVisible(false);
     };
+
+    const handleOpen = () => {
+        setIsOpen(true);
+      };
+    
+      const handleClose = () => {
+        setIsOpen(false);
+      };
+
+    const handleOpenCommentsTab = () => {
+        setDefaultTabIndex(0); 
+      };
+      
+      const handleOpenSolutionsTab = () => {
+        setDefaultTabIndex(1); 
+      };
+
     return (
         <>
             <Box
@@ -74,14 +94,14 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     }}>
                         <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
                         <Button size="small" onClick={() => {
-                            // handleOpen(echoBoard);
-                            // handleOpenCommentsTab();;
+                            handleOpen();
+                            handleOpenCommentsTab();;
                         }}>
                             <ModeCommentIcon /> {echoBoard.echoBoardComments?.length || 0}
                         </Button>
                         <Button size="small" onClick={() => {
-                            // handleOpen(echoBoard);
-                            // handleOpenSolutionsTab()
+                            handleOpen();
+                            handleOpenSolutionsTab()
                         }}>
                             <LightbulbIcon /> {echoBoard.echoBoardSolutions?.length || 0}
                         </Button>
@@ -94,6 +114,13 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     </Box>
                 </Box>
             </Box>
+            <CommentModal 
+            post={echoBoard}
+            handleClose={handleClose}
+            isOpen={isOpen}
+            user={user}
+            defaultTabIndex={defaultTabIndex}
+            />
         </>
     )
 }

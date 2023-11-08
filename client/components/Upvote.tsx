@@ -11,7 +11,7 @@ export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
   const [cookies] = useCookies();
 
   const { data: echoData } = useQuery(["echoBoard", echoBoardId], () =>
-    fetchEchoBoardById(echoBoardId, cookies.JwtToken)
+    fetchEchoBoardById(echoBoardId)
   );
   const upvoteCount = echoData ? echoData.upvote.length : 0;
 

@@ -6,14 +6,14 @@ import { useCookies } from "react-cookie";
 import { fetchEchoBoardById, upvotePost } from "@/service/Functions";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
-export const Upvote: React.FC<UpvoteProps> = ({ echoBoardId }) => {
+export const Upvote: React.FC<UpvoteProps> = ({ upvote, echoBoardId }) => {
   const queryClient = useQueryClient();
   const [cookies] = useCookies();
 
   const { data: echoData } = useQuery(["echoBoard", echoBoardId], () =>
     fetchEchoBoardById(echoBoardId)
   );
-  const upvoteCount = echoData ? echoData.upvote.length : 0;
+  const upvoteCount = echoData ? echoData.upvote.length : upvote.length;
 
   const mutation = useMutation(
     () => upvotePost(echoBoardId, cookies.JwtToken),

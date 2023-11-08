@@ -2,7 +2,6 @@ import { timeConverter } from '@/service/TimeConverter'
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types'
 import { Box, Button, Chip, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ExtraActionsMenu from './ExtraActionsMenu';
@@ -36,7 +35,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     margin: "1rem 0",
                     borderRadius: "1rem",
                     backgroundColor: "white",
-                    width: { xs: "85vw", md: "75vw"},
+                    width: { xs: "85vw", md: "75vw" },
                 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography
@@ -46,13 +45,13 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     >
                         {echoBoard.title}
                     </Typography>
-                    <ExtraActionsMenu  echoBoard={echoBoard}/>
+                    <ExtraActionsMenu echoBoard={echoBoard} />
                 </Box>
                 <Box>
                     {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}
                 </Box>
                 <Typography variant="caption" style={{ color: "gray" }}>
-                    {timeConverter(echoBoard.created)} 
+                    {timeConverter(echoBoard.created)}
                 </Typography>
                 <Typography
                     variant="body1"
@@ -68,25 +67,26 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                         <Button size='small' onClick={showContent}>Show Content</Button>
                     )}
                 </div>
-                <Box sx={{display: {xs: "", md: "flex"}, justifyContent: "space-between"}}>
+                <Box sx={{ display: { xs: "", md: "flex" }, justifyContent: "space-between" }}>
                     <Box sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "1.5rem",
-                        color: "#3874cb",
-
                     }}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <ModeCommentIcon color='primary' /> {echoBoard.echoBoardComments?.length || 0}
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <LightbulbIcon color='primary' /> {echoBoard.echoBoardSolutions?.length || 0}
-                        </Box>
+                        <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
+                        <Button size="small" onClick={() => {
+                            // handleOpen(echoBoard);
+                            // handleOpenCommentsTab();;
+                        }}>
+                            <ModeCommentIcon /> {echoBoard.echoBoardComments?.length || 0}
+                        </Button>
+                        <Button size="small" onClick={() => {
+                            // handleOpen(echoBoard);
+                            // handleOpenSolutionsTab()
+                        }}>
+                            <LightbulbIcon /> {echoBoard.echoBoardSolutions?.length || 0}
+                        </Button>
                     </Box>
-                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                         <Typography>
                             0 people vounteered for 0 solutions
                         </Typography>

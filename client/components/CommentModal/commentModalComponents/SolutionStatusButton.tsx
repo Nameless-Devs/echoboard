@@ -102,7 +102,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     };
 
     return (
-        <React.Fragment>
+        <>
             {isSuccess && (
                 <Dialog open={isSuccess}>
                     <DialogContentText style={{ padding: "40px", color: "green", fontSize: "20px", textAlign: "center" }}>
@@ -193,6 +193,6 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                 onConfirm={handleVolunteeringConfirm}
                 onClose={() => setIsConfirmationModalOpen(false)}
             />
-        </React.Fragment>
+        </>
     );
 }

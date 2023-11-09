@@ -10,6 +10,8 @@ import { AccountMenu } from "@/components/AccountMenu";
 import EchoBoardLogo from "@/components/EchoBoardLogo";
 import "./styles/UserPage.css";
 import { useRouter } from 'next/navigation';
+import EchoLogo from "../app/image/EchoBoard_logo.png";
+import Image from "next/image";
 
 export default function Home() {
   const { data: user, isLoading, error } = useQuery(['userInfo'], getUserInfo);
@@ -52,8 +54,17 @@ export default function Home() {
   }
   if (isLoading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: "center", padding: "10rem" }}>
-        <CircularProgress />
+      <Box sx={{ display: "flex", justifyContent: "center", alignitems: "center", padding: "15rem" }}>
+        <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
+          <Image
+            src={EchoLogo}
+            alt="EchoBoard logo white"
+            width={90}
+            style={{
+              margin: "0 1rem",
+            }} />
+          <CircularProgress />
+        </Box>
       </Box>
     )
   }

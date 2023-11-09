@@ -8,6 +8,8 @@ import { PostSolution } from "../PostSolution";
 import { useCookies } from "react-cookie";
 import "../../app/styles/EchoBoard.css";
 import EchoBoardCard from "./EchoBoardCard";
+import { Box } from "@mui/material";
+import { SinglePostSkeleton } from "./SinglePostSkeleton";
 
 export const EchoBoard: React.FC<UserResponseData> = (
   user: UserResponseData
@@ -53,11 +55,11 @@ export const EchoBoard: React.FC<UserResponseData> = (
   };
 
   const handleOpenCommentsTab = () => {
-    setDefaultTabIndex(0); 
+    setDefaultTabIndex(0);
   };
-  
+
   const handleOpenSolutionsTab = () => {
-    setDefaultTabIndex(1); 
+    setDefaultTabIndex(1);
   };
 
   const handleCloseSolutionForm = () => {
@@ -93,7 +95,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
         </Button>
       )}
       <div className="echo-board-posts">
-        {isLoading && <p>Loading...</p>}
+        {isLoading &&
+          <SinglePostSkeleton /> }
         {isError && <p>Error!</p>}
         {sortedEchoBoards?.map((echoBoard, index) => (
           <EchoBoardCard

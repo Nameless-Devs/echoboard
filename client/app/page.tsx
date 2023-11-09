@@ -5,13 +5,11 @@ import { EchoBoard } from "../components/EchoBoard/EchoBoard";
 import JwtAuth from "@/components/JwtAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
-import { AppBar, Box, Button, CircularProgress, Skeleton, Stack, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
 import { AccountMenu } from "@/components/AccountMenu";
 import EchoBoardLogo from "@/components/EchoBoardLogo";
 import "./styles/UserPage.css";
 import { useRouter } from 'next/navigation';
-import EchoLogo from "../app/image/EchoBoard_logo.png";
-import Image from "next/image";
 import { LoadingLogo } from "@/components/LoadingLogo";
 
 export default function Home() {

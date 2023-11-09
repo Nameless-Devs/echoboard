@@ -4,7 +4,7 @@ import PostEchoBoard from "../components/PostEchoBoard/PostEchoBoard";
 import { EchoBoard } from "@/components/EchoBoard/EchoBoard";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
-import { Button } from "@mui/material";
+import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
 import { AccountMenu } from "@/components/AccountMenu";
 import EchoBoardLogo from "@/components/EchoBoardLogo";
 import "./styles/UserPage.css";
@@ -49,22 +49,6 @@ export default function Home() {
         {isVisiblePostEcho && <PostEchoBoard {...user} />}
         <EchoBoard {...user} />
         <JwtAuth />
-
-  if (user){
-  return (
-    <main style={{display: "flex", flexDirection: "column" }}>
-      <AccountMenu {...user} /> 
-      <h1 style={{textAlign: "center", marginTop: "-20px"}}>{user.name}, welcome to EchoBoard!</h1>
-      <Button 
-            onClick={handleClick}
-            variant="outlined" 
-            type="submit"
-            style={{width: "30%", maxWidth: "300px" , margin: "15px auto"}}>
-            Share your problem
-      </Button>
-      { isVisiblePostEcho &&  <PostEchoBoard {...user}    /> }
-      <EchoBoard {...user} />
-        <JwtAuth/>
     </main>
   )
   }

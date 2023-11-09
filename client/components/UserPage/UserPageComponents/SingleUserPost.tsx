@@ -9,6 +9,7 @@ import { Upvote } from '@/components/Upvote';
 import CommentModal from '@/components/CommentModal/CommentModal';
 import { useQuery } from '@tanstack/react-query';
 import { fetchEchoBoardById } from '@/service/Functions';
+import { ManageSolutionsWindow } from './ManageSolutionsWindow';
 
 type SingleUserPostProps = {
     echoBoard: EchoBoardResponseData;
@@ -23,8 +24,9 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     const [contentVisible, setContentVisible] = useState(false);
     const [defaultTabIndex, setDefaultTabIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
+    const [isManageSolutonOpen, setIsManageSolutionOpen] = useState(false);
 
-    const { data: echoBoardExtended } = useQuery<EchoBoardResponseData>(
+    const { data: echoBoardExtended, isLoading, isError } = useQuery<EchoBoardResponseData>(
         ["echoBoards", echoBoard.id],
         async () => {
             return await fetchEchoBoardById(echoBoard.id);
@@ -55,9 +57,32 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
         setDefaultTabIndex(1);
     };
 
+    const handleOpenManageSolutionsWindow = () => {
+        setIsManageSolutionOpen(true);
+    };
+
+    const handleClsoeManageSolutionsWindow = () => {
+        setIsManageSolutionOpen(false);
+    };
+
     return (
         <>
-            {echoBoardExtended ? (
+            {isLoading && <Box
+                sx={{
+                    border: "solid black 1px",
+                    padding: "1rem",
+                    margin: "1rem 0",
+                    borderRadius: "1rem",
+                    backgroundColor: "white",
+                    width: { xs: "85vw", md: "75vw" },
+                    height: { xs: "10rem", md: "8rem" },
+                }}>
+                <Skeleton animation="wave" height={40} />
+                <Skeleton animation="wave" height={20} />
+                <Skeleton animation="wave" height={20} />
+                <Skeleton animation="wave" height={30} width={150} />
+            </Box>}
+            {echoBoardExtended &&
                 <>
                     <Box
                         sx={{
@@ -123,7 +148,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                                 <Typography>
                                     0 people vounteered for 0 solutions
                                 </Typography>
-                                <Button>Manage</Button>
+                                <Button onClick={handleOpenManageSolutionsWindow}>Manage</Button>
                             </Box>
                         </Box>
                     </Box>
@@ -134,24 +159,12 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                         user={user}
                         defaultTabIndex={defaultTabIndex}
                     />
+                    <ManageSolutionsWindow
+                        open={isManageSolutonOpen}
+                        onClose={handleClsoeManageSolutionsWindow}
+                        echoBoard={echoBoardExtended}
+                        user={user} />
                 </>
-            ) : (
-                <Box 
-                sx={{
-                    border: "solid black 1px",
-                    padding: "1rem",
-                    margin: "1rem 0",
-                    borderRadius: "1rem",
-                    backgroundColor: "white",
-                    width: { xs: "85vw", md: "75vw" },
-                    height: { xs: "10rem", md: "8rem"},
-                }}>
-                    <Skeleton animation="wave" height={40}/>
-                    <Skeleton animation="wave" height={20}/>
-                    <Skeleton animation="wave" height={20} />
-                    <Skeleton animation="wave" height={30} width={150} />
-                </Box>
-            )
             }
         </>
     )

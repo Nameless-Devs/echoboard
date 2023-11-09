@@ -13,6 +13,7 @@ import React from "react";
 import "../styles/UserPage.css"
 import EchoBoardLogo from "@/components/EchoBoardLogo";
 import { useRouter } from "next/navigation";
+import { LoadingLogo } from "@/components/LoadingLogo";
 
 export default function UserProfile() {
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
@@ -20,7 +21,7 @@ export default function UserProfile() {
   const router = useRouter()
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingLogo /> ;
   }
 
   if (error) {

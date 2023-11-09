@@ -5,7 +5,7 @@ import { EchoBoard } from "../components/EchoBoard/EchoBoard";
 import JwtAuth from "@/components/JwtAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
-import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, CircularProgress, Skeleton, Stack, Toolbar } from "@mui/material";
 import { AccountMenu } from "@/components/AccountMenu";
 import EchoBoardLogo from "@/components/EchoBoardLogo";
 import "./styles/UserPage.css";
@@ -22,7 +22,7 @@ export default function Home() {
 
   if (user) {
     return (
-      <main style={{ display: "flex", flexDirection: "column", backgroundColor: "#FAF9F6"}}>
+      <main style={{ display: "flex", flexDirection: "column", backgroundColor: "#FAF9F6" }}>
         <AppBar className="nav-bar__user-page" position="static">
           <Toolbar>
             <Box sx={{ flexGrow: 1 }} >
@@ -52,7 +52,9 @@ export default function Home() {
   }
   if (isLoading) {
     return (
-      <p>Loading...</p>
+      <Box sx={{ display: 'flex', justifyContent: "center", padding: "10rem" }}>
+        <CircularProgress />
+      </Box>
     )
   }
   if (error) {

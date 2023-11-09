@@ -1,13 +1,14 @@
 package util;
 
 import com.github.javafaker.Faker;
-import se.salt.echoboard.controller.dto.EchoBoardCommentResponse;
-import se.salt.echoboard.controller.dto.EchoBoardUserInfo;
-import se.salt.echoboard.controller.dto.EchoBoardUserResponse;
+import org.mockito.Mock;
+import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
+import se.salt.echoboard.service.EchoBoardService;
+import se.salt.echoboard.service.repository.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ public class TestBuilders {
 
     public static EchoBoard createRandomEchoBoard() {
 
-        EchoBoard echoBoard = EchoBoard.builder()
-                .id(faker.number().randomNumber())
+       return EchoBoard.builder()
+                .id(123456)
                 .title(faker.lorem().sentence())
                 .content(faker.lorem().paragraph())
                 .anonymous(faker.random().nextBoolean())
@@ -29,42 +30,40 @@ public class TestBuilders {
                 .created(Instant.now())
                 .build();
 
-        // Create random EchoBoardComments
-//        int numComments = faker.number().numberBetween(0, 5);
-//        for (int i = 0; i < numComments; i++) {
-//            EchoBoardComment comment = createRandomEchoBoardComment();
-//            echoBoard.addComment(comment);
-//        }
 
-        // Create random EchoBoardSolutions
-//        int numSolutions = faker.number().numberBetween(0, 3);
-//        for (int i = 0; i < numSolutions; i++) {
-//            EchoBoardSolution solution = createRandomEchoBoardSolution();
-//            echoBoard.addSolution(solution);
-//        }
+    }
 
-        // Add random upvotes
-        int numUpvotes = faker.number().numberBetween(0, 10);
-        for (int i = 0; i < numUpvotes; i++) {
-            echoBoard.addUpvote(faker.internet().uuid());
-        }
-        return echoBoard;
+    public static EchoBoardResponse createRandomEchoBoardResponse() {
+
+        return EchoBoardResponse.builder()
+                .id(123456)
+                .title(faker.lorem().sentence())
+                .content(faker.lorem().paragraph())
+                .created(Instant.now())
+                .anonymous(faker.random().nextBoolean())
+                .echoBoardComments(List.of())
+                .echoBoardSolutions(List.of())
+                .echoBoardUser(createRandomEchoBoardUserResponse())
+                .build();
     }
 
     public static EchoBoardUser createRandomEchoBoardUser() {
 
-        return EchoBoardUser.builder()
-                .subject("mockSubject")
-                .name("Mock User")
-                .echoBoardComments(Collections.emptyList())
-                .echoBoardSolutions(Collections.emptyList())
-                .build();
+        return new EchoBoardUser(
+                "subject",
+                "John Doe",
+                "john@example.com",
+                "image-url",
+                List.of(), List.of(), List.of(), List.of());
     }
 
-    private static EchoBoardUserResponse createRandomEchoBoardUserResponse() {
+
+
+    public static EchoBoardUserResponse createRandomEchoBoardUserResponse() {
 
         return EchoBoardUserResponse.builder()
-                .name(faker.name().firstName())
+                .name("John Doe")
+                .picture("image-url")
                 .build();
     }
 
@@ -81,43 +80,48 @@ public class TestBuilders {
         return comment;
     }
 
-//    public static EchoBoardCommentResponse createRandomEchoBoardCommentResponse() {
-//        return EchoBoardCommentResponse.builder()
-//                .created(Instant.now())
-//                .id(faker.number().randomNumber())
-//                .anonymous(faker.random().nextBoolean())
-//                .echoBoardUser(createRandomEchoBoardUserResponse())
-//                .content(faker.lorem().paragraph())
-//                .build();
-//    }
+    public static EchoBoardCommentResponse createRandomEchoBoardCommentResponse() {
+        return EchoBoardCommentResponse.builder()
+                .created(Instant.now())
+                .id(faker.number().randomNumber())
+                .anonymous(faker.random().nextBoolean())
+                .echoBoardUser(createRandomEchoBoardUserResponse())
+                .content(faker.lorem().paragraph())
+                .build();
+    }
 
 
 
     public static EchoBoardSolution createRandomEchoBoardSolution() {
 
-        EchoBoardSolution.EchoBoardSolutionBuilder builder = EchoBoardSolution.builder();
-        builder.anonymous(faker.random().nextBoolean());
-        builder.created(Instant.now());
-        builder.id(faker.number().randomNumber());
-        builder.status(EchoBoardSolution.SolutionStatus.SOLVED);
-        builder.echoBoardUser(createRandomEchoBoardUser());
-        builder.content(faker.lorem().paragraph());
-        EchoBoardSolution solution = builder
+        return EchoBoardSolution.builder()
+                .id(1L)
+                .content("Sample content")
+                .anonymous(true)
+                .status(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)
                 .build();
-//        solution.addVolunteer(createRandomEchoBoardUser());
-        return solution;
+
     }
 
-//    public static EchoBoardUserInfo mockedEchoBoardDTO() {
-//        List<EchoBoardCommentResponse> comment = new ArrayList<>();
-//        comment.add(createRandomEchoBoardCommentResponse());
-//
-////        List<EchoBoardSolution> solution = new ArrayList<>();
-////        solution.add(createRandomEchoBoardSolution());
-//
-//        return EchoBoardUserInfo.builder()
-//                .echoBoardComments(comment)
-////                .echoBoardSolutions(solution)
-//                .build();
-//    }
+    public static EchoBoardSolutionResponse mockedEchoBoardSolutionResponse() {
+        return EchoBoardSolutionResponse.builder()
+                .id(faker.number().randomNumber())
+                .content(faker.lorem().paragraph())
+                .anonymous(true)
+                .created(Instant.now())
+                .echoBoardUser(createRandomEchoBoardUserResponse())
+                .status(EchoBoardSolution.SolutionStatus.SOLVED)
+                .build();
+    }
+
+    public static EchoBoardUserInfo mockedEchoBoardUserInfo() {
+
+        return EchoBoardUserInfo.builder()
+                .name("John Doe")
+                .picture("image-url")
+                .echoBoardComments(List.of())
+                .echoBoardSolutions(List.of())
+                .echoBoards(List.of())
+                .build();
+    }
 }

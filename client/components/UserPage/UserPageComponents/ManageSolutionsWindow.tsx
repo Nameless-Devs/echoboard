@@ -2,7 +2,7 @@ import { SolutionItem } from '@/components/CommentModal/commentModalComponents/S
 import { SolutionStatusButton } from '@/components/CommentModal/commentModalComponents/SolutionStatusButton';
 import UpvoteButton from '@/components/UpvoteButton';
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types';
-import { Avatar, Box, List, ListItem, ListItemText, Modal, Typography } from '@mui/material'
+import { Avatar, Box, Button, List, ListItem, ListItemText, Modal, Typography } from '@mui/material'
 import React from 'react'
 
 type ManageSolutionsWindowProps = {
@@ -20,7 +20,20 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
 }) => {
     return (
         <Modal open={open} onClose={onClose}>
-            <Box>
+            <Box sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: {xs: "90%", md: "60%"},
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
+                boxShadow: 24,
+                p: 4,
+                display: "flex",
+                flexDirection: "column",
+                maxHeight: "80vh",
+            }}>
                 <List>
                     {echoBoard.echoBoardSolutions
                         .sort((a, b) => b.upvote.length - a.upvote.length)
@@ -46,6 +59,7 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                             </ListItem>
                         ))}
                 </List>
+                <Button variant="outlined" onClick={onClose} sx={{maxWidth: "6rem", margin: "1rem auto 0"}}>Close</Button>
             </Box>
         </Modal>
     )

@@ -3,6 +3,7 @@ import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import React from 'react'
 import UpvoteButton from '../../UpvoteButton';
 import { SolutionStatusButton } from '@/components/CommentModal/commentModalComponents/SolutionStatusButton';
+import { SolutionStatusBadge } from './SolutionStatusBadge';
 
 type SolutionItemProps = {
     solution: SolutionResponseData;
@@ -28,7 +29,7 @@ export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote }
                     </Typography>
                 }
             ></ListItemText>
-            <SolutionStatusButton status={solution.status} solutionId={solution.id} />
+            <SolutionStatusBadge status={solution.status} solutionId={solution.id} />
             <UpvoteButton count={solution.upvote.length} onUpvote={() => onUpvote(solution.id)} />
         </ListItem>
     )

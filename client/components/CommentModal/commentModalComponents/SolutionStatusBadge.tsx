@@ -57,13 +57,21 @@ export const SolutionStatusBadge: React.FC<SolutionStatusProps> = ({ status, sol
             )}
                 <Button
                     size='small'
+                    variant='contained'
                     color={formatedStatus.color as ButtonProps['color']}
                     onClick={handleClick}
                     style={{
                         borderTopLeftRadius: "30px",
                         borderBottomLeftRadius: "30px",
                         pointerEvents: isClickble ? "auto" : "none",
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                        margin: "10px 15px 0 0",
+                        height: "25px",
+                        borderRadius: "30px",
                     }}
+                
                 >
                     {formatedStatus.formattedStatus}
                 </Button>

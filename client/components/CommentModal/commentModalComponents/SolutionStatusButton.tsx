@@ -45,6 +45,8 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(['status', solutionId]);
+                queryClient.refetchQueries(['echoBoards']);
+                queryClient.refetchQueries(['comments']);
             },
         }
     );
@@ -56,7 +58,6 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
 
     const handleClick = () => {
         if (formatedStatus.formattedStatus == "Volunteers required") {
-            // volunteerMutation.mutate(solutionId);
             setIsConfirmationModalOpen(true);
         }
 

@@ -5,13 +5,14 @@ spring:
   config:
     import: optional:secrets.yml
   datasource:
-    url: ${DATABASE_URL_DEV1}
-    username: ${DATABASE_USER1}
-    password: ${DATABASE_PASSWORD1}
+    url: ${DATABASE_URL_DEV2}
+    username: ${DATABASE_USER2}
+    password: ${DATABASE_PASSWORD2}
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: off
+#    open-in-view: true
 #    defer-datasource-initialization: true
 #  sql:
 #    init:

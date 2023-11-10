@@ -75,7 +75,12 @@ public class EchoBoardSolution {
         return this;
     }
 
-    public EchoBoardSolution addVolunteerFromPendingVolunteers(EchoBoardUser volunteer) {
+    public EchoBoardSolution removePendingVolunteer(EchoBoardUser volunteer) {
+        this.pendingVolunteers.remove(volunteer);
+        return this;
+    }
+
+    public EchoBoardSolution addVolunteer(EchoBoardUser volunteer) {
         this.volunteers.add(volunteer);
         return this;
     }

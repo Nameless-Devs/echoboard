@@ -89,7 +89,6 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                             </Box>
                                         )}
                                     </Grid>
-
                                 </Grid>
                             </ListItem>
                         ))}

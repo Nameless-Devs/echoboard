@@ -14,7 +14,6 @@ import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_
 
 @Entity
 @Getter
-@ToString
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
@@ -38,8 +37,11 @@ public class EchoBoardSolution {
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
-    @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
+    private Set<EchoBoardUser> pendingVolunteers = new HashSet<>();
 
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
@@ -65,6 +67,16 @@ public class EchoBoardSolution {
 
     public EchoBoardSolution setEchoBoardUser(EchoBoardUser echoBoardUser) {
         this.echoBoardUser = echoBoardUser;
+        return this;
+    }
+
+    public EchoBoardSolution addPendingVolunteer(EchoBoardUser volunteer) {
+        this.pendingVolunteers.add(volunteer);
+        return this;
+    }
+
+    public EchoBoardSolution removePendingVolunteer(EchoBoardUser volunteer) {
+        this.pendingVolunteers.remove(volunteer);
         return this;
     }
 

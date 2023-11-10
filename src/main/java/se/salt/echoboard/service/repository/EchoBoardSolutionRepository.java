@@ -3,9 +3,7 @@ package se.salt.echoboard.service.repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import se.salt.echoboard.model.EchoBoardSolution;
-import se.salt.echoboard.model.EchoBoardUser;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,9 +18,5 @@ public class EchoBoardSolutionRepository {
 
     public Optional<EchoBoardSolution> getSolutionById(long solutionId) {
         return solutionRepository.findById(solutionId);
-    }
-
-    public List<EchoBoardSolution> findByEchoBoardUser(EchoBoardUser user) {
-        return solutionRepository.findByEchoBoardUser(user);
     }
 }

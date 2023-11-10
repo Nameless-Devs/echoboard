@@ -12,6 +12,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: off
+#    open-in-view: true
 #    defer-datasource-initialization: true
 #  sql:
 #    init:
@@ -28,7 +29,7 @@ logging:
         messaging: INFO
 #        http: DEBUG
       hibernate:
-        sql: TRACE
+        sql: INFO
 #        type:
 #          descriptor:
 #            sql:

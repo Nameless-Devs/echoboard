@@ -75,4 +75,12 @@ public class SolutionService {
         }
         return echoBoardSolution;
     }
+
+    private EchoBoardSolution checkAuthorization(EchoBoardSolution echoBoardSolution){
+        OidcUser user = (OidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!echoBoardSolution.getEchoBoardUser().getSubject().equals(user.getSubject())){
+            throw new IllegalArgumentException("User is not authorized to change this");
+        }
+        return echoBoardSolution;
+    }
 }

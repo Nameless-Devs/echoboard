@@ -57,6 +57,9 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
 
+    private boolean shouldSkipFilter(HttpServletRequest request) {
+        return request.getRequestURI().equals("/login");
+    }
     }
 
     private void redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated

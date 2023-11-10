@@ -13,6 +13,7 @@ public record EchoBoardSolutionResponse(long id, String content, Set<String> upv
                                         EchoBoardSolution.SolutionStatus status, Instant created,
                                         EchoBoardUserResponse echoBoardUser,
                                         Set<EchoBoardUserResponse> volunteers,
+                                        Set<EchoBoardUserResponse> pendingVolunteers,
                                         ChatRoom chatRoom) {
 
     @Override

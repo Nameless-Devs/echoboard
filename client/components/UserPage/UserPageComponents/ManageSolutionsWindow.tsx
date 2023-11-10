@@ -71,11 +71,22 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                     </Grid>
                                     <Grid item xs={8} md={10}>
                                         {solution.status === "VOLUNTEERS_REQUIRED" && (
-                                            <Box>
-                                                <Typography>Volunteers: 5, Accepted: 2</Typography>
-                                                <Button>MANAGE</Button>
+                                            <Box 
+                                            sx={{ 
+                                                display: { xs: "block", md: "flex"}, 
+                                                alignItems: "center", 
+                                                justifyContent: "flex-end",
+                                                marginRight: { xs: "1rem", md: "2rem"}, 
+                                                color: "#1976d2",
+                                                gap: "1rem"
+                                                }}>
+                                                <Typography>
+                                                    Volunteers: 5, Accepted: 2
+                                                </Typography>
+                                                <Button variant="outlined">MANAGE</Button>
                                             </Box>
-                                        )}</Grid>
+                                        )}
+                                    </Grid>
 
                                 </Grid>
                             </ListItem>

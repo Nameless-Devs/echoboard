@@ -148,7 +148,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                                 <Typography>
                                     0 people vounteered for 0 solutions
                                 </Typography>
-                                <Button onClick={handleOpenManageSolutionsWindow}>Manage</Button>
+                                <Button onClick={handleOpenManageSolutionsWindow} variant="outlined" sx={{ml: "1rem"}}>Manage</Button>
                             </Box>
                         </Box>
                     </Box>

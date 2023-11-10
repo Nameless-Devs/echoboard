@@ -1,4 +1,3 @@
-import { SolutionItem } from '@/components/CommentModal/commentModalComponents/SolutionItem';
 import { SolutionStatusButton } from '@/components/CommentModal/commentModalComponents/SolutionStatusButton';
 import UpvoteButton from '@/components/UpvoteButton';
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types';
@@ -19,8 +18,8 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
     echoBoard
 }) => {
     return (
-        <Modal open={open} onClose={onClose}>
-            <Box sx={{
+        <Modal open={open} onClose={onClose} >
+            <Box  sx={{
                 position: 'absolute',
                 top: '50%',
                 left: '50%',
@@ -33,6 +32,7 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                 display: "flex",
                 flexDirection: "column",
                 maxHeight: "80vh",
+                overflowY: "auto",
             }}>
                 <List>
                     {echoBoard.echoBoardSolutions

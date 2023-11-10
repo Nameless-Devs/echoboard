@@ -47,22 +47,26 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         if (jwtTokenString.isPresent()) {
-            log.info("Received JWT token: {}", jwtTokenString.get());
-            try {
-                Jwt jwt = validation.validateJWTString(jwtTokenString.get());
-                OidcUser user = createOidcUserFromJwt(jwt);
-                redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated(user, response);
-            } catch (JwtException e) {
-                log.error("Failed to validate JWT token: {}", e.getMessage());
-                response.sendRedirect(baseUrl+"login");
-                return;
-            }
+            processJwtToken(jwtTokenString.get(), response);
         }
         filterChain.doFilter(request, response);
+    }
 
     private boolean shouldSkipFilter(HttpServletRequest request) {
         return request.getRequestURI().equals("/login");
     }
+
+    private void processJwtToken(String jwtTokenString, HttpServletResponse response) throws IOException {
+        log.info("Received JWT token");
+        log.trace("Received JWT token: {}", jwtTokenString);
+
+        try {
+            Jwt jwt = validation.validateJWTString(jwtTokenString);
+            OidcUser user = createOidcUserFromJwt(jwt);
+            redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated(user, response);
+        } catch (JwtException e) {
+            handleJwtException(e, response);
+        }
     }
 
     private void redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated
@@ -74,5 +78,10 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
         }
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
+    }
+
+    private void handleJwtException(JwtException e, HttpServletResponse response) throws IOException {
+        log.error("Failed to validate JWT token: {}", e.getMessage());
+        response.sendRedirect(baseUrl + "login");
     }
 }

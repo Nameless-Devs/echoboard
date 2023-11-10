@@ -3,7 +3,8 @@ import UpvoteButton from '@/components/UpvoteButton';
 import { timeConverter } from '@/service/TimeConverter';
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, Grid, List, ListItem, Modal, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
+import { AcceptingVolunteersWindow } from './AcceptingVolunteersWindow';
 
 type ManageSolutionsWindowProps = {
     open: boolean;
@@ -18,6 +19,16 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
     user,
     echoBoard
 }) => {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleOpen = () => {
+           setIsOpen(true);
+       };
+     const handleClose = () => {
+           setIsOpen(false);
+       };
+
     return (
         <Modal open={open} onClose={onClose} >
             <Box sx={{
@@ -85,7 +96,7 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                                 <Typography>
                                                     Volunteers: 5, Accepted: 2
                                                 </Typography>
-                                                <Button variant="outlined">MANAGE</Button>
+                                                <Button variant="outlined" onClick={handleOpen}>MANAGE</Button>
                                             </Box>
                                         )}
                                     </Grid>
@@ -93,6 +104,7 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                             </ListItem>
                         ))}
                 </List>
+                <AcceptingVolunteersWindow open={isOpen} onClose={handleClose}/>
                 <Button variant="outlined" onClick={onClose} sx={{ maxWidth: "6rem", margin: "1rem auto 0" }}>Close</Button>
             </Box>
         </Modal>

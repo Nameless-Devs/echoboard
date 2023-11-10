@@ -25,7 +25,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     p: 4,
                 }}
             >
-
+                Hello, there are going tp be volunteereing requsts here soon
             </Box>
         </Modal>
     )

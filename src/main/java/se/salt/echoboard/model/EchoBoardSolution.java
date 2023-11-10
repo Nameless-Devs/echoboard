@@ -70,7 +70,12 @@ public class EchoBoardSolution {
         return this;
     }
 
-    public EchoBoardSolution addVolunteer(EchoBoardUser volunteer) {
+    public EchoBoardSolution addPendingVolunteer(EchoBoardUser volunteer) {
+        this.pendingVolunteers.add(volunteer);
+        return this;
+    }
+
+    public EchoBoardSolution addVolunteerFromPendingVolunteers(EchoBoardUser volunteer) {
         this.volunteers.add(volunteer);
         return this;
     }

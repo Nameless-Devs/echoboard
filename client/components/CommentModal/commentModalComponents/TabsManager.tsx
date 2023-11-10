@@ -36,7 +36,7 @@ export const TabsManager: FC<TabsManagerProps> = ({
   return (
     <Box className="tabs-container" 
     sx={{
-      width: { xs: "90vw", md: "75vw"},
+      width: { xs: "100vw", md: "75vw"},
       maxWidth: "1200px",
       }}>
       <Tabs

@@ -3,7 +3,6 @@ package se.salt.echoboard.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.exception.custom.*;
@@ -27,8 +26,6 @@ public class EchoBoardService {
     private final EchoBoardSolutionRepository solutionRepository;
 
     private final EchoBoardUserRepository userRepository;
-
-    private final JPAChatRoomRepository chatRoomRepository;
 
     private final DTOConvertor convertor;
 
@@ -61,11 +58,6 @@ public class EchoBoardService {
         return commentRepository.getCommentById(commentId)
                 .map(convertor::convertEntityToResponseDTO)
                 .orElseThrow(() -> new CommentNotFoundException(commentId));
-    }
-
-    public EchoBoardSolution getSolutionById(long solutionId) {
-        return solutionRepository.getSolutionById(solutionId)
-                .orElseThrow(() -> new SolutionNotFoundException(solutionId));
     }
 
     public EchoBoardCommentResponse addCommentToEcho(long echoBoardId, EchoBoardComment echoBoardComment, String userSubject) {
@@ -105,14 +97,6 @@ public class EchoBoardService {
                 .orElseThrow(EchoBoardNotFoundException::new);
     }
 
-    public Integer upvoteSolution(long solutionId, String userSubject) {
-        return solutionRepository.getSolutionById(solutionId)
-                .map(solution -> solution.addUpvote(userSubject))
-                .map(this::updateSolution)
-                .map(EchoBoardSolution::getUpvote)
-                .map(Set::size)
-                .orElseThrow(SolutionNotFoundException::new);
-    }
 
     public void deleteEcho(Long id) {
         echoBoardRepository.deleteById(id);
@@ -139,26 +123,6 @@ public class EchoBoardService {
         return convertor.convertEntityToResponseDTO(saveComment(echoBoardComment, userSubject));
     }
 
-    public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user) {
-
-        return solutionRepository.getSolutionById(solutionId)
-                .map(this::validateSolutionStatusIsVolunteerRequired)
-                .map(s -> s.addVolunteer(userRepository.getUserBySubject(user.getSubject())
-                        .orElseThrow(UserNotFoundException::new)))
-                .map(this::updateSolution)
-                .map(convertor::convertEntityToResponseDTO)
-                .orElseThrow(SolutionNotFoundException::new);
-    }
-
-    public EchoBoardSolutionResponse updateSolutionStatus(long solutionId, EchoBoardSolution.SolutionStatus updateToStage) {
-        return solutionRepository.getSolutionById(solutionId)
-                .map(solution -> solution.updateSolutionStatus(updateToStage))
-                .map(this::createChatRoomForEchoBoardSolutionIfVolunteersRequired)
-                .map(this::updateSolution)
-                .map(convertor::convertEntityToResponseDTO)
-                .orElseThrow(SolutionNotFoundException::new);
-    }
-
     public List<Long> getChatRoomIds(String echoBoardUserId) {
         var some = userRepository.getUserBySubject(echoBoardUserId)
                 .orElseThrow(UserNotFoundException::new);
@@ -168,9 +132,10 @@ public class EchoBoardService {
     }
 
     public EchoBoardResponse updateEcho(long echoId, EchoBoard echoBoard) {
-        EchoBoard echoToEdit = echoBoardRepository.getEchoById(echoId).orElseThrow(() -> new EchoBoardNotFoundException(echoId));
-        echoToEdit.setTitle(echoBoard.getTitle());
-        echoToEdit.setContent(echoBoard.getContent());
+        EchoBoard echoToEdit = echoBoardRepository.getEchoById(echoId)
+                .map(e -> e.setTitle(echoBoard.getTitle()))
+                .map(e -> e.setContent(echoBoard.getContent()))
+                .orElseThrow(() -> new EchoBoardNotFoundException(echoId));
         return convertor.convertEntityToResponseDTO(echoBoardRepository.save(echoToEdit));
     }
 
@@ -186,25 +151,6 @@ public class EchoBoardService {
                 .map(solution::setEchoBoardUser)
                 .map(solutionRepository::save)
                 .orElseThrow(UserNotFoundException::new);
-    }
-
-    private EchoBoardSolution updateSolution(EchoBoardSolution solution) {
-        return solutionRepository.save(solution);
-    }
-
-    private EchoBoardSolution validateSolutionStatusIsVolunteerRequired(EchoBoardSolution echoBoardSolution) {
-        if (!echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
-            throw new IllegalSolutionArgumentException();
-        }
-        return echoBoardSolution;
-    }
-
-    private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVolunteersRequired(EchoBoardSolution echoBoardSolution) {
-        if (echoBoardSolution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) {
-            return echoBoardSolution
-                    .setChatRoom(chatRoomRepository.save(new ChatRoom().setEchoBoardSolution(echoBoardSolution)));
-        }
-        return echoBoardSolution;
     }
 
 }

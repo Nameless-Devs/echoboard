@@ -2,15 +2,20 @@ package se.salt.echoboard.controller;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.test.web.servlet.MockMvc;
 import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
+import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import se.salt.echoboard.service.repository.JPAChatRoomRepository;
 import util.TestBuilders;
 import util.TestUtilities;
@@ -30,6 +35,8 @@ public class SolutionControllerTest {
     private EchoBoardSolutionRepository solutionRepository;
     @Autowired
     private JPAChatRoomRepository chatRoomRepository;
+    @Autowired
+    private EchoBoardUserRepository userRepository;
 
     @Autowired
     public SolutionControllerTest(MockMvc mockMvc) {
@@ -43,8 +50,12 @@ public class SolutionControllerTest {
 
         // Create a sample EchoBoardSolution with known solutionId and initial solutionStatus in the test database
         EchoBoardSolution solution = TestBuilders.createRandomEchoBoardSolution();
+        //Create and set user for solution
+        var oidcUser = (OidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var user = EchoBoardUser.builder().subject(oidcUser.getSubject()).build();
+        userRepository.createUser(oidcUser);
+        solutionRepository.save(solution.setEchoBoardUser(user));
 
-        solutionRepository.save(solution);
 
         // saving a new chatRoom if a status requires a volunteers.
         solution.setChatRoom(solution.getStatus().equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED) ?

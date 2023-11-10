@@ -74,7 +74,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                     margin: "1rem 0",
                     borderRadius: "1rem",
                     backgroundColor: "white",
-                    width: { xs: "85vw", md: "75vw" },
+                    width: { xs: "90vw", md: "75vw" },
                     height: { xs: "10rem", md: "8rem" },
                 }}>
                 <Skeleton animation="wave" height={40} />
@@ -91,7 +91,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                             margin: "1rem 0",
                             borderRadius: "1rem",
                             backgroundColor: "white",
-                            width: { xs: "85vw", md: "75vw" },
+                            width: { xs: "90vw", md: "75vw" },
                         }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                             <Typography
@@ -148,7 +148,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                                 <Typography>
                                     0 people vounteered for 0 solutions
                                 </Typography>
-                                <Button onClick={handleOpenManageSolutionsWindow}>Manage</Button>
+                                <Button onClick={handleOpenManageSolutionsWindow} variant="outlined" sx={{ml: "1rem"}}>Manage</Button>
                             </Box>
                         </Box>
                     </Box>

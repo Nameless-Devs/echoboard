@@ -6,7 +6,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5px;
-  width: 60%;
 }
 
 .tabs-container {
@@ -29,7 +28,7 @@
 .comment-display__individual-comment {
   background-color: rgb(247, 246, 246);
   margin: 10px;
-  border-radius: 40px;
+  border-radius: 20px;
   max-width: 98%;
   padding: 5px;
 }

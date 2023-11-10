@@ -78,6 +78,15 @@ public class SolutionService {
         return echoBoardSolution;
     }
 
+    private EchoBoardSolution addVolunteerFromPendingVolunteers(EchoBoardSolution solution, String volunteerId) {
+        EchoBoardUser pendingVolunteer = solution.getPendingVolunteers()
+                .stream().filter(echoBoardUser -> echoBoardUser.getSubject().equals(volunteerId))
+                .findFirst().orElseThrow(UserNotFoundException::new);
+
+        return solution.addVolunteer(pendingVolunteer)
+                .removePendingVolunteer(pendingVolunteer);
+    }
+
     private EchoBoardSolution checkAuthorization(EchoBoardSolution echoBoardSolution){
         OidcUser user = (OidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!echoBoardSolution.getEchoBoardUser().getSubject().equals(user.getSubject())){

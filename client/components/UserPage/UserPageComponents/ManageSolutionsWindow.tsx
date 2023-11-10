@@ -19,12 +19,12 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
 }) => {
     return (
         <Modal open={open} onClose={onClose} >
-            <Box  sx={{
+            <Box sx={{
                 position: 'absolute',
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: {xs: "90%", md: "60%"},
+                width: { xs: "90%", md: "60%" },
                 bgcolor: 'background.paper',
                 border: '2px solid #000',
                 boxShadow: 24,
@@ -55,11 +55,17 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                     }
                                 ></ListItemText>
                                 <SolutionStatusButton status={solution.status} solutionId={solution.id} />
-                                <UpvoteButton count={solution.upvote.length} onUpvote={() => {}} />
+                                <UpvoteButton count={solution.upvote.length} onUpvote={() => { }} />
+                                {solution.status === "VOLUNTEERS_REQUIRED" && (
+                                    <Box>
+                                        <Typography>Volunteers: 5, Accepted: 2</Typography>
+                                        <Button>MANAGE</Button>
+                                    </Box>
+                                )}
                             </ListItem>
                         ))}
                 </List>
-                <Button variant="outlined" onClick={onClose} sx={{maxWidth: "6rem", margin: "1rem auto 0"}}>Close</Button>
+                <Button variant="outlined" onClick={onClose} sx={{ maxWidth: "6rem", margin: "1rem auto 0" }}>Close</Button>
             </Box>
         </Modal>
     )

@@ -1,6 +1,8 @@
+import { editEchoBoard } from '@/service/Functions';
 import { EchoBoardResponseData } from '@/service/Types';
 import { Box, Button, TextField } from '@mui/material'
 import Modal from '@mui/material/Modal';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 
 type EditPostWindowProps = {
@@ -9,11 +11,14 @@ type EditPostWindowProps = {
     echoBoard: EchoBoardResponseData;
 }
 export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClose, echoBoard }) => {
-    const [formData, setFormData] = useState({
-        title: echoBoard.title,
-        content: echoBoard.content,
-    });
+    const [formData, setFormData] = useState<EchoBoardResponseData>(echoBoard);
     const [hasPostChanged, setHasPostChanged] = useState(false);
+   
+    const queryClient = useQueryClient();
+    const mutation = useMutation((data: EchoBoardResponseData) => 
+    editEchoBoard(echoBoard.id, data)
+    ); 
+    
 
     const handleFieldChange = (field: string, value: string) => {
         setFormData((prevData) => ({
@@ -23,9 +28,18 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
         setHasPostChanged(true);
     };
 
-    const handleFormSubmit = {
+    const handleFormSubmit = () => {
     
-        
+        mutation.mutate(formData, {
+            onSuccess: () => {
+              queryClient.invalidateQueries(["userInfo"]);
+              queryClient.refetchQueries(["userInfo"]);
+              handleClose();
+            },
+            onError: (error) => {
+              console.error("Error:", error);
+            },
+          });
     }
 
     return (
@@ -71,7 +85,7 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
                     <Button 
                     variant="contained" 
                     color="primary" 
-                    onClick={() => handleFormSubmit}
+                    onClick={() => handleFormSubmit()}
                     disabled={!hasPostChanged}
                     sx={{
                         maxWidth: "60%",

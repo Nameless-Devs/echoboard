@@ -48,6 +48,7 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
         }
         if (jwtTokenString.isPresent()) {
             processJwtToken(jwtTokenString.get(), response);
+
         }
         filterChain.doFilter(request, response);
     }

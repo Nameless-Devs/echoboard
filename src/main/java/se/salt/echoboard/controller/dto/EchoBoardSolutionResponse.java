@@ -1,10 +1,12 @@
 package se.salt.echoboard.controller.dto;
 
+import lombok.Builder;
 import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.model.EchoBoardSolution;
 
 import java.time.Instant;
 import java.util.Set;
+@Builder
 
 /**
  * DTO for {@link EchoBoardSolution}

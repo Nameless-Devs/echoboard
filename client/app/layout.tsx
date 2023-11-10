@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "./provider";
 import "./styles/Global.css";
+// TODO FIX THEME PROVIDER
+// import { ThemeProvider } from "@mui/material"; 
+// import theme from "@/utils/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-       <head>
+    // <ThemeProvider theme={theme}>
+      <html lang="en">
+        <head>
           <link rel="icon" type="image/x-icon" href="/favicon.png" />
         </head>
-      <body className={inter.className}> <Providers>{children}</Providers></body>
-
-    </html>
+        <body className={inter.className}>
+          <Providers>{children}</Providers>
+        </body>
+      </html>
+    // </ThemeProvider>
   );
 }

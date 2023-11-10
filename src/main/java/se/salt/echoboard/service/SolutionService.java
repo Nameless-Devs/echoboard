@@ -42,6 +42,7 @@ public class SolutionService {
 
     public EchoBoardSolutionResponse updateSolutionStatus(long solutionId, EchoBoardSolution.SolutionStatus updateToStage) {
         return solutionRepository.getSolutionById(solutionId)
+                .map(this::checkAuthorization)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
                 .map(this::createChatRoomForEchoBoardSolutionIfVolunteersRequired)
                 .map(solutionRepository::save)

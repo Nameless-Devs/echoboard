@@ -6,7 +6,10 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.SolutionService;
+
+import java.util.Set;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -39,10 +42,24 @@ public class SolutionController {
         return solutionService.upvoteSolution(solutionId, user.getSubject());
     }
 
+    @GetMapping("{solutionId}/volunteer")
+    @ResponseStatus(OK)
+    public Set<EchoBoardUser> getPendingVolunteers(@PathVariable long solutionId) {
+        return solutionService.getPendingVolunteers(solutionId);
+    }
+
     @PostMapping("{solutionId}/volunteer")
     @ResponseStatus(CREATED)
-    public EchoBoardSolutionResponse volunteerForSolutionTesting(@PathVariable long solutionId
-            , @AuthenticationPrincipal OidcUser user) {
-        return solutionService.addVolunteerToSolution(solutionId, user);
+    public EchoBoardSolutionResponse addPendingVolunteerToSolution(@PathVariable long solutionId,
+                                                                   @AuthenticationPrincipal OidcUser user) {
+        return solutionService.addPendingVolunteerToSolution(solutionId, user);
+    }
+
+    @PatchMapping("{solutionId}/volunteer")
+    @ResponseStatus(CREATED)
+    public EchoBoardSolutionResponse confirmVolunteerForSolution(@PathVariable long solutionId,
+                                                                 @AuthenticationPrincipal OidcUser user ,
+                                                                 @RequestBody String volunteerId) {
+        return solutionService.addVolunteerToSolution(solutionId, user , volunteerId);
     }
 }

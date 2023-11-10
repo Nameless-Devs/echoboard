@@ -72,7 +72,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 
   return (
     <Modal open={isOpen} onClose={handleClose}>
-      <div className="model-display">
+      <Box className="model-display" sx={{width: {xs: "100%", md:"60%"}}}>
         <Box mb={1}>
           <SinglePost echoBoard={post} user={user} />
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
@@ -119,7 +119,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             user={user}
           />
         )}
-      </div>
+      </Box>
     </Modal>
   );
 };

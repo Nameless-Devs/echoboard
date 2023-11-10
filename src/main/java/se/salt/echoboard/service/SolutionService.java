@@ -50,13 +50,21 @@ public class SolutionService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-
-    public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user) {
+    public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user, String volunteerId) {
 
         return solutionRepository.getSolutionById(solutionId)
                 .map(this::checkAuthorization)
                 .map(this::validateSolutionStatusIsVolunteerRequired)
-                .map(s -> s.addVolunteer(userRepository.getUserBySubject(user.getSubject())
+                .map(s -> addVolunteerFromPendingVolunteers(s ,volunteerId))
+                .map(solutionRepository::save)
+                .map(convertor::convertEntityToResponseDTO)
+                .orElseThrow(SolutionNotFoundException::new);
+    }
+
+    public EchoBoardSolutionResponse addPendingVolunteerToSolution(long solutionId, OidcUser user) {
+        return solutionRepository.getSolutionById(solutionId)
+                .map(this::validateSolutionStatusIsVolunteerRequired)
+                .map(s -> s.addPendingVolunteer(userRepository.getUserBySubject(user.getSubject())
                         .orElseThrow(UserNotFoundException::new)))
                 .map(solutionRepository::save)
                 .map(convertor::convertEntityToResponseDTO)

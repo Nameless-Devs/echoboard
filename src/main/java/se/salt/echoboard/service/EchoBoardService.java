@@ -132,9 +132,10 @@ public class EchoBoardService {
     }
 
     public EchoBoardResponse updateEcho(long echoId, EchoBoard echoBoard) {
-        EchoBoard echoToEdit = echoBoardRepository.getEchoById(echoId).orElseThrow(() -> new EchoBoardNotFoundException(echoId));
-        echoToEdit.setTitle(echoBoard.getTitle());
-        echoToEdit.setContent(echoBoard.getContent());
+        EchoBoard echoToEdit = echoBoardRepository.getEchoById(echoId)
+                .map(e -> e.setTitle(echoBoard.getTitle()))
+                .map(e -> e.setContent(echoBoard.getContent()))
+                .orElseThrow(() -> new EchoBoardNotFoundException(echoId));
         return convertor.convertEntityToResponseDTO(echoBoardRepository.save(echoToEdit));
     }
 

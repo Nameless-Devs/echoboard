@@ -14,7 +14,6 @@ import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_
 
 @Entity
 @Getter
-@ToString
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
@@ -38,7 +37,6 @@ public class EchoBoardSolution {
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
-    @ToString.Exclude
     private Set<EchoBoardUser> volunteers = new HashSet<>();
 
     @ElementCollection

@@ -63,6 +63,12 @@ public class SolutionService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
+    public Set<EchoBoardUser> getPendingVolunteers(long solutionId) {
+        return solutionRepository.getSolutionById(solutionId)
+                .map(EchoBoardSolution::getPendingVolunteers)
+                .orElseThrow(SolutionNotFoundException::new);
+    }
+
     private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVolunteersRequired(EchoBoardSolution echoBoardSolution) {
         if (echoBoardSolution.getChatRoom() != null) return echoBoardSolution;
         if (!echoBoardSolution.getStatus()

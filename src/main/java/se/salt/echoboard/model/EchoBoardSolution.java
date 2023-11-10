@@ -39,6 +39,10 @@ public class EchoBoardSolution {
     @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
     private Set<EchoBoardUser> volunteers = new HashSet<>();
 
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnoreProperties({"echoBoards", "echoBoardComments", "echoBoardSolutions"})
+    private Set<EchoBoardUser> pendingVolunteers = new HashSet<>();
+
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
 

@@ -1,6 +1,7 @@
 package se.salt.echoboard.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,11 +22,8 @@ public class EchoBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Getter
-    @Setter
+
     private String title;
-    @Getter
-    @Setter
     @Column(columnDefinition = "TEXT")
     private String content;
     private boolean anonymous;
@@ -37,6 +35,7 @@ public class EchoBoard {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private final List<EchoBoardComment> echoBoardComments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    @JsonManagedReference
     private final List<EchoBoardSolution> echoBoardSolutions = new ArrayList<>();
     @ElementCollection
     private final Set<String> upvote = new HashSet<>();
@@ -58,6 +57,16 @@ public class EchoBoard {
 
     public EchoBoard setUser(EchoBoardUser user) {
         this.echoBoardUser = user;
+        return this;
+    }
+
+    public EchoBoard setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public EchoBoard setContent(String content) {
+        this.content = content;
         return this;
     }
 }

@@ -24,7 +24,7 @@ public class GeneralExceptionHandler {
 
     @ExceptionHandler(IllegalSolutionArgumentException.class)
     @ResponseStatus(BAD_REQUEST)
-    public String handleIllegalArgumentException(IllegalSolutionArgumentException ex) {
+    public String handleSolutionIllegalArgumentException(IllegalSolutionArgumentException ex) {
         log.error("Illegal Argument: " + ex.getMessage());
         return ex.getMessage();
     }
@@ -33,6 +33,13 @@ public class GeneralExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public String handleBadRequest(NullPointerException ex) {
         log.error("Null pointer encountered, something went wrong: "+ ex.getMessage());
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public String handleIllegalArgumentException(IllegalArgumentException ex) {
+        log.error("Illegal Argument: " + ex.getMessage());
         return ex.getMessage();
     }
 }

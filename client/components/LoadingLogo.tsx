@@ -5,7 +5,7 @@ import EchoLogo from "../app/image/EchoBoard_logo.png"
 
 export const LoadingLogo = () => {
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", alignitems: "center", padding: "15rem" }}>
+    <Box sx={{ display: "flex", justifyContent: "center", alignitems: "center", paddingTop: "15rem" }}>
     <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
       <Image
         src={EchoLogo}

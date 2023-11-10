@@ -42,7 +42,10 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         var jwtTokenString = getJwtTokenFromRequestCookie(request);
-
+        if (shouldSkipFilter(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         if (jwtTokenString.isPresent()) {
             log.info("Received JWT token: {}", jwtTokenString.get());
             try {

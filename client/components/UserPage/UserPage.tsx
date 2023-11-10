@@ -27,7 +27,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           marginTop: "1rem",
         }}
       >
-        <Box sx={{width: "100vw"}}>
+        <Box sx={{width: {xs: "100vw", md: "auto"}, margin: "auto"}}>
           <TabsManager
             labels={[
               "Your posts",

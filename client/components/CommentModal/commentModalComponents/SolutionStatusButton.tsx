@@ -116,10 +116,10 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
                 ref={anchorRef}
                 aria-label="split button"
                 style={{
-                    position: "absolute",
-                    top: "0",
-                    right: "0",
-                    margin: "10px 15px 0 0",
+                    // position: "absolute",
+                    // top: "0",
+                    // right: "0",
+                    // margin: "10px 15px 0 0",
                     height: "25px",
                     borderRadius: "30px"
                 }}

@@ -54,6 +54,7 @@ public class SolutionService {
     public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user) {
 
         return solutionRepository.getSolutionById(solutionId)
+                .map(this::checkAuthorization)
                 .map(this::validateSolutionStatusIsVolunteerRequired)
                 .map(s -> s.addVolunteer(userRepository.getUserBySubject(user.getSubject())
                         .orElseThrow(UserNotFoundException::new)))

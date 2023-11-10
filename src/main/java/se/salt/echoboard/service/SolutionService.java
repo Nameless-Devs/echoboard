@@ -1,6 +1,7 @@
 package se.salt.echoboard.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.controller.dto.DTOConvertor;
@@ -10,6 +11,7 @@ import se.salt.echoboard.exception.custom.SolutionNotFoundException;
 import se.salt.echoboard.exception.custom.UserNotFoundException;
 import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.model.EchoBoardSolution;
+import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import se.salt.echoboard.service.repository.JPAChatRoomRepository;

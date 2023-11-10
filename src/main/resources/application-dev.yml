@@ -28,7 +28,7 @@ logging:
         messaging: INFO
 #        http: DEBUG
       hibernate:
-        sql: TRACE
+        sql: INFO
 #        type:
 #          descriptor:
 #            sql:

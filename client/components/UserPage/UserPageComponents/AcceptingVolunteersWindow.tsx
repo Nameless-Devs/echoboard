@@ -1,6 +1,6 @@
 import { getAllPendingVolunteers } from '@/service/Functions';
 import { UserResponseData } from '@/service/Types';
-import { Box, Modal } from '@mui/material'
+import { Avatar, Box, Modal, Typography } from '@mui/material'
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 
@@ -39,6 +39,13 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                 }}
             >
                 inside solution with id {solutionId}
+                {volunteers && volunteers.map((volunteer, index) =>
+                 <Box key={index}>
+                    <Typography>
+                        {volunteer.name}
+                    </Typography>
+                 </Box>
+                )}
             </Box>
         </Modal>
     )

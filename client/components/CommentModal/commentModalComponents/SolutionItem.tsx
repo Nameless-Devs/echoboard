@@ -18,16 +18,16 @@ export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote }
            
             <Grid container>
                 <Grid item xs={12}>
-                    <Box sx={{ display: "flex", justifyContent: "flex-end", margin: "0.5rem 1rem 0 0 " }}>
+                    <Box sx={{ display: "flex", justifyContent: "flex-end", margin: "0.2rem 0.5rem 0 0 " }}>
                         <SolutionStatusBadge status={solution.status} solutionId={solution.id} />
                     </Box>
                 </Grid>
-                <Grid item xs={2} md={1}>
+                <Grid item xs={2} md={1} sx={{marginTop: "-0.5rem"}}>
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <Avatar src={solution.echoBoardUser.picture} />
                     </Box>
                 </Grid>
-                <Grid item xs={10} md={11}>
+                <Grid item xs={10} md={11} sx={{marginTop: "-0.5rem"}}>
                     <Typography sx={{ marginBottom: "-0.4rem" }}>
                         {solution.echoBoardUser.name}
                     </Typography>

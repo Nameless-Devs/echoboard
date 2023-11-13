@@ -1,10 +1,11 @@
 import { UserResponseData } from "@/service/Types";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { TabsManager } from "../CommentModal/commentModalComponents/TabsManager";
 import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomTabContent";
 import { SingleUserPost } from "./UserPageComponents/SingleUserPost";
 import { UserPageInfoSection } from "./UserPageComponents/UserPageInfoSection";
+import { SolutionItem } from "../CommentModal/commentModalComponents/SolutionItem";
 
 type UserPageProps = {
   user: UserResponseData;
@@ -15,6 +16,10 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
   const handleTabChange = (newTabIndex: number) => {
     setValue(newTabIndex);
   };
+
+  const onUpvote = () => {
+   console.log('You pressed upvote button');
+  }
 
   return (
     <>
@@ -53,6 +58,26 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                     return <SingleUserPost key={index} echoBoard={echoBoard} user={user} />;
                   })
               )}
+            </Box>
+          </CustomTabContent>
+          <CustomTabContent value={value} index={1}>
+            <Box>
+               {user.echoBoardSolutions.length === 0 ? (
+                <p>You have not suppested any solutions yet.</p>
+               ) : (
+                user.echoBoardSolutions
+                  .slice()
+                  .sort((a, b) => {
+                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                  })
+                  .map((solution, index) => {
+                    return (
+                    <>
+                   <Typography>{solution.content}</Typography> 
+                    </>
+                    );
+                  })
+               )}
             </Box>
           </CustomTabContent>
         </Box>

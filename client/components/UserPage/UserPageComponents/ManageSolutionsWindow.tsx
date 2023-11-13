@@ -101,10 +101,10 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                         )}
                                     </Grid>
                                 </Grid>
+                                <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} solutionId={solution.id} />
                             </ListItem>
                         ))}
                 </List>
-                <AcceptingVolunteersWindow open={isOpen} onClose={handleClose}/>
                 <Button variant="outlined" onClick={onClose} sx={{ maxWidth: "6rem", margin: "1rem auto 0" }}>Close</Button>
             </Box>
         </Modal>

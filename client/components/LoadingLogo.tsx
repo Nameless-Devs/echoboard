@@ -9,7 +9,8 @@ export const LoadingLogo = () => {
     <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
       <Image
         src={EchoLogo}
-        alt="EchoBoard logo white"
+        alt="EchoBoard logo"
+        priority={true}
         width={90}
         style={{
           margin: "0 1rem",

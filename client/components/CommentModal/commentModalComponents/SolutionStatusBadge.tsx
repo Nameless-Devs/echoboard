@@ -20,8 +20,8 @@ const options = [
 
 export const SolutionStatusBadge: React.FC<SolutionStatusProps> = ({ status, solutionId })=> {
     const [isSuccess, setIsSuccess] = useState(false);
-    const [isClickble, setIsClickble] = useState(status == "VOLUNTEERS_REQUIRED");
-    const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
+    const isClickble = status == "VOLUNTEERS_REQUIRED" ? true : false;
+    const formatedStatus = getStatusInfo(status);
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
     
 
@@ -64,14 +64,9 @@ export const SolutionStatusBadge: React.FC<SolutionStatusProps> = ({ status, sol
                         borderTopLeftRadius: "30px",
                         borderBottomLeftRadius: "30px",
                         pointerEvents: isClickble ? "auto" : "none",
-                        // position: "absolute",
-                        // top: "0",
-                        // right: "0",
-                        // margin: "10px 15px 0 0",
                         height: "25px",
                         borderRadius: "30px",
                     }}
-                
                 >
                     {formatedStatus.formattedStatus}
                 </Button>

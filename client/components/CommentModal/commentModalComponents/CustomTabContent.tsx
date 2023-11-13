@@ -23,7 +23,7 @@ export const CustomTabContent: React.FC<TabPanelProps> = ({
     >
       {value === index && (
         <Box >
-          <Typography>{children}</Typography>
+          <Box>{children}</Box>
         </Box>
       )}
     </div>

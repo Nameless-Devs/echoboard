@@ -345,3 +345,21 @@ export async function editEchoBoard( echoBoardId: string, echoBoard: EchoBoardRe
     throw new Error("Fetch error: " + error);
   }
 }
+
+export async function getAllPendingVolunteers(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, { solutionId });
+
+    const response = await fetch(endpoint, {
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: UserResponseData[] = await response.json();
+    return data;
+    
+  } catch (error) {
+    throw new Error("Fetch error: " + error);
+  }
+}

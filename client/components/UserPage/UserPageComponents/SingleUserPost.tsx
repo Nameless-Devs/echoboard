@@ -104,7 +104,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                             <ExtraActionsMenu echoBoard={echoBoard} />
                         </Box>
                         <Box>
-                            {echoBoard.anonymous ? <Chip label="Posted anonymously" size='small' /> : ''}
+                            {echoBoard.anonymous && <Chip label="Posted anonymously" size='small' />}
                         </Box>
                         <Typography variant="caption" style={{ color: "gray" }}>
                             {timeConverter(echoBoard.created)}
@@ -114,7 +114,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                             color="text.secondary"
                             style={{ margin: "0px" }}
                         >
-                            {contentVisible ? echoBoard.content : ''}
+                            {contentVisible && echoBoard.content}
                         </Typography>
                         <div>
                             {contentVisible ? (
@@ -148,7 +148,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                                 <Typography>
                                     0 people vounteered for 0 solutions
                                 </Typography>
-                                <Button onClick={handleOpenManageSolutionsWindow} variant="outlined" sx={{ml: "1rem"}}>Manage</Button>
+                                <Button onClick={handleOpenManageSolutionsWindow} variant="outlined" sx={{ ml: "1rem" }}>Manage</Button>
                             </Box>
                         </Box>
                     </Box>

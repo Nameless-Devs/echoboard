@@ -39,9 +39,9 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     p: 4,
                 }}
             >
-                Volunteers: 
+                <Typography variant='h6'>Volunteers:</Typography> 
                 {volunteers && volunteers.map((volunteer, index) =>
-                 <VolunteerToAccept index={index} volunteer={volunteer} />
+                 <VolunteerToAccept key={index} volunteer={volunteer} />
                 )}
             </Box>
         </Modal>

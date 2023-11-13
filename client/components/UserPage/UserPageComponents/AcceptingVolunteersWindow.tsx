@@ -4,11 +4,13 @@ import React from 'react'
 type AcceptingVolunteersWindowProps = {
     open: boolean;
     onClose: () => void;
+    solutionId: string;
 }
 
 export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps> = ({
     open,
-    onClose
+    onClose,
+    solutionId
 }) => {
     return (
         <Modal open={open} onClose={onClose} >
@@ -25,7 +27,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     p: 4,
                 }}
             >
-                Hello, there are going tp be volunteereing requsts here soon
+                inside solution with id {solutionId}
             </Box>
         </Modal>
     )

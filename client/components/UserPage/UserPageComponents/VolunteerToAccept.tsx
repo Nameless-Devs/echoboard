@@ -1,6 +1,8 @@
 import { UserResponseData } from '@/service/Types';
-import { Box, Avatar, Typography, Button, Grid } from '@mui/material'
+import { Box, Avatar, Typography, Button, Grid, IconButton } from '@mui/material'
 import React from 'react'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 type VolunteerToAcceptProps = {
     index: number;
@@ -23,17 +25,14 @@ export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
                     </Typography>
                 </Grid>
                 <Grid xs={3}>
-                    <Button color='success' variant='contained'>Accept</Button>
-                    <Button color='error' variant='contained'>Deny</Button>
+                    <IconButton color='success'>
+                        <CheckCircleIcon />
+                    </IconButton>
+                    <IconButton color='error'>
+                        <CancelIcon />
+                    </IconButton>
                 </Grid>
             </Grid>
-            {/* 
-            <Avatar src={volunteer.picture} alt={volunteer.name + " profile picture"} />
-            <Typography>
-                {volunteer.name}
-            </Typography>
-            <Button color='success' variant='contained'>Accept</Button>
-            <Button color='error' variant='contained'>Deny</Button> */}
         </Box>
     )
 }

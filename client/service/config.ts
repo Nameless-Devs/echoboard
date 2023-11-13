@@ -15,7 +15,7 @@ export const ENDPOINTS = {
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
   DELETE_ECHOBOARD: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}`,
   UPDATE_ECHOBOARD: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/edit`,
-  VOLUNTEERS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/volunteer`,
+  // VOLUNTEERS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/volunteer`,
 };
 
 export const WEBSOCKET = { 

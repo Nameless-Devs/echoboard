@@ -10,6 +10,7 @@ export const LoadingLogo = () => {
       <Image
         src={EchoLogo}
         alt="EchoBoard logo white"
+        priority={true}
         width={90}
         style={{
           margin: "0 1rem",

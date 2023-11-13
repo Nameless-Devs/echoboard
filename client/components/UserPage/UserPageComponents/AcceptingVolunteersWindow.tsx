@@ -3,6 +3,7 @@ import { UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, Modal, Typography } from '@mui/material'
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
+import { VolunteerToAccept } from './VolunteerToAccept';
 
 type AcceptingVolunteersWindowProps = {
     open: boolean;
@@ -40,14 +41,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
             >
                 Volunteers: 
                 {volunteers && volunteers.map((volunteer, index) =>
-                 <Box key={index}>
-                    <Avatar src={volunteer.picture} alt={volunteer.name + " profile picture"} />
-                    <Typography>
-                        {volunteer.name}
-                    </Typography>
-                    <Button color='success' variant='contained'>Accept</Button>
-                    <Button color='error' variant='contained'>Deny</Button>
-                 </Box>
+                 <VolunteerToAccept index={index} volunteer={volunteer} />
                 )}
             </Box>
         </Modal>

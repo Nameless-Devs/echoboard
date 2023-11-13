@@ -1,6 +1,6 @@
 import { getAllPendingVolunteers } from '@/service/Functions';
 import { UserResponseData } from '@/service/Types';
-import { Avatar, Box, Modal, Typography } from '@mui/material'
+import { Avatar, Box, Button, Modal, Typography } from '@mui/material'
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 
@@ -38,12 +38,15 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     p: 4,
                 }}
             >
-                inside solution with id {solutionId}
+                Volunteers: 
                 {volunteers && volunteers.map((volunteer, index) =>
                  <Box key={index}>
+                    <Avatar src={volunteer.picture} alt={volunteer.name + " profile picture"} />
                     <Typography>
                         {volunteer.name}
                     </Typography>
+                    <Button color='success' variant='contained'>Accept</Button>
+                    <Button color='error' variant='contained'>Deny</Button>
                  </Box>
                 )}
             </Box>

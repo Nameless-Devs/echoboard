@@ -1,4 +1,7 @@
+import { getAllPendingVolunteers } from '@/service/Functions';
+import { UserResponseData } from '@/service/Types';
 import { Box, Modal } from '@mui/material'
+import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 
 type AcceptingVolunteersWindowProps = {
@@ -12,6 +15,14 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
     onClose,
     solutionId
 }) => {
+
+    const { data: volunteers, isLoading, isError } = useQuery<UserResponseData[]>(
+        ["echoBoards", solutionId],
+        async () => {
+            return await getAllPendingVolunteers(solutionId);
+        }
+    );
+
     return (
         <Modal open={open} onClose={onClose} >
             <Box

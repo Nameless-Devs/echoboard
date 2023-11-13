@@ -37,6 +37,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     border: '2px solid #000',
                     boxShadow: 24,
                     p: 4,
+                    maxHeight: "80vh"
                 }}
             >
                 <Typography variant='h6'>Volunteers:</Typography> 

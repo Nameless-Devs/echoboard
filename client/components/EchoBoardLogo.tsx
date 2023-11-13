@@ -18,7 +18,7 @@ export default function EchoBoardLogo() {
                 <Typography
                     variant="h6"
                     noWrap
-                    component="a"
+                    component="span"
                     sx={{
                         mr: 2,
                         display: { xs: 'flex', md: 'flex' },

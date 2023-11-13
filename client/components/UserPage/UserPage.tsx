@@ -72,9 +72,9 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((solution, index) => {
                     return (
-                    <>
+                    <Box key={index}>
                    <Typography>{solution.content}</Typography> 
-                    </>
+                    </Box>
                     );
                   })
                )}

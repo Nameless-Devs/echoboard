@@ -50,7 +50,7 @@ export async function fetchEchoBoards(
   }
 }
 
-export async function upvotePost(echoBoardId: string, token: string) {
+export async function upvotePost(echoBoardId: string) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_POST, { echoBoardId });
 
@@ -358,7 +358,7 @@ export async function getAllPendingVolunteers(solutionId: string) {
     }
     const data: UserResponseData[] = await response.json();
     return data;
-    
+
   } catch (error) {
     throw new Error("Fetch error: " + error);
   }

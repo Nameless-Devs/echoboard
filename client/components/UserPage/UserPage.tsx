@@ -18,7 +18,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
   };
 
   const onUpvote = () => {
-   console.log('You pressed upvote button');
+    console.log('You pressed upvote button');
   }
 
   return (
@@ -32,7 +32,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           marginTop: "1rem",
         }}
       >
-        <Box sx={{width: {xs: "100vw", md: "auto"}, margin: "auto"}}>
+        <Box sx={{ width: { xs: "100vw", md: "auto" }, margin: "auto" }}>
           <TabsManager
             labels={[
               "Your posts",
@@ -61,10 +61,10 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={1}>
-            <Box>
-               {user.echoBoardSolutions.length === 0 ? (
-                <p>You have not suppested any solutions yet.</p>
-               ) : (
+            <Box sx={{width: { xs: "90vw", md: "75vw" }}}>
+              {user.echoBoardSolutions.length === 0 ? (
+                <p>You have not suggested any solutions yet.</p>
+              ) : (
                 user.echoBoardSolutions
                   .slice()
                   .sort((a, b) => {
@@ -72,12 +72,12 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((solution, index) => {
                     return (
-                    <Box key={index}>
-                   <Typography>{solution.content}</Typography> 
-                    </Box>
+                      <Box key={index}>
+                        <Typography>{solution.content}</Typography>
+                      </Box>
                     );
                   })
-               )}
+              )}
             </Box>
           </CustomTabContent>
         </Box>

@@ -1,11 +1,11 @@
 import { UserResponseData } from "@/service/Types";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { TabsManager } from "../CommentModal/commentModalComponents/TabsManager";
 import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomTabContent";
 import { SingleUserPost } from "./UserPageComponents/SingleUserPost";
 import { UserPageInfoSection } from "./UserPageComponents/UserPageInfoSection";
-import { SolutionItem } from "../CommentModal/commentModalComponents/SolutionItem";
+import { SolutionItemUserPage } from "./UserPageComponents/SolutionItemUserPage";
 
 type UserPageProps = {
   user: UserResponseData;
@@ -18,7 +18,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
   };
 
   const onUpvote = () => {
-   console.log('You pressed upvote button');
+    console.log('You pressed upvote button');
   }
 
   return (
@@ -32,7 +32,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           marginTop: "1rem",
         }}
       >
-        <Box sx={{width: {xs: "100vw", md: "auto"}, margin: "auto"}}>
+        <Box sx={{ margin: "auto", width: { xs: "99vw", md: "75vw" }}}>
           <TabsManager
             labels={[
               "Your posts",
@@ -62,9 +62,9 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           </CustomTabContent>
           <CustomTabContent value={value} index={1}>
             <Box>
-               {user.echoBoardSolutions.length === 0 ? (
-                <p>You have not suppested any solutions yet.</p>
-               ) : (
+              {user.echoBoardSolutions.length === 0 ? (
+                <p>You have not suggested any solutions yet.</p>
+              ) : (
                 user.echoBoardSolutions
                   .slice()
                   .sort((a, b) => {
@@ -72,14 +72,22 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((solution, index) => {
                     return (
-                    <>
-                   <Typography>{solution.content}</Typography> 
-                    </>
+                        <SolutionItemUserPage key={index} solution={solution} onUpvote={onUpvote} user={user} />
                     );
                   })
-               )}
+              )}
             </Box>
           </CustomTabContent>
+          <CustomTabContent value={value} index={2}>
+            <Box>
+                <p>You have not made any comments yet.</p>
+            </Box>
+          </CustomTabContent>
+          <CustomTabContent value={value} index={3}>
+          <Box>
+              <p>You have not volunteered for any solutions yet.</p>
+          </Box>
+        </CustomTabContent>
         </Box>
       </Box>
     </>

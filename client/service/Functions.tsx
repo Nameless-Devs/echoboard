@@ -7,6 +7,8 @@ import {
   SolutionToPost,
   UserResponseData,
   Message,
+  SolutionResponseData,
+  EchoBoardPreviewResponseData,
 } from "./Types";
 
 export async function postEcho(
@@ -50,7 +52,7 @@ export async function fetchEchoBoards(
   }
 }
 
-export async function upvotePost(echoBoardId: string, token: string) {
+export async function upvotePost(echoBoardId: string) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_POST, { echoBoardId });
 
@@ -358,8 +360,42 @@ export async function getAllPendingVolunteers(solutionId: string) {
     }
     const data: UserResponseData[] = await response.json();
     return data;
-    
+
   } catch (error) {
     throw new Error("Fetch error: " + error);
+  }
+}
+// Made by mistake, maybe will be useful in future? 
+// export async function fetchSolutionById(solutionId: string) {
+//   try {
+//     const endpoint = formatEndpoint(ENDPOINTS.SOLUTION, { solutionId });
+
+//     const response = await fetch(endpoint, {
+//       credentials: "include",
+//     });
+//     if (!response.ok) {
+//       throw new Error(`HTTP Error! Status: ${response.status}`);
+//     }
+//     const data: SolutionResponseData = await response.json();
+//     return data;
+//   } catch (error) {
+//     throw new Error("Error fetching data: " + error);
+//   }
+// }
+
+export async function fetchEchoBoardBySolutionId(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_BY_SOLUTION, { solutionId });
+
+    const response = await fetch(endpoint, {
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: EchoBoardPreviewResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
   }
 }

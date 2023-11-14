@@ -42,13 +42,13 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                                 display: "flex",
                                 alignItems: "center",
                             }}>
-                                <Typography>to:</Typography>
+                                <Typography color="textSecondary">to:</Typography>
                                 <Avatar
                                     src={echoBoardPreview.echoBoardUser.picture}
                                     alt={echoBoardPreview.echoBoardUser.name + " avatar picture"}
                                     sx={{ margin: "0 0.5rem", width: 24, height: 24 }}
                                 />
-                                <Typography sx={{ mr: "0.5rem" }}>
+                                <Typography color="textSecondary" sx={{ mr: "0.5rem" }}>
                                     {echoBoardPreview.echoBoardUser.name}'s problem
                                 </Typography>
                             </Box>
@@ -60,7 +60,7 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                     {isLoading ? (
                         <Skeleton variant="rectangular" width={150} height={24}/>
                     ) : (
-                        echoBoardPreview && <Typography>"{echoBoardPreview.title}"</Typography>
+                        echoBoardPreview && <Typography color="textSecondary">"{echoBoardPreview.title}"</Typography>
                     )}
                 </Grid>
                 <Grid item xs={12}>

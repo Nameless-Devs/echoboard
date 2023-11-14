@@ -34,4 +34,7 @@ public class DTOConvertor {
         return mapper.convertValue(echoBoardComment, EchoBoardCommentResponse.class);
     }
 
+    public EchoBoardPreview convertEntityToResponsePreviewDTO(EchoBoard echoBoard) {
+        return mapper.convertValue(echoBoard, EchoBoardPreview.class);
+    }
 }

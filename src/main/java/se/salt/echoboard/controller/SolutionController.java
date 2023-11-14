@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
+import se.salt.echoboard.controller.dto.EchoBoardPreview;
 import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
@@ -58,8 +59,14 @@ public class SolutionController {
     @PatchMapping("{solutionId}/volunteer")
     @ResponseStatus(CREATED)
     public EchoBoardSolutionResponse confirmVolunteerForSolution(@PathVariable long solutionId,
-                                                                 @AuthenticationPrincipal OidcUser user ,
+                                                                 @AuthenticationPrincipal OidcUser user,
                                                                  @RequestBody String volunteerId) {
         return solutionService.addVolunteerToSolution(solutionId, user , volunteerId);
+    }
+
+    @GetMapping("/{solutionId}/echoboard")
+    @ResponseStatus(OK)
+    public EchoBoardPreview getEchoBoardBySolutionId(@PathVariable long solutionId){
+        return solutionService.getEchoBoardBySolutionId(solutionId);
     }
 }

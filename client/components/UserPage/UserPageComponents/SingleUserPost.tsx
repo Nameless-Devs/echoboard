@@ -91,7 +91,6 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                             margin: "1rem 0",
                             borderRadius: "1rem",
                             backgroundColor: "white",
-                            width: { xs: "90vw", md: "75vw" },
                         }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                             <Typography
@@ -116,13 +115,13 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
                         >
                             {contentVisible && echoBoard.content}
                         </Typography>
-                        <div>
+                        <Box>
                             {contentVisible ? (
                                 <Button size='small' onClick={hideContent}>Hide Content</Button>
                             ) : (
                                 <Button size='small' onClick={showContent}>Show Content</Button>
                             )}
-                        </div>
+                        </Box>
                         <Box sx={{ display: { xs: "", md: "flex" }, justifyContent: "space-between" }}>
                             <Box sx={{
                                 display: "flex",

@@ -5,7 +5,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import se.salt.echoboard.controller.dto.DTOConvertor;
+import se.salt.echoboard.controller.dto.EchoBoardPreview;
+import se.salt.echoboard.controller.dto.EchoBoardResponse;
 import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
+import se.salt.echoboard.exception.custom.EchoBoardNotFoundException;
 import se.salt.echoboard.exception.custom.IllegalSolutionArgumentException;
 import se.salt.echoboard.exception.custom.SolutionNotFoundException;
 import se.salt.echoboard.exception.custom.UserNotFoundException;
@@ -15,6 +18,7 @@ import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import se.salt.echoboard.service.repository.JPAChatRoomRepository;
+import se.salt.echoboard.service.repository.JPAEchoBoardRepository;
 
 import java.util.Set;
 
@@ -26,6 +30,7 @@ public class SolutionService {
     private final DTOConvertor convertor;
     private final JPAChatRoomRepository chatRoomRepository;
     private final EchoBoardUserRepository userRepository;
+    private final JPAEchoBoardRepository echoBoardRepository;
 
     public EchoBoardSolutionResponse getSolutionById(long solutionId) {
         return solutionRepository.getSolutionById(solutionId)
@@ -109,5 +114,11 @@ public class SolutionService {
             throw new IllegalArgumentException("User is not authorized to change this");
         }
         return echoBoardSolution;
+    }
+
+    public EchoBoardPreview getEchoBoardBySolutionId(long solutionId) {
+        return echoBoardRepository.findByEchoBoardSolutions_Id(solutionId)
+                .map(convertor::convertEntityToResponsePreviewDTO)
+                .orElseThrow(EchoBoardNotFoundException::new);
     }
 }

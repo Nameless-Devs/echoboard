@@ -1,17 +1,17 @@
-import { SolutionResponseData } from '@/service/Types'
-import { Avatar, Box, Button, Grid, ListItem, ListItemText, Typography } from '@mui/material';
+import { SolutionResponseData, UserResponseData } from '@/service/Types'
+import { Avatar, Box, Grid, ListItem, Typography } from '@mui/material';
 import React from 'react'
 import UpvoteButton from '../../UpvoteButton';
-import { SolutionStatusButton } from '@/components/CommentModal/commentModalComponents/SolutionStatusButton';
 import { SolutionStatusBadge } from './SolutionStatusBadge';
 import { timeConverter } from '@/service/TimeConverter';
 
 type SolutionItemProps = {
     solution: SolutionResponseData;
     onUpvote: (solutionId: string) => void;
+    user?: UserResponseData;
 }
 
-export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote }) => {
+export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
 
     return (
         <ListItem className="comment-display__individual-comment">
@@ -24,7 +24,7 @@ export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote }
                 </Grid>
                 <Grid item xs={2} md={1} sx={{marginTop: "-0.5rem"}}>
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <Avatar src={solution.echoBoardUser.picture} />
+                    <Avatar src={solution.echoBoardUser.picture} />
                     </Box>
                 </Grid>
                 <Grid item xs={10} md={11} sx={{marginTop: "-0.5rem"}}>
@@ -43,7 +43,7 @@ export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote }
                 </Grid>
                 <Grid item xs={2} md={1}></Grid>
                 <Grid item xs={2} md={1}>
-                    <UpvoteButton count={solution.upvote.length} onUpvote={() => { }} />
+                    <UpvoteButton count={solution.upvote.length} onUpvote={() => onUpvote(solution.id)} />
                 </Grid>
             </Grid>
         </ListItem>

@@ -15,7 +15,7 @@ type SolutionItemProps = {
 }
 
 export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
-   
+
     const { data: echoBoardPreview, isLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
         ["echoBoards", solution.id],
         async () => {
@@ -24,27 +24,33 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
     );
 
     return (
-        <ListItem sx={{padding: 0}}>
-            <Grid 
+        <ListItem sx={{ padding: 0 }}>
+            <Grid
                 container sx={{
-                border: "solid black 1px",
-                padding: "1rem",
-                margin: "1rem 0",
-                borderRadius: "1rem",
-                backgroundColor: "white",
-            }}>
+                    border: "solid black 1px",
+                    padding: "1rem",
+                    margin: "1rem 0",
+                    borderRadius: "1rem",
+                    backgroundColor: "white",
+                }}>
                 <Grid item xs={12} md='auto'>
-                    <Box sx={{
+                    {echoBoardPreview && <Box sx={{
                         display: "flex",
                         alignItems: "center",
                     }}>
                         <Typography>to:</Typography>
-                        <Avatar sx={{ margin: "0 0.5rem", width: 24, height: 24 }}></Avatar>
-                        <Typography sx={{ mr: "0.5rem" }}>John Doe's problem</Typography>
+                        <Avatar
+                            src={echoBoardPreview.echoBoardUser.picture}
+                            alt={echoBoardPreview.echoBoardUser.name + " avatar picture"}
+                            sx={{ margin: "0 0.5rem", width: 24, height: 24 }}></Avatar>
+                        <Typography sx={{ mr: "0.5rem" }}>
+                            {echoBoardPreview.echoBoardUser.name}'s problem
+                        </Typography>
                     </Box>
+                    }
                 </Grid>
                 <Grid item xs={12} md='auto' >
-                    <Typography>"Title of the problem which is "</Typography>
+                    {echoBoardPreview && <Typography>"{echoBoardPreview.title}"</Typography>}
                 </Grid>
                 <Grid item xs={12}>
                     <Box sx={{ display: "flex", justifyContent: "flex-end", margin: "0.2rem 0.5rem 0 0 " }}>

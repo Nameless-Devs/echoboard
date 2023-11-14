@@ -61,7 +61,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={1}>
-            <Box >
+            <Box>
               {user.echoBoardSolutions.length === 0 ? (
                 <p>You have not suggested any solutions yet.</p>
               ) : (
@@ -72,30 +72,20 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((solution, index) => {
                     return (
-                      <Box key={index}>
-                        <SolutionItemUserPage solution={solution} onUpvote={onUpvote} user={user} />
-                      </Box>
+                        <SolutionItemUserPage key={index} solution={solution} onUpvote={onUpvote} user={user} />
                     );
                   })
               )}
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={2}>
-            <Box >
-              {user.echoBoardSolutions.length === 0 ? (
+            <Box>
                 <p>You have not made any comments yet.</p>
-              ) : (
-                ""
-              )}
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={3}>
           <Box>
-            {user.echoBoardSolutions.length === 0 ? (
-              <p>You have not made any comments yet.</p>
-            ) : (
-              ""
-            )}
+              <p>You have not volunteered for any solutions yet.</p>
           </Box>
         </CustomTabContent>
         </Box>

@@ -73,3 +73,10 @@ export interface Message {
   picture: string;
   content: string;
 }
+
+export type EchoBoardPreviewResponseData = {
+  id: string;
+  title: string;
+  anonymous: boolean;
+  echoBoardUser: EchoBoardUser;
+}

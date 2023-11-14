@@ -6,6 +6,7 @@ import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomT
 import { SingleUserPost } from "./UserPageComponents/SingleUserPost";
 import { UserPageInfoSection } from "./UserPageComponents/UserPageInfoSection";
 import { SolutionItem } from "../CommentModal/commentModalComponents/SolutionItem";
+import { SolutionItemUserPage } from "./UserPageComponents/SolutionItemUserPage";
 
 type UserPageProps = {
   user: UserResponseData;
@@ -61,7 +62,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={1}>
-            <Box sx={{width: { xs: "90vw", md: "75vw" }}}>
+            <Box sx={{width: { xs: "100vw", md: "75vw" }}}>
               {user.echoBoardSolutions.length === 0 ? (
                 <p>You have not suggested any solutions yet.</p>
               ) : (
@@ -73,7 +74,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   .map((solution, index) => {
                     return (
                       <Box key={index}>
-                        <SolutionItem solution={solution} onUpvote={onUpvote} user={user}  />
+                        <SolutionItemUserPage solution={solution} onUpvote={onUpvote} user={user}  />
                       </Box>
                     );
                   })

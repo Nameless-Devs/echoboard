@@ -43,7 +43,7 @@ export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote }
                 </Grid>
                 <Grid item xs={2} md={1}></Grid>
                 <Grid item xs={2} md={1}>
-                    <UpvoteButton count={solution.upvote.length} onUpvote={() => { }} />
+                    <UpvoteButton count={solution.upvote.length} onUpvote={() => onUpvote(solution.id)} />
                 </Grid>
             </Grid>
         </ListItem>

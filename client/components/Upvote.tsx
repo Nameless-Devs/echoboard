@@ -17,7 +17,6 @@ export const Upvote: React.FC<UpvoteProps> = ({ upvote, echoBoardId }) => {
     () => upvotePost(echoBoardId),
     {
       onSuccess: () => {
-        console.log('upvote sent')
         queryClient.invalidateQueries(["echoBoard", echoBoardId]);
         queryClient.refetchQueries(["echoBoard", echoBoardId]);
       },

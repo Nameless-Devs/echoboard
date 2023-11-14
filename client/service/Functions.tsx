@@ -7,6 +7,7 @@ import {
   SolutionToPost,
   UserResponseData,
   Message,
+  SolutionResponseData,
 } from "./Types";
 
 export async function postEcho(
@@ -361,5 +362,22 @@ export async function getAllPendingVolunteers(solutionId: string) {
 
   } catch (error) {
     throw new Error("Fetch error: " + error);
+  }
+}
+
+export async function fetchSolutionById(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION, { solutionId });
+
+    const response = await fetch(endpoint, {
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: SolutionResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
   }
 }

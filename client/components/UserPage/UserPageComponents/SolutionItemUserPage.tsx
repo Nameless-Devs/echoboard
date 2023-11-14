@@ -14,9 +14,15 @@ type SolutionItemProps = {
 export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
 
     return (
-        <ListItem>
-
-            <Grid container>
+        <ListItem sx={{padding: 0}}>
+            <Grid 
+                container sx={{
+                border: "solid black 1px",
+                padding: "1rem",
+                margin: "1rem 0",
+                borderRadius: "1rem",
+                backgroundColor: "white",
+            }}>
                 <Grid item xs={12} md='auto'>
                     <Box sx={{
                         display: "flex",
@@ -24,7 +30,7 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                     }}>
                         <Typography>to:</Typography>
                         <Avatar sx={{ margin: "0 0.5rem", width: 24, height: 24 }}></Avatar>
-                        <Typography sx={{mr: "0.5rem"}}>John Doe's problem</Typography>
+                        <Typography sx={{ mr: "0.5rem" }}>John Doe's problem</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md='auto' >

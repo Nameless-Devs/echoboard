@@ -73,7 +73,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   .map((solution, index) => {
                     return (
                       <Box key={index}>
-                        <Typography>{solution.content}</Typography>
+                        <SolutionItem solution={solution} onUpvote={onUpvote} user={user}  />
                       </Box>
                     );
                   })

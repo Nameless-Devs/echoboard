@@ -15,12 +15,12 @@ type SolutionItemProps = {
 
 export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
    
-    const { data: solutionExtended, isLoading, isError } = useQuery<SolutionResponseData>(
-        ["echoBoards", solution.id],
-        async () => {
-            return await fetchSolutionById(solution.id);
-        }
-    );
+    // const { data: solutionExtended, isLoading, isError } = useQuery<SolutionResponseData>(
+    //     ["echoBoards", solution.id],
+    //     async () => {
+    //         return await fetchSolutionById(solution.id);
+    //     }
+    // );
 
     return (
         <ListItem sx={{padding: 0}}>

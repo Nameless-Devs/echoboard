@@ -1,11 +1,10 @@
 import { UserResponseData } from "@/service/Types";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { TabsManager } from "../CommentModal/commentModalComponents/TabsManager";
 import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomTabContent";
 import { SingleUserPost } from "./UserPageComponents/SingleUserPost";
 import { UserPageInfoSection } from "./UserPageComponents/UserPageInfoSection";
-import { SolutionItem } from "../CommentModal/commentModalComponents/SolutionItem";
 import { SolutionItemUserPage } from "./UserPageComponents/SolutionItemUserPage";
 
 type UserPageProps = {
@@ -33,7 +32,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           marginTop: "1rem",
         }}
       >
-        <Box sx={{ width: { xs: "100vw", md: "auto" }, margin: "auto" }}>
+        <Box sx={{ margin: "auto", border: "1px solid black", width: { xs: "99vw", md: "75vw" }}}>
           <TabsManager
             labels={[
               "Your posts",
@@ -62,7 +61,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={1}>
-            <Box sx={{width: { xs: "100vw", md: "75vw" }}}>
+            <Box >
               {user.echoBoardSolutions.length === 0 ? (
                 <p>You have not suggested any solutions yet.</p>
               ) : (
@@ -74,13 +73,31 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   .map((solution, index) => {
                     return (
                       <Box key={index}>
-                        <SolutionItemUserPage solution={solution} onUpvote={onUpvote} user={user}  />
+                        <SolutionItemUserPage solution={solution} onUpvote={onUpvote} user={user} />
                       </Box>
                     );
                   })
               )}
             </Box>
           </CustomTabContent>
+          <CustomTabContent value={value} index={2}>
+            <Box >
+              {user.echoBoardSolutions.length === 0 ? (
+                <p>You have not made any comments yet.</p>
+              ) : (
+                ""
+              )}
+            </Box>
+          </CustomTabContent>
+          <CustomTabContent value={value} index={3}>
+          <Box>
+            {user.echoBoardSolutions.length === 0 ? (
+              <p>You have not made any comments yet.</p>
+            ) : (
+              ""
+            )}
+          </Box>
+        </CustomTabContent>
         </Box>
       </Box>
     </>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -22,7 +22,7 @@ export const CustomTabContent: React.FC<TabPanelProps> = ({
       {...other}
     >
       {value === index && (
-        <Box >
+        <Box>
           <Box>{children}</Box>
         </Box>
       )}

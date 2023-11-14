@@ -1,11 +1,12 @@
-import { SolutionResponseData, UserResponseData } from '@/service/Types'
+import { EchoBoardPreviewResponseData, SolutionResponseData, UserResponseData } from '@/service/Types'
 import { Avatar, Box, Grid, ListItem, Typography } from '@mui/material';
 import React from 'react'
 import UpvoteButton from '../../UpvoteButton';
 import { timeConverter } from '@/service/TimeConverter';
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge';
 import { useQuery } from '@tanstack/react-query';
-import { fetchSolutionById } from '@/service/Functions';
+import { fetchEchoBoardBySolutionId } from '@/service/Functions';
+
 
 type SolutionItemProps = {
     solution: SolutionResponseData;
@@ -15,12 +16,12 @@ type SolutionItemProps = {
 
 export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
    
-    // const { data: solutionExtended, isLoading, isError } = useQuery<SolutionResponseData>(
-    //     ["echoBoards", solution.id],
-    //     async () => {
-    //         return await fetchSolutionById(solution.id);
-    //     }
-    // );
+    const { data: echoBoardPreview, isLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
+        ["echoBoards", solution.id],
+        async () => {
+            return await fetchEchoBoardBySolutionId(solution.id);
+        }
+    );
 
     return (
         <ListItem sx={{padding: 0}}>

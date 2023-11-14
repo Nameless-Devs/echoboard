@@ -4,6 +4,8 @@ import React from 'react'
 import UpvoteButton from '../../UpvoteButton';
 import { timeConverter } from '@/service/TimeConverter';
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge';
+import { useQuery } from '@tanstack/react-query';
+import { fetchSolutionById } from '@/service/Functions';
 
 type SolutionItemProps = {
     solution: SolutionResponseData;
@@ -12,6 +14,13 @@ type SolutionItemProps = {
 }
 
 export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
+   
+    const { data: solutionExtended, isLoading, isError } = useQuery<SolutionResponseData>(
+        ["echoBoards", solution.id],
+        async () => {
+            return await fetchSolutionById(solution.id);
+        }
+    );
 
     return (
         <ListItem sx={{padding: 0}}>

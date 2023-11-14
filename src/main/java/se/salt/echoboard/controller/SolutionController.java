@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
-import se.salt.echoboard.controller.dto.EchoBoardResponse;
+import se.salt.echoboard.controller.dto.EchoBoardPreview;
 import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
@@ -66,8 +66,7 @@ public class SolutionController {
 
     @GetMapping("/{solutionId}/echoboard")
     @ResponseStatus(OK)
-    public EchoBoardResponse getEchoBoardBySolutionId(@PathVariable long solutionId,
-                                                      @AuthenticationPrincipal OidcUser user){
+    public EchoBoardPreview getEchoBoardBySolutionId(@PathVariable long solutionId){
         return solutionService.getEchoBoardBySolutionId(solutionId);
     }
 }

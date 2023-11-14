@@ -1,5 +1,5 @@
 import { EchoBoardPreviewResponseData, SolutionResponseData, UserResponseData } from '@/service/Types'
-import { Avatar, Box, Grid, ListItem, Typography } from '@mui/material';
+import { Avatar, Box, Grid, ListItem, Skeleton, Typography } from '@mui/material';
 import React from 'react'
 import UpvoteButton from '../../UpvoteButton';
 import { timeConverter } from '@/service/TimeConverter';
@@ -34,23 +34,34 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                     backgroundColor: "white",
                 }}>
                 <Grid item xs={12} md='auto'>
-                    {echoBoardPreview && <Box sx={{
-                        display: "flex",
-                        alignItems: "center",
-                    }}>
-                        <Typography>to:</Typography>
-                        <Avatar
-                            src={echoBoardPreview.echoBoardUser.picture}
-                            alt={echoBoardPreview.echoBoardUser.name + " avatar picture"}
-                            sx={{ margin: "0 0.5rem", width: 24, height: 24 }}></Avatar>
-                        <Typography sx={{ mr: "0.5rem" }}>
-                            {echoBoardPreview.echoBoardUser.name}'s problem
-                        </Typography>
-                    </Box>
+                    {isLoading ? (
+                        <Skeleton variant="rectangular" width={200} height={24} />
+                    ) : (
+                        echoBoardPreview && (
+                            <Box sx={{
+                                display: "flex",
+                                alignItems: "center",
+                            }}>
+                                <Typography>to:</Typography>
+                                <Avatar
+                                    src={echoBoardPreview.echoBoardUser.picture}
+                                    alt={echoBoardPreview.echoBoardUser.name + " avatar picture"}
+                                    sx={{ margin: "0 0.5rem", width: 24, height: 24 }}
+                                />
+                                <Typography sx={{ mr: "0.5rem" }}>
+                                    {echoBoardPreview.echoBoardUser.name}'s problem
+                                </Typography>
+                            </Box>
+                        )
+                    )
                     }
                 </Grid>
                 <Grid item xs={12} md='auto' >
-                    {echoBoardPreview && <Typography>"{echoBoardPreview.title}"</Typography>}
+                    {isLoading ? (
+                        <Skeleton variant="rectangular" width={150} height={24}/>
+                    ) : (
+                        echoBoardPreview && <Typography>"{echoBoardPreview.title}"</Typography>
+                    )}
                 </Grid>
                 <Grid item xs={12}>
                     <Box sx={{ display: "flex", justifyContent: "flex-end", margin: "0.2rem 0.5rem 0 0 " }}>

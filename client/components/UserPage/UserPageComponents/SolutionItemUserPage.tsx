@@ -60,7 +60,7 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                     {isLoading ? (
                         <Skeleton variant="rectangular" width={150} height={24}/>
                     ) : (
-                        echoBoardPreview && <Typography color="textSecondary">"{echoBoardPreview.title}"</Typography>
+                        echoBoardPreview && <Typography color="textSecondary">&quot;{echoBoardPreview.title}&quot;</Typography>
                     )}
                 </Grid>
                 <Grid item xs={12}>

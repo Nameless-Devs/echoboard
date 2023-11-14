@@ -49,7 +49,7 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                                     sx={{ margin: "0 0.5rem", width: 24, height: 24 }}
                                 />
                                 <Typography color="textSecondary" sx={{ mr: "0.5rem" }}>
-                                    {echoBoardPreview.echoBoardUser.name}'s problem
+                                    {echoBoardPreview.echoBoardUser.name}&rsquo;s problem
                                 </Typography>
                             </Box>
                         )

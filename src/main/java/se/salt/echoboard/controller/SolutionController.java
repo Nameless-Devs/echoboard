@@ -70,9 +70,4 @@ public class SolutionController {
         return solutionService.getEchoBoardBySolutionId(solutionId);
     }
 
-    @GetMapping("/{commentId}/echoboard-by-comment")
-    @ResponseStatus(OK)
-    public EchoBoardPreview getEchoBoardByCommentId(@PathVariable long commentId){
-        return solutionService.getEchoBoardByCommentId(commentId);
-    }
 }

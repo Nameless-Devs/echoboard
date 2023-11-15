@@ -64,7 +64,7 @@ public class SolutionController {
         return solutionService.addVolunteerToSolution(solutionId, user , volunteerId);
     }
 
-    @GetMapping("/{solutionId}/echoboard-by-solution")
+    @GetMapping("/{solutionId}/echoboard")
     @ResponseStatus(OK)
     public EchoBoardPreview getEchoBoardBySolutionId(@PathVariable long solutionId){
         return solutionService.getEchoBoardBySolutionId(solutionId);

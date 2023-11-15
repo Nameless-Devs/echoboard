@@ -381,3 +381,20 @@ export async function fetchEchoBoardBySolutionId(solutionId: string) {
     throw new Error("Error fetching data: " + error);
   }
 }
+
+export async function fetchEchoBoardByCommentId(commentId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_BY_COMMENT, { commentId });
+
+    const response = await fetch(endpoint, {
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: EchoBoardPreviewResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching data: " + error);
+  }
+}

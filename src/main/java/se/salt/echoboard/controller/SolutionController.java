@@ -64,9 +64,15 @@ public class SolutionController {
         return solutionService.addVolunteerToSolution(solutionId, user , volunteerId);
     }
 
-    @GetMapping("/{solutionId}/echoboard")
+    @GetMapping("/{solutionId}/echoboard-by-solution")
     @ResponseStatus(OK)
     public EchoBoardPreview getEchoBoardBySolutionId(@PathVariable long solutionId){
         return solutionService.getEchoBoardBySolutionId(solutionId);
+    }
+
+    @GetMapping("/{commentId}/echoboard-by-comment")
+    @ResponseStatus(OK)
+    public EchoBoardPreview getEchoBoardByCommentId(@PathVariable long commentId){
+        return solutionService.getEchoBoardByCommentId(commentId);
     }
 }

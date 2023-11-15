@@ -5,23 +5,19 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import CommentsModal from "../CommentModal/CommentModal";
 import { PostSolution } from "../PostSolution";
-import { useCookies } from "react-cookie";
 import "../../app/styles/EchoBoard.css";
 import EchoBoardCard from "./EchoBoardCard";
-import { Box } from "@mui/material";
 import { SinglePostSkeleton } from "./SinglePostSkeleton";
 
 export const EchoBoard: React.FC<UserResponseData> = (
   user: UserResponseData
 ) => {
-  const [cookies] = useCookies();
-
   const {
     data: echoBoards,
     isLoading,
     isError,
   } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () =>
-    fetchEchoBoards(cookies.JwtToken)
+    fetchEchoBoards()
   );
 
   const [isOpen, setIsOpen] = useState(false);

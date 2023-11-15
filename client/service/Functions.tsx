@@ -7,13 +7,11 @@ import {
   SolutionToPost,
   UserResponseData,
   Message,
-  SolutionResponseData,
   EchoBoardPreviewResponseData,
 } from "./Types";
 
 export async function postEcho(
   problemPostToSend: PostEchoBoardData,
-  token: string
 ) {
   try {
     const response = await fetch(ENDPOINTS.POST_ECHO, {
@@ -36,7 +34,6 @@ export async function postEcho(
 }
 
 export async function fetchEchoBoards(
-  token: string
 ): Promise<EchoBoardResponseData[]> {
   try {
     const response = await fetch(ENDPOINTS.POST_ECHO, {
@@ -77,7 +74,6 @@ export async function upvotePost(echoBoardId: string) {
 export async function upvoteComment(
   echoBoardId: string,
   commentId: string,
-  token: string
 ) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_COMMENT, {
@@ -89,7 +85,6 @@ export async function upvoteComment(
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       credentials: "include",
     });
@@ -125,7 +120,6 @@ export async function fetchEchoBoardById(echoBoardId: string) {
 export async function postComment(
   commentToPost: CommentToPost,
   echoBoardId: string,
-  token: string
 ) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.POST_COMMENT, { echoBoardId });
@@ -133,7 +127,6 @@ export async function postComment(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(commentToPost),
       credentials: "include",
@@ -151,7 +144,6 @@ export async function postComment(
 export async function postSolution(
   solutionToPost: SolutionToPost,
   echoBoardId: string,
-  token: string
 ) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.POST_SOLUTION, { echoBoardId });
@@ -159,8 +151,7 @@ export async function postSolution(
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",  
       },
       body: JSON.stringify(solutionToPost),
       credentials: "include",
@@ -178,7 +169,6 @@ export async function postSolution(
 export async function upvoteSolution(
   echoBoardId: string,
   solutionId: string,
-  token: string
 ) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_SOLUTION, {
@@ -189,7 +179,6 @@ export async function upvoteSolution(
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       credentials: "include",
     });
@@ -207,9 +196,6 @@ export async function upvoteSolution(
 export async function getUserInfo() {
   try {
     const response = await fetch( ENDPOINTS.USER, {
-      headers: {
-       // Authorization: "Bearer " + token,
-      },
       credentials: "include",
     });
     if (!response.ok) {
@@ -226,9 +212,6 @@ export async function getUserInfo() {
 export async function getUserChatRooms(): Promise<number[]> {
   try {
     const response = await fetch( ENDPOINTS.USER_CHATROOMS, {
-      headers: {
-        // Authorization: "Bearer " + token,
-      },
       credentials: "include",
     });
     return await response.json();
@@ -271,7 +254,6 @@ export async function volunteerForSolution(solutionId: string) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
       },
       // body: JSON.stringify(solutionToPost),
       credentials: "include",

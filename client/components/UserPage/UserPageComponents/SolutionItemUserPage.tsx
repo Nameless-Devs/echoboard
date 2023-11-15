@@ -11,10 +11,9 @@ import { fetchEchoBoardBySolutionId } from '@/service/Functions';
 type SolutionItemProps = {
     solution: SolutionResponseData;
     onUpvote: (solutionId: string) => void;
-    user?: UserResponseData;
 }
 
-export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
+export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote }) => {
 
     const { data: echoBoardPreview, isLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
         ["echoBoards", solution.id],

@@ -7,7 +7,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEchoBoardById } from "@/service/Functions";
 import "../../app/styles/CommentModal.css";
 import { PostSolution } from "../PostSolution";
-import { useCookies } from "react-cookie";
 import { SinglePost } from "../SinglePost/SinglePost";
 import { useUpvote } from "@/hooks/useUpvote";
 import { useUpvoteSolution } from "@/hooks/useUpvoteSolution";
@@ -37,9 +36,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const [selectedPostForSolution, setSelectedPostForSolution] =
     useState<null | EchoBoardResponseData>(null);
 
-  const [cookies] = useCookies();
-  const upvoteMutation = useUpvote(post.id, cookies.JwtToken);
-  const solutionUpvoteMutation = useUpvoteSolution(post.id, cookies.JwtToken);
+  const upvoteMutation = useUpvote(post.id);
+  const solutionUpvoteMutation = useUpvoteSolution(post.id);
 
   const handleOpenSolutionForm = (post: EchoBoardResponseData) => {
     setIsOpenSolution(true);

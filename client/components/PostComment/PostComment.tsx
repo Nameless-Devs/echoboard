@@ -3,7 +3,6 @@ import { CommentToPost, UserResponseData } from "@/service/Types";
 import { Avatar, Box, Dialog, DialogContentText } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from "@/service/Functions";
-import { useCookies } from "react-cookie";
 import { CommentForm } from "./PostCommentTextField";
 import { StyledBadge } from "./StyledBadge";
 import "../../app/styles/PostComment.css";
@@ -15,12 +14,11 @@ interface CommentProps {
 
 export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   const [isSuccess, setIsSuccess] = useState(false);
-  const [cookies] = useCookies();
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation((data: CommentToPost) =>
-    postComment(data, echoBoardId, cookies.JwtToken)
+    postComment(data, echoBoardId)
   );
 
   const handleCommentPost = (content: string) => {

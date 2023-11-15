@@ -91,7 +91,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((comment, index) => {
                     return (
-                      <CommentItemUserPage key={index} comment={comment} onUpvote={onUpvote} />
+                      <CommentItemUserPage key={index} comment={comment}/>
                     );
                   })
                    )

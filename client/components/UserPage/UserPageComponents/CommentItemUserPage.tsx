@@ -8,10 +8,9 @@ import { useQuery } from "@tanstack/react-query"
 
 type CommentItemProps = {
     comment: CommentResponseData,
-    onUpvote: (commentId: string) => void,
 }
 
-export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, onUpvote }) => {
+export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment }) => {
     
     const { data: echoBoardPreview, isLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
         ["echoBoards", comment.id],

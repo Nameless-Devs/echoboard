@@ -67,14 +67,14 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                         <SolutionStatusBadge status={solution.status} solutionId={solution.id} />
                     </Box>
                 </Grid>
-                <Grid item xs={12} sx={{ marginTop: "-0.5rem" }}>
-                    <Typography variant="caption" color="textSecondary">
-                        {timeConverter(solution.created)}
-                    </Typography>
-                </Grid>
                 <Grid item xs={12} >
                     <Typography variant="body1" color="textPrimary" sx={{ margin: "0.5rem 2rem 0.5rem 0" }}>
                         {solution.content}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sx={{ marginTop: "-0.4rem" }}>
+                    <Typography variant="caption" color="textSecondary">
+                        {timeConverter(solution.created)}
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>

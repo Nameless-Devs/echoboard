@@ -60,14 +60,14 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, onUpv
                         echoBoardPreview && <Typography color="textSecondary">&quot;{echoBoardPreview.title}&quot;</Typography>
                     )}
                 </Grid>
-                <Grid item xs={12} sx={{ marginTop: "-0.5rem" }}>
-                    <Typography variant="caption" color="textSecondary">
-                        {timeConverter(comment.created)}
-                    </Typography>
-                </Grid>
                 <Grid item xs={12} >
                     <Typography variant="body1" color="textPrimary" sx={{ margin: "0.5rem 2rem 0.5rem 0" }}>
                         {comment.content}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sx={{ marginTop: "-0.4rem" }}>
+                    <Typography variant="caption" color="textSecondary">
+                        {timeConverter(comment.created)}
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>

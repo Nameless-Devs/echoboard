@@ -1,9 +1,8 @@
-import { SolutionStatusBadge } from "@/components/CommentModal/commentModalComponents/SolutionStatusBadge"
 import UpvoteButton from "@/components/UpvoteButton"
-import { fetchEchoBoardBySolutionId } from "@/service/Functions"
+import { fetchEchoBoardByCommentId } from "@/service/Functions"
 import { timeConverter } from "@/service/TimeConverter"
 import { CommentResponseData, EchoBoardPreviewResponseData } from "@/service/Types"
-import { ListItem, Avatar, ListItemText, Typography, Box, Grid, Skeleton } from "@mui/material"
+import { ListItem, Avatar, Typography, Box, Grid, Skeleton } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 
 type CommentItemProps = {
@@ -16,7 +15,7 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, onUpv
     const { data: echoBoardPreview, isLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
         ["echoBoards", comment.id],
         async () => {
-            return await fetchEchoBoardBySolutionId(comment.id);
+            return await fetchEchoBoardByCommentId(comment.id);
         }
     );
 

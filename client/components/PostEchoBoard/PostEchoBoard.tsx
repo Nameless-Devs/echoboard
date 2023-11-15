@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from "react";
 import { PostEchoBoardData, UserResponseData } from "@/service/Types";
 import { postEcho } from "@/service/Functions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCookies } from "react-cookie";
 import { EchoBoardForm } from "./EchoBoardForm";
 
 const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
@@ -15,10 +14,9 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   });
 
   const queryClient = useQueryClient();
-  const [cookies] = useCookies();
 
   const mutation = useMutation((data: PostEchoBoardData) =>
-    postEcho(data, cookies.JwtToken)
+    postEcho(data)
   );
 
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {

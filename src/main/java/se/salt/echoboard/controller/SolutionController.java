@@ -69,4 +69,5 @@ public class SolutionController {
     public EchoBoardPreview getEchoBoardBySolutionId(@PathVariable long solutionId){
         return solutionService.getEchoBoardBySolutionId(solutionId);
     }
+
 }

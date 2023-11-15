@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import se.salt.echoboard.controller.dto.EchoBoardCommentResponse;
+import se.salt.echoboard.controller.dto.EchoBoardPreview;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.service.EchoBoardService;
 
@@ -37,5 +38,11 @@ public class CommentController {
                                                                  @RequestBody EchoBoardComment echoBoardComment,
                                                                  @AuthenticationPrincipal OidcUser user) {
         return echoService.addCommentToComment(commentId, echoBoardComment, user.getSubject());
+    }
+
+    @GetMapping("/{commentId}/echoboard")
+    @ResponseStatus(OK)
+    public EchoBoardPreview getEchoBoardByCommentId(@PathVariable long commentId){
+        return echoService.getEchoBoardByCommentId(commentId);
     }
 }

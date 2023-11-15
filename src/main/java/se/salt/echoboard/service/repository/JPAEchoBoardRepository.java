@@ -15,5 +15,8 @@ public interface JPAEchoBoardRepository extends JpaRepository<EchoBoard, Long> {
     List<EchoBoard> findByOrderByCreatedDesc(Pageable pageable);
 
     Optional<EchoBoard> findByEchoBoardSolutions_Id(long id);
+
+    Optional<EchoBoard> findByEchoBoardComments_Id(long id);
+
 }
 

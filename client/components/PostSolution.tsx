@@ -25,11 +25,10 @@ export const PostSolution: React.FC<SolutionProps> = ({
     content: "",
   });
   const [isSuccess, setIsSuccess] = useState(false);
-  const [cookies] = useCookies();
 
   const queryClient = useQueryClient();
   const mutation = useMutation((data: SolutionToPost) =>
-    postSolution(data, echoBoardId, cookies.JwtToken)
+    postSolution(data, echoBoardId)
   );
 
   const handleSolutionPost = (event?: React.FormEvent<HTMLFormElement>) => {

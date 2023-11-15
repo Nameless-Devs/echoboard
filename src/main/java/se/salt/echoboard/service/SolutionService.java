@@ -121,4 +121,11 @@ public class SolutionService {
                 .map(convertor::convertEntityToResponsePreviewDTO)
                 .orElseThrow(EchoBoardNotFoundException::new);
     }
+
+    public EchoBoardPreview getEchoBoardByCommentId(long commentId) {
+        return echoBoardRepository.findByEchoBoardComments_Id(commentId)
+                .map(convertor::convertEntityToResponsePreviewDTO)
+                .orElseThrow(EchoBoardNotFoundException::new);
+    }
+
 }

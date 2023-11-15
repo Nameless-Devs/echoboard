@@ -1,4 +1,5 @@
 import UpvoteButton from "@/components/UpvoteButton"
+import { useUpvote } from "@/hooks/useUpvote"
 import { fetchEchoBoardByCommentId } from "@/service/Functions"
 import { timeConverter } from "@/service/TimeConverter"
 import { CommentResponseData, EchoBoardPreviewResponseData } from "@/service/Types"
@@ -18,6 +19,8 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, onUpv
             return await fetchEchoBoardByCommentId(comment.id);
         }
     );
+
+    const upvoteMutation = useUpvote(echoBoardPreview ? echoBoardPreview.id : '');
 
     return (
         <ListItem sx={{ padding: 0 }}>
@@ -70,7 +73,7 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, onUpv
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <UpvoteButton count={comment.upvote.length} onUpvote={() => onUpvote(comment.id)} />
+                    <UpvoteButton count={comment.upvote.length} onUpvote={() => echoBoardPreview && upvoteMutation.mutate(comment.id)} />
                 </Grid>
             </Grid>
         </ListItem>

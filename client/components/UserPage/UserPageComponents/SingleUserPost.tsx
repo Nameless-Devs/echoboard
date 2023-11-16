@@ -144,9 +144,16 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                                <Typography>
-                                    0 people vounteered for 0 solutions
-                                </Typography>
+
+                                {echoBoardExtended.echoBoardSolutions.length === 1 ? (
+                                    <Typography>
+                                        {echoBoardExtended.echoBoardSolutions?.length} solution suggested
+                                    </Typography>
+                                ) : (
+                                    <Typography>
+                                        {echoBoardExtended.echoBoardSolutions?.length} solutions suggested
+                                    </Typography>
+                                )}
                                 <Button onClick={handleOpenManageSolutionsWindow} variant="outlined" sx={{ ml: "1rem" }}>Manage</Button>
                             </Box>
                         </Box>

@@ -121,4 +121,5 @@ public class SolutionService {
                 .map(convertor::convertEntityToResponsePreviewDTO)
                 .orElseThrow(EchoBoardNotFoundException::new);
     }
+
 }

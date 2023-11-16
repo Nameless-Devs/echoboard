@@ -29,6 +29,8 @@ public class EchoBoardService {
 
     private final DTOConvertor convertor;
 
+    private final JPAEchoBoardRepository echoBoardJPARepository;
+
 
     public EchoBoardResponse saveEcho(EchoBoard echoBoard, String userSubject) {
         return userRepository.getUserBySubject(userSubject)
@@ -137,6 +139,12 @@ public class EchoBoardService {
                 .map(e -> e.setContent(echoBoard.getContent()))
                 .orElseThrow(() -> new EchoBoardNotFoundException(echoId));
         return convertor.convertEntityToResponseDTO(echoBoardRepository.save(echoToEdit));
+    }
+
+    public EchoBoardPreview getEchoBoardByCommentId(long commentId) {
+        return echoBoardJPARepository.findByEchoBoardComments_Id(commentId)
+                .map(convertor::convertEntityToResponsePreviewDTO)
+                .orElseThrow(EchoBoardNotFoundException::new);
     }
 
     private EchoBoardComment saveComment(EchoBoardComment comment, String userSubject) {

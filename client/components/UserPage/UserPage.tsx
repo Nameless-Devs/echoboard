@@ -6,6 +6,7 @@ import { CustomTabContent } from "../CommentModal/commentModalComponents/CustomT
 import { SingleUserPost } from "./UserPageComponents/SingleUserPost";
 import { UserPageInfoSection } from "./UserPageComponents/UserPageInfoSection";
 import { SolutionItemUserPage } from "./UserPageComponents/SolutionItemUserPage";
+import { CommentItemUserPage } from "./UserPageComponents/CommentItemUserPage";
 
 type UserPageProps = {
   user: UserResponseData;
@@ -72,7 +73,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((solution, index) => {
                     return (
-                        <SolutionItemUserPage key={index} solution={solution} onUpvote={onUpvote} user={user} />
+                        <SolutionItemUserPage key={index} solution={solution} onUpvote={onUpvote} />
                     );
                   })
               )}
@@ -80,7 +81,21 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           </CustomTabContent>
           <CustomTabContent value={value} index={2}>
             <Box>
-                <p>You have not made any comments yet.</p>
+                {user.echoBoardComments.length === 0 ? (
+                   <p>You have not made any comments yet.</p>
+                   ) : (
+                    user.echoBoardComments
+                  .slice()
+                  .sort((a, b) => {
+                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                  })
+                  .map((comment, index) => {
+                    return (
+                      <CommentItemUserPage key={index} comment={comment}/>
+                    );
+                  })
+                   )
+                  }
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={3}>

@@ -8,21 +8,15 @@ import { VolunteerToAccept } from './VolunteerToAccept';
 type AcceptingVolunteersWindowProps = {
     open: boolean;
     onClose: () => void;
-    solutionId: string;
+    volunteers: UserResponseData[];
 }
 
 export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps> = ({
     open,
     onClose,
-    solutionId
-}) => {
+    volunteers
 
-    const { data: volunteers, isLoading, isError } = useQuery<UserResponseData[]>(
-        ["echoBoards", solutionId],
-        async () => {
-            return await getAllPendingVolunteers(solutionId);
-        }
-    );
+}) => {
 
     return (
         <Modal open={open} onClose={onClose} >

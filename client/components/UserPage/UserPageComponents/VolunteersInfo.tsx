@@ -53,7 +53,7 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                     </Box>
                 )}
             </Grid>
-            <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} solutionId={solution.id} />
+            {volunteers && <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} volunteers={volunteers} />}
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { SolutionResponseData } from '@/service/Types'
+import { SolutionResponseData, SolutionVolunteersResponseData } from '@/service/Types'
 import { Box, Button, Grid, Typography, Skeleton } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { AcceptingVolunteersWindow } from './AcceptingVolunteersWindow';
@@ -21,7 +21,7 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
         setIsOpen(false);
     };
 
-    const { data: volunteers, isLoading, isError } = useQuery<UserResponseData[]>(
+    const { data: solutionVolunteers, isLoading, isError } = useQuery<SolutionVolunteersResponseData>(
         ["echoBoards", solution.id],
         async () => {
             return await getAllPendingVolunteers(solution.id);
@@ -30,10 +30,10 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
 
 
     useEffect(() => {
-        if (volunteers) {
-            setIsDisabled(volunteers === null || volunteers.length === 0);
+        if (solutionVolunteers) {
+            setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0);
         }
-    }, [volunteers]);
+    }, [solutionVolunteers]);
 
     return (
         <>
@@ -50,9 +50,9 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                             gap: "1rem",
                             textAlign: "right",
                         }}>
-                        {volunteers ? (
+                        {solutionVolunteers ? (
                             <Typography>
-                                Volunteers: {volunteers.length}, Accepted: 0
+                                Volunteers: {solutionVolunteers.pendingVolunteers.length}, Accepted: {solutionVolunteers.volunteers.length}
                             </Typography>
                         ) : (
                             <Skeleton variant="rectangular" width={210} height={30} />
@@ -61,7 +61,7 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                     </Box>
                 )}
             </Grid>
-            {volunteers && <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} volunteers={volunteers} />}
+            {solutionVolunteers && <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} volunteers={solutionVolunteers.pendingVolunteers} />}
         </>
     )
 }

@@ -12,8 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.test.web.servlet.MockMvc;
 import se.salt.echoboard.model.ChatRoom;
+import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
+import se.salt.echoboard.service.repository.EchoBoardRepository;
 import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import se.salt.echoboard.service.repository.JPAChatRoomRepository;
@@ -37,6 +39,8 @@ public class SolutionControllerTest {
     private JPAChatRoomRepository chatRoomRepository;
     @Autowired
     private EchoBoardUserRepository userRepository;
+    @Autowired
+    private EchoBoardRepository echoBoardRepository;
 
     @Autowired
     public SolutionControllerTest(MockMvc mockMvc) {
@@ -53,8 +57,11 @@ public class SolutionControllerTest {
         //Create and set user for solution
         var oidcUser = (OidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var user = EchoBoardUser.builder().subject(oidcUser.getSubject()).build();
+        var echoBoard = new EchoBoard().setUser(user);
         userRepository.createUser(oidcUser);
-        solutionRepository.save(solution.setEchoBoardUser(user));
+        echoBoardRepository.save(echoBoard);
+        echoBoard.addSolution(solution.setEchoBoardUser(user));
+        echoBoardRepository.save(echoBoard);
 
 
         // saving a new chatRoom if a status requires a volunteers.

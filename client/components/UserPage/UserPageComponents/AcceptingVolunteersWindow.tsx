@@ -32,10 +32,11 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     maxHeight: "80vh"
                 }}
             >
-                <Typography variant='h6'>Volunteers:</Typography> 
-                {volunteers && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
+                <Typography variant='h6'>Pending volunteers:</Typography> 
+                {volunteers && Array.isArray(volunteers) && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
                  <VolunteerToAccept key={index} volunteer={volunteer} />
                 )}
+                <Typography variant='h6'>Accepted volunteers:</Typography> 
             </Box>
         </Modal>
     )

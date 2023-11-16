@@ -41,7 +41,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                 }}
             >
                 <Typography variant='h6'>Volunteers:</Typography> 
-                {volunteers?.length !== 0 && volunteers?.map((volunteer, index) =>
+                {volunteers && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
                  <VolunteerToAccept key={index} volunteer={volunteer} />
                 )}
             </Box>

@@ -5,6 +5,7 @@ import { EchoBoardResponseData, UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, Grid, List, ListItem, Modal, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { AcceptingVolunteersWindow } from './AcceptingVolunteersWindow';
+import { VolunteersInfo } from './VolunteersInfo';
 
 type ManageSolutionsWindowProps = {
     open: boolean;
@@ -80,7 +81,7 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                     <Grid item xs={2} md={1}>
                                         <UpvoteButton count={solution.upvote.length} onUpvote={() => { }} />
                                     </Grid>
-                                    <Grid item xs={8} md={10}>
+                                    {/* <Grid item xs={8} md={10}>
                                         {solution.status === "VOLUNTEERS_REQUIRED" && (
                                             <Box 
                                             sx={{ 
@@ -99,9 +100,10 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                                 <Button variant="outlined" onClick={handleOpen}>MANAGE</Button>
                                             </Box>
                                         )}
-                                    </Grid>
+                                    </Grid> */}
+                                    <VolunteersInfo solution={solution} />
                                 </Grid>
-                                <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} solutionId={solution.id} />
+                                {/* <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} solutionId={solution.id} /> */}
                             </ListItem>
                         ))}
                 </List>

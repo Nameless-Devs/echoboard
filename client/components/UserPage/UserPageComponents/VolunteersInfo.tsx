@@ -1,6 +1,6 @@
 import { SolutionResponseData } from '@/service/Types'
 import { Box, Button, Grid, Typography, Skeleton } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AcceptingVolunteersWindow } from './AcceptingVolunteersWindow';
 import { useQuery } from '@tanstack/react-query';
 import { getAllPendingVolunteers } from '@/service/Functions';
@@ -12,6 +12,7 @@ type VolunteerInfoProps = {
 
 export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
 
     const handleOpen = () => {
         setIsOpen(true);
@@ -26,6 +27,13 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
             return await getAllPendingVolunteers(solution.id);
         }
     );
+
+
+    useEffect(() => {
+        if (volunteers) {
+            setIsDisabled(volunteers === null || volunteers.length === 0);
+        }
+    }, [volunteers]);
 
     return (
         <>
@@ -44,12 +52,12 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                         }}>
                         {volunteers ? (
                             <Typography>
-                                Volunteers: {volunteers.length}, Accepted: 2
+                                Volunteers: {volunteers.length}, Accepted: 0
                             </Typography>
                         ) : (
                             <Skeleton variant="rectangular" width={210} height={30} />
                         )}
-                        <Button variant="outlined" onClick={handleOpen}>MANAGE</Button>
+                        <Button disabled={isDisabled} variant="outlined" onClick={handleOpen}>MANAGE</Button>
                     </Box>
                 )}
             </Grid>

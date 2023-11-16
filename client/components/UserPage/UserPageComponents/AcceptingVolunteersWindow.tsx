@@ -1,7 +1,5 @@
-import { getAllPendingVolunteers } from '@/service/Functions';
 import { UserResponseData } from '@/service/Types';
-import { Avatar, Box, Button, Modal, Typography } from '@mui/material'
-import { useQuery } from '@tanstack/react-query';
+import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
 import { VolunteerToAccept } from './VolunteerToAccept';
 

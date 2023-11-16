@@ -37,4 +37,8 @@ public class DTOConvertor {
     public EchoBoardPreview convertEntityToResponsePreviewDTO(EchoBoard echoBoard) {
         return mapper.convertValue(echoBoard, EchoBoardPreview.class);
     }
+
+    public EchoBoardSolutionVolunteers convertSolutionToVolunteers(EchoBoardSolution echoBoardSolution){
+        return mapper.convertValue(echoBoardSolution, EchoBoardSolutionVolunteers.class);
+    }
 }

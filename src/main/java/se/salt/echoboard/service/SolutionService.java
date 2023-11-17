@@ -86,6 +86,18 @@ public class SolutionService {
                 .map(convertor::convertEntityToResponsePreviewDTO)
                 .orElseThrow(EchoBoardNotFoundException::new);
     }
+
+    public EchoBoardSolutionResponse denyVolunteerToSolution(long solutionId, String volunteerId) {
+        return solutionRepository.getSolutionById(solutionId)
+                .map(this::validateSolutionStatusIsVolunteerRequired)
+                .map(s -> s.removePendingVolunteer(userRepository.getUserBySubject(volunteerId)
+                        .orElseThrow(UserNotFoundException::new)))
+                .map(solutionRepository::save)
+                .map(convertor::convertEntityToResponseDTO)
+                .orElseThrow(SolutionNotFoundException::new);
+    }
+
+
     private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVolunteersRequired(EchoBoardSolution echoBoardSolution) {
         if (echoBoardSolution.getChatRoom() != null) return echoBoardSolution;
         if (!echoBoardSolution.getStatus()
@@ -121,5 +133,4 @@ public class SolutionService {
         }
         return echoBoardSolution;
     }
-
 }

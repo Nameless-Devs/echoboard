@@ -9,6 +9,7 @@ type AcceptingVolunteersWindowProps = {
     onClose: () => void;
     pendingVolunteers: UserResponseData[];
     volunteers: UserResponseData[];
+    solutionId: string; 
 }
 
 export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps> = ({
@@ -16,6 +17,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
     onClose,
     volunteers,
     pendingVolunteers,
+    solutionId,
 }) => {
 
     return (
@@ -39,7 +41,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     <Typography textAlign={'center'}>You have no pending volunteers</Typography>
                 ) : (
                     pendingVolunteers.map((volunteer, index) =>
-                        <VolunteerToAccept key={index} volunteer={volunteer} />
+                        <VolunteerToAccept key={index} volunteer={volunteer} solutionId={solutionId} />
                     )
                 )}
                 <Typography variant='h6'>Accepted volunteers:</Typography>

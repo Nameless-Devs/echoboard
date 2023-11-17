@@ -3,14 +3,21 @@ import { Box, Avatar, Typography, Button, Grid, IconButton } from '@mui/material
 import React from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { acceptPendingVolunteer } from '@/service/Functions';
 
 type VolunteerToAcceptProps = {
     volunteer: UserResponseData;
+    solutionId: string; 
 }
 
 export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
     volunteer,
+    solutionId
 }) => {
+
+    const queryClient = useQueryClient();
+
     return (
         <Box
             sx={{

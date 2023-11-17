@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { AcceptingVolunteersWindow } from './AcceptingVolunteersWindow';
 import { useQuery } from '@tanstack/react-query';
 import { getAllPendingVolunteers } from '@/service/Functions';
-import { UserResponseData } from '@/service/Types';
+
 
 type VolunteerInfoProps = {
     solution: SolutionResponseData;
@@ -62,7 +62,14 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                     </Box>
                 )}
             </Grid>
-            {solutionVolunteers && <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} pendingVolunteers={solutionVolunteers.pendingVolunteers} volunteers={solutionVolunteers.volunteers} />}
+            {solutionVolunteers && 
+            <AcceptingVolunteersWindow 
+            open={isOpen} 
+            onClose={handleClose} 
+            pendingVolunteers={solutionVolunteers.pendingVolunteers} 
+            volunteers={solutionVolunteers.volunteers} 
+            solutionId={solution.id}
+            />}
         </>
     )
 }

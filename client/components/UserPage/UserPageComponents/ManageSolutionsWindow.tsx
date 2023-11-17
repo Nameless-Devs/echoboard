@@ -3,8 +3,8 @@ import UpvoteButton from '@/components/UpvoteButton';
 import { timeConverter } from '@/service/TimeConverter';
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types';
 import { Avatar, Box, Button, Grid, List, ListItem, Modal, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import { AcceptingVolunteersWindow } from './AcceptingVolunteersWindow';
+import React from 'react'
+import { VolunteersInfo } from './VolunteersInfo';
 
 type ManageSolutionsWindowProps = {
     open: boolean;
@@ -19,15 +19,6 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
     user,
     echoBoard
 }) => {
-
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleOpen = () => {
-           setIsOpen(true);
-       };
-     const handleClose = () => {
-           setIsOpen(false);
-       };
 
     return (
         <Modal open={open} onClose={onClose} >
@@ -80,28 +71,8 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                     <Grid item xs={2} md={1}>
                                         <UpvoteButton count={solution.upvote.length} onUpvote={() => { }} />
                                     </Grid>
-                                    <Grid item xs={8} md={10}>
-                                        {solution.status === "VOLUNTEERS_REQUIRED" && (
-                                            <Box 
-                                            sx={{ 
-                                                display: { xs: "block", md: "flex"}, 
-                                                alignItems: "center", 
-                                                justifyContent: "flex-end",
-                                                marginRight: { xs: "1rem", md: "2rem"}, 
-                                                marginBottom: { xs: "0.5rem", md: "0"},
-                                                color: "#1976d2",
-                                                gap: "1rem",
-                                                textAlign: "right",
-                                                }}>
-                                                <Typography>
-                                                    Volunteers: 5, Accepted: 2
-                                                </Typography>
-                                                <Button variant="outlined" onClick={handleOpen}>MANAGE</Button>
-                                            </Box>
-                                        )}
-                                    </Grid>
+                                    <VolunteersInfo solution={solution} />
                                 </Grid>
-                                <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} solutionId={solution.id} />
                             </ListItem>
                         ))}
                 </List>

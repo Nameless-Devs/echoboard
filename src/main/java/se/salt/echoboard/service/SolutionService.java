@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
-import se.salt.echoboard.controller.dto.DTOConvertor;
-import se.salt.echoboard.controller.dto.EchoBoardPreview;
-import se.salt.echoboard.controller.dto.EchoBoardResponse;
-import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
+import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.exception.custom.EchoBoardNotFoundException;
 import se.salt.echoboard.exception.custom.IllegalSolutionArgumentException;
 import se.salt.echoboard.exception.custom.SolutionNotFoundException;
@@ -19,6 +16,7 @@ import se.salt.echoboard.service.repository.EchoBoardSolutionRepository;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 import se.salt.echoboard.service.repository.JPAChatRoomRepository;
 import se.salt.echoboard.service.repository.JPAEchoBoardRepository;
+import se.salt.echoboard.model.EchoBoard;
 
 import java.util.Set;
 
@@ -49,7 +47,7 @@ public class SolutionService {
 
     public EchoBoardSolutionResponse updateSolutionStatus(long solutionId, EchoBoardSolution.SolutionStatus updateToStage) {
         return solutionRepository.getSolutionById(solutionId)
-                .map(this::checkAuthorization)
+                .map(this::checkAuthorisationForSolution)
                 .map(solution -> solution.updateSolutionStatus(updateToStage))
                 .map(this::createChatRoomForEchoBoardSolutionIfVolunteersRequired)
                 .map(solutionRepository::save)
@@ -60,7 +58,7 @@ public class SolutionService {
     public EchoBoardSolutionResponse addVolunteerToSolution(long solutionId, OidcUser user, String volunteerId) {
 
         return solutionRepository.getSolutionById(solutionId)
-                .map(this::checkAuthorization)
+                .map(this::checkAuthorisationForSolution)
                 .map(this::validateSolutionStatusIsVolunteerRequired)
                 .map(s -> addVolunteerFromPendingVolunteers(s ,volunteerId))
                 .map(solutionRepository::save)
@@ -78,12 +76,16 @@ public class SolutionService {
                 .orElseThrow(SolutionNotFoundException::new);
     }
 
-    public Set<EchoBoardUser> getPendingVolunteers(long solutionId) {
+    public EchoBoardSolutionVolunteers getPendingVolunteers(long solutionId) {
         return solutionRepository.getSolutionById(solutionId)
-                .map(EchoBoardSolution::getPendingVolunteers)
+                .map(convertor::convertSolutionToVolunteers)
                 .orElseThrow(SolutionNotFoundException::new);
     }
-
+    public EchoBoardPreview getEchoBoardBySolutionId(long solutionId) {
+        return echoBoardRepository.findByEchoBoardSolutions_Id(solutionId)
+                .map(convertor::convertEntityToResponsePreviewDTO)
+                .orElseThrow(EchoBoardNotFoundException::new);
+    }
     private EchoBoardSolution createChatRoomForEchoBoardSolutionIfVolunteersRequired(EchoBoardSolution echoBoardSolution) {
         if (echoBoardSolution.getChatRoom() != null) return echoBoardSolution;
         if (!echoBoardSolution.getStatus()
@@ -108,18 +110,16 @@ public class SolutionService {
                 .removePendingVolunteer(pendingVolunteer);
     }
 
-    private EchoBoardSolution checkAuthorization(EchoBoardSolution echoBoardSolution){
+    private EchoBoardSolution checkAuthorisationForSolution(EchoBoardSolution echoBoardSolution){
         OidcUser user = (OidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!echoBoardSolution.getEchoBoardUser().getSubject().equals(user.getSubject())){
+        var userId = echoBoardRepository.findByEchoBoardSolutions_Id(echoBoardSolution.getId())
+                .map(EchoBoard::getEchoBoardUser)
+                .map(EchoBoardUser::getSubject)
+                .orElseThrow(EchoBoardNotFoundException::new);
+        if (!userId.equals(user.getSubject())){
             throw new IllegalArgumentException("User is not authorized to change this");
         }
         return echoBoardSolution;
-    }
-
-    public EchoBoardPreview getEchoBoardBySolutionId(long solutionId) {
-        return echoBoardRepository.findByEchoBoardSolutions_Id(solutionId)
-                .map(convertor::convertEntityToResponsePreviewDTO)
-                .orElseThrow(EchoBoardNotFoundException::new);
     }
 
 }

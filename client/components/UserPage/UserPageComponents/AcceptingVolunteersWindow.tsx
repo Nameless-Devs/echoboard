@@ -6,14 +6,15 @@ import { VolunteerToAccept } from './VolunteerToAccept';
 type AcceptingVolunteersWindowProps = {
     open: boolean;
     onClose: () => void;
+    pendingVolunteers: UserResponseData[];
     volunteers: UserResponseData[];
 }
 
 export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps> = ({
     open,
     onClose,
-    volunteers
-
+    volunteers,
+    pendingVolunteers,
 }) => {
 
     return (

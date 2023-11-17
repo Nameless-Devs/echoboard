@@ -414,7 +414,8 @@ export async function acceptPendingVolunteer( solutionId: string, volunteerId: s
    });
 
    if (response.ok) {
-     return response;
+    const data: SolutionVolunteersResponseData = await response.json();
+    return data; 
    } else {
      throw new Error(`HTTP Error! Status: ${response.status}`);
    }

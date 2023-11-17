@@ -400,7 +400,7 @@ export async function fetchEchoBoardByCommentId(commentId: string) {
   }
 }
 
-export async function acceptPendingVolunteer( solutionId: string, volunteerId: string) { 
+export async function acceptPendingVolunteer(solutionId: string, volunteerId: string) { 
   try {
    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, {solutionId});
 
@@ -422,4 +422,25 @@ export async function acceptPendingVolunteer( solutionId: string, volunteerId: s
  } catch (error) {
    throw new Error("Fetch error: " + error);
  }
+}
+
+export async function denyPendingVOlunteer(solutionId: string, volunteerId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, {solutionId});
+    const response = await fetch(endpoint, {
+      credentials: "include",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    });
+
+    if (response.status === 204) {
+      console.log('Deleted from pending volunteer list successfully');
+    } else {
+      console.error('Failed to delete volunteer');
+    }
+  } catch (error) {
+    console.error('An error occurred while deleting volunteer:', error);
+  }
 }

@@ -13,6 +13,7 @@ import se.salt.echoboard.service.repository.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class TestBuilders {
@@ -99,6 +100,7 @@ public class TestBuilders {
                 .content("Sample content")
                 .anonymous(true)
                 .status(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)
+                .pendingVolunteers(new HashSet<>())
                 .build();
 
     }

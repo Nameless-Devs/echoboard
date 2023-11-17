@@ -424,15 +424,16 @@ export async function acceptPendingVolunteer(solutionId: string, volunteerId: st
  }
 }
 
-export async function denyPendingVOlunteer(solutionId: string, volunteerId: string) {
+export async function denyPendingVolunteer(solutionId: string, volunteerId: string) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, {solutionId});
     const response = await fetch(endpoint, {
-      credentials: "include",
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json', 
       },
+      body: volunteerId,
+      credentials: "include",
     });
 
     if (response.status === 204) {

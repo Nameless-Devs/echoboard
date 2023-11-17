@@ -34,10 +34,13 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                 }}
             >
                 <Typography variant='h6'>Pending volunteers:</Typography> 
-                {volunteers && Array.isArray(volunteers) && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
+                {pendingVolunteers && Array.isArray(pendingVolunteers) && pendingVolunteers.length !== 0 && pendingVolunteers.map((volunteer, index) =>
                  <VolunteerToAccept key={index} volunteer={volunteer} />
                 )}
                 <Typography variant='h6'>Accepted volunteers:</Typography> 
+                {volunteers && Array.isArray(volunteers) && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
+                 <VolunteerToAccept key={index} volunteer={volunteer} />
+                )}
             </Box>
         </Modal>
     )

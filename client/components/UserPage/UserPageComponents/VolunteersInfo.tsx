@@ -31,7 +31,8 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
 
     useEffect(() => {
         if (solutionVolunteers) {
-            setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0);
+            setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0 
+                && solutionVolunteers.volunteers === null || solutionVolunteers.volunteers.length === 0  );
         }
     }, [solutionVolunteers]);
 
@@ -52,7 +53,7 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                         }}>
                         {solutionVolunteers ? (
                             <Typography>
-                                Volunteers: {solutionVolunteers.pendingVolunteers.length}, Accepted: {solutionVolunteers.volunteers.length}
+                                Pending volunteers: {solutionVolunteers.pendingVolunteers.length}, Accepted volunteers: {solutionVolunteers.volunteers.length}
                             </Typography>
                         ) : (
                             <Skeleton variant="rectangular" width={210} height={30} />

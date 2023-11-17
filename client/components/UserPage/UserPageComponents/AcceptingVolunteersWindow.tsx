@@ -2,6 +2,7 @@ import { UserResponseData } from '@/service/Types';
 import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
 import { VolunteerToAccept } from './VolunteerToAccept';
+import { VolunteerAccepted } from './VolunteerAccepted';
 
 type AcceptingVolunteersWindowProps = {
     open: boolean;
@@ -39,7 +40,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                 )}
                 <Typography variant='h6'>Accepted volunteers:</Typography> 
                 {volunteers && Array.isArray(volunteers) && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
-                 <VolunteerToAccept key={index} volunteer={volunteer} />
+                 <VolunteerAccepted key={index} volunteer={volunteer} />
                 )}
             </Box>
         </Modal>

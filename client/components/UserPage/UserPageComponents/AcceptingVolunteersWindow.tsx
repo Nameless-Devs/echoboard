@@ -1,28 +1,20 @@
-import { getAllPendingVolunteers } from '@/service/Functions';
 import { UserResponseData } from '@/service/Types';
-import { Avatar, Box, Button, Modal, Typography } from '@mui/material'
-import { useQuery } from '@tanstack/react-query';
+import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
 import { VolunteerToAccept } from './VolunteerToAccept';
 
 type AcceptingVolunteersWindowProps = {
     open: boolean;
     onClose: () => void;
-    solutionId: string;
+    volunteers: UserResponseData[];
 }
 
 export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps> = ({
     open,
     onClose,
-    solutionId
-}) => {
+    volunteers
 
-    const { data: volunteers, isLoading, isError } = useQuery<UserResponseData[]>(
-        ["echoBoards", solutionId],
-        async () => {
-            return await getAllPendingVolunteers(solutionId);
-        }
-    );
+}) => {
 
     return (
         <Modal open={open} onClose={onClose} >
@@ -40,10 +32,11 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     maxHeight: "80vh"
                 }}
             >
-                <Typography variant='h6'>Volunteers:</Typography> 
-                {volunteers?.length !== 0 && volunteers?.map((volunteer, index) =>
+                <Typography variant='h6'>Pending volunteers:</Typography> 
+                {volunteers && Array.isArray(volunteers) && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
                  <VolunteerToAccept key={index} volunteer={volunteer} />
                 )}
+                <Typography variant='h6'>Accepted volunteers:</Typography> 
             </Box>
         </Modal>
     )

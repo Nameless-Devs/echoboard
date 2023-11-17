@@ -1,7 +1,7 @@
 import { timeConverter } from '@/service/TimeConverter'
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types'
 import { Box, Button, Chip, Skeleton, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ExtraActionsMenu from './ExtraActionsMenu';
@@ -25,13 +25,20 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     const [defaultTabIndex, setDefaultTabIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [isManageSolutonOpen, setIsManageSolutionOpen] = useState(false);
-
+    const [isDisabled, setIsDisabled] = useState(true);
+    
     const { data: echoBoardExtended, isLoading, isError } = useQuery<EchoBoardResponseData>(
         ["echoBoards", echoBoard.id],
         async () => {
             return await fetchEchoBoardById(echoBoard.id);
         }
     );
+
+    useEffect(() => {
+        if (echoBoardExtended) {
+          setIsDisabled(echoBoardExtended.echoBoardSolutions === null || echoBoardExtended.echoBoardSolutions.length === 0);
+        }
+      }, [echoBoardExtended]);
 
     const showContent = () => {
         setContentVisible(true);
@@ -144,10 +151,23 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
 
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                                <Typography>
-                                    0 people vounteered for 0 solutions
-                                </Typography>
-                                <Button onClick={handleOpenManageSolutionsWindow} variant="outlined" sx={{ ml: "1rem" }}>Manage</Button>
+
+                                {echoBoardExtended.echoBoardSolutions.length === 1 ? (
+                                    <Typography>
+                                        {echoBoardExtended.echoBoardSolutions?.length} solution suggested
+                                    </Typography>
+                                ) : (
+                                    <Typography>
+                                        {echoBoardExtended.echoBoardSolutions?.length} solutions suggested
+                                    </Typography>
+                                )}
+                                <Button 
+                                disabled={isDisabled}
+                                onClick={handleOpenManageSolutionsWindow} 
+                                variant="outlined" 
+                                sx={{ ml: "1rem" }}>
+                                    Manage
+                                    </Button>
                             </Box>
                         </Box>
                     </Box>

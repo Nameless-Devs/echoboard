@@ -8,6 +8,7 @@ import {
   UserResponseData,
   Message,
   EchoBoardPreviewResponseData,
+  SolutionVolunteersResponseData,
 } from "./Types";
 
 export async function postEcho(
@@ -340,7 +341,7 @@ export async function getAllPendingVolunteers(solutionId: string) {
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
-    const data: UserResponseData[] = await response.json();
+    const data: SolutionVolunteersResponseData = await response.json();
     return data;
 
   } catch (error) {

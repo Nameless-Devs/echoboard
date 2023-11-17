@@ -80,3 +80,9 @@ export type EchoBoardPreviewResponseData = {
   anonymous: boolean;
   echoBoardUser: EchoBoardUser;
 }
+
+export type SolutionVolunteersResponseData = {
+  id: string; 
+  volunteers: UserResponseData[];
+  pendingVolunteers: UserResponseData[];
+}

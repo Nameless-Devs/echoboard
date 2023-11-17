@@ -409,7 +409,7 @@ export async function acceptPendingVolunteer( solutionId: string, volunteerId: s
      headers: {
        "Content-Type": "application/json",
      },
-     body: JSON.stringify(volunteerId),
+     body: volunteerId,
      credentials: "include",
    });
 

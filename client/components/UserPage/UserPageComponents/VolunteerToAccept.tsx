@@ -18,6 +18,16 @@ export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
 
     const queryClient = useQueryClient();
 
+    const mutation = useMutation((volunteerId: string) =>
+        acceptPendingVolunteer(solutionId, volunteerId),
+        {
+            onSuccess: () => {
+              queryClient.invalidateQueries(["echoBoards", solutionId]);
+            //   queryClient.invalidateQueries(["comments", postId]);
+            },
+          }
+    );
+
     return (
         <Box
             sx={{
@@ -42,7 +52,7 @@ export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
                 </Grid>
                 <Grid item xs={3} md={2}>
                     <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-                        <IconButton color='success'>
+                        <IconButton color='success' onClick={() => mutation.mutate(volunteer.subject)}>
                             <CheckCircleIcon />
                         </IconButton>
                         <IconButton color='error'>

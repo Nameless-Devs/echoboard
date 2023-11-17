@@ -100,8 +100,6 @@ public class EchoBoardIntegrationTests {
 
     @Test
     @WithMockOidcUser
-    @DisplayName("Should add an upvote to the solution ")
-    public void testVolunteerForSolution() throws Exception {
     @DisplayName("Should add pending volunteer to the solution ")
     public void testPendingVolunteerForSolution() throws Exception {
 

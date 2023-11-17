@@ -32,13 +32,12 @@ import static util.TestUtilities.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase(replace = Replace.ANY)
 public class EchoBoardIntegrationTests {
 
     private final MockMvc mockMvc;
     @Autowired
     private EchoBoardSolutionRepository solutionRepository;
-    @Autowired
-    private JPAChatRoomRepository chatRoomRepository;
 
     @Autowired
     public EchoBoardIntegrationTests(MockMvc mockMvc) {

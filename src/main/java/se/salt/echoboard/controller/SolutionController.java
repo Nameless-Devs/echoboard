@@ -14,8 +14,7 @@ import se.salt.echoboard.service.SolutionService;
 
 import java.util.Set;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 
 @RestController
@@ -64,6 +63,13 @@ public class SolutionController {
                                                                  @AuthenticationPrincipal OidcUser user,
                                                                  @RequestBody String volunteerId) {
         return solutionService.addVolunteerToSolution(solutionId, user , volunteerId);
+    }
+
+    @DeleteMapping("{solutionId}/volunteer")
+    @ResponseStatus(NO_CONTENT)
+    public EchoBoardSolutionResponse denyPendingVolunteerForSolution(@PathVariable long solutionId,
+                                                                 @RequestBody String volunteerId) {
+        return solutionService.denyVolunteerToSolution(solutionId, volunteerId);
     }
 
     @GetMapping("/{solutionId}/echoboard")

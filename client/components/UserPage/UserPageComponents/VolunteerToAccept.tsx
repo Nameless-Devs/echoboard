@@ -3,14 +3,39 @@ import { Box, Avatar, Typography, Button, Grid, IconButton } from '@mui/material
 import React from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { acceptPendingVolunteer, denyPendingVolunteer } from '@/service/Functions';
 
 type VolunteerToAcceptProps = {
     volunteer: UserResponseData;
+    solutionId: string; 
 }
 
 export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
     volunteer,
+    solutionId
 }) => {
+
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation((volunteerId: string) =>
+        acceptPendingVolunteer(solutionId, volunteerId),
+        {
+            onSuccess: () => {
+              queryClient.invalidateQueries(["echoBoards", solutionId]);
+            },
+          }
+    );
+
+    const deleteMutation = useMutation((volunteerId: string) =>
+    denyPendingVolunteer(solutionId, volunteerId),
+    {
+        onSuccess: () => {
+          queryClient.invalidateQueries(["echoBoards", solutionId]);
+        },
+      }
+);
+
     return (
         <Box
             sx={{
@@ -35,10 +60,10 @@ export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
                 </Grid>
                 <Grid item xs={3} md={2}>
                     <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-                        <IconButton color='success'>
+                        <IconButton color='success' onClick={() => mutation.mutate(volunteer.subject)}>
                             <CheckCircleIcon />
                         </IconButton>
-                        <IconButton color='error'>
+                        <IconButton color='error' onClick={() => deleteMutation.mutate(volunteer.subject)} >
                             <CancelIcon />
                         </IconButton>
                     </Box>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { AcceptingVolunteersWindow } from './AcceptingVolunteersWindow';
 import { useQuery } from '@tanstack/react-query';
 import { getAllPendingVolunteers } from '@/service/Functions';
-import { UserResponseData } from '@/service/Types';
+
 
 type VolunteerInfoProps = {
     solution: SolutionResponseData;
@@ -31,7 +31,8 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
 
     useEffect(() => {
         if (solutionVolunteers) {
-            setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0);
+            setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0 
+                && solutionVolunteers.volunteers === null || solutionVolunteers.volunteers.length === 0  );
         }
     }, [solutionVolunteers]);
 
@@ -52,7 +53,7 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                         }}>
                         {solutionVolunteers ? (
                             <Typography>
-                                Volunteers: {solutionVolunteers.pendingVolunteers.length}, Accepted: {solutionVolunteers.volunteers.length}
+                                Pending volunteers: {solutionVolunteers.pendingVolunteers.length}, Accepted volunteers: {solutionVolunteers.volunteers.length}
                             </Typography>
                         ) : (
                             <Skeleton variant="rectangular" width={210} height={30} />
@@ -61,7 +62,14 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                     </Box>
                 )}
             </Grid>
-            {solutionVolunteers && <AcceptingVolunteersWindow open={isOpen} onClose={handleClose} volunteers={solutionVolunteers.pendingVolunteers} />}
+            {solutionVolunteers && 
+            <AcceptingVolunteersWindow 
+            open={isOpen} 
+            onClose={handleClose} 
+            pendingVolunteers={solutionVolunteers.pendingVolunteers} 
+            volunteers={solutionVolunteers.volunteers} 
+            solutionId={solution.id}
+            />}
         </>
     )
 }

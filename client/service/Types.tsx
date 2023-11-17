@@ -55,6 +55,7 @@ export type SolutionResponseData = {
 };
 
 export type UserResponseData = {
+  subject: string;
   name: string;
   picture: string;
   echoBoardComments: CommentResponseData[];

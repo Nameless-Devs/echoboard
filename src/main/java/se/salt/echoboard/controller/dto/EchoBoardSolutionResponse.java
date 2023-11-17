@@ -21,7 +21,7 @@ public record EchoBoardSolutionResponse(long id, String content, Set<String> upv
     @Override
     public EchoBoardUserResponse echoBoardUser() {
         if (anonymous) {
-            return new EchoBoardUserResponse("Anonymous", null);
+            return new EchoBoardUserResponse("", "Anonymous", null);
         }
         return echoBoardUser;
     }

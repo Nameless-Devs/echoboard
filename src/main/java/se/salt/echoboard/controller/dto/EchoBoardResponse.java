@@ -20,7 +20,7 @@ public record EchoBoardResponse(List<EchoBoardCommentResponse> echoBoardComments
     @Override
     public EchoBoardUserResponse echoBoardUser() {
         if (anonymous) {
-            return new EchoBoardUserResponse("Anonymous", null);
+            return new EchoBoardUserResponse("", "Anonymous", null);
         }
         return echoBoardUser;
     }

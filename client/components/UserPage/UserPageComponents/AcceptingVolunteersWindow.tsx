@@ -34,13 +34,21 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                     maxHeight: "80vh"
                 }}
             >
-                <Typography variant='h6'>Pending volunteers:</Typography> 
-                {pendingVolunteers && Array.isArray(pendingVolunteers) && pendingVolunteers.length !== 0 && pendingVolunteers.map((volunteer, index) =>
-                 <VolunteerToAccept key={index} volunteer={volunteer} />
+                <Typography variant='h6'>Pending volunteers:</Typography>
+                {pendingVolunteers && Array.isArray(pendingVolunteers) && pendingVolunteers.length === 0 ? (
+                    <Typography textAlign={'center'}>You have no pending volunteers</Typography>
+                ) : (
+                    pendingVolunteers.map((volunteer, index) =>
+                        <VolunteerToAccept key={index} volunteer={volunteer} />
+                    )
                 )}
-                <Typography variant='h6'>Accepted volunteers:</Typography> 
-                {volunteers && Array.isArray(volunteers) && volunteers.length !== 0 && volunteers.map((volunteer, index) =>
-                 <VolunteerAccepted key={index} volunteer={volunteer} />
+                <Typography variant='h6'>Accepted volunteers:</Typography>
+                {volunteers && Array.isArray(volunteers) && volunteers.length === 0 ? (
+                    <Typography textAlign={'center'}>You have no accepted volunteers</Typography>
+                ) : (
+                    volunteers.map((volunteer, index) =>
+                        <VolunteerAccepted key={index} volunteer={volunteer} />
+                    )
                 )}
             </Box>
         </Modal>

@@ -4,7 +4,7 @@ import React from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { acceptPendingVolunteer } from '@/service/Functions';
+import { acceptPendingVolunteer, denyPendingVolunteer } from '@/service/Functions';
 
 type VolunteerToAcceptProps = {
     volunteer: UserResponseData;
@@ -23,10 +23,18 @@ export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
         {
             onSuccess: () => {
               queryClient.invalidateQueries(["echoBoards", solutionId]);
-            //   queryClient.invalidateQueries(["comments", postId]);
             },
           }
     );
+
+    const deleteMutation = useMutation((volunteerId: string) =>
+    denyPendingVolunteer(solutionId, volunteerId),
+    {
+        onSuccess: () => {
+          queryClient.invalidateQueries(["echoBoards", solutionId]);
+        },
+      }
+);
 
     return (
         <Box
@@ -55,7 +63,7 @@ export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
                         <IconButton color='success' onClick={() => mutation.mutate(volunteer.subject)}>
                             <CheckCircleIcon />
                         </IconButton>
-                        <IconButton color='error'>
+                        <IconButton color='error' onClick={() => deleteMutation.mutate(volunteer.subject)} >
                             <CancelIcon />
                         </IconButton>
                     </Box>

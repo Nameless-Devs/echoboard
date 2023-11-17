@@ -102,10 +102,11 @@ public class EchoBoardIntegrationTests {
     @WithMockOidcUser
     @DisplayName("Should add an upvote to the solution ")
     public void testVolunteerForSolution() throws Exception {
+    @DisplayName("Should add pending volunteer to the solution ")
+    public void testPendingVolunteerForSolution() throws Exception {
 
         // Create a sample EchoBoardSolution with known solutionId and initial solutionStatus in the test database
         EchoBoardSolution solution = TestBuilders.createRandomEchoBoardSolution();
-
         solutionRepository.save(solution);
 
         String jsonRequest = TestUtilities.convertJsonString(solution);
@@ -120,7 +121,7 @@ public class EchoBoardIntegrationTests {
         Assertions.assertTrue(optionalSolution.isPresent());
 
         EchoBoardSolution updatedSolution = optionalSolution.get();
-        Assertions.assertNotNull(updatedSolution.getVolunteers());
+        Assertions.assertNotNull(updatedSolution.getPendingVolunteers());
     }
 
 }

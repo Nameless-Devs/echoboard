@@ -399,3 +399,26 @@ export async function fetchEchoBoardByCommentId(commentId: string) {
     throw new Error("Error fetching data: " + error);
   }
 }
+
+export async function acceptPendingVolunteer( solutionId: string, volunteerId: string) { 
+  try {
+   const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, {solutionId});
+
+   const response = await fetch(endpoint, {
+     method: "PATCH",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(volunteerId),
+     credentials: "include",
+   });
+
+   if (response.ok) {
+     return response;
+   } else {
+     throw new Error(`HTTP Error! Status: ${response.status}`);
+   }
+ } catch (error) {
+   throw new Error("Fetch error: " + error);
+ }
+}

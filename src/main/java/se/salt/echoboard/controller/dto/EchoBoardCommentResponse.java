@@ -20,7 +20,7 @@ public record EchoBoardCommentResponse(long id, String content, Set<String> upvo
     @Override
     public EchoBoardUserResponse echoBoardUser() {
         if (anonymous) {
-            return new EchoBoardUserResponse("Anonymous", null);
+            return new EchoBoardUserResponse("", "Anonymous", null);
         }
         return echoBoardUser;
     }

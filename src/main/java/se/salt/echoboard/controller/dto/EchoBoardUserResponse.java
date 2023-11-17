@@ -8,5 +8,5 @@ import se.salt.echoboard.model.EchoBoardUser;
  * DTO for {@link EchoBoardUser}
  */
 @Builder
-public record EchoBoardUserResponse(String name, String picture) {
+public record EchoBoardUserResponse(String subject, String name, String picture) {
 }

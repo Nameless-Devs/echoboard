@@ -1,11 +1,11 @@
-import { EchoBoardPreviewResponseData, SolutionResponseData, UserResponseData } from '@/service/Types'
-import { Avatar, Box, Grid, ListItem, Skeleton, Typography } from '@mui/material';
+import { EchoBoardPreviewResponseData, EchoBoardResponseData, SolutionResponseData, UserResponseData } from '@/service/Types'
+import { Box, Grid, ListItem, Typography } from '@mui/material';
 import React from 'react'
 import UpvoteButton from '../../UpvoteButton';
 import { timeConverter } from '@/service/TimeConverter';
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge';
 import { useQuery } from '@tanstack/react-query';
-import { fetchEchoBoardBySolutionId } from '@/service/Functions';
+import { fetchEchoBoardById, fetchEchoBoardBySolutionId } from '@/service/Functions';
 import { EchoBoardPreviewDisplay } from './EchoBoardPreviewDisplay';
 
 
@@ -22,6 +22,15 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
             return await fetchEchoBoardBySolutionId(solution.id);
         }
     );
+
+    if (echoBoardPreview) {
+        const { data: echoBoardExtended } = useQuery<EchoBoardResponseData>(
+            ["echoBoards", echoBoardPreview.id],
+            async () => {
+                return await fetchEchoBoardById(echoBoardPreview.id);
+            }
+        );
+    }
 
     return (
         <ListItem sx={{ padding: 0 }}>

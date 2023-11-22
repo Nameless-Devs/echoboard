@@ -16,12 +16,13 @@ type SolutionItemProps = {
 
 export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote }) => {
 
-    const { data: echoBoardPreview, isLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
-        ["echoBoards", solution.id],
-        async () => {
-            return await fetchEchoBoardBySolutionId(solution.id);
-        }
-    );
+    const {
+        data: echoBoardPreview,
+        isLoading: previewLoading,
+        isError: previewError,
+    } = useQuery<EchoBoardPreviewResponseData>(["echoBoards", solution.id], async () => {
+        return await fetchEchoBoardBySolutionId(solution.id);
+    });
 
     const {
         data: echoBoardExtended,

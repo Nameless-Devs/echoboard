@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
 import DeleteConfirmationWindow from './DeleteConfirmationWindow';
-import { EchoBoardResponseData } from '@/service/Types';
+import { CommentResponseData, EchoBoardResponseData, SolutionResponseData } from '@/service/Types';
 import { EditPostWindow } from './EditPostWindow';
 import { Box } from '@mui/material';
 import MenuButton from './MenuButton';
 
 type ExtraActionsMenuProps = {
-  echoBoard: EchoBoardResponseData;
+  echoBoard?: EchoBoardResponseData;
+  comment?: CommentResponseData; 
+  solution?: SolutionResponseData;
 }
 
 export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
@@ -33,8 +35,8 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
   return (
     <Box>
       <MenuButton onEdit={handleEdit} onDelete={handleDelete} />
-      <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />
-      <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> 
+      {echoBoard && <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />}
+      {echoBoard && <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> }
     </Box>
   );
 }

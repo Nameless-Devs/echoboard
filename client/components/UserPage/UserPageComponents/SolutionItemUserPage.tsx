@@ -14,6 +14,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 type SolutionItemProps = {
     solution: SolutionResponseData;
     onUpvote: (solutionId: string) => void;
+    user: UserResponseData;
 }
 
 export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {

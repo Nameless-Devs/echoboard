@@ -23,14 +23,23 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
         }
     );
 
-    if (echoBoardPreview) {
-        const { data: echoBoardExtended } = useQuery<EchoBoardResponseData>(
-            ["echoBoards", echoBoardPreview.id],
-            async () => {
-                return await fetchEchoBoardById(echoBoardPreview.id);
-            }
-        );
-    }
+    const {
+        data: echoBoardExtended,
+        isLoading: extendedLoading,
+        isError: extendedError,
+    } = useQuery<EchoBoardResponseData>(
+        ["echoBoards", echoBoardPreview?.id],
+        async () => {
+            return await fetchEchoBoardById(echoBoardPreview?.id || '');
+        },
+        {
+            enabled: !!echoBoardPreview?.id,
+        }
+    );
+
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
     return (
         <ListItem sx={{ padding: 0 }}>

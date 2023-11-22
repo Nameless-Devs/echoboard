@@ -1,12 +1,14 @@
 import { EchoBoardPreviewResponseData, EchoBoardResponseData, SolutionResponseData, UserResponseData } from '@/service/Types'
-import { Box, Grid, ListItem, Typography } from '@mui/material';
-import React from 'react'
+import { Box, Button, Grid, ListItem, Typography } from '@mui/material';
+import React, { useState } from 'react'
 import UpvoteButton from '../../UpvoteButton';
 import { timeConverter } from '@/service/TimeConverter';
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge';
 import { useQuery } from '@tanstack/react-query';
 import { fetchEchoBoardById, fetchEchoBoardBySolutionId } from '@/service/Functions';
 import { EchoBoardPreviewDisplay } from './EchoBoardPreviewDisplay';
+import CommentModal from '@/components/CommentModal/CommentModal';
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 
 type SolutionItemProps = {
@@ -14,7 +16,9 @@ type SolutionItemProps = {
     onUpvote: (solutionId: string) => void;
 }
 
-export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote }) => {
+export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const defaultTabIndex = 1;
 
     const {
         data: echoBoardPreview,
@@ -72,6 +76,13 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                     <UpvoteButton count={solution.upvote.length} onUpvote={() => onUpvote(solution.id)} />
                 </Grid>
             </Grid>
+            {echoBoardExtended && <CommentModal
+                post={echoBoardExtended}
+                handleClose={handleClose}
+                isOpen={isOpen}
+                user={user}
+                defaultTabIndex={defaultTabIndex}
+            />}
         </ListItem>
     )
 }

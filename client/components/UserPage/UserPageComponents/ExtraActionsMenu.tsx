@@ -12,123 +12,38 @@ import { useState } from 'react';
 import DeleteConfirmationWindow from './DeleteConfirmationWindow';
 import { EchoBoardResponseData } from '@/service/Types';
 import { EditPostWindow } from './EditPostWindow';
-
-const StyledMenu = styled((props: MenuProps) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  '& .MuiPaper-root': {
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: 180,
-    color:
-      theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-    boxShadow:
-      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-    '& .MuiMenu-list': {
-      padding: '4px 0',
-    },
-    '& .MuiMenuItem-root': {
-      '& .MuiSvgIcon-root': {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
-      },
-      '&:active': {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity,
-        ),
-      },
-    },
-  },
-}));
+import { Box } from '@mui/material';
+import MenuButton from './MenuButton';
 
 type ExtraActionsMenuProps = {
   echoBoard: EchoBoardResponseData;
 }
 
 export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
   const [ isDeleteWindowOpen, setIsDeleteModalOpen ] = useState(false);
-  const [ isEditWindowOpen, setIsEdiWindowOpen] = useState(false);
- 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const [ isEditWindowOpen, setIsEditWindowOpen] = useState(false);
+
+  const handleEdit = () => {
+    setIsEditWindowOpen(true);
   };
 
   const handleDelete = () => {
-   setIsDeleteModalOpen(true);
-   handleClose();
+    setIsDeleteModalOpen(true);
   };
-
-  const handleEdit = () => {
-    setIsEdiWindowOpen(true);
-    handleClose();
-  };
-   
+ 
   const handleCloseDeleteWindow = () => {
    setIsDeleteModalOpen(false);
   };
 
   const handleCloseEditWindow = () => {
-    setIsEdiWindowOpen(false);
+    setIsEditWindowOpen(false);
   };
 
   return (
-    <div>
-      <Button
-        id="demo-customized-button"
-        aria-controls={open ? 'demo-customized-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        variant="text"
-        disableElevation
-        onClick={handleClick}
-        sx={{padding: 0}}
-      >
-       <MoreHorizIcon />
-      </Button>
-      <StyledMenu
-        id="demo-customized-menu"
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleEdit} disableRipple>
-          <EditIcon />
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleDelete} disableRipple>
-          <DeleteIcon />
-          Delete
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <ArchiveIcon />
-          Mark as resolved
-        </MenuItem>
-      </StyledMenu>
+    <Box>
+      <MenuButton onEdit={handleEdit} onDelete={handleDelete} />
       <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />
       <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> 
-    </div>
+    </Box>
   );
 }

@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import { timeConverter } from '@/service/TimeConverter';
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge';
 import { useQuery } from '@tanstack/react-query';
-import { fetchEchoBoardById, fetchEchoBoardBySolutionId } from '@/service/Functions';
+import { editSolution, fetchEchoBoardById, fetchEchoBoardBySolutionId } from '@/service/Functions';
 import { EchoBoardPreviewDisplay } from './EchoBoardPreviewDisplay';
 import CommentModal from '@/components/CommentModal/CommentModal';
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ExtraActionsMenu from './ExtraActionsMenu';
 
 
 type SolutionItemProps = {
@@ -58,7 +59,12 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                 }}
 
             >
-                <EchoBoardPreviewDisplay isLoading={previewLoading} data={echoBoardPreview} />
+                <Box sx={{ display: "flex", justifyContent: "space-between", width: '100%'}}>
+                    <Box sx={{ marginLeft: 'auto', width: '100%'}}> 
+                    <EchoBoardPreviewDisplay isLoading={previewLoading} data={echoBoardPreview} />
+                    </Box>
+                    <ExtraActionsMenu solution={solution} onEdit={editSolution} />
+                </Box>
                 <Grid item xs={12}>
                     <Box sx={{ display: "flex", justifyContent: "flex-end", margin: "0.2rem 0.5rem 0 0 " }}>
                         <SolutionStatusBadge status={solution.status} solutionId={solution.id} />

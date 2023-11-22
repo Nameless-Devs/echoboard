@@ -1,7 +1,6 @@
-import { EchoBoardPreviewResponseData, EchoBoardResponseData, SolutionResponseData, UserResponseData } from '@/service/Types'
+import { EchoBoardPreviewResponseData, EchoBoardResponseData, SolutionResponseData, UserResponseData } from '@/service/Types';
 import { Box, Button, Grid, ListItem, Typography } from '@mui/material';
-import React, { useState } from 'react'
-import UpvoteButton from '../../UpvoteButton';
+import React, { useState } from 'react';
 import { timeConverter } from '@/service/TimeConverter';
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge';
 import { useQuery } from '@tanstack/react-query';
@@ -72,7 +71,7 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                     transition: 'box-shadow 0.3s',
                     padding: "0 0.5rem",
                     '&:hover': {
-                        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;', 
+                        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;',
                     },
                 }}
                     onClick={() => setIsOpen(true)} >
@@ -86,15 +85,15 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                             {timeConverter(solution.created)}
                         </Typography>
                     </Grid>
-                    <Grid item xs={12}>   
-                    <Button sx={{
-                        padding: 0, 
-                        minWidth: 0, 
-                        margin: "0.5rem 0 1rem 0",
-                        '&:hover': { backgroundColor: 'transparent' },
+                    <Grid item xs={12}>
+                        <Button sx={{
+                            padding: 0,
+                            minWidth: 0,
+                            margin: "0.5rem 0 1rem 0",
+                            '&:hover': { backgroundColor: 'transparent' },
                         }}>
-                        <ThumbUpIcon /> {solution.upvote.length}
-                        </Button >     
+                            <ThumbUpIcon /> {solution.upvote.length}
+                        </Button >
                     </Grid>
                 </Box>
             </Grid>

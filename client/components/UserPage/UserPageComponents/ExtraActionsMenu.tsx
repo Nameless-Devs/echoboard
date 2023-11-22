@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { useState } from 'react';
 import DeleteConfirmationWindow from './DeleteConfirmationWindow';
-import { CommentResponseData, EchoBoardResponseData, SolutionResponseData } from '@/service/Types';
+import { CommentOrSolutionType, CommentResponseData, EchoBoardResponseData, SolutionResponseData } from '@/service/Types';
 import { EditPostWindow } from './EditPostWindow';
 import { Box } from '@mui/material';
 import MenuButton from './MenuButton';
+import { EditCommentOrSolutionWinfow } from './EditCommentOrSolutionWindow';
 
 type ExtraActionsMenuProps = {
   echoBoard?: EchoBoardResponseData;
   comment?: CommentResponseData; 
   solution?: SolutionResponseData;
+  onEdit?: (id: string, data: CommentOrSolutionType) => Promise<Response>;
 }
 
-export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
+export default function ExtraActionsMenu( {echoBoard, comment, solution, onEdit}: ExtraActionsMenuProps) {
   const [ isDeleteWindowOpen, setIsDeleteModalOpen ] = useState(false);
   const [ isEditWindowOpen, setIsEditWindowOpen] = useState(false);
 
@@ -36,6 +38,20 @@ export default function ExtraActionsMenu( {echoBoard}: ExtraActionsMenuProps) {
     <Box>
       <MenuButton onEdit={handleEdit} onDelete={handleDelete} />
       {echoBoard && <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />}
+      {comment && onEdit && <EditCommentOrSolutionWinfow 
+      open={isEditWindowOpen} 
+      handleClose={handleCloseEditWindow}
+      content={comment.content}
+      id={comment.id}
+      onEdit={onEdit}
+      />}
+      {solution && onEdit && <EditCommentOrSolutionWinfow 
+      open={isEditWindowOpen} 
+      handleClose={handleCloseEditWindow}
+      content={solution.content}
+      id={solution.id}
+      onEdit={onEdit}
+      />}
       {echoBoard && <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> }
     </Box>
   );

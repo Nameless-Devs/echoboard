@@ -4,14 +4,14 @@ import Modal from '@mui/material/Modal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 
-type EditPostWindowProps = {
+type EditCommentOrSolutionWinfowProps = {
     open: boolean;
     handleClose: () => void;
     content: string;
     id: string;
-    onEdit: (id: string, data: CommentOrSolutionType) => Promise<void>;
+    onEdit: (id: string, data: CommentOrSolutionType) => Promise<Response>;
 }
-export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClose, content, id, onEdit }) => {
+export const EditCommentOrSolutionWinfow: React.FC<EditCommentOrSolutionWinfowProps> = ({ open, handleClose, content, id, onEdit }) => {
     const [formData, setFormData] = useState(content);
     const [hasPostChanged, setHasPostChanged] = useState(false);
    
@@ -92,7 +92,5 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
                 </form>
             </Box>
         </Modal>
-
-
     )
 }

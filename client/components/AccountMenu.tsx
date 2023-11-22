@@ -55,7 +55,7 @@ export const AccountMenu: React.FC<UserResponseData> = (
           className="account-menu"
           MenuListProps={{ className: "account-menu__list" }}
           transformOrigin={{ horizontal: "right", vertical: "top" }}
-          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          anchorOrigin={{ horizontal: "right", vertical: "center" }}
         >
           <MenuItem className="account-menu__link" onClick={() => router.push('/userProfile')}>
             <Avatar /> Profile

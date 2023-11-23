@@ -3,6 +3,7 @@ package se.salt.echoboard.exception.custom;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 public class SolutionNotFoundException extends ResponseStatusException {
     public SolutionNotFoundException() {
@@ -10,6 +11,6 @@ public class SolutionNotFoundException extends ResponseStatusException {
     }
 
     public SolutionNotFoundException(long detail) {
-        super(NOT_FOUND, "Solution with id %s not found".formatted(detail));
+        super(NO_CONTENT, "Solution with id %s not found".formatted(detail));
     }
 }

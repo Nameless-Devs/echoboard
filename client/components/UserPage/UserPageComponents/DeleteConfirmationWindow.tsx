@@ -22,28 +22,35 @@ const style = {
 type DeleteConfirmationWindowProp = {
     open: boolean;
     handleClose: () => void;
-    echoBoard: EchoBoardResponseData;
+    contentType: string;
+    content: string;
+    id: string;
+    handleDelete: (id: string) => Promise<void>;
 }
 
 const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
     open,
     handleClose,
-    echoBoard,
+    contentType,
+    content,
+    id,
+    handleDelete,
 }) => {
-    
+
     const queryClient = useQueryClient();
 
-    const deleteEchoBoardMutation = useMutation(deleteEchoBoard, {
-        onSuccess: async () => {
-          handleClose();
-          queryClient.invalidateQueries(['userInfo']);
-          queryClient.refetchQueries(['userInfo']);
+    const handleDeleteAction = useMutation(handleDelete, {
+        onSettled: () => {
+            handleClose();
+            queryClient.invalidateQueries(['userInfo']);
+            queryClient.refetchQueries(['userInfo']);
+            console.log("I am here arter deleting")
         },
-      });
-    
-      const handleDeletePost = async (echoBoard: EchoBoardResponseData) => {
-        deleteEchoBoardMutation.mutate(echoBoard.id);
-      };
+    });
+
+    const handleDeletePost = async (id: string) => {
+        handleDeleteAction.mutate(id);
+    };
 
     return (
         <Modal
@@ -57,16 +64,16 @@ const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
                     Confirm
                 </Typography>
                 <Typography id="delete-confirmation-description" sx={{ mt: 2 }}>
-                    Are you sure you want to delete this post?
+                    Are you sure you want to delete this {contentType}?
                 </Typography>
                 <Typography variant='h5'>
-                    {echoBoard.title}
+                    {content}
                 </Typography>
                 <Typography>
                     You will not be able to reverse this process.
                 </Typography>
                 <Button onClick={() => {
-                    handleDeletePost(echoBoard)
+                    handleDeletePost(id)
                 }
                 }>
                     Yes

@@ -32,7 +32,7 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
     useEffect(() => {
         if (solutionVolunteers) {
             setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0 
-                && solutionVolunteers.volunteers === null || solutionVolunteers.volunteers.length === 0  );
+                &&  solutionVolunteers.volunteers.length === 0  );
         }
     }, [solutionVolunteers]);
 

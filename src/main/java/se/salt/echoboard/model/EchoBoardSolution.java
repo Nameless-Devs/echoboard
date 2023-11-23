@@ -50,7 +50,7 @@ public class EchoBoardSolution {
     @JoinColumn(name = "subject")
     private EchoBoardUser echoBoardUser;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     @JsonIgnoreProperties({"messages"})
     private ChatRoom chatRoom;
@@ -87,6 +87,11 @@ public class EchoBoardSolution {
 
     public EchoBoardSolution setChatRoom(ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
+        return this;
+    }
+
+    public EchoBoardSolution setContent(String content) {
+        this.content = content;
         return this;
     }
 

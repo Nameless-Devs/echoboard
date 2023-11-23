@@ -1,10 +1,12 @@
 import UpvoteButton from "@/components/UpvoteButton"
 import { useUpvote } from "@/hooks/useUpvote"
-import { fetchEchoBoardByCommentId } from "@/service/Functions"
+import { editComment, fetchEchoBoardByCommentId } from "@/service/Functions"
 import { timeConverter } from "@/service/TimeConverter"
 import { CommentResponseData, EchoBoardPreviewResponseData } from "@/service/Types"
 import { ListItem, Avatar, Typography, Box, Grid, Skeleton } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
+import { EchoBoardPreviewDisplay } from "./EchoBoardPreviewDisplay"
+import ExtraActionsMenu from "./ExtraActionsMenu"
 
 type CommentItemProps = {
     comment: CommentResponseData,
@@ -12,7 +14,7 @@ type CommentItemProps = {
 
 export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment }) => {
     
-    const { data: echoBoardPreview, isLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
+    const { data: echoBoardPreview, isLoading: previewLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
         ["echoBoards", comment.id],
         async () => {
             return await fetchEchoBoardByCommentId(comment.id);
@@ -31,36 +33,12 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment }) => 
                     borderRadius: "1rem",
                     backgroundColor: "white",
                 }}>
-                <Grid item xs={12} md='auto'>
-                    {isLoading ? (
-                        <Skeleton variant="rectangular" width={200} height={24} />
-                    ) : (
-                        echoBoardPreview && (
-                            <Box sx={{
-                                display: "flex",
-                                alignItems: "center",
-                            }}>
-                                <Typography color="textSecondary">to:</Typography>
-                                <Avatar
-                                    src={echoBoardPreview.echoBoardUser.picture}
-                                    alt={echoBoardPreview.echoBoardUser.name + " avatar picture"}
-                                    sx={{ margin: "0 0.5rem", width: 24, height: 24 }}
-                                />
-                                <Typography color="textSecondary" sx={{ mr: "0.5rem" }}>
-                                    {echoBoardPreview.echoBoardUser.name}&rsquo;s problem
-                                </Typography>
-                            </Box>
-                        )
-                    )
-                    }
-                </Grid>
-                <Grid item xs={12} md='auto' >
-                    {isLoading ? (
-                        <Skeleton variant="rectangular" width={150} height={24}/>
-                    ) : (
-                        echoBoardPreview && <Typography color="textSecondary">&quot;{echoBoardPreview.title}&quot;</Typography>
-                    )}
-                </Grid>
+                <Box sx={{ display: "flex", justifyContent: "space-between", width: '100%'}}>
+                    <Box sx={{ marginLeft: 'auto', width: '100%'}}> 
+                    <EchoBoardPreviewDisplay isLoading={previewLoading} data={echoBoardPreview} />
+                    </Box>
+                    <ExtraActionsMenu comment={comment} onEdit={editComment} />
+                </Box>
                 <Grid item xs={12} >
                     <Typography variant="body1" color="textPrimary" sx={{ margin: "0.5rem 2rem 0.5rem 0" }}>
                         {comment.content}

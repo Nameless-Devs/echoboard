@@ -3,6 +3,7 @@ package se.salt.echoboard.exception.custom;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 
 public class CommentNotFoundException extends ResponseStatusException {
@@ -11,7 +12,7 @@ public class CommentNotFoundException extends ResponseStatusException {
     }
 
     public CommentNotFoundException(long detail) {
-        super(NOT_FOUND, "Comment with id %s not found".formatted(detail));
+        super(NO_CONTENT, "Comment with id %s not found".formatted(detail));
     }
 }
 

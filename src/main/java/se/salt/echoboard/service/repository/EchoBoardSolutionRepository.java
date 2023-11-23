@@ -19,4 +19,8 @@ public class EchoBoardSolutionRepository {
     public Optional<EchoBoardSolution> getSolutionById(long solutionId) {
         return solutionRepository.findById(solutionId);
     }
+
+    public void deleteById(long solutionId) {
+        solutionRepository.deleteById(solutionId);
+    }
 }

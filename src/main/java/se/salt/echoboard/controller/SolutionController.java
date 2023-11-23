@@ -74,8 +74,15 @@ public class SolutionController {
 
     @PatchMapping("{solutionId}/edit")
     @ResponseStatus(OK)
-    public EchoBoardSolutionResponse editEchoBoard(@PathVariable long solutionId,
+    public EchoBoardSolutionResponse editSolution(@PathVariable long solutionId,
                                            @RequestBody EchoBoardSolution solution){
         return solutionService.updateSolution(solutionId, solution);
+    }
+
+    @DeleteMapping("{solutionId}")
+    @ResponseStatus(NO_CONTENT)
+    public EchoBoardSolutionResponse deleteSolution(@PathVariable long solutionId){
+        solutionService.deleteSolution(solutionId);
+        return solutionService.getSolutionById(solutionId);
     }
 }

@@ -4,15 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
-import se.salt.echoboard.controller.dto.DTOConvertor;
-import se.salt.echoboard.controller.dto.EchoBoardPreview;
-import se.salt.echoboard.controller.dto.EchoBoardSolutionResponse;
-import se.salt.echoboard.controller.dto.EchoBoardSolutionVolunteers;
+import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.model.EchoBoardSolution;
-import se.salt.echoboard.model.EchoBoardUser;
 import se.salt.echoboard.service.SolutionService;
-
-import java.util.Set;
 
 import static org.springframework.http.HttpStatus.*;
 

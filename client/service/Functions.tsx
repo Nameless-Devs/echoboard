@@ -449,7 +449,7 @@ export async function denyPendingVolunteer(solutionId: string, volunteerId: stri
 
 export async function editSolution( solutionId: string, solution: CommentOrSolutionType) { 
   try {
-   const endpoint = formatEndpoint(ENDPOINTS.SOLUTION, {solutionId});
+   const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_EDIT, {solutionId});
 
    const response = await fetch(endpoint, {
      method: "PATCH",

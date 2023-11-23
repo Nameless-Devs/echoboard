@@ -13,6 +13,7 @@ export const ENDPOINTS = {
   UPDATE_SOLUTION_STATUS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}?updateToStage={status}`,
   VOLUNTEER_FOR_SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/volunteer`,
   SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}`,
+  SOLUTION_EDIT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/edit`,
   CHAT_HISTORY: `${process.env.NEXT_PUBLIC_API_BASE_URL}/chat/{chatRoomId}`,
   LOGIN: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,

@@ -47,8 +47,15 @@ public class CommentController {
 
     @DeleteMapping("{commentId}")
     @ResponseStatus(NO_CONTENT)
-    public EchoBoardCommentResponse deleteSolution(@PathVariable long commentId){
+    public EchoBoardCommentResponse deleteComment(@PathVariable long commentId){
         echoService.deleteComment(commentId);
         return echoService.getCommentById(commentId);
+    }
+
+    @PatchMapping("{commentId}")
+    @ResponseStatus(OK)
+    public EchoBoardCommentResponse editComment(@PathVariable long commentId,
+                                                @RequestBody EchoBoardComment comment){
+        return echoService.editComment(commentId, comment);
     }
 }

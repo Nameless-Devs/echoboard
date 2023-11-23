@@ -79,7 +79,7 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={echoBoard.id}
         handleDelete={handleDeletePost}
       />}
-      
+
       {solution && <DeleteConfirmationWindow
         open={isDeleteWindowOpen}
         handleClose={handleCloseDeleteWindow}
@@ -88,6 +88,16 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={solution.id}
         handleDelete={handleDeleteSolution}
       />}
+
+      {comment && <DeleteConfirmationWindow
+        open={isDeleteWindowOpen}
+        handleClose={handleCloseDeleteWindow}
+        contentType='comment'
+        content={comment.content}
+        id={comment.id}
+        handleDelete={handleDeleteComment}
+      />}
+
     </Box>
   );
 }

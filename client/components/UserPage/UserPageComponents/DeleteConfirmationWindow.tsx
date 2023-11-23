@@ -44,7 +44,6 @@ const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
             handleClose();
             queryClient.invalidateQueries(['userInfo']);
             queryClient.refetchQueries(['userInfo']);
-            console.log("I am here arter deleting")
         },
     });
 

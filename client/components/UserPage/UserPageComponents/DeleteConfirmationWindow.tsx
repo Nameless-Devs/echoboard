@@ -22,15 +22,21 @@ const style = {
 type DeleteConfirmationWindowProp = {
     open: boolean;
     handleClose: () => void;
-    echoBoard: EchoBoardResponseData;
+    contentType: string;
+    content: string;
+    id: string;
+    handleDelete: (id: string) => Promise<void>;
 }
 
 const DeleteConfirmationWindow: React.FC<DeleteConfirmationWindowProp> = ({
     open,
     handleClose,
-    echoBoard,
+    contentType,
+    content,
+    id,
+    handleDelete,
 }) => {
-    
+
     const queryClient = useQueryClient();
 
     const deleteEchoBoardMutation = useMutation(deleteEchoBoard, {

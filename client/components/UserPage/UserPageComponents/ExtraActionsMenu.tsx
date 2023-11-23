@@ -34,6 +34,10 @@ export default function ExtraActionsMenu( {echoBoard, comment, solution, onEdit}
     setIsEditWindowOpen(false);
   };
 
+  const handleDeletePost = async (id: string) => {
+    return deleteEchoBoard(id);
+  }
+
   return (
     <Box>
       <MenuButton onEdit={handleEdit} onDelete={handleDelete} />

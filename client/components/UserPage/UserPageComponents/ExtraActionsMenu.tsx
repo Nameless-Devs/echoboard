@@ -10,14 +10,14 @@ import { deleteEchoBoard, deleteSolution } from '@/service/Functions';
 
 type ExtraActionsMenuProps = {
   echoBoard?: EchoBoardResponseData;
-  comment?: CommentResponseData; 
+  comment?: CommentResponseData;
   solution?: SolutionResponseData;
   onEdit?: (id: string, data: CommentOrSolutionType) => Promise<Response>;
 }
 
-export default function ExtraActionsMenu( {echoBoard, comment, solution, onEdit}: ExtraActionsMenuProps) {
-  const [ isDeleteWindowOpen, setIsDeleteModalOpen ] = useState(false);
-  const [ isEditWindowOpen, setIsEditWindowOpen] = useState(false);
+export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit }: ExtraActionsMenuProps) {
+  const [isDeleteWindowOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditWindowOpen, setIsEditWindowOpen] = useState(false);
 
   const handleEdit = () => {
     setIsEditWindowOpen(true);
@@ -26,9 +26,9 @@ export default function ExtraActionsMenu( {echoBoard, comment, solution, onEdit}
   const handleDelete = () => {
     setIsDeleteModalOpen(true);
   };
- 
+
   const handleCloseDeleteWindow = () => {
-   setIsDeleteModalOpen(false);
+    setIsDeleteModalOpen(false);
   };
 
   const handleCloseEditWindow = () => {
@@ -47,28 +47,37 @@ export default function ExtraActionsMenu( {echoBoard, comment, solution, onEdit}
     <Box>
       <MenuButton onEdit={handleEdit} onDelete={handleDelete} />
       {echoBoard && <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />}
-      {comment && onEdit && <EditCommentOrSolutionWinfow 
-      open={isEditWindowOpen} 
-      handleClose={handleCloseEditWindow}
-      content={comment.content}
-      id={comment.id}
-      onEdit={onEdit}
+      {comment && onEdit && <EditCommentOrSolutionWinfow
+        open={isEditWindowOpen}
+        handleClose={handleCloseEditWindow}
+        content={comment.content}
+        id={comment.id}
+        onEdit={onEdit}
       />}
-      {solution && onEdit && <EditCommentOrSolutionWinfow 
-      open={isEditWindowOpen} 
-      handleClose={handleCloseEditWindow}
-      content={solution.content}
-      id={solution.id}
-      onEdit={onEdit}
+      {solution && onEdit && <EditCommentOrSolutionWinfow
+        open={isEditWindowOpen}
+        handleClose={handleCloseEditWindow}
+        content={solution.content}
+        id={solution.id}
+        onEdit={onEdit}
       />}
-      {echoBoard && <DeleteConfirmationWindow 
-      open={isDeleteWindowOpen}        
-      handleClose={handleCloseDeleteWindow}  
-      contentType='post' 
-      content={echoBoard.title}
-      id={echoBoard.id}
-      handleDelete={handleDeletePost}
-      /> }
+      {echoBoard && <DeleteConfirmationWindow
+        open={isDeleteWindowOpen}
+        handleClose={handleCloseDeleteWindow}
+        contentType='post'
+        content={echoBoard.title}
+        id={echoBoard.id}
+        handleDelete={handleDeletePost}
+      />}
+
+      {solution && <DeleteConfirmationWindow
+        open={isDeleteWindowOpen}
+        handleClose={handleCloseDeleteWindow}
+        contentType='solution'
+        content={solution.content}
+        id={solution.id}
+        handleDelete={handleDeleteSolution}
+      />}
     </Box>
   );
 }

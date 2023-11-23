@@ -6,6 +6,7 @@ import { EditPostWindow } from './EditPostWindow';
 import { Box } from '@mui/material';
 import MenuButton from './MenuButton';
 import { EditCommentOrSolutionWinfow } from './EditCommentOrSolutionWindow';
+import { deleteEchoBoard } from '@/service/Functions';
 
 type ExtraActionsMenuProps = {
   echoBoard?: EchoBoardResponseData;
@@ -56,7 +57,14 @@ export default function ExtraActionsMenu( {echoBoard, comment, solution, onEdit}
       id={solution.id}
       onEdit={onEdit}
       />}
-      {echoBoard && <DeleteConfirmationWindow open={isDeleteWindowOpen} handleClose={handleCloseDeleteWindow}  echoBoard={echoBoard}/> }
+      {echoBoard && <DeleteConfirmationWindow 
+      open={isDeleteWindowOpen}        
+      handleClose={handleCloseDeleteWindow}  
+      contentType='post' 
+      content={echoBoard.title}
+      id={echoBoard.id}
+      handleDelete={handleDeletePost}
+      /> }
     </Box>
   );
 }

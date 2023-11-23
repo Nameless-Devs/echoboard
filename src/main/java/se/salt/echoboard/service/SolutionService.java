@@ -141,4 +141,8 @@ public class SolutionService {
 
         return convertor.convertEntityToResponseDTO(solutionRepository.save(solutionToEdit));
     }
+
+    public void deleteSolution(long solutionId) {
+        solutionRepository.deleteById(solutionId);
+    }
 }

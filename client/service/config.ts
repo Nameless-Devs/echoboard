@@ -1,23 +1,28 @@
 export const ENDPOINTS = {
-  POST_ECHO: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes`,
-  UPVOTE_POST: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/upvote`,
-  UPVOTE_COMMENT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}/upvote`,
-  ECHO: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}`,
-  POST_COMMENT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/comments`,
-  POST_SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/solutions`,
-  UPVOTE_SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/upvote`,
+  ECHOBOARD: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}`,
+  ECHOBOARD_POST: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes`,
+  ECHOBOARD_UPVOTE: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/upvote`,
+  ECHOBOARD_DELETE: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}`,
+  ECHOBOARD_EDIT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/edit`,
   ECHOBOARD_BY_SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/echoboard`,
   ECHOBOARD_BY_COMMENT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}/echoboard`,
+
+  COMMENT_UPVOTE: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}/upvote`,
+  COMMENT_POST: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/comments`,
+
+  SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}`,
+  SOLUTION_EDIT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/edit`,
+  SOLUTION_POST: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/solutions`,
+  SOLUTION_UPVOTE: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/upvote`,
+  SOLUTION_UPDATE_STATUS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}?updateToStage={status}`,
+  SOLUTION_VOLUNTEER: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/volunteer`,
+
   USER: `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/info`,
   USER_CHATROOMS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/chatrooms`,
-  UPDATE_SOLUTION_STATUS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}?updateToStage={status}`,
-  VOLUNTEER_FOR_SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/volunteer`,
-  SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}`,
   CHAT_HISTORY: `${process.env.NEXT_PUBLIC_API_BASE_URL}/chat/{chatRoomId}`,
+
   LOGIN: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
-  DELETE_ECHOBOARD: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}`,
-  UPDATE_ECHOBOARD: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/edit`,
 };
 
 export const WEBSOCKET = { 

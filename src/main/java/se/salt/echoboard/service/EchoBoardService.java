@@ -166,4 +166,12 @@ public class EchoBoardService {
         echoBoard.getEchoBoardComments().remove(commentRepository.getCommentById(commentId).orElseThrow(() -> new CommentNotFoundException(commentId)));
         echoBoardRepository.save(echoBoard);
     }
+
+    public EchoBoardCommentResponse editComment(long commentId, EchoBoardComment comment) {
+        EchoBoardComment commentToEdit = commentRepository.getCommentById(commentId)
+                .map(e -> e.setContent(comment.getContent()))
+                .orElseThrow(() -> new SolutionNotFoundException(commentId));
+
+        return convertor.convertEntityToResponseDTO(commentRepository.save(commentToEdit));
+    }
 }

@@ -469,3 +469,25 @@ export async function editSolution( solutionId: string, solution: CommentOrSolut
    throw new Error("Fetch error: " + error);
  }
 }
+
+export async function deleteSolution(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION,
+      { solutionId });
+    const response = await fetch(endpoint, {
+      credentials: "include",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    });
+
+    if (response.status === 204) {
+      console.log('Solution deleted successfully');
+    } else {
+      console.error('Failed to delete solution with id ' + solutionId );
+    }
+  } catch (error) {
+    console.error('An error occurred while deleting the solution:', error);
+  }
+}

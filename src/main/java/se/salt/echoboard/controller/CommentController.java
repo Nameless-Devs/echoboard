@@ -9,8 +9,7 @@ import se.salt.echoboard.controller.dto.EchoBoardPreview;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.service.EchoBoardService;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("api/v1/comments")
@@ -44,5 +43,19 @@ public class CommentController {
     @ResponseStatus(OK)
     public EchoBoardPreview getEchoBoardByCommentId(@PathVariable long commentId){
         return echoService.getEchoBoardByCommentId(commentId);
+    }
+
+    @DeleteMapping("{commentId}")
+    @ResponseStatus(NO_CONTENT)
+    public EchoBoardCommentResponse deleteComment(@PathVariable long commentId){
+        echoService.deleteComment(commentId);
+        return echoService.getCommentById(commentId);
+    }
+
+    @PatchMapping("{commentId}")
+    @ResponseStatus(OK)
+    public EchoBoardCommentResponse editComment(@PathVariable long commentId,
+                                                @RequestBody EchoBoardComment comment){
+        return echoService.editComment(commentId, comment);
     }
 }

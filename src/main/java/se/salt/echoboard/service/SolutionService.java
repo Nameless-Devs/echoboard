@@ -143,8 +143,8 @@ public class SolutionService {
     }
 
     public void deleteSolution(long solutionId) {
-        EchoBoard echoBoard = echoBoardRepository.findByEchoBoardSolutions_Id(solutionId).orElseThrow(() -> new SolutionNotFoundException(solutionId));
-        echoBoard.getEchoBoardSolutions().remove(solutionRepository.getSolutionById(solutionId).orElseThrow());
+        EchoBoard echoBoard = echoBoardRepository.findByEchoBoardSolutions_Id(solutionId).orElseThrow(EchoBoardNotFoundException::new);
+        echoBoard.getEchoBoardSolutions().remove(solutionRepository.getSolutionById(solutionId).orElseThrow(() -> new SolutionNotFoundException(solutionId)));
         echoBoardRepository.save(echoBoard);
     }
 }

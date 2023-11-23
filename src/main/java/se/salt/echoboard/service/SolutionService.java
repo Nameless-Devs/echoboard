@@ -133,4 +133,12 @@ public class SolutionService {
         }
         return echoBoardSolution;
     }
+
+    public EchoBoardSolutionResponse updateSolution(long solutionId, EchoBoardSolution solution) {
+        EchoBoardSolution solutionToEdit = solutionRepository.getSolutionById(solutionId)
+                .map(e -> e.setContent(solution.getContent()))
+                .orElseThrow(() -> new SolutionNotFoundException(solutionId));
+
+        return convertor.convertEntityToResponseDTO(solutionRepository.save(solutionToEdit));
+    }
 }

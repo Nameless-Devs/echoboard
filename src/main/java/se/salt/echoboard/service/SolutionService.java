@@ -143,6 +143,8 @@ public class SolutionService {
     }
 
     public void deleteSolution(long solutionId) {
-        solutionRepository.deleteById(solutionId);
+        EchoBoard echoBoard = echoBoardRepository.findByEchoBoardSolutions_Id(solutionId).orElseThrow();
+        echoBoard.getEchoBoardSolutions().remove(solutionRepository.getSolutionById(solutionId).orElseThrow());
+        echoBoardRepository.save(echoBoard);
     }
 }

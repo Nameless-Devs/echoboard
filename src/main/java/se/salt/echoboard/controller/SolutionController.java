@@ -78,4 +78,10 @@ public class SolutionController {
         return solutionService.getEchoBoardBySolutionId(solutionId);
     }
 
+    @PatchMapping("{solutionId}/edit")
+    @ResponseStatus(OK)
+    public EchoBoardSolutionResponse editEchoBoard(@PathVariable long solutionId,
+                                           @RequestBody EchoBoardSolution solution){
+        return solutionService.updateSolution(solutionId, solution);
+    }
 }

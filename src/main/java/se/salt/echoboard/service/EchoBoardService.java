@@ -161,4 +161,9 @@ public class EchoBoardService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
+    public void deleteComment(long commentId) {
+        EchoBoard echoBoard = echoBoardJPARepository.findByEchoBoardComments_Id(commentId).orElseThrow(EchoBoardNotFoundException::new);
+        echoBoard.getEchoBoardComments().remove(commentRepository.getCommentById(commentId).orElseThrow(() -> new CommentNotFoundException(commentId)));
+        echoBoardRepository.save(echoBoard);
+    }
 }

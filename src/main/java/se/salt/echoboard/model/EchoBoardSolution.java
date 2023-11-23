@@ -90,6 +90,11 @@ public class EchoBoardSolution {
         return this;
     }
 
+    public EchoBoardSolution setContent(String content) {
+        this.content = content;
+        return this;
+    }
+
     @Getter
     public enum SolutionStatus {
         SOLUTION_IN_REVIEW,

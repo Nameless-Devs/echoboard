@@ -6,7 +6,7 @@ import { EditPostWindow } from './EditPostWindow';
 import { Box } from '@mui/material';
 import MenuButton from './MenuButton';
 import { EditCommentOrSolutionWinfow } from './EditCommentOrSolutionWindow';
-import { deleteEchoBoard } from '@/service/Functions';
+import { deleteEchoBoard, deleteSolution } from '@/service/Functions';
 
 type ExtraActionsMenuProps = {
   echoBoard?: EchoBoardResponseData;
@@ -37,6 +37,10 @@ export default function ExtraActionsMenu( {echoBoard, comment, solution, onEdit}
 
   const handleDeletePost = async (id: string) => {
     return deleteEchoBoard(id);
+  }
+
+  const handleDeleteSolution = async (id: string) => {
+    return deleteSolution(id);
   }
 
   return (

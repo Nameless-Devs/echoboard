@@ -6,7 +6,7 @@ import { EditPostWindow } from './EditPostWindow';
 import { Box } from '@mui/material';
 import MenuButton from './MenuButton';
 import { EditCommentOrSolutionWinfow } from './EditCommentOrSolutionWindow';
-import { deleteEchoBoard, deleteSolution } from '@/service/Functions';
+import { deleteComment, deleteEchoBoard, deleteSolution } from '@/service/Functions';
 
 type ExtraActionsMenuProps = {
   echoBoard?: EchoBoardResponseData;
@@ -43,10 +43,18 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
     return deleteSolution(id);
   }
 
+  const handleDeleteComment = async (id: string) => {
+    return deleteComment(id);
+  }
+
   return (
     <Box>
       <MenuButton onEdit={handleEdit} onDelete={handleDelete} />
-      {echoBoard && <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />}
+      {echoBoard && <EditPostWindow
+        open={isEditWindowOpen}
+        handleClose={handleCloseEditWindow}
+        echoBoard={echoBoard} />}
+
       {comment && onEdit && <EditCommentOrSolutionWinfow
         open={isEditWindowOpen}
         handleClose={handleCloseEditWindow}
@@ -54,6 +62,7 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={comment.id}
         onEdit={onEdit}
       />}
+
       {solution && onEdit && <EditCommentOrSolutionWinfow
         open={isEditWindowOpen}
         handleClose={handleCloseEditWindow}
@@ -61,6 +70,7 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={solution.id}
         onEdit={onEdit}
       />}
+
       {echoBoard && <DeleteConfirmationWindow
         open={isDeleteWindowOpen}
         handleClose={handleCloseDeleteWindow}
@@ -69,7 +79,7 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={echoBoard.id}
         handleDelete={handleDeletePost}
       />}
-      
+
       {solution && <DeleteConfirmationWindow
         open={isDeleteWindowOpen}
         handleClose={handleCloseDeleteWindow}
@@ -78,6 +88,16 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={solution.id}
         handleDelete={handleDeleteSolution}
       />}
+
+      {comment && <DeleteConfirmationWindow
+        open={isDeleteWindowOpen}
+        handleClose={handleCloseDeleteWindow}
+        contentType='comment'
+        content={comment.content}
+        id={comment.id}
+        handleDelete={handleDeleteComment}
+      />}
+
     </Box>
   );
 }

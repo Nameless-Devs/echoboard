@@ -514,3 +514,25 @@ export async function editComment( commentId: string, comment: CommentOrSolution
    throw new Error("Fetch error: " + error);
  }
 }
+
+export async function deleteComment(commentId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT,
+      { commentId });
+    const response = await fetch(endpoint, {
+      credentials: "include",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    });
+
+    if (response.status === 204) {
+      console.log('Comment deleted successfully');
+    } else {
+      console.error('Failed to delete comment with id ' + commentId );
+    }
+  } catch (error) {
+    console.error('An error occurred while deleting the comment:', error);
+  }
+}

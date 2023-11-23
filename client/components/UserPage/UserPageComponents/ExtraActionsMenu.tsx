@@ -46,7 +46,11 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
   return (
     <Box>
       <MenuButton onEdit={handleEdit} onDelete={handleDelete} />
-      {echoBoard && <EditPostWindow open={isEditWindowOpen} handleClose={handleCloseEditWindow} echoBoard={echoBoard} />}
+      {echoBoard && <EditPostWindow
+        open={isEditWindowOpen}
+        handleClose={handleCloseEditWindow}
+        echoBoard={echoBoard} />}
+
       {comment && onEdit && <EditCommentOrSolutionWinfow
         open={isEditWindowOpen}
         handleClose={handleCloseEditWindow}
@@ -54,6 +58,7 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={comment.id}
         onEdit={onEdit}
       />}
+
       {solution && onEdit && <EditCommentOrSolutionWinfow
         open={isEditWindowOpen}
         handleClose={handleCloseEditWindow}
@@ -61,6 +66,7 @@ export default function ExtraActionsMenu({ echoBoard, comment, solution, onEdit 
         id={solution.id}
         onEdit={onEdit}
       />}
+
       {echoBoard && <DeleteConfirmationWindow
         open={isDeleteWindowOpen}
         handleClose={handleCloseDeleteWindow}

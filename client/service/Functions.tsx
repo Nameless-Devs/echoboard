@@ -491,3 +491,26 @@ export async function deleteSolution(solutionId: string) {
     console.error('An error occurred while deleting the solution:', error);
   }
 }
+
+export async function editComment( commentId: string, comment: CommentOrSolutionType) { 
+  try {
+   const endpoint = formatEndpoint(ENDPOINTS.COMMENT, {commentId});
+
+   const response = await fetch(endpoint, {
+     method: "PATCH",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(comment),
+     credentials: "include",
+   });
+
+   if (response.ok) {
+     return response;
+   } else {
+     throw new Error(`HTTP Error! Status: ${response.status}`);
+   }
+ } catch (error) {
+   throw new Error("Fetch error: " + error);
+ }
+}

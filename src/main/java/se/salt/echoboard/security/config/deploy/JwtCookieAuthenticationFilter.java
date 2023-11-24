@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtException;
@@ -78,7 +78,9 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         SecurityContextHolder.getContext().setAuthentication(
-                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
+                new OAuth2AuthenticationToken(user, user.getAuthorities(), user.getAuthorizedParty()));
+//        System.out.println("_____" + user.getClaims());
+
     }
 
     private void handleJwtException(JwtException e, HttpServletResponse response) throws IOException {

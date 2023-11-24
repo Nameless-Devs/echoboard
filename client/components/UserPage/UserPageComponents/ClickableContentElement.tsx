@@ -1,8 +1,21 @@
 import { timeConverter } from '@/service/TimeConverter'
 import { Box, Grid, Typography, Button } from '@mui/material'
 import React from 'react'
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
-export const ClickableContentElement = () => {
+type ClickableContentElementProps = {
+    content: string;
+    created: string;
+    upvoteLength: number;
+    setIsOpen: ( isOpen: boolean) => void; 
+}
+
+export const ClickableContentElement: React.FC<ClickableContentElementProps> = ({ 
+    content,
+    created,
+    upvoteLength,
+    setIsOpen
+}) => {
   return (
     <Box sx={{
         width: '100%',
@@ -17,12 +30,12 @@ export const ClickableContentElement = () => {
         onClick={() => setIsOpen(true)} >
         <Grid item xs={12} >
             <Typography variant="body1" color="textPrimary" sx={{ margin: "0.5rem 2rem 0.5rem 0" }}>
-                {solution.content}
+                {content}
             </Typography>
         </Grid>
         <Grid item xs={12} sx={{ marginTop: "-0.4rem" }}>
             <Typography variant="caption" color="textSecondary">
-                {timeConverter(solution.created)}
+                {timeConverter(created)}
             </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -32,7 +45,7 @@ export const ClickableContentElement = () => {
                 margin: "0.5rem 0 1rem 0",
                 '&:hover': { backgroundColor: 'transparent' },
             }}>
-                <ThumbUpIcon /> {solution.upvote.length}
+                <ThumbUpIcon /> {upvoteLength}
             </Button >
         </Grid>
     </Box>

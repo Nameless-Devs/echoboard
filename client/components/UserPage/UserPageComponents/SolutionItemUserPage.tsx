@@ -9,6 +9,8 @@ import { EchoBoardPreviewDisplay } from './EchoBoardPreviewDisplay';
 import CommentModal from '@/components/CommentModal/CommentModal';
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ExtraActionsMenu from './ExtraActionsMenu';
+import { ClickableContentElement } from './ClickableContentElement';
+import { Solitreo } from 'next/font/google';
 
 
 type SolutionItemProps = {
@@ -59,9 +61,9 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                 }}
 
             >
-                <Box sx={{ display: "flex", justifyContent: "space-between", width: '100%'}}>
-                    <Box sx={{ marginLeft: 'auto', width: '100%'}}> 
-                    <EchoBoardPreviewDisplay isLoading={previewLoading} data={echoBoardPreview} />
+                <Box sx={{ display: "flex", justifyContent: "space-between", width: '100%' }}>
+                    <Box sx={{ marginLeft: 'auto', width: '100%' }}>
+                        <EchoBoardPreviewDisplay isLoading={previewLoading} data={echoBoardPreview} />
                     </Box>
                     <ExtraActionsMenu solution={solution} onEdit={editSolution} />
                 </Box>
@@ -70,38 +72,11 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, on
                         <SolutionStatusBadge status={solution.status} solutionId={solution.id} />
                     </Box>
                 </Grid>
-                <Box sx={{
-                    width: '100%',
-                    cursor: 'pointer',
-                    borderRadius: '0.5rem',
-                    transition: 'box-shadow 0.3s',
-                    padding: "0 0.5rem",
-                    '&:hover': {
-                        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;',
-                    },
-                }}
-                    onClick={() => setIsOpen(true)} >
-                    <Grid item xs={12} >
-                        <Typography variant="body1" color="textPrimary" sx={{ margin: "0.5rem 2rem 0.5rem 0" }}>
-                            {solution.content}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ marginTop: "-0.4rem" }}>
-                        <Typography variant="caption" color="textSecondary">
-                            {timeConverter(solution.created)}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button sx={{
-                            padding: 0,
-                            minWidth: 0,
-                            margin: "0.5rem 0 1rem 0",
-                            '&:hover': { backgroundColor: 'transparent' },
-                        }}>
-                            <ThumbUpIcon /> {solution.upvote.length}
-                        </Button >
-                    </Grid>
-                </Box>
+                <ClickableContentElement
+                    content={solution.content}
+                    created={solution.created}
+                    upvoteLength={solution.upvote.length}
+                    setIsOpen={setIsOpen} />
             </Grid>
             {echoBoardExtended && <CommentModal
                 post={echoBoardExtended}

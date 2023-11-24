@@ -1,9 +1,6 @@
-import UpvoteButton from "@/components/UpvoteButton"
-import { useUpvote } from "@/hooks/useUpvote"
 import { editComment, fetchEchoBoardByCommentId, fetchEchoBoardById } from "@/service/Functions"
-import { timeConverter } from "@/service/TimeConverter"
-import { CommentResponseData, EchoBoardPreviewResponseData, EchoBoardResponseData } from "@/service/Types"
-import { ListItem, Avatar, Typography, Box, Grid, Skeleton } from "@mui/material"
+import { CommentResponseData, EchoBoardPreviewResponseData, EchoBoardResponseData, UserResponseData } from "@/service/Types"
+import { ListItem, Box, Grid } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import { EchoBoardPreviewDisplay } from "./EchoBoardPreviewDisplay"
 import ExtraActionsMenu from "./ExtraActionsMenu"
@@ -11,10 +8,11 @@ import { useState } from "react"
 import { ClickableContentElement } from "./ClickableContentElement"
 
 type CommentItemProps = {
-    comment: CommentResponseData,
+    comment: CommentResponseData;
+    user: UserResponseData;
 }
 
-export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment }) => {
+export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, user }) => {
     const [isOpen, setIsOpen] = useState(false);
     const defaultTabIndex = 0;
 
@@ -38,6 +36,10 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment }) => 
             enabled: !!echoBoardPreview?.id,
         }
     );
+
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
 
     return (

@@ -6,6 +6,7 @@ import { EchoBoardPreviewDisplay } from "./EchoBoardPreviewDisplay"
 import ExtraActionsMenu from "./ExtraActionsMenu"
 import { useState } from "react"
 import { ClickableContentElement } from "./ClickableContentElement"
+import CommentModal from "@/components/CommentModal/CommentModal"
 
 type CommentItemProps = {
     comment: CommentResponseData;
@@ -64,6 +65,13 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, user 
                     upvoteLength={comment.upvote.length}
                     setIsOpen={setIsOpen} />
             </Grid>
+            {echoBoardExtended && <CommentModal
+                post={echoBoardExtended}
+                handleClose={handleClose}
+                isOpen={isOpen}
+                user={user}
+                defaultTabIndex={defaultTabIndex}
+            />}
         </ListItem>
     )
 }

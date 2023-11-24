@@ -1,8 +1,8 @@
 import UpvoteButton from "@/components/UpvoteButton"
 import { useUpvote } from "@/hooks/useUpvote"
-import { editComment, fetchEchoBoardByCommentId } from "@/service/Functions"
+import { editComment, fetchEchoBoardByCommentId, fetchEchoBoardById } from "@/service/Functions"
 import { timeConverter } from "@/service/TimeConverter"
-import { CommentResponseData, EchoBoardPreviewResponseData } from "@/service/Types"
+import { CommentResponseData, EchoBoardPreviewResponseData, EchoBoardResponseData } from "@/service/Types"
 import { ListItem, Avatar, Typography, Box, Grid, Skeleton } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import { EchoBoardPreviewDisplay } from "./EchoBoardPreviewDisplay"
@@ -16,6 +16,7 @@ type CommentItemProps = {
 
 export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const defaultTabIndex = 0;
 
     const { data: echoBoardPreview, isLoading: previewLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
         ["echoBoards", comment.id],
@@ -24,7 +25,20 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment }) => 
         }
     );
 
-    const upvoteMutation = useUpvote(echoBoardPreview ? echoBoardPreview.id : '');
+    const {
+        data: echoBoardExtended,
+        isLoading: extendedLoading,
+        isError: extendedError,
+    } = useQuery<EchoBoardResponseData>(
+        ["echoBoards", echoBoardPreview?.id],
+        async () => {
+            return await fetchEchoBoardById(echoBoardPreview?.id || '');
+        },
+        {
+            enabled: !!echoBoardPreview?.id,
+        }
+    );
+
 
     return (
         <ListItem sx={{ padding: 0 }}>

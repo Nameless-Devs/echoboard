@@ -23,8 +23,7 @@ public class SecurityConfiguration {
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     private final JwtCookieAuthenticationFilter jwtCookieAuthenticationFilter;
-    @Value("${frontend-details.base-url}")
-    private String baseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {

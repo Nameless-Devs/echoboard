@@ -36,9 +36,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
 
 
     private final EchoBoardUserRepository repository;
-
-    @Value("${frontend-details.base-url}")
-    private String frontendBaseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,

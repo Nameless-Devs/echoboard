@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import se.salt.echoboard.multitenancy.context.TenantContext;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static se.salt.echoboard.multitenancy.context.TenantContext.DEFAULT_TENANT_ID;
@@ -15,16 +16,22 @@ import static se.salt.echoboard.multitenancy.context.TenantContext.DEFAULT_TENAN
 
 @Component
 public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
-        , HibernatePropertiesCustomizer
-{
+        , HibernatePropertiesCustomizer {
+
+    private final Map<String, String> tenantMap;
+
+    //TODO: The maå should be replaced by a database
+    public TenantIdentifierResolver() {
+        tenantMap = new HashMap<>();
+        tenantMap.put("google", "google");
+        tenantMap.put("salt", "salt");
+    }
+
 
     @Override @NonNull
     public String resolveCurrentTenantIdentifier() {
         String tenantId = TenantContext.getTenantId();
-        if (tenantId != null) {
-            return tenantId;
-        }
-        return DEFAULT_TENANT_ID;
+        return tenantMap.getOrDefault(tenantId, DEFAULT_TENANT_ID);
     }
 
     @Override

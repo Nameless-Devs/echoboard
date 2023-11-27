@@ -1,13 +1,10 @@
-server:
-  forward-headers-strategy: native
-  port: 8080
 spring:
   config:
     import: optional:secrets.yml
   datasource:
-    url: ${DATABASE_URL_DEV2}
-    username: ${DATABASE_USER2}
-    password: ${DATABASE_PASSWORD2}
+    url: ${DATABASE_URL_DEV1}
+    username: ${DATABASE_USER1}
+    password: ${DATABASE_PASSWORD1}
   jpa:
     hibernate:
       ddl-auto: none
@@ -23,14 +20,13 @@ frontend-details:
 logging:
   level:
     org:
-      springframework:
+#      springframework: info
 #        security: TRACE
-        messaging: INFO
+#        messaging: DEBUG
 #        http: DEBUG
       hibernate:
-        sql: INFO
-#        type:
-#          descriptor:
-#            sql:
-#              BasicBinder:
-#                TRACE
+        SQL: TRACE
+        type:
+        descriptor:
+          sql:
+          BasicBinder: TRACE

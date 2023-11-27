@@ -73,7 +73,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((solution, index) => {
                     return (
-                        <SolutionItemUserPage key={index} solution={solution} onUpvote={onUpvote} />
+                        <SolutionItemUserPage key={index} solution={solution} onUpvote={onUpvote} user={user} />
                     );
                   })
               )}
@@ -91,7 +91,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((comment, index) => {
                     return (
-                      <CommentItemUserPage key={index} comment={comment}/>
+                      <CommentItemUserPage key={index} comment={comment} user={user} />
                     );
                   })
                    )

@@ -51,4 +51,8 @@ public class EchoBoardComment {
         this.upvote.add(userSubject);
         return this;
     }
+    public EchoBoardComment setContent(String content) {
+        this.content = content;
+        return this;
+    }
 }

@@ -161,4 +161,17 @@ public class EchoBoardService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
+    public void deleteComment(long commentId) {
+        EchoBoard echoBoard = echoBoardJPARepository.findByEchoBoardComments_Id(commentId).orElseThrow(EchoBoardNotFoundException::new);
+        echoBoard.getEchoBoardComments().remove(commentRepository.getCommentById(commentId).orElseThrow(() -> new CommentNotFoundException(commentId)));
+        echoBoardRepository.save(echoBoard);
+    }
+
+    public EchoBoardCommentResponse editComment(long commentId, EchoBoardComment comment) {
+        EchoBoardComment commentToEdit = commentRepository.getCommentById(commentId)
+                .map(e -> e.setContent(comment.getContent()))
+                .orElseThrow(() -> new SolutionNotFoundException(commentId));
+
+        return convertor.convertEntityToResponseDTO(commentRepository.save(commentToEdit));
+    }
 }

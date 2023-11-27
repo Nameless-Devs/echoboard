@@ -10,6 +10,11 @@ export type EchoBoardUser = {
   picture: string;
 }
 
+export type CommentOrSolutionType = {
+  id: string;
+  content: string;
+}
+
 export type EchoBoardResponseData = {
   id: string;
   title: string;

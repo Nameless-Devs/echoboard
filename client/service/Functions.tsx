@@ -9,13 +9,14 @@ import {
   Message,
   EchoBoardPreviewResponseData,
   SolutionVolunteersResponseData,
+  CommentOrSolutionType,
 } from "./Types";
 
 export async function postEcho(
   problemPostToSend: PostEchoBoardData,
 ) {
   try {
-    const response = await fetch(ENDPOINTS.POST_ECHO, {
+    const response = await fetch(ENDPOINTS.ECHOBOARD_POST, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +38,7 @@ export async function postEcho(
 export async function fetchEchoBoards(
 ): Promise<EchoBoardResponseData[]> {
   try {
-    const response = await fetch(ENDPOINTS.POST_ECHO, {
+    const response = await fetch(ENDPOINTS.ECHOBOARD_POST, {
       credentials: "include",
     });
     if (!response.ok) {
@@ -52,7 +53,7 @@ export async function fetchEchoBoards(
 
 export async function upvotePost(echoBoardId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_POST, { echoBoardId });
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_UPVOTE, { echoBoardId });
 
     const response = await fetch(endpoint, {
       method: "PATCH",
@@ -77,7 +78,7 @@ export async function upvoteComment(
   commentId: string,
 ) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_COMMENT, {
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_UPVOTE, {
       echoBoardId,
       commentId,
     });
@@ -103,7 +104,7 @@ export async function upvoteComment(
 
 export async function fetchEchoBoardById(echoBoardId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.ECHO, { echoBoardId });
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD, { echoBoardId });
 
     const response = await fetch(endpoint, {
       credentials: "include",
@@ -123,7 +124,7 @@ export async function postComment(
   echoBoardId: string,
 ) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.POST_COMMENT, { echoBoardId });
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST, { echoBoardId });
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -147,7 +148,7 @@ export async function postSolution(
   echoBoardId: string,
 ) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.POST_SOLUTION, { echoBoardId });
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_POST, { echoBoardId });
 
     const response = await fetch(endpoint, {
       method: "POST",
@@ -172,7 +173,7 @@ export async function upvoteSolution(
   solutionId: string,
 ) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.UPVOTE_SOLUTION, {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_UPVOTE, {
       echoBoardId,
       solutionId,
     });
@@ -224,7 +225,7 @@ export async function getUserChatRooms(): Promise<number[]> {
 
 export async function changeSolutionStatus(solutionId: string, status: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.UPDATE_SOLUTION_STATUS, {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_UPDATE_STATUS, {
       solutionId,
       status,
     });
@@ -249,7 +250,7 @@ export async function changeSolutionStatus(solutionId: string, status: string) {
 
 export async function volunteerForSolution(solutionId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, { solutionId });
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, { solutionId });
 
     const response = await fetch(endpoint, {
       method: "POST",
@@ -288,7 +289,7 @@ export async function fetchChatRoomHistory(chatRoomId: number): Promise<Message[
 
 export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.DELETE_ECHOBOARD,
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_DELETE,
       { echoBoardId });
     const response = await fetch(endpoint, {
       credentials: "include",
@@ -310,7 +311,7 @@ export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
 
 export async function editEchoBoard( echoBoardId: string, echoBoard: EchoBoardResponseData) { 
    try {
-    const endpoint = formatEndpoint(ENDPOINTS.UPDATE_ECHOBOARD, {echoBoardId});
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_EDIT, {echoBoardId});
 
     const response = await fetch(endpoint, {
       method: "PATCH",
@@ -333,7 +334,7 @@ export async function editEchoBoard( echoBoardId: string, echoBoard: EchoBoardRe
 
 export async function getAllPendingVolunteers(solutionId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, { solutionId });
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, { solutionId });
 
     const response = await fetch(endpoint, {
       credentials: "include",
@@ -402,7 +403,7 @@ export async function fetchEchoBoardByCommentId(commentId: string) {
 
 export async function acceptPendingVolunteer(solutionId: string, volunteerId: string) { 
   try {
-   const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, {solutionId});
+   const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {solutionId});
 
    const response = await fetch(endpoint, {
      method: "PATCH",
@@ -426,7 +427,7 @@ export async function acceptPendingVolunteer(solutionId: string, volunteerId: st
 
 export async function denyPendingVolunteer(solutionId: string, volunteerId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.VOLUNTEER_FOR_SOLUTION, {solutionId});
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {solutionId});
     const response = await fetch(endpoint, {
       method: 'DELETE',
       headers: {
@@ -443,5 +444,95 @@ export async function denyPendingVolunteer(solutionId: string, volunteerId: stri
     }
   } catch (error) {
     console.error('An error occurred while deleting volunteer:', error);
+  }
+}
+
+export async function editSolution( solutionId: string, solution: CommentOrSolutionType) { 
+  try {
+   const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_EDIT, {solutionId});
+
+   const response = await fetch(endpoint, {
+     method: "PATCH",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(solution),
+     credentials: "include",
+   });
+
+   if (response.ok) {
+     return response;
+   } else {
+     throw new Error(`HTTP Error! Status: ${response.status}`);
+   }
+ } catch (error) {
+   throw new Error("Fetch error: " + error);
+ }
+}
+
+export async function deleteSolution(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION,
+      { solutionId });
+    const response = await fetch(endpoint, {
+      credentials: "include",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    });
+
+    if (response.status === 204) {
+      console.log('Solution deleted successfully');
+    } else {
+      console.error('Failed to delete solution with id ' + solutionId );
+    }
+  } catch (error) {
+    console.error('An error occurred while deleting the solution:', error);
+  }
+}
+
+export async function editComment( commentId: string, comment: CommentOrSolutionType) { 
+  try {
+   const endpoint = formatEndpoint(ENDPOINTS.COMMENT, {commentId});
+
+   const response = await fetch(endpoint, {
+     method: "PATCH",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(comment),
+     credentials: "include",
+   });
+
+   if (response.ok) {
+     return response;
+   } else {
+     throw new Error(`HTTP Error! Status: ${response.status}`);
+   }
+ } catch (error) {
+   throw new Error("Fetch error: " + error);
+ }
+}
+
+export async function deleteComment(commentId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT,
+      { commentId });
+    const response = await fetch(endpoint, {
+      credentials: "include",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    });
+
+    if (response.status === 204) {
+      console.log('Comment deleted successfully');
+    } else {
+      console.error('Failed to delete comment with id ' + commentId );
+    }
+  } catch (error) {
+    console.error('An error occurred while deleting the comment:', error);
   }
 }

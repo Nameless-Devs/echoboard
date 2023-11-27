@@ -4,10 +4,16 @@ import { ListItem, Grid, Box } from '@mui/material'
 import React from 'react'
 import { EchoBoardPreviewDisplay } from './EchoBoardPreviewDisplay'
 import { useQuery } from '@tanstack/react-query'
-import { EchoBoardPreviewResponseData } from '@/service/Types'
+import { EchoBoardPreviewResponseData, SolutionResponseData } from '@/service/Types'
+
+type VolunteeringTabPendingSolutionProp = {
+    solution: SolutionResponseData;
+ }
 
 
-export const VolunteeringTabPendingSolution = () => {
+export const VolunteeringTabPendingSolution: React.FC<VolunteeringTabPendingSolutionProp> = ({
+    solution
+}) => {
 
     const {
         data: echoBoardPreview,

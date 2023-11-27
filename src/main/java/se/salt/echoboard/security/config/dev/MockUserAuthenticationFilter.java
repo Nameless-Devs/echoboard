@@ -46,7 +46,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
         var jwtTokenString = getJwtTokenFromRequestCookie(request);
 
         if (request.getRequestURI().endsWith("/login")){
-            response.sendRedirect(frontendBaseUrl);
+            response.sendRedirect(websiteProperties.frontend());
             return;
         }
 

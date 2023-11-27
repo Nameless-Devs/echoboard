@@ -8,7 +8,6 @@ import lombok.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-
 import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_IN_REVIEW;
 
 
@@ -53,7 +52,7 @@ public class EchoBoardSolution {
     @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     @JsonIgnoreProperties({"messages"})
-    private se.salt.echoboard.model.ChatRoom chatRoom;
+    private ChatRoom chatRoom;
 
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);

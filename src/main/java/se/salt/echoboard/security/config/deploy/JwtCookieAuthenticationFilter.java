@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import se.salt.echoboard.security.config.JwtValidation;
+import se.salt.echoboard.security.config.WebsiteProperties;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
@@ -32,8 +33,7 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtValidation validation;
     private final EchoBoardUserRepository userRepository;
-    @Value("${backend-details.base-url}")
-    private String baseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -74,7 +74,7 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
             (OidcUser user, HttpServletResponse response) throws IOException {
         var echoBoardUser = userRepository.getUserBySubject(user.getSubject());
         if (echoBoardUser.isEmpty()) {
-            response.sendRedirect(baseUrl + "login");
+            response.sendRedirect(websiteProperties.backend() + "login");
             return;
         }
         SecurityContextHolder.getContext().setAuthentication(
@@ -85,6 +85,6 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
     private void handleJwtException(JwtException e, HttpServletResponse response) throws IOException {
         log.error("Failed to validate JWT token: {}", e.getMessage());
-        response.sendRedirect(baseUrl + "login");
+        response.sendRedirect(websiteProperties.backend() + "login");
     }
 }

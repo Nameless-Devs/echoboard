@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JPAEchoBoardRepository extends JpaRepository<EchoBoard, Long> {
-    @Query("select e from EchoBoard e order by e.created DESC")
+
     List<EchoBoard> findByOrderByCreatedDesc(Pageable pageable);
 
     Optional<EchoBoard> findByEchoBoardSolutions_Id(long id);

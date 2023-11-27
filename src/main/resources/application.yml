@@ -24,7 +24,6 @@ spring:
     properties:
       hibernate:
         multiTenancy: SCHEMA
-        tenant_identifier_resolver: se.salt.echoboard.multitenancy.data.hibernate.TenantIdentifierResolver
     hibernate:
       ddl-auto: update
     show-sql: false

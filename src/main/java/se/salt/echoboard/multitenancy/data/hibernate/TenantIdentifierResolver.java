@@ -1,17 +1,21 @@
 package se.salt.echoboard.multitenancy.data.hibernate;
 
 
+import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import se.salt.echoboard.multitenancy.context.TenantContext;
+
+import java.util.Map;
 
 import static se.salt.echoboard.multitenancy.context.TenantContext.DEFAULT_TENANT_ID;
 
 
 @Component
 public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
-//        , HibernatePropertiesCustomizer
+        , HibernatePropertiesCustomizer
 {
 
     @Override @NonNull
@@ -28,8 +32,8 @@ public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
         return false;
     }
 
-//    @Override
-//    public void customize(Map<String, Object> hibernateProperties) {
-//        hibernateProperties.put(AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER, this);
-//    }
+    @Override
+    public void customize(Map<String, Object> hibernateProperties) {
+        hibernateProperties.put(AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER, this);
+    }
 }

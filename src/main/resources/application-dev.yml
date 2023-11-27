@@ -12,7 +12,6 @@ spring:
     properties:
       hibernate:
         multiTenancy: SCHEMA
-        tenant_identifier_resolver: se.salt.echoboard.multitenancy.data.hibernate.TenantIdentifierResolver
 logging:
   level:
     org:
@@ -26,3 +25,7 @@ logging:
         descriptor:
           sql:
           BasicBinder: TRACE
+website:
+  base-url:
+    backend: http://localhost:8080/
+    frontend: http://localhost:3000/

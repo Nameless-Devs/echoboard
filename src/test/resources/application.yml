@@ -12,7 +12,6 @@ spring:
     properties:
       hibernate:
         multiTenancy: SCHEMA
-        tenant_identifier_resolver: se.salt.echoboard.multitenancy.data.hibernate.TenantIdentifierResolver
     hibernate:
       ddl-auto: create
     show-sql: true
@@ -22,7 +21,7 @@ spring:
       mode: always
   profiles:
     default: test
-frontend-details:
-  base-url: http://localhost:3000
-backend-details:
-  base-url: http://localhost:8080
+website:
+  base-url:
+    backend: http://localhost:8080/
+    frontend: http://localhost:3000/

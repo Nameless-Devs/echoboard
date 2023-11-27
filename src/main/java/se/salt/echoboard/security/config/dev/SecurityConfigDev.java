@@ -23,8 +23,7 @@ public class SecurityConfigDev {
 
     private final MockUserAuthenticationFilter mockUserAuthenticationFilter;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
-    @Value("${frontend-details.base-url}")
-    private String baseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Bean
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import se.salt.echoboard.TestContainersConfig;
 import se.salt.echoboard.controller.dto.DTOConvertor;
 import se.salt.echoboard.controller.dto.EchoBoardResponse;
 import se.salt.echoboard.exception.custom.UserNotFoundException;
@@ -19,6 +21,7 @@ import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 @SpringBootTest
+@Import(TestContainersConfig.class)
 public class EchoBoardServiceTest {
 
     @InjectMocks

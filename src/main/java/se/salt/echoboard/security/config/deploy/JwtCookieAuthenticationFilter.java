@@ -64,14 +64,13 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
         try {
             Jwt jwt = validation.validateJWTString(jwtTokenString);
             OidcUser user = createOidcUserFromJwt(jwt);
-            redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated(user, response);
+            handleAuthenticatedRequest(user, response);
         } catch (JwtException e) {
             handleJwtException(e, response);
         }
     }
 
-    private void redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated
-            (OidcUser user, HttpServletResponse response) throws IOException {
+    private void handleAuthenticatedRequest(OidcUser user, HttpServletResponse response) throws IOException {
         var echoBoardUser = userRepository.getUserBySubject(user.getSubject());
         if (echoBoardUser.isEmpty()) {
             response.sendRedirect(websiteProperties.backend() + "login");
@@ -79,8 +78,6 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
         }
         SecurityContextHolder.getContext().setAuthentication(
                 new OAuth2AuthenticationToken(user, user.getAuthorities(), user.getAuthorizedParty()));
-//        System.out.println("_____" + user.getClaims());
-
     }
 
     private void handleJwtException(JwtException e, HttpServletResponse response) throws IOException {

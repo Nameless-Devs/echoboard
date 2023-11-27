@@ -53,7 +53,7 @@ public class EchoBoardSolution {
     @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     @JsonIgnoreProperties({"messages"})
-    private ChatRoom chatRoom;
+    private se.salt.echoboard.model.ChatRoom chatRoom;
 
     public EchoBoardSolution addUpvote(String userSubject) {
         this.upvote.add(userSubject);
@@ -85,7 +85,7 @@ public class EchoBoardSolution {
         return this;
     }
 
-    public EchoBoardSolution setChatRoom(ChatRoom chatRoom) {
+    public EchoBoardSolution setChatRoom(se.salt.echoboard.model.ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
         return this;
     }

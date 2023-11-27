@@ -130,7 +130,8 @@ public class EchoBoardService {
                 .orElseThrow(UserNotFoundException::new);
         return some.getVolunteeredSolutions().stream()
                 .map(EchoBoardSolution::getChatRoom)
-                .map(ChatRoom::getId).toList();
+                .map(ChatRoom::getId)
+                .toList();
     }
 
     public EchoBoardResponse updateEcho(long echoId, EchoBoard echoBoard) {

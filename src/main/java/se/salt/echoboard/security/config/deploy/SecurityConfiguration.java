@@ -23,6 +23,7 @@ public class SecurityConfiguration {
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     private final JwtCookieAuthenticationFilter jwtCookieAuthenticationFilter;
+    private final TenantFilter tenantFilter;
     private final WebsiteProperties websiteProperties;
 
     @Bean
@@ -37,9 +38,10 @@ public class SecurityConfiguration {
                                 .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .cors(withEchoBoardDefaults(baseUrl))
+                .cors(withEchoBoardDefaults(websiteProperties.frontend()))
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler))
+                .addFilterBefore(tenantFilter, OAuth2AuthorizationRequestRedirectFilter.class)
                 .addFilterBefore(jwtCookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout.logoutSuccessHandler(customLogoutSuccessHandler)
                         .deleteCookies("JwtToken"))

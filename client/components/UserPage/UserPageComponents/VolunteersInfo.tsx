@@ -31,8 +31,8 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
 
     useEffect(() => {
         if (solutionVolunteers) {
-            setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0 
-                &&  solutionVolunteers.volunteers.length === 0  );
+            setIsDisabled(solutionVolunteers.pendingVolunteers === null || solutionVolunteers.pendingVolunteers.length === 0
+                && solutionVolunteers.volunteers.length === 0);
         }
     }, [solutionVolunteers]);
 
@@ -53,23 +53,25 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
                         }}>
                         {solutionVolunteers ? (
                             <Typography>
-                                Pending volunteers: {solutionVolunteers.pendingVolunteers.length}, Accepted volunteers: {solutionVolunteers.volunteers.length}
+                                Pending volunteers: {solutionVolunteers.pendingVolunteers ? solutionVolunteers.pendingVolunteers.length : 0},
+                                Accepted volunteers: {solutionVolunteers.volunteers ? solutionVolunteers.volunteers.length : 0}
                             </Typography>
-                        ) : (
-                            <Skeleton variant="rectangular" width={210} height={30} />
+                ) : (
+                <Skeleton variant="rectangular" width={210} height={30} />
                         )}
-                        <Button disabled={isDisabled} variant="outlined" onClick={handleOpen}>MANAGE</Button>
-                    </Box>
+                <Button disabled={isDisabled} variant="outlined" onClick={handleOpen}>MANAGE</Button>
+            </Box>
                 )}
-            </Grid>
-            {solutionVolunteers && 
-            <AcceptingVolunteersWindow 
-            open={isOpen} 
-            onClose={handleClose} 
-            pendingVolunteers={solutionVolunteers.pendingVolunteers} 
-            volunteers={solutionVolunteers.volunteers} 
-            solutionId={solution.id}
-            />}
+        </Grid >
+            { solutionVolunteers &&
+            <AcceptingVolunteersWindow
+                open={isOpen}
+                onClose={handleClose}
+                pendingVolunteers={solutionVolunteers.pendingVolunteers}
+                volunteers={solutionVolunteers.volunteers}
+                solutionId={solution.id}
+            />
+}
         </>
     )
 }

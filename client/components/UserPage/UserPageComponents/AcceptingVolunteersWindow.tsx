@@ -37,7 +37,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                 }}
             >
                 <Typography variant='h6'>Pending volunteers:</Typography>
-                {pendingVolunteers && Array.isArray(pendingVolunteers) && pendingVolunteers.length === 0 ? (
+                {pendingVolunteers && Array.isArray(pendingVolunteers) && pendingVolunteers.length === 0 && pendingVolunteers !== undefined ? (
                     <Typography textAlign={'center'}>You have no pending volunteers</Typography>
                 ) : (
                     pendingVolunteers.map((volunteer, index) =>

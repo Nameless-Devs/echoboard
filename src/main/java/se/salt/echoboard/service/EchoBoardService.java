@@ -125,12 +125,11 @@ public class EchoBoardService {
         return convertor.convertEntityToResponseDTO(saveComment(echoBoardComment, userSubject));
     }
 
-    public List<Long> getChatRoomIds(String echoBoardUserId) {
+    public List<ChatRoom> getChatRooms(String echoBoardUserId) {
         var some = userRepository.getUserBySubject(echoBoardUserId)
                 .orElseThrow(UserNotFoundException::new);
         return some.getVolunteeredSolutions().stream()
                 .map(EchoBoardSolution::getChatRoom)
-                .map(ChatRoom::getId)
                 .toList();
     }
 

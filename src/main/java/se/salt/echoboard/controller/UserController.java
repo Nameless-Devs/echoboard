@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import se.salt.echoboard.controller.dto.EchoBoardUserInfo;
 import se.salt.echoboard.controller.dto.EchoBoardUserResponse;
+import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.service.EchoBoardService;
 
 import java.util.List;
@@ -37,8 +38,8 @@ public class UserController {
 
     @GetMapping("/chatrooms")
     @ResponseStatus(OK)
-    public List<Long> getUserChatRooms (@AuthenticationPrincipal OidcUser user) {
-        return echoBoardService.getChatRoomIds(user.getSubject());
+    public List<ChatRoom> getUserChatRooms (@AuthenticationPrincipal OidcUser user) {
+        return echoBoardService.getChatRooms(user.getSubject());
     }
 
 }

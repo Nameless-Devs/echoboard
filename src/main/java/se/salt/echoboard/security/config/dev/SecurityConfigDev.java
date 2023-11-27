@@ -23,6 +23,7 @@ public class SecurityConfigDev {
 
     private final MockUserAuthenticationFilter mockUserAuthenticationFilter;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    private final TenantFilter tenantFilter;
     private final WebsiteProperties websiteProperties;
 
     @Bean
@@ -34,7 +35,8 @@ public class SecurityConfigDev {
                         .requestMatchers("error").permitAll()
                         .anyRequest().authenticated())
                 .csrf(CsrfConfigurer::disable)
-                .cors(withEchoBoardDefaults(baseUrl))
+                .cors(withEchoBoardDefaults(websiteProperties.frontend()))
+                .addFilterBefore(tenantFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(mockUserAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout.logoutSuccessHandler(customLogoutSuccessHandler))
                 .build();

@@ -1,6 +1,15 @@
+import { SolutionResponseData } from '@/service/Types'
 import React from 'react'
 
-export const VolunteringTab = () => {
+type VolunteeringTabProps = {
+    pendingVolunteeredSolutions: SolutionResponseData[];
+    volunteeredSolutions: SolutionResponseData[];
+}
+
+export const VolunteringTab: React.FC<VolunteeringTabProps> = ({
+    pendingVolunteeredSolutions, 
+    volunteeredSolutions,
+}) => {
   return (
     <div>VolunteringTab</div>
   )

@@ -45,3 +45,6 @@ logging:
         security: DEBUG
       hibernate:
         sql: DEBUG
+multitenancy:
+  http:
+    header-name: X-TenantId

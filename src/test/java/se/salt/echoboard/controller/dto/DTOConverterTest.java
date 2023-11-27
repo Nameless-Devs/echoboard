@@ -5,6 +5,8 @@ import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import se.salt.echoboard.TestContainersConfig;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -13,6 +15,7 @@ import util.TestBuilders;
 
 import static org.mockito.Mockito.when;
 @SpringBootTest
+@Import(TestContainersConfig.class)
 public class DTOConverterTest {
     private DTOConvertor dtoConvertor;
 

@@ -17,6 +17,10 @@ spring:
     console:
       enabled: true
   jpa:
+    properties:
+      hibernate:
+        multiTenancy: SCHEMA
+        tenant_identifier_resolver: se.salt.echoboard.multitenancy.data.hibernate.TenantIdentifierResolver
     hibernate:
       ddl-auto: create
     show-sql: true

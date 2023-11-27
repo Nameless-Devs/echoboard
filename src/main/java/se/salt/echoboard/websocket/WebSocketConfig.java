@@ -3,8 +3,8 @@ package se.salt.echoboard.websocket;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
@@ -25,16 +25,17 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 import org.springframework.web.util.WebUtils;
+import se.salt.echoboard.security.config.WebsiteProperties;
 
 import java.util.Map;
 
 @Configuration
 @EnableWebSocketMessageBroker
+@RequiredArgsConstructor
 @Slf4j
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    @Value("${frontend-details.base-url}")
-    private String frontendBaseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -46,7 +47,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/w")
                 .addInterceptors(httpSessionHandshakeInterceptor())
-                .setAllowedOrigins(frontendBaseUrl);
+                .setAllowedOrigins(websiteProperties.frontend());
 
     }
 

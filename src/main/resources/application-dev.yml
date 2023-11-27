@@ -13,10 +13,6 @@ spring:
       hibernate:
         multiTenancy: SCHEMA
         tenant_identifier_resolver: se.salt.echoboard.multitenancy.data.hibernate.TenantIdentifierResolver
-backend-details:
- base-url: http://localhost:8080/
-frontend-details:
-  base-url: http://localhost:3000/
 logging:
   level:
     org:

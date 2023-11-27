@@ -1,16 +1,18 @@
 package se.salt.echoboard.security.config.deploy;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import se.salt.echoboard.security.config.CustomLogoutSuccessHandler;
+import se.salt.echoboard.security.config.TenantFilter;
+import se.salt.echoboard.security.config.WebsiteProperties;
 
 import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withEchoBoardDefaults;
 

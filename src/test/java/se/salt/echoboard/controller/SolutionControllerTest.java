@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.test.web.servlet.MockMvc;
+import se.salt.echoboard.TestContainersConfig;
 import se.salt.echoboard.model.ChatRoom;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardSolution;
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(TestContainersConfig.class)
 public class SolutionControllerTest {
 
     private final MockMvc mockMvc;

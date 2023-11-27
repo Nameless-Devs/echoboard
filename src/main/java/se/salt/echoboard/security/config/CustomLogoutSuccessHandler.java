@@ -20,15 +20,14 @@ import java.io.IOException;
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    @Value("${frontend-details.base-url}")
-    private String baseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         try {
 //            logout(request, response);
             log.info("Logout successful. Redirecting to the homepage.");
-            response.sendRedirect(baseUrl + "/home");
+            response.sendRedirect(websiteProperties.frontend() + "/home");
         } catch (IOException e) {
             log.error("Error redirecting after logout", e);
         }

@@ -8,14 +8,6 @@ spring:
           google:
             client-id: 1234567890
             client-secret: secret
-  datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
   jpa:
     properties:
       hibernate:

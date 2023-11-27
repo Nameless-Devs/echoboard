@@ -10,7 +10,7 @@ spring:
     password: ${DATABASE_PASSWORD2}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: off
 #    open-in-view: true
 #    defer-datasource-initialization: true

@@ -5,8 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import java.io.IOException;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
@@ -35,8 +36,8 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     }
 
     public void logout(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
-        boolean isSecure = false;
-        String contextPath = null;
+        boolean isSecure;
+        String contextPath;
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

@@ -36,4 +36,8 @@ public class EchoBoardUser {
     @JsonIgnoreProperties({"echoBoardUser", "volunteers", "pendingVolunteers"})
     private List<EchoBoardSolution> volunteeredSolutions;
 
+    @ManyToMany(mappedBy = "pendingVolunteers",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnoreProperties({"echoBoardUser", "volunteers", "pendingVolunteers", "volunteeredSolutions"})
+    private List<EchoBoardSolution> pendingVolunteeredSolutions;
 }

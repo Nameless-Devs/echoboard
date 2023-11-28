@@ -20,7 +20,7 @@ public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
 
     private final Map<String, String> tenantMap;
 
-    //TODO: The maå should be replaced by a database
+    //TODO: The map should be replaced by a database
     public TenantIdentifierResolver() {
         tenantMap = new HashMap<>();
         tenantMap.put("google", "google");

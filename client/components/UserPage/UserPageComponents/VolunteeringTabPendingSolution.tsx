@@ -1,12 +1,10 @@
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge'
 import { fetchEchoBoardBySolutionId } from '@/service/Functions'
-import { ListItem, Grid, Box, Avatar, Typography } from '@mui/material'
+import { ListItem, Grid, Box } from '@mui/material'
 import React from 'react'
 import { EchoBoardPreviewDisplay } from './EchoBoardPreviewDisplay'
 import { useQuery } from '@tanstack/react-query'
 import { EchoBoardPreviewResponseData, SolutionResponseData } from '@/service/Types'
-import UpvoteButton from '@/components/UpvoteButton'
-import { timeConverter } from '@/service/TimeConverter'
 import { ItemHeader } from '@/components/CommentModal/commentModalComponents/ItemHeader'
 import { ItemContent } from '@/components/CommentModal/commentModalComponents/ItemContent'
 

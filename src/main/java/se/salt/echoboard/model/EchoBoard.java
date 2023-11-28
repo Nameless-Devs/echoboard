@@ -1,7 +1,5 @@
 package se.salt.echoboard.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@Table()
 public class EchoBoard {
 
     @Id

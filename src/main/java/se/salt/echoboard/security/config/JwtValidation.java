@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 @Component
 public class JwtValidation {
 
-    private static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
+    public static final String JWT_TOKEN_COOKIE_NAME = "JwtToken";
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleClientId;

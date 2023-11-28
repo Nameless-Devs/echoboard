@@ -9,14 +9,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import se.salt.echoboard.security.config.JwtValidation;
+import se.salt.echoboard.security.config.WebsiteProperties;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
@@ -32,8 +33,7 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtValidation validation;
     private final EchoBoardUserRepository userRepository;
-    @Value("${backend-details.base-url}")
-    private String baseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -64,25 +64,24 @@ public class JwtCookieAuthenticationFilter extends OncePerRequestFilter {
         try {
             Jwt jwt = validation.validateJWTString(jwtTokenString);
             OidcUser user = createOidcUserFromJwt(jwt);
-            redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated(user, response);
+            handleAuthenticatedRequest(user, response);
         } catch (JwtException e) {
             handleJwtException(e, response);
         }
     }
 
-    private void redirectUserWithNoRegisteredAccountOtherWiseSetAuthenticated
-            (OidcUser user, HttpServletResponse response) throws IOException {
+    private void handleAuthenticatedRequest(OidcUser user, HttpServletResponse response) throws IOException {
         var echoBoardUser = userRepository.getUserBySubject(user.getSubject());
         if (echoBoardUser.isEmpty()) {
-            response.sendRedirect(baseUrl + "login");
+            response.sendRedirect(websiteProperties.backend() + "login");
             return;
         }
         SecurityContextHolder.getContext().setAuthentication(
-                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
+                new OAuth2AuthenticationToken(user, user.getAuthorities(), user.getAuthorizedParty()));
     }
 
     private void handleJwtException(JwtException e, HttpServletResponse response) throws IOException {
         log.error("Failed to validate JWT token: {}", e.getMessage());
-        response.sendRedirect(baseUrl + "login");
+        response.sendRedirect(websiteProperties.backend() + "login");
     }
 }

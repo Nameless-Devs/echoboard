@@ -11,9 +11,9 @@ import java.time.Instant;
 
 @Entity
 @Getter
-@Table(name = "messages")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "messages")
 public class Message {
 
     @Id

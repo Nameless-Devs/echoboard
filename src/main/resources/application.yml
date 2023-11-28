@@ -21,26 +21,30 @@ spring:
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
   jpa:
+    properties:
+      hibernate:
+        multiTenancy: SCHEMA
     hibernate:
       ddl-auto: update
     show-sql: false
     defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
   profiles:
     default: deploy
-frontend-details:
-    base-url: https://app.echoboard.site/
-#  base-url: http://localhost:3000/
-backend-details:
-    base-url: https://api.echoboard.site/
-#  base-url: http://localhost:8080/
 logging:
   level:
     org:
       springframework:
         messaging: DEBUG
         http : DEBUG
+        security: DEBUG
       hibernate:
         sql: DEBUG
+multitenancy:
+  http:
+    header-name: X-TenantId
+website:
+  base-url:
+    backend: http://localhost:8080/
+#    backend: https://api.echoboard.site/
+    frontend: http://localhost:3000/
+#    frontend: https://app.echoboard.site/

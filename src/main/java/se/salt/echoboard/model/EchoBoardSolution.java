@@ -8,7 +8,6 @@ import lombok.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-
 import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_IN_REVIEW;
 
 

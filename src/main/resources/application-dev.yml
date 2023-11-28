@@ -1,3 +1,6 @@
+server:
+  forward-headers-strategy: none
+  port: 8080
 spring:
   config:
     import: optional:secrets.yml

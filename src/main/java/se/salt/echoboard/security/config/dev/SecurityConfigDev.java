@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import se.salt.echoboard.security.config.CustomLogoutSuccessHandler;
@@ -35,6 +36,7 @@ public class SecurityConfigDev {
                         .requestMatchers("login").permitAll()
                         .requestMatchers("error").permitAll()
                         .anyRequest().authenticated())
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(CsrfConfigurer::disable)
                 .cors(withEchoBoardDefaults(websiteProperties.frontend()))
                 .addFilterBefore(tenantFilter, UsernamePasswordAuthenticationFilter.class)

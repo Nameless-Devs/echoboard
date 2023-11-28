@@ -40,7 +40,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                 {pendingVolunteers && Array.isArray(pendingVolunteers) && pendingVolunteers.length === 0 && pendingVolunteers !== undefined ? (
                     <Typography textAlign={'center'}>You have no pending volunteers</Typography>
                 ) : (
-                    pendingVolunteers.map((volunteer, index) =>
+                    pendingVolunteers?.map((volunteer, index) =>
                         <VolunteerToAccept key={index} volunteer={volunteer} solutionId={solutionId} />
                     )
                 )}
@@ -48,7 +48,7 @@ export const AcceptingVolunteersWindow: React.FC<AcceptingVolunteersWindowProps>
                 {volunteers && Array.isArray(volunteers) && volunteers.length === 0 ? (
                     <Typography textAlign={'center'}>You have no accepted volunteers</Typography>
                 ) : (
-                    volunteers.map((volunteer, index) =>
+                    volunteers?.map((volunteer, index) =>
                         <VolunteerAccepted key={index} volunteer={volunteer} />
                     )
                 )}

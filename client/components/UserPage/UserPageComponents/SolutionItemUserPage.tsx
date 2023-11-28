@@ -11,11 +11,10 @@ import { ClickableContentElement } from './ClickableContentElement';
 
 type SolutionItemProps = {
     solution: SolutionResponseData;
-    onUpvote: (solutionId: string) => void;
     user: UserResponseData;
 }
 
-export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
+export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, user }) => {
     const [isOpen, setIsOpen] = useState(false);
     const defaultTabIndex = 1;
 

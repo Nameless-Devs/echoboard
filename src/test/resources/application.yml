@@ -21,6 +21,9 @@ spring:
       mode: always
   profiles:
     default: test
+multitenancy:
+  http:
+    header-name: X-TenantId
 website:
   base-url:
     backend: http://localhost:8080/

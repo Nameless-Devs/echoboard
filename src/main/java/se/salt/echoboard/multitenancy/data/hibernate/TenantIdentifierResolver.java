@@ -23,8 +23,9 @@ public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
     //TODO: The map should be replaced by a database
     public TenantIdentifierResolver() {
         tenantMap = new HashMap<>();
-        tenantMap.put("google", "google");
-        tenantMap.put("salt", "salt");
+        tenantMap.put("gmail.com", "google");
+        tenantMap.put("example.com", "google");
+        tenantMap.put("appliedtechnology.com", "salt");
     }
 
 

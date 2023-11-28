@@ -9,6 +9,7 @@ import { ItemHeader } from '@/components/CommentModal/commentModalComponents/Ite
 import { ItemContent } from '@/components/CommentModal/commentModalComponents/ItemContent'
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import CheckIcon from '@mui/icons-material/Check';
+import { useRouter } from 'next/navigation';
 
 type VolunteeringTabPendingSolutionProp = {
     solution: SolutionResponseData;
@@ -24,6 +25,8 @@ export const VolunteeringTabPendingSolution: React.FC<VolunteeringTabPendingSolu
     const onUpvote = () => {
 
     }
+
+    const router = useRouter();
 
     const {
         data: echoBoardPreview,
@@ -90,6 +93,7 @@ export const VolunteeringTabPendingSolution: React.FC<VolunteeringTabPendingSolu
                                 <CheckIcon color='success' />
                                 <Typography>Your volunteering request has been accepted</Typography>
                                 <Button 
+                                onClick={() => router.push('/chatroom')}
                                 variant='outlined' 
                                 color='primary'  
                                 sx={{ml: "0.5rem"}}

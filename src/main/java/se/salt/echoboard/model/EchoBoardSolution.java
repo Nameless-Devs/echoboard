@@ -84,7 +84,7 @@ public class EchoBoardSolution {
         return this;
     }
 
-    public EchoBoardSolution setChatRoom(se.salt.echoboard.model.ChatRoom chatRoom) {
+    public EchoBoardSolution setChatRoom(ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
         return this;
     }

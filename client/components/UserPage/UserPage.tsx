@@ -7,6 +7,7 @@ import { SingleUserPost } from "./UserPageComponents/SingleUserPost";
 import { UserPageInfoSection } from "./UserPageComponents/UserPageInfoSection";
 import { SolutionItemUserPage } from "./UserPageComponents/SolutionItemUserPage";
 import { CommentItemUserPage } from "./UserPageComponents/CommentItemUserPage";
+import { VolunteringTab } from "./UserPageComponents/VolunteeringTab";
 
 type UserPageProps = {
   user: UserResponseData;
@@ -96,7 +97,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
           </CustomTabContent>
           <CustomTabContent value={value} index={3}>
           <Box>
-              <p>You have not volunteered for any solutions yet.</p>
+              <VolunteringTab pendingVolunteeredSolutions={user.pendingVolunteeredSolutions} volunteeredSolutions={user.volunteeredSolutions} />
           </Box>
         </CustomTabContent>
         </Box>

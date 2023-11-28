@@ -170,7 +170,7 @@ export default function UserChat() {
                 margin: "0 0.5rem 0 0.5rem",
               }}
           >
-            {chatroom}
+            {chatroom.title}
           </ListItemButton>
       ))}
     </>;

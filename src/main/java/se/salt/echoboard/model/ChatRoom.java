@@ -3,10 +3,7 @@ package se.salt.echoboard.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +34,11 @@ public class ChatRoom {
 
     public ChatRoom setEchoBoardSolution(EchoBoardSolution echoBoardSolution) {
         this.echoBoardSolution = echoBoardSolution;
+        return this;
+    }
+
+    public ChatRoom setTitle(String title) {
+        this.title = title;
         return this;
     }
 }

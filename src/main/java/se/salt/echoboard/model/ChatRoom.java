@@ -30,7 +30,7 @@ public class ChatRoom {
 
     private String title;
 
-    private String description;
+//    private String description;
 
     public ChatRoom setEchoBoardSolution(EchoBoardSolution echoBoardSolution) {
         this.echoBoardSolution = echoBoardSolution;

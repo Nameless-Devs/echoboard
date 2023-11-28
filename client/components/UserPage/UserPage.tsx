@@ -96,8 +96,17 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={3}>
-          <Box>
-              <VolunteringTab pendingVolunteeredSolutions={user.pendingVolunteeredSolutions} volunteeredSolutions={user.volunteeredSolutions} />
+          <Box> 
+             {user.pendingVolunteeredSolutions.length === 0 || user.pendingVolunteeredSolutions === null
+             && user.volunteeredSolutions.length === 0 || user.volunteeredSolutions === null ? 
+             (<p>You have not volunteered for any solutions yet.</p>
+             ) : (
+              <VolunteringTab 
+              pendingVolunteeredSolutions={user.pendingVolunteeredSolutions} 
+              volunteeredSolutions={user.volunteeredSolutions} />
+             )
+            }
+              
           </Box>
         </CustomTabContent>
         </Box>

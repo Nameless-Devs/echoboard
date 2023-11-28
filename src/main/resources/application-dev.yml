@@ -10,7 +10,7 @@ spring:
     password: ${DATABASE_PASSWORD1}
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     show-sql: off
     properties:
       hibernate:

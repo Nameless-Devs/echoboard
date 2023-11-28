@@ -17,12 +17,12 @@ export const EchoBoardPreviewDisplay: React.FC<EchoBoardPreviewDisplayProps> = (
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Typography color="textSecondary">to:</Typography>
                         <Avatar
-                            src={data.echoBoardUser.picture}
-                            alt={data.echoBoardUser.name + " avatar picture"}
+                            src={data.echoBoardUser?.picture}
+                            alt={data.echoBoardUser?.name + " avatar picture"}
                             sx={{ margin: "0 0.5rem", width: 24, height: 24 }}
                         />
                         <Typography color="textSecondary" sx={{ mr: "0.5rem" }}>
-                            {data.echoBoardUser.name}&rsquo;s problem
+                            {data.echoBoardUser?.name}&rsquo;s problem
                         </Typography>
                     </Box>
                 )
@@ -32,7 +32,7 @@ export const EchoBoardPreviewDisplay: React.FC<EchoBoardPreviewDisplayProps> = (
             {isLoading ? (
                 <Skeleton variant="rectangular" width={150} height={24} />
             ) : (
-                data && <Typography color="textSecondary">&quot;{data.title}&quot;</Typography>
+                data && <Typography color="textSecondary">&quot;{data?.title}&quot;</Typography>
             )}
         </Grid>
     </>

@@ -1,25 +1,20 @@
 import { EchoBoardPreviewResponseData, EchoBoardResponseData, SolutionResponseData, UserResponseData } from '@/service/Types';
-import { Box, Button, Grid, ListItem, Typography } from '@mui/material';
+import { Box, Grid, ListItem } from '@mui/material';
 import React, { useState } from 'react';
-import { timeConverter } from '@/service/TimeConverter';
 import { SolutionStatusBadge } from '@/components/CommentModal/commentModalComponents/SolutionStatusBadge';
 import { useQuery } from '@tanstack/react-query';
 import { editSolution, fetchEchoBoardById, fetchEchoBoardBySolutionId } from '@/service/Functions';
 import { EchoBoardPreviewDisplay } from './EchoBoardPreviewDisplay';
 import CommentModal from '@/components/CommentModal/CommentModal';
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ExtraActionsMenu from './ExtraActionsMenu';
 import { ClickableContentElement } from './ClickableContentElement';
-import { Solitreo } from 'next/font/google';
-
 
 type SolutionItemProps = {
     solution: SolutionResponseData;
-    onUpvote: (solutionId: string) => void;
     user: UserResponseData;
 }
 
-export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, onUpvote, user }) => {
+export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, user }) => {
     const [isOpen, setIsOpen] = useState(false);
     const defaultTabIndex = 1;
 

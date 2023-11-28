@@ -47,6 +47,7 @@ public class EchoBoardSolution {
 
     @ManyToOne
     @JoinColumn(name = "subject")
+    @JsonIgnoreProperties({"echoBoardSolutions", "echoBoardComments", "echoBoards", "volunteeredSolutions", "pendingVolunteeredSolutions"})
     private EchoBoardUser echoBoardUser;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

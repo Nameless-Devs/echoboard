@@ -66,6 +66,8 @@ export type UserResponseData = {
   echoBoardComments: CommentResponseData[];
   echoBoardSolutions: SolutionResponseData[];
   echoBoards: EchoBoardResponseData[];
+  pendingVolunteeredSolutions: SolutionResponseData[];
+  volunteeredSolutions: SolutionResponseData[];
 }
 
 export type StatusInfo = {

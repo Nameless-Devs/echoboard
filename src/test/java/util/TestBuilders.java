@@ -1,18 +1,13 @@
 package util;
 
 import com.github.javafaker.Faker;
-import org.mockito.Mock;
 import se.salt.echoboard.controller.dto.*;
 import se.salt.echoboard.model.EchoBoard;
 import se.salt.echoboard.model.EchoBoardComment;
 import se.salt.echoboard.model.EchoBoardSolution;
 import se.salt.echoboard.model.EchoBoardUser;
-import se.salt.echoboard.service.EchoBoardService;
-import se.salt.echoboard.service.repository.*;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -55,7 +50,7 @@ public class TestBuilders {
                 "John Doe",
                 "john@example.com",
                 "image-url",
-                List.of(), List.of(), List.of(), List.of());
+                List.of(), List.of(), List.of(), List.of(), List.of());
     }
 
 

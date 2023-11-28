@@ -9,6 +9,8 @@ import java.util.List;
 public record EchoBoardUserInfo(String name, String picture,
                                 List<EchoBoardCommentResponse> echoBoardComments,
                                 List<EchoBoardSolutionResponse> echoBoardSolutions,
+                                List<EchoBoardSolutionResponse> pendingVolunteeredSolutions,
+                                List<EchoBoardSolutionResponse> volunteeredSolutions,
                                 List<EchoBoardResponse> echoBoards) {
 }
 

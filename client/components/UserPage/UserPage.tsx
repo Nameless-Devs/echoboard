@@ -18,10 +18,6 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
     setValue(newTabIndex);
   };
 
-  const onUpvote = () => {
-    console.log('You pressed upvote button');
-  }
-
   return (
     <>
       <UserPageInfoSection user={user} />

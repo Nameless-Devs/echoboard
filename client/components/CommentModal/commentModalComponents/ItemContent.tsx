@@ -6,12 +6,14 @@ type ItemContentProps = {
     content: string; 
     upvote: number; 
     onUpvote: (itemId: string) => void; 
+    id: string;
 }
 
 export const ItemContent: React.FC<ItemContentProps> = ({
     content,
     upvote,
-    onUpvote
+    onUpvote,
+    id
 }) => {
     return (
         <>
@@ -23,7 +25,7 @@ export const ItemContent: React.FC<ItemContentProps> = ({
             </Grid>
             <Grid item xs={2} md={1}></Grid>
             <Grid item xs={2} md={1}>
-                <UpvoteButton count={upvote} onUpvote={() => onUpvote} />
+                <UpvoteButton count={upvote} onUpvote={() => onUpvote(id)} />
             </Grid>
         </>
     )

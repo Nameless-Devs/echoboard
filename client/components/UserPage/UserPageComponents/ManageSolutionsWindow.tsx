@@ -59,6 +59,7 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                     content={solution.content}
                                     upvote={solution.upvote.length}
                                     onUpvote={onUpvote}
+                                    id={solution.id}
                                      />
                                     <VolunteersInfo solution={solution} /> 
                                 </Grid>

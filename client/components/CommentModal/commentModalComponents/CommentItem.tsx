@@ -23,6 +23,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({ comment, onUpvote }) =
                     content={comment.content}
                     upvote={comment.upvote.length}
                     onUpvote={onUpvote}
+                    id={comment.id}
                 />
             </Grid>
         </ListItem>

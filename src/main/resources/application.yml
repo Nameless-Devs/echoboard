@@ -44,7 +44,7 @@ multitenancy:
     header-name: X-TenantId
 website:
   base-url:
-    backend: http://localhost:8080/
-#    backend: https://api.echoboard.site/
-    frontend: http://localhost:3000/
-#    frontend: https://app.echoboard.site/
+#    backend: http://localhost:8080/
+    backend: https://api.echoboard.site/
+#    frontend: http://localhost:3000/
+    frontend: https://app.echoboard.site/

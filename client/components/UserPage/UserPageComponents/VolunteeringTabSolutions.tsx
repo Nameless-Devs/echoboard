@@ -67,6 +67,7 @@ export const VolunteeringTabPendingSolution: React.FC<VolunteeringTabPendingSolu
                     content={solution.content}
                     upvote={solution.upvote.length}
                     onUpvote={onUpvote}
+                    id={solution.id}
                 />
                 <Grid item xs={12}>
 

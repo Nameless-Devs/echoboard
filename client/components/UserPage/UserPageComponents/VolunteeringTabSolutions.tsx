@@ -32,7 +32,7 @@ export const VolunteeringTabPendingSolution: React.FC<VolunteeringTabPendingSolu
         data: echoBoardPreview,
         isLoading: previewLoading,
         isError: previewError,
-    } = useQuery<EchoBoardPreviewResponseData>(["echoBoards", solution.id], async () => {
+    } = useQuery<EchoBoardPreviewResponseData>(["echoBoardPreviewVolunteeringTab", solution.id], async () => {
         return await fetchEchoBoardBySolutionId(solution.id);
     });
 

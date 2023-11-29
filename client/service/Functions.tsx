@@ -10,6 +10,7 @@ import {
   EchoBoardPreviewResponseData,
   SolutionVolunteersResponseData,
   CommentOrSolutionType,
+  ChatRoomResponse,
 } from "./Types";
 
 export async function postEcho(
@@ -211,7 +212,7 @@ export async function getUserInfo() {
   }
 }
 
-export async function getUserChatRooms(): Promise<number[]> {
+export async function getUserChatRooms(): Promise<ChatRoomResponse[]> {
   try {
     const response = await fetch( ENDPOINTS.USER_CHATROOMS, {
       credentials: "include",

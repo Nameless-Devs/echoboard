@@ -22,7 +22,7 @@ export const VolunteersInfo: React.FC<VolunteerInfoProps> = ({ solution }) => {
     };
 
     const { data: solutionVolunteers, isLoading, isError } = useQuery<SolutionVolunteersResponseData>(
-        ["echoBoards", solution.id],
+        ["solutionVolunteers", solution.id],
         async () => {
             return await getAllPendingVolunteers(solution.id);
         }

@@ -34,6 +34,7 @@ export const EditPostWindow: React.FC<EditPostWindowProps> = ({ open, handleClos
             onSuccess: () => {
               queryClient.invalidateQueries(["userInfo"]);
               queryClient.refetchQueries(["userInfo"]);
+              queryClient.refetchQueries(["echoBoardSinglePost"]);
               handleClose();
             },
             onError: (error) => {

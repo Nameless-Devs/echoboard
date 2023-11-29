@@ -22,7 +22,7 @@ export const VolunteerToAccept: React.FC<VolunteerToAcceptProps> = ({
         acceptPendingVolunteer(solutionId, volunteerId),
         {
             onSuccess: () => {
-              queryClient.invalidateQueries(["echoBoards", solutionId]);
+              queryClient.invalidateQueries(["solutionVolunteers", solutionId]);
             },
           }
     );

@@ -44,7 +44,8 @@ export default function UserChat() {
     };
     newClient.onConnect = () => {
       if (chatRooms) {
-        subscribeToUserChatRooms(newClient, chatRooms, onMessageReceived);
+        const chatRoomIds = chatRooms.map((chatRoom) => chatRoom.id)
+        subscribeToUserChatRooms(newClient, chatRoomIds, onMessageReceived);
       }
     };
     newClient.activate();
@@ -159,7 +160,7 @@ export default function UserChat() {
           <ListItemButton
               key={index}
               onClick={() => {
-                handleChatRoomChange(chatroom);
+                handleChatRoomChange(chatroom.id);
                 setSelectedIndex(index);
               }}
               style={{
@@ -170,7 +171,7 @@ export default function UserChat() {
                 margin: "0 0.5rem 0 0.5rem",
               }}
           >
-            {chatroom}
+            {chatroom.title}
           </ListItemButton>
       ))}
     </>;

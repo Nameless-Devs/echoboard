@@ -94,3 +94,8 @@ export type SolutionVolunteersResponseData = {
   volunteers: UserResponseData[];
   pendingVolunteers: UserResponseData[];
 }
+
+export type ChatRoomResponse = {
+  id: number;
+  title: string;
+}

@@ -7,6 +7,7 @@ import { SingleUserPost } from "./UserPageComponents/SingleUserPost";
 import { UserPageInfoSection } from "./UserPageComponents/UserPageInfoSection";
 import { SolutionItemUserPage } from "./UserPageComponents/SolutionItemUserPage";
 import { CommentItemUserPage } from "./UserPageComponents/CommentItemUserPage";
+import { VolunteeringTab } from "./UserPageComponents/VolunteeringTab";
 
 type UserPageProps = {
   user: UserResponseData;
@@ -17,10 +18,6 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
   const handleTabChange = (newTabIndex: number) => {
     setValue(newTabIndex);
   };
-
-  const onUpvote = () => {
-    console.log('You pressed upvote button');
-  }
 
   return (
     <>
@@ -73,7 +70,7 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                   })
                   .map((solution, index) => {
                     return (
-                        <SolutionItemUserPage key={index} solution={solution} onUpvote={onUpvote} user={user} />
+                        <SolutionItemUserPage key={index} solution={solution} user={user} />
                     );
                   })
               )}
@@ -99,8 +96,17 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={3}>
-          <Box>
-              <p>You have not volunteered for any solutions yet.</p>
+          <Box> 
+             {user.pendingVolunteeredSolutions.length === 0 || user.pendingVolunteeredSolutions === null
+             && user.volunteeredSolutions.length === 0 || user.volunteeredSolutions === null ? 
+             (<p>You have not volunteered for any solutions yet.</p>
+             ) : (
+              <VolunteeringTab 
+              pendingVolunteeredSolutions={user.pendingVolunteeredSolutions} 
+              volunteeredSolutions={user.volunteeredSolutions} />
+             )
+            }
+              
           </Box>
         </CustomTabContent>
         </Box>

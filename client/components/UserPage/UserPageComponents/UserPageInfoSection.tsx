@@ -1,3 +1,4 @@
+import { calculateNumberOfVolunteering, calulateNumberOfSolvedSolution } from '@/service/HelperFunction';
 import { UserResponseData } from '@/service/Types'
 import { Box, Avatar, Typography, Chip } from '@mui/material'
 import React from 'react'
@@ -44,12 +45,10 @@ export const UserPageInfoSection: React.FC<UserPageInfoSectionProp> = ({user}) =
                     }}
                 >
                     <Chip
-                        label={"Problems solved: " + user.name.length}
+                        label={"Problems solved: " + calulateNumberOfSolvedSolution(user.echoBoardSolutions)}
                         color="success"
                     />
-                    <Chip label="Volunteered: 5" color="warning" />
-                    {/* number of solved problems and volunteered are just placeholder for now,
-                real funtionality will be implemented later on */}
+                    <Chip label={"Volunteered: " + calculateNumberOfVolunteering(user)} color="warning" />
                 </Box>
             </Box>
         </Box>

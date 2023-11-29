@@ -8,7 +8,6 @@ import lombok.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-
 import static se.salt.echoboard.model.EchoBoardSolution.SolutionStatus.SOLUTION_IN_REVIEW;
 
 
@@ -48,6 +47,7 @@ public class EchoBoardSolution {
 
     @ManyToOne
     @JoinColumn(name = "subject")
+    @JsonIgnoreProperties({"echoBoardSolutions", "echoBoardComments", "echoBoards", "volunteeredSolutions", "pendingVolunteeredSolutions"})
     private EchoBoardUser echoBoardUser;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

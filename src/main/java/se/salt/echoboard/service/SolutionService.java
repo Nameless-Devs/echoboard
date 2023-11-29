@@ -102,8 +102,25 @@ public class SolutionService {
         if (echoBoardSolution.getChatRoom() != null) return echoBoardSolution;
         if (!echoBoardSolution.getStatus()
                 .equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) return echoBoardSolution;
+        StringBuilder title = new StringBuilder();
+        var chatroom = new ChatRoom();
+        if (echoBoardSolution.getContent().split(" ").length > 3) {
+            for (int i = 0; i < 3; i++) {
+                title.append(echoBoardSolution.getContent().split(" ")[i]);
+                title.append(" ");
+
+
+            }
+            title.append("...");
+            chatroom.setTitle(title.toString());
+        } else {
+            chatroom.setTitle(echoBoardSolution.getContent());
+
+        }
+
+        chatroom.setEchoBoardSolution(echoBoardSolution);
         return echoBoardSolution
-                .setChatRoom(chatRoomRepository.save(new ChatRoom().setEchoBoardSolution(echoBoardSolution)));
+                .setChatRoom(chatRoomRepository.save(chatroom));
     }
 
     private EchoBoardSolution validateSolutionStatusIsVolunteerRequired(EchoBoardSolution echoBoardSolution) {

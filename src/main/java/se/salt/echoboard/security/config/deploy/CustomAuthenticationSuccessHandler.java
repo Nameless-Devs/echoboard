@@ -4,7 +4,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -12,6 +11,7 @@ import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import se.salt.echoboard.security.config.JwtValidation;
+import se.salt.echoboard.security.config.WebsiteProperties;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
@@ -23,11 +23,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private final EchoBoardUserRepository userRepository;
     private final JwtValidation jwtValidation;
-
-    @Value("${frontend-details.base-url}")
-    private String frontendBaseUrl;
-    @Value("${backend-details.base-url}")
-    private String backendBaseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -39,12 +35,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         try {
             jwtValidation.validateJWTString(oidcUser.getIdToken().getTokenValue());
         } catch (JwtException e) {
-            response.sendRedirect(backendBaseUrl+"login");
+            response.sendRedirect(websiteProperties.frontend()+"login");
         }
         createUserIfTheyDoNotExist(oidcUser);
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.addCookie(createNewCookie(oidcUser.getIdToken().getTokenValue()));
-        response.sendRedirect(frontendBaseUrl);
+        response.sendRedirect(websiteProperties.frontend());
     }
 
     private void createUserIfTheyDoNotExist(OidcUser oidcUser) {
@@ -59,7 +55,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         cookie.setMaxAge(3500);
         cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setDomain(getDomain(frontendBaseUrl));
+        cookie.setDomain(getDomain(websiteProperties.frontend()));
         return cookie;
     }
 

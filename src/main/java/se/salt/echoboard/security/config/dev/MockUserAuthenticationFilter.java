@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -18,6 +17,7 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import se.salt.echoboard.security.config.WebsiteProperties;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;
 
 import java.io.IOException;
@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static se.salt.echoboard.security.config.JwtValidation.JWT_TOKEN_COOKIE_NAME;
 import static se.salt.echoboard.security.config.JwtValidation.getJwtTokenFromRequestCookie;
 
 
@@ -36,9 +37,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
 
 
     private final EchoBoardUserRepository repository;
-
-    @Value("${frontend-details.base-url}")
-    private String frontendBaseUrl;
+    private final WebsiteProperties websiteProperties;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -48,7 +47,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
         var jwtTokenString = getJwtTokenFromRequestCookie(request);
 
         if (request.getRequestURI().endsWith("/login")){
-            response.sendRedirect(frontendBaseUrl);
+            response.sendRedirect(websiteProperties.frontend());
             return;
         }
 
@@ -83,7 +82,7 @@ public class MockUserAuthenticationFilter extends OncePerRequestFilter implement
         filterChain.doFilter(request, response);
     }
     private Cookie createNewCookie(String tokenValue) {
-        Cookie cookie = new Cookie("JwtToken", tokenValue);
+        Cookie cookie = new Cookie(JWT_TOKEN_COOKIE_NAME, tokenValue);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(100000);
         cookie.setSecure(true);

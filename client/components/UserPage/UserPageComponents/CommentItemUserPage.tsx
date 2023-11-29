@@ -18,7 +18,7 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, user 
     const defaultTabIndex = 0;
 
     const { data: echoBoardPreview, isLoading: previewLoading, isError } = useQuery<EchoBoardPreviewResponseData>(
-        ["echoBoards", comment.id],
+        ["echoBoardPreviewComment", comment.id],
         async () => {
             return await fetchEchoBoardByCommentId(comment.id);
         }
@@ -29,7 +29,7 @@ export const CommentItemUserPage: React.FC<CommentItemProps> = ({ comment, user 
         isLoading: extendedLoading,
         isError: extendedError,
     } = useQuery<EchoBoardResponseData>(
-        ["echoBoards", echoBoardPreview?.id],
+        ["echoBoardsPreviewComment", echoBoardPreview?.id],
         async () => {
             return await fetchEchoBoardById(echoBoardPreview?.id || '');
         },

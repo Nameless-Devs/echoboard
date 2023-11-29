@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table()
 public class EchoBoardUser {
 
     @Id
@@ -33,7 +34,11 @@ public class EchoBoardUser {
 
     @ManyToMany(mappedBy = "volunteers",
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JsonIgnoreProperties({"echoBoardUser", "volunteers", "pendingVolunteers"})
+    @JsonIgnoreProperties({"volunteers", "pendingVolunteers"})
     private List<EchoBoardSolution> volunteeredSolutions;
 
+    @ManyToMany(mappedBy = "pendingVolunteers",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnoreProperties({"volunteers", "pendingVolunteers"})
+    private List<EchoBoardSolution> pendingVolunteeredSolutions;
 }

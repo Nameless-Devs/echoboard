@@ -66,6 +66,8 @@ export type UserResponseData = {
   echoBoardComments: CommentResponseData[];
   echoBoardSolutions: SolutionResponseData[];
   echoBoards: EchoBoardResponseData[];
+  pendingVolunteeredSolutions: SolutionResponseData[];
+  volunteeredSolutions: SolutionResponseData[];
 }
 
 export type StatusInfo = {
@@ -91,4 +93,9 @@ export type SolutionVolunteersResponseData = {
   id: string; 
   volunteers: UserResponseData[];
   pendingVolunteers: UserResponseData[];
+}
+
+export type ChatRoomResponse = {
+  id: number;
+  title: string;
 }

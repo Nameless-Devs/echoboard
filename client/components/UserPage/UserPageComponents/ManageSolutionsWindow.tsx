@@ -1,10 +1,10 @@
 import { SolutionStatusButton } from '@/components/CommentModal/commentModalComponents/SolutionStatusButton';
-import UpvoteButton from '@/components/UpvoteButton';
-import { timeConverter } from '@/service/TimeConverter';
 import { EchoBoardResponseData, UserResponseData } from '@/service/Types';
-import { Avatar, Box, Button, Grid, List, ListItem, Modal, Typography } from '@mui/material'
+import { Box, Button, Grid, List, ListItem, Modal } from '@mui/material'
 import React from 'react'
 import { VolunteersInfo } from './VolunteersInfo';
+import { ItemHeader } from '@/components/CommentModal/commentModalComponents/ItemHeader';
+import { ItemContent } from '@/components/CommentModal/commentModalComponents/ItemContent';
 
 type ManageSolutionsWindowProps = {
     open: boolean;
@@ -19,6 +19,8 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
     user,
     echoBoard
 }) => {
+
+    const onUpvote = () => {}
 
     return (
         <Modal open={open} onClose={onClose} >
@@ -48,30 +50,17 @@ export const ManageSolutionsWindow: React.FC<ManageSolutionsWindowProps> = ({
                                             <SolutionStatusButton status={solution.status} solutionId={solution.id} />
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={2} md={1}>
-                                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            <Avatar src={solution.echoBoardUser.picture} />
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={10} md={11}>
-                                        <Typography sx={{ marginBottom: "-0.4rem" }}>
-                                            {solution.echoBoardUser.name}
-                                        </Typography>
-                                        <Typography variant="caption" color="textSecondary">
-                                            {timeConverter(solution.created)}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={2} md={1}></Grid>
-                                    <Grid item xs={10} md={11}>
-                                        <Typography variant="body1" color="textPrimary" sx={{ margin: "0.5rem 2rem 0.5rem 0" }}>
-                                            {solution.content}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={2} md={1}></Grid>
-                                    <Grid item xs={2} md={1}>
-                                        <UpvoteButton count={solution.upvote.length} onUpvote={() => { }} />
-                                    </Grid>
-                                    <VolunteersInfo solution={solution} />
+                                    <ItemHeader 
+                                    pictureUrl={solution.echoBoardUser.picture} 
+                                    userName={solution.echoBoardUser.name}
+                                    created={solution.created}
+                                    /> 
+                                    <ItemContent
+                                    content={solution.content}
+                                    upvote={solution.upvote.length}
+                                    onUpvote={onUpvote}
+                                     />
+                                    <VolunteersInfo solution={solution} /> 
                                 </Grid>
                             </ListItem>
                         ))}

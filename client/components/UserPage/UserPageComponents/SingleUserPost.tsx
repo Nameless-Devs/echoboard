@@ -28,7 +28,7 @@ export const SingleUserPost: React.FC<SingleUserPostProps> = ({
     const [isDisabled, setIsDisabled] = useState(true);
     
     const { data: echoBoardExtended, isLoading, isError } = useQuery<EchoBoardResponseData>(
-        ["echoBoards", echoBoard.id],
+        ["echoBoardSinglePost", echoBoard.id],
         async () => {
             return await fetchEchoBoardById(echoBoard.id);
         }

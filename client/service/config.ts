@@ -22,7 +22,7 @@ export const ENDPOINTS = {
   USER_CHATROOMS: `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/chatrooms`,
   CHAT_HISTORY: `${process.env.NEXT_PUBLIC_API_BASE_URL}/chat/{chatRoomId}`,
 
-  LOGIN: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
+  LOGIN: `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/google`,
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
 };
 

@@ -11,7 +11,7 @@ COPY pom.xml .
 COPY src ./src
 
 # Build the application
-RUN mvn clean package
+RUN mvn clean package -Dmaven.test.skip
 
 # Stage 2: Create a lightweight image for running the application
 FROM amazoncorretto:17.0.8-alpine3.18

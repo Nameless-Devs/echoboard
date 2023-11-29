@@ -107,6 +107,9 @@ public class SolutionService {
         if (echoBoardSolution.getContent().split(" ").length > 3) {
             for (int i = 0; i < 3; i++) {
                 title.append(echoBoardSolution.getContent().split(" ")[i]);
+                title.append(" ");
+
+
             }
             title.append("...");
             chatroom.setTitle(title.toString());

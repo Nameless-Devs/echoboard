@@ -22,7 +22,7 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, us
         data: echoBoardPreview,
         isLoading: previewLoading,
         isError: previewError,
-    } = useQuery<EchoBoardPreviewResponseData>(["echoBoards", solution.id], async () => {
+    } = useQuery<EchoBoardPreviewResponseData>(["echoBoardPreviewSolution", solution.id], async () => {
         return await fetchEchoBoardBySolutionId(solution.id);
     });
 
@@ -31,7 +31,7 @@ export const SolutionItemUserPage: React.FC<SolutionItemProps> = ({ solution, us
         isLoading: extendedLoading,
         isError: extendedError,
     } = useQuery<EchoBoardResponseData>(
-        ["echoBoards", echoBoardPreview?.id],
+        ["echoBoardExtendedSolution", echoBoardPreview?.id],
         async () => {
             return await fetchEchoBoardById(echoBoardPreview?.id || '');
         },

@@ -1,8 +1,8 @@
 # EchoBoard
 
 
+https://github.com/Nameless-Devs/echoboard/assets/125829513/04347033-6a51-436f-928b-5acffc5dfa98
 
-https://github.com/Nameless-Devs/echoboard/assets/63118347/692a990c-647e-4a9b-9b57-a61d29443176
 
 
 **[EchoBoard](https://app.echoboard.site/home) is a platform designed to address the challenge of effectively sharing and solving problems within the workplace. 

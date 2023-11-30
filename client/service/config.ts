@@ -31,7 +31,7 @@ export const WEBSOCKET = {
 
 }
 
-export const YOUTUBE_LINK = "https://youtu.be/5ZnpfD93y64"; 
+export const YOUTUBE_LINK = "https://youtu.be/KNVRhe1BvEw"; 
 
 // example from Marcus
 // if(process.env.NEXT_PUBLIC_FF_MY_FEATURE === "ON"){

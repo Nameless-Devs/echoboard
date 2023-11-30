@@ -32,6 +32,7 @@ export const SolutionItem: React.FC<SolutionItemProps> = ({ solution, onUpvote, 
                     content={solution.content}
                     upvote={solution.upvote.length}
                     onUpvote={onUpvote}
+                    id={solution.id}
                 />
             </Grid>
         </ListItem>

@@ -10,6 +10,7 @@ export const ENDPOINTS = {
   COMMENT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}`,
   COMMENT_UPVOTE: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}/upvote`,
   COMMENT_POST: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/comments`,
+  COMMENT_POST_COMMENT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}`,
 
   SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}`,
   SOLUTION_EDIT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/edit`,

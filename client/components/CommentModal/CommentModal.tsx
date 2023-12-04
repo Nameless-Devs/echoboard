@@ -87,6 +87,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               <CommentsList
                 comments={displayPost.echoBoardComments}
                 onCommentUpvote={(commentId) => upvoteMutation.mutate(commentId)}
+                user={user}
               />
               <PostComment echoBoardId={displayPost.id} user={user} />
             </Box>

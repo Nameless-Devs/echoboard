@@ -144,6 +144,26 @@ export async function postComment(
   }
 }
 
+export async function postingCommentOnComment(
+  commentToPost: CommentToPost,
+  commentId: string,
+) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST_COMMENT, { commentId });
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentToPost),
+      credentials: "include",
+    });
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function postSolution(
   solutionToPost: SolutionToPost,
   echoBoardId: string,

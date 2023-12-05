@@ -58,7 +58,6 @@ export const PostSolution: React.FC<SolutionProps> = ({
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && event.shiftKey === false) {
-
       event.preventDefault();
       handleSolutionPost();
     }
@@ -74,9 +73,9 @@ export const PostSolution: React.FC<SolutionProps> = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: "5px",
-          width: {xs: "80%", md: "60%"},
+          width: { xs: "80%", md: "60%" },
           textAlign: "center",
-          height: { xs: "40%", md: "50%"},
+          height: { xs: "40%", md: "50%" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-evenly",
@@ -110,7 +109,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
                 className="post-comment__button"
                 variant="outlined"
                 type="submit"
-                sx={{marginTop: "2rem"}}
+                sx={{ marginTop: "2rem" }}
               >
                 Suggest solution
               </Button>

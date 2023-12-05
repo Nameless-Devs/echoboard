@@ -12,13 +12,16 @@ interface CommentProps {
   user: UserResponseData;
 }
 
-export const PostCommentOnComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
+export const PostCommentOnComment: React.FC<CommentProps> = ({
+  echoBoardId,
+  user,
+}) => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation((data: CommentToPost) =>
-  postingCommentOnComment(data, echoBoardId)
+    postingCommentOnComment(data, echoBoardId)
   );
 
   const handlePostCommentOnComment = (content: string) => {
@@ -48,8 +51,15 @@ export const PostCommentOnComment: React.FC<CommentProps> = ({ echoBoardId, user
     <>
       {isSuccess && (
         <Dialog open={isSuccess}>
-          <DialogContentText style={{padding: "40px", color: "green", fontSize: "20px", textAlign: "center"}}>
-          Your comment was successfully posted
+          <DialogContentText
+            style={{
+              padding: "40px",
+              color: "green",
+              fontSize: "20px",
+              textAlign: "center",
+            }}
+          >
+            Your comment was successfully posted
           </DialogContentText>
         </Dialog>
       )}

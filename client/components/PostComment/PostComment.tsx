@@ -48,8 +48,15 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
     <>
       {isSuccess && (
         <Dialog open={isSuccess}>
-          <DialogContentText style={{padding: "40px", color: "green", fontSize: "20px", textAlign: "center"}}>
-          Your comment was successfully posted
+          <DialogContentText
+            style={{
+              padding: "40px",
+              color: "green",
+              fontSize: "20px",
+              textAlign: "center",
+            }}
+          >
+            Your comment was successfully posted
           </DialogContentText>
         </Dialog>
       )}

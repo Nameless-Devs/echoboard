@@ -20,6 +20,7 @@ export default function EchoBoardLogo() {
           variant="h6"
           noWrap
           component="span"
+          className="echo-board-logo-mobile "
           sx={{
             mr: 2,
             display: { xs: "flex", md: "flex" },

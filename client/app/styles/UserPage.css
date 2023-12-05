@@ -7,3 +7,47 @@
     rgba(4, 39, 88, 1) 97%
   );
 }
+
+
+
+@media (max-width: 600px) {
+  .nav-bar__user-page {
+    width: 100%;
+    
+  }
+
+  .echo-board-logo-mobile {
+    display: none; /* Hide on mobile view by default */
+  }
+
+  main button {
+    width: 10%; 
+    max-width: 200px; 
+    margin: 10px auto;
+  }
+
+  .nav-bar__user-page Button:nth-child(1) {
+    font-size: 12px; 
+    margin-left: 40px;
+    margin-right: 55px;
+  }
+
+  .nav-bar__user-page Button:nth-child(2) {
+    font-size: 12px; 
+    margin-left: 30px;
+    margin-right: 0px; 
+  }
+
+   /* Adjust styles for the EchoBoardLogo and its container */
+   .nav-bar__user-page .MuiBox-root {
+  
+    margin-left: 0px; 
+    margin-right: 15px;
+  }
+
+  .nav-bar__user-page img {
+    margin-right: 10px; 
+    width: 25px; 
+    height: 25px; 
+  }
+}

@@ -57,11 +57,17 @@ export const AccountMenu: React.FC<UserResponseData> = (
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "center" }}
         >
-          <MenuItem className="account-menu__link" onClick={() => router.push('/userProfile')}>
+          <MenuItem
+            className="account-menu__link"
+            onClick={() => router.push("/userProfile")}
+          >
             <Avatar /> Profile
           </MenuItem>
           <Divider />
-          <MenuItem className="account-menu__link" onClick={() => window.location.href = ENDPOINTS.LOGOUT}>
+          <MenuItem
+            className="account-menu__link"
+            onClick={() => (window.location.href = ENDPOINTS.LOGOUT)}
+          >
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

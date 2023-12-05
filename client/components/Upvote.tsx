@@ -13,15 +13,12 @@ export const Upvote: React.FC<UpvoteProps> = ({ upvote, echoBoardId }) => {
   );
   const upvoteCount = echoData ? echoData.upvote.length : upvote.length;
 
-  const mutation = useMutation(
-    () => upvotePost(echoBoardId),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["echoBoard", echoBoardId]);
-        queryClient.refetchQueries(["echoBoard", echoBoardId]);
-      },
-    }
-  );
+  const mutation = useMutation(() => upvotePost(echoBoardId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["echoBoard", echoBoardId]);
+      queryClient.refetchQueries(["echoBoard", echoBoardId]);
+    },
+  });
 
   return (
     <div>

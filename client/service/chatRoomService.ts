@@ -5,12 +5,12 @@ function subscribeToUserChatRooms(
   listChatIds: number[],
   onMessageReceived: (message: IMessage) => void
 ) {
-    for (let index = 0; index < listChatIds.length; index++) {
-        newClient.subscribe("/topic/chatrooms/" + listChatIds[index], (message) => {
-            onMessageReceived(message);
-        });
-    }
+  for (let index = 0; index < listChatIds.length; index++) {
+    newClient.subscribe("/topic/chatrooms/" + listChatIds[index], (message) => {
+      onMessageReceived(message);
+    });
+  }
   return newClient;
 }
 
-export default subscribeToUserChatRooms
+export default subscribeToUserChatRooms;

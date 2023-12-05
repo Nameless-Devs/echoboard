@@ -12,7 +12,7 @@ const UpvoteButton: React.FC<UpvoteButtonProps> = ({ count, onUpvote }) => {
     <Button
       onClick={onUpvote}
       // style={{ position: "absolute", bottom: "0", right: "0" }}
-      style={{padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 0"}}
+      style={{ padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 0" }}
     >
       <ThumbUpIcon /> {count}
     </Button>

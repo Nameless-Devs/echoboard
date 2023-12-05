@@ -1,16 +1,11 @@
 "use client";
 import { UserPage } from "@/components/UserPage/UserPage";
 import { getUserInfo } from "@/service/Functions";
-import {
-  AppBar,
-  Button,
-  Stack,
-  Toolbar
-} from "@mui/material";
+import { AppBar, Button, Stack, Toolbar } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import React from "react";
-import "../styles/UserPage.css"
+import "../styles/UserPage.css";
 import EchoBoardLogo from "@/components/EchoBoardLogo";
 import { useRouter } from "next/navigation";
 import { LoadingLogo } from "@/components/LoadingLogo";
@@ -18,10 +13,10 @@ import { LoadingLogo } from "@/components/LoadingLogo";
 export default function UserProfile() {
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
 
-  const router = useRouter()
+  const router = useRouter();
 
   if (isLoading) {
-    return <LoadingLogo /> ;
+    return <LoadingLogo />;
   }
 
   if (error) {
@@ -30,20 +25,26 @@ export default function UserProfile() {
 
   if (user) {
     return (
-      <Box sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-      }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+        }}
+      >
         {/* Nav Bar */}
         <AppBar className="nav-bar__user-page" position="static">
           <Toolbar>
-            <Box sx={{ flexGrow: 1 }} >
+            <Box sx={{ flexGrow: 1 }}>
               <EchoBoardLogo />
             </Box>
             <Stack direction="row" spacing={2}>
-              <Button color="inherit" onClick={() => router.push('/')}>Home</Button>
-              <Button color="inherit" onClick={() => router.push('/chatroom')}>Chat</Button>
+              <Button color="inherit" onClick={() => router.push("/")}>
+                Home
+              </Button>
+              <Button color="inherit" onClick={() => router.push("/chatroom")}>
+                Chat
+              </Button>
             </Stack>
           </Toolbar>
         </AppBar>

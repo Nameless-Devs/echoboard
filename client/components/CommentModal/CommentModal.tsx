@@ -15,7 +15,6 @@ import { CustomTabContent } from "./commentModalComponents/CustomTabContent";
 import { CommentsList } from "./commentModalComponents/CommentsList";
 import { SolutionsList } from "./commentModalComponents/SolutionsList";
 
-
 interface CommentsModalProps {
   post: EchoBoardResponseData;
   handleClose: () => void;
@@ -53,7 +52,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setValue(newTabIndex);
   };
 
-
   const { data: updatedPost } = useQuery<EchoBoardResponseData>(
     ["comments", post.id],
     async () => {
@@ -70,7 +68,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 
   return (
     <Modal open={isOpen} onClose={handleClose}>
-      <Box className="model-display" sx={{width: {xs: "100%", md:"60%"}}}>
+      <Box className="model-display" sx={{ width: { xs: "100%", md: "60%" } }}>
         <Box mb={1}>
           <SinglePost echoBoard={post} user={user} />
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
@@ -86,7 +84,9 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             <Box className="comment-display">
               <CommentsList
                 comments={displayPost.echoBoardComments}
-                onCommentUpvote={(commentId) => upvoteMutation.mutate(commentId)}
+                onCommentUpvote={(commentId) =>
+                  upvoteMutation.mutate(commentId)
+                }
                 user={user}
               />
               <PostComment echoBoardId={displayPost.id} user={user} />
@@ -96,7 +96,9 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             <Box className="comment-display">
               <SolutionsList
                 solutions={displayPost.echoBoardSolutions}
-                onSolutionUpvote={(solutionId) => solutionUpvoteMutation.mutate(solutionId)}
+                onSolutionUpvote={(solutionId) =>
+                  solutionUpvoteMutation.mutate(solutionId)
+                }
               />
               <div className="solution-button-container">
                 <Button

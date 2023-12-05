@@ -20,8 +20,8 @@ function ChatRoomHistory({ chatRoomId }: ChatRoomHistoryProp) {
     return (
       <div>
         {chatHistory.map((message, index) => (
-          <div key={index}> 
-            <ChatMessage index={index} msg={message}/>
+          <div key={index}>
+            <ChatMessage index={index} msg={message} />
           </div>
         ))}
       </div>
@@ -31,4 +31,4 @@ function ChatRoomHistory({ chatRoomId }: ChatRoomHistoryProp) {
   return null;
 }
 
-export default ChatRoomHistory
+export default ChatRoomHistory;

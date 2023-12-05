@@ -33,6 +33,7 @@ export type CommentResponseData = {
   upvote: string[];
   created: string;
   echoBoardUser: EchoBoardUser;
+  echoBoardComments: CommentResponseData[];
 };
 
 export type UpvoteProps = {

@@ -13,15 +13,14 @@ import Logout from "@mui/icons-material/Logout";
 import { UserResponseData } from "@/service/Types";
 import "../app/styles/AccountMenu.css";
 import { ENDPOINTS } from "@/service/config";
-import { useRouter } from 'next/navigation';
-
+import { useRouter } from "next/navigation";
 
 export const AccountMenu: React.FC<UserResponseData> = (
   user: UserResponseData
 ) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -57,11 +56,17 @@ export const AccountMenu: React.FC<UserResponseData> = (
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "center" }}
         >
-          <MenuItem className="account-menu__link" onClick={() => router.push('/userProfile')}>
+          <MenuItem
+            className="account-menu__link"
+            onClick={() => router.push("/userProfile")}
+          >
             <Avatar /> Profile
           </MenuItem>
           <Divider />
-          <MenuItem className="account-menu__link" onClick={() => window.location.href = ENDPOINTS.LOGOUT}>
+          <MenuItem
+            className="account-menu__link"
+            onClick={() => (window.location.href = ENDPOINTS.LOGOUT)}
+          >
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

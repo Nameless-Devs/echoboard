@@ -38,7 +38,8 @@ export default function Home() {
             </Box>
             <Stack direction="row" spacing={2}>
               <Button color="inherit" onClick={() => router.push("/home")}>
-                Starting page
+              <span className="home-button-mobile">Main</span>
+              <span className="home-button-desktop">Starting page</span>
               </Button>
               <Button color="inherit" onClick={() => router.push("/chatroom")}>
                 Chat
@@ -54,7 +55,8 @@ export default function Home() {
           onClick={handleClick}
           variant="outlined"
           type="submit"
-          style={{ width: "30%", maxWidth: "300px", margin: "15px auto" }}
+          className="share-your-problem-button"
+          // style={{ width: "30%", maxWidth: "300px", margin: "15px auto" }}
         >
           Share your problem
         </Button>

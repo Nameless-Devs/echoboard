@@ -86,7 +86,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
       ) : (
-        <Button variant="outlined" onClick={() => setSortByUpvote(true)}>
+        <Button className="sort-button" variant="outlined" onClick={() => setSortByUpvote(true)}>
           Sort
         </Button>
       )}

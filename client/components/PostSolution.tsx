@@ -3,7 +3,6 @@ import { SolutionToPost, UserResponseData } from "@/service/Types";
 import { Box, Button, Modal, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postSolution } from "@/service/Functions";
-import { useCookies } from "react-cookie";
 
 type SolutionProps = {
   echoBoardId: string;
@@ -58,7 +57,6 @@ export const PostSolution: React.FC<SolutionProps> = ({
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && event.shiftKey === false) {
-
       event.preventDefault();
       handleSolutionPost();
     }
@@ -74,9 +72,9 @@ export const PostSolution: React.FC<SolutionProps> = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: "5px",
-          width: {xs: "80%", md: "60%"},
+          width: { xs: "80%", md: "60%" },
           textAlign: "center",
-          height: { xs: "40%", md: "50%"},
+          height: { xs: "40%", md: "50%" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-evenly",
@@ -110,7 +108,7 @@ export const PostSolution: React.FC<SolutionProps> = ({
                 className="post-comment__button"
                 variant="outlined"
                 type="submit"
-                sx={{marginTop: "2rem"}}
+                sx={{ marginTop: "2rem" }}
               >
                 Suggest solution
               </Button>

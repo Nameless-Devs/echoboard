@@ -26,14 +26,13 @@ export const ENDPOINTS = {
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
 };
 
-export const WEBSOCKET = { 
+export const WEBSOCKET = {
   BASE_URL: `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`,
+};
 
-}
-
-export const YOUTUBE_LINK = "https://youtu.be/KNVRhe1BvEw"; 
+export const YOUTUBE_LINK = "https://youtu.be/KNVRhe1BvEw";
 
 // example from Marcus
 // if(process.env.NEXT_PUBLIC_FF_MY_FEATURE === "ON"){
 // alert("WIP");
-// } 
+// }

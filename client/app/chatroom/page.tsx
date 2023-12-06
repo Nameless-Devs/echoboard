@@ -9,11 +9,11 @@ import {
 import { Message } from "@/service/Types";
 import { Button, Grid, Input, ListItemButton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
-import {useScrollToLatestMessage} from "@/hooks/useScrollToLatestMessage";
-import {LoadingPage} from "@/components/Shared/LoadingPage/LoadingPage";
+import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
+import { LoadingPage } from "@/components/Shared/LoadingPage/LoadingPage";
 
 export default function UserChat() {
   const { data: chatRooms } = useQuery(["chatRooms"], getUserChatRooms);
@@ -44,7 +44,7 @@ export default function UserChat() {
     };
     newClient.onConnect = () => {
       if (chatRooms) {
-        const chatRoomIds = chatRooms.map((chatRoom) => chatRoom.id)
+        const chatRoomIds = chatRooms.map((chatRoom) => chatRoom.id);
         subscribeToUserChatRooms(newClient, chatRoomIds, onMessageReceived);
       }
     };
@@ -61,11 +61,9 @@ export default function UserChat() {
 
   const scrollToLatestMessage = useScrollToLatestMessage(messages);
 
-  if (isLoading) return (<LoadingPage/>);
+  if (isLoading) return <LoadingPage />;
 
-
-  if (error) return (<div>Error</div>)
-
+  if (error) return <div>Error</div>;
 
   const handleMessageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
@@ -97,54 +95,54 @@ export default function UserChat() {
 
   return (
     <Grid
-        container
-        style={{position: "absolute", height: "100%", width: "100%"}}
+      container
+      style={{ position: "absolute", height: "100%", width: "100%" }}
     >
       {/*Left Grid*/}
-      <Grid item xs={2} sx={{height: "100%", backgroundColor: "#292b2f"}}>
+      <Grid item xs={2} sx={{ height: "100%", backgroundColor: "#292b2f" }}>
         {displayUserChatrooms()}
       </Grid>
-      <Grid item xs={10} sx={{height: "100%", backgroundColor: "#424549"}}>
+      <Grid item xs={10} sx={{ height: "100%", backgroundColor: "#424549" }}>
         {/*Top Right*/}
-        <Grid item xs={12} sx={{height: "90%", overflowY: "scroll"}} >
+        <Grid item xs={12} sx={{ height: "90%", overflowY: "scroll" }}>
           {messages.map((msg, index) => (
-              <div key={index}>
-                <ChatMessage index={index} msg={msg}/>
-              </div>
+            <div key={index}>
+              <ChatMessage index={index} msg={msg} />
+            </div>
           ))}
           <div ref={scrollToLatestMessage} />
         </Grid>
         {/*Bottom Right*/}
         <Grid
-            item
-            xs={12}
-            sx={{
-              height: "10%",
-              outline: "10px blue",
-              backgroundColor: "#424549",
-              padding: "1rem",
-            }}
+          item
+          xs={12}
+          sx={{
+            height: "10%",
+            outline: "10px blue",
+            backgroundColor: "#424549",
+            padding: "1rem",
+          }}
         >
           <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                padding: "1rem",
-                backgroundColor: "#4a4c51",
-                borderRadius: "5px",
-              }}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "1rem",
+              backgroundColor: "#4a4c51",
+              borderRadius: "5px",
+            }}
           >
             <Input
-                sx={{
-                  width: "80%",
-                  color: "#f1f1f1",
-                }}
-                type="text"
-                placeholder="Enter a message"
-                value={input}
-                disableUnderline={true}
-                onChange={handleMessageInput}
+              sx={{
+                width: "80%",
+                color: "#f1f1f1",
+              }}
+              type="text"
+              placeholder="Enter a message"
+              value={input}
+              disableUnderline={true}
+              onChange={handleMessageInput}
             />
             <Button onClick={handleSendMessage}>Send</Button>
           </div>
@@ -154,26 +152,28 @@ export default function UserChat() {
   );
 
   function displayUserChatrooms() {
-    return <>
-      <h1 style={{margin: "1em"}}>ChatRoom</h1>
-      {chatRooms?.map((chatroom, index) => (
+    return (
+      <>
+        <h1 style={{ margin: "1em" }}>ChatRoom</h1>
+        {chatRooms?.map((chatroom, index) => (
           <ListItemButton
-              key={index}
-              onClick={() => {
-                handleChatRoomChange(chatroom.id);
-                setSelectedIndex(index);
-              }}
-              style={{
-                borderRadius: "10px",
-                padding: "16px",
-                color: "#f1f1f1",
-                backgroundColor: selectedIndex === index ? "#424549" : "",
-                margin: "0 0.5rem 0 0.5rem",
-              }}
+            key={index}
+            onClick={() => {
+              handleChatRoomChange(chatroom.id);
+              setSelectedIndex(index);
+            }}
+            style={{
+              borderRadius: "10px",
+              padding: "16px",
+              color: "#f1f1f1",
+              backgroundColor: selectedIndex === index ? "#424549" : "",
+              margin: "0 0.5rem 0 0.5rem",
+            }}
           >
             {chatroom.title}
           </ListItemButton>
-      ))}
-    </>;
+        ))}
+      </>
+    );
   }
 }

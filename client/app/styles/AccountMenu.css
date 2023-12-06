@@ -1,47 +1,47 @@
 .account-menu__flex-container {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .account-menu__avatar-container {
-    display: flex;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .account-menu__tooltip {
-    margin-right: 5px;
-    margin-top: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
 }
 
 .account-menu__icon-button {
-    margin-left: 2px;
+  margin-left: 2px;
 }
 
 .account-menu__avatar {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .account-menu {
-    overflow: visible;
-    filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.32));
-    margin-top: 1.5rem;
+  overflow: visible;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32));
+  margin-top: 1.5rem;
 }
 
 .account-menu__list .MuiAvatar-root {
-    width: 32px;
-    height: 32px;
-    margin-left: -0.5rem;
-    margin-right: 1rem;
+  width: 32px;
+  height: 32px;
+  margin-left: -0.5rem;
+  margin-right: 1rem;
 }
 
 .account-menu__link {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .account-menu__tooltip {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }

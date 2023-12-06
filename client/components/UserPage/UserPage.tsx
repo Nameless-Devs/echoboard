@@ -50,10 +50,19 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                 user.echoBoards
                   .slice()
                   .sort((a, b) => {
-                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                    return (
+                      new Date(b.created).getTime() -
+                      new Date(a.created).getTime()
+                    );
                   })
                   .map((echoBoard, index) => {
-                    return <SingleUserPost key={index} echoBoard={echoBoard} user={user} />;
+                    return (
+                      <SingleUserPost
+                        key={index}
+                        echoBoard={echoBoard}
+                        user={user}
+                      />
+                    );
                   })
               )}
             </Box>
@@ -66,11 +75,18 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                 user.echoBoardSolutions
                   .slice()
                   .sort((a, b) => {
-                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                    return (
+                      new Date(b.created).getTime() -
+                      new Date(a.created).getTime()
+                    );
                   })
                   .map((solution, index) => {
                     return (
-                      <SolutionItemUserPage key={index} solution={solution} user={user} />
+                      <SolutionItemUserPage
+                        key={index}
+                        solution={solution}
+                        user={user}
+                      />
                     );
                   })
               )}
@@ -84,29 +100,36 @@ export const UserPage: React.FC<UserPageProps> = ({ user }) => {
                 user.echoBoardComments
                   .slice()
                   .sort((a, b) => {
-                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                    return (
+                      new Date(b.created).getTime() -
+                      new Date(a.created).getTime()
+                    );
                   })
                   .map((comment, index) => {
                     return (
-                      <CommentItemUserPage key={index} comment={comment} user={user} />
+                      <CommentItemUserPage
+                        key={index}
+                        comment={comment}
+                        user={user}
+                      />
                     );
                   })
-              )
-              }
+              )}
             </Box>
           </CustomTabContent>
           <CustomTabContent value={value} index={3}>
             <Box>
-              {(user.pendingVolunteeredSolutions === null || user.pendingVolunteeredSolutions.length === 0) &&
-                (user.volunteeredSolutions === null || user.volunteeredSolutions.length === 0) ?
-                (<p>You have not volunteered for any solutions yet.</p>
-                ) : (
-                  <VolunteeringTab
-                    pendingVolunteeredSolutions={user.pendingVolunteeredSolutions}
-                    volunteeredSolutions={user.volunteeredSolutions} />
-                )
-              }
-
+              {(user.pendingVolunteeredSolutions === null ||
+                user.pendingVolunteeredSolutions.length === 0) &&
+              (user.volunteeredSolutions === null ||
+                user.volunteeredSolutions.length === 0) ? (
+                <p>You have not volunteered for any solutions yet.</p>
+              ) : (
+                <VolunteeringTab
+                  pendingVolunteeredSolutions={user.pendingVolunteeredSolutions}
+                  volunteeredSolutions={user.volunteeredSolutions}
+                />
+              )}
             </Box>
           </CustomTabContent>
         </Box>

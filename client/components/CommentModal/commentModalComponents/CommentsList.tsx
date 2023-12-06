@@ -1,4 +1,4 @@
-import { CommentResponseData } from "@/service/Types";
+import { CommentResponseData, UserResponseData } from "@/service/Types";
 import { List } from "@mui/material";
 import React from "react";
 import { CommentItem } from "./CommentItem";
@@ -6,11 +6,13 @@ import { CommentItem } from "./CommentItem";
 type CommentsListProps = {
   comments: CommentResponseData[];
   onCommentUpvote: (commentId: string) => void;
+  user: UserResponseData;
 };
 
 export const CommentsList: React.FC<CommentsListProps> = ({
   comments,
   onCommentUpvote,
+  user,
 }) => {
   return (
     <List>
@@ -22,6 +24,7 @@ export const CommentsList: React.FC<CommentsListProps> = ({
               key={index}
               comment={comment}
               onUpvote={() => onCommentUpvote(comment.id)}
+              user={user}
             />
           );
         })}

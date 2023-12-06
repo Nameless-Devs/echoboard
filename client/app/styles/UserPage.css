@@ -83,16 +83,20 @@
   }
 
   h1 {
-    text-align: center;
+    display: none;
+    /* text-align: center;
     max-width: 90%;
-    margin-top: 40px;
+    margin-top: 70px;
+    margin-bottom: 60px; */
   }
 
   .share-your-problem-button {
+    font-family: Georgia, serif;
     width: 30%;
     height: 10%;
     background-color: rgb(219, 214, 214);
-    margin-bottom: 70px;
+    margin-top: 50px;
+    margin-bottom: 80px;
   }
 
   .sort-button {

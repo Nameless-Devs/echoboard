@@ -1,7 +1,7 @@
-import { PostEchoBoardData, UserResponseData } from '@/service/Types'
-import { Avatar, Box, Button, TextField } from '@mui/material';
-import React, { ChangeEvent } from 'react'
-import { AnonymityCheckbox } from './AnonymityCheckbox';
+import { PostEchoBoardData, UserResponseData } from "@/service/Types";
+import { Avatar, Box, Button, TextField } from "@mui/material";
+import React, { ChangeEvent } from "react";
+import { AnonymityCheckbox } from "./AnonymityCheckbox";
 
 type EchoBoardFormProps = {
   echoBoardPost: PostEchoBoardData;
@@ -11,7 +11,7 @@ type EchoBoardFormProps = {
   handleKeyPress: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   user: UserResponseData;
   handleIfAnonymousChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 export const EchoBoardForm: React.FC<EchoBoardFormProps> = ({
   echoBoardPost,
@@ -20,18 +20,18 @@ export const EchoBoardForm: React.FC<EchoBoardFormProps> = ({
   handleProblemPost,
   handleKeyPress,
   user,
-  handleIfAnonymousChange
-}
-) => {
+  handleIfAnonymousChange,
+}) => {
   return (
     <form onSubmit={handleProblemPost}>
       <Box
         sx={{
-          "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root": {
-            m: 1,
-            width: "99%",
-            alignSelf: "center",
-          },
+          "& .MuiTextField-root, & .MuiButton-root, & .MuiTextareaAutosize-root":
+            {
+              m: 1,
+              width: "99%",
+              alignSelf: "center",
+            },
         }}
         style={{ display: "flex", flexDirection: "column" }}
       >
@@ -65,7 +65,10 @@ export const EchoBoardForm: React.FC<EchoBoardFormProps> = ({
               }
               onKeyDown={handleKeyPress}
             />
-            <AnonymityCheckbox ifAnonymous={ifAnonymous} handleIfAnonymousChange={handleIfAnonymousChange} />
+            <AnonymityCheckbox
+              ifAnonymous={ifAnonymous}
+              handleIfAnonymousChange={handleIfAnonymousChange}
+            />
           </Box>
         </Box>
         <Button
@@ -78,5 +81,4 @@ export const EchoBoardForm: React.FC<EchoBoardFormProps> = ({
       </Box>
     </form>
   );
-
-}
+};

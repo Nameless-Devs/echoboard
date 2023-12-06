@@ -1,12 +1,12 @@
-.main__background-picture{
-    background-image: url("./../image/Final_background_copy.png");
-    background-color: #111c3f;
-    background-size: cover; 
-    height: 100vh;
+.main__background-picture {
+  background-image: url("./../image/Final_background_copy.png");
+  background-color: #111c3f;
+  background-size: cover;
+  height: 100vh;
 }
 
 .__className_e66fe9 {
-    margin: 0;
+  margin: 0;
 }
 
 /* .link__button{

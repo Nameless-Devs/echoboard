@@ -32,8 +32,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
   const sortedEchoBoards = sortByUpvote
     ? [...(echoBoards || [])].sort((a, b) => b.upvote.length - a.upvote.length)
     : [...(echoBoards || [])].sort(
-      (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
-    );
+        (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+      );
 
   const handleOpen = (post: EchoBoardResponseData) => {
     setIsOpen(true);
@@ -91,8 +91,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
         </Button>
       )}
       <div className="echo-board-posts">
-        {isLoading &&
-          <SinglePostSkeleton /> }
+        {isLoading && <SinglePostSkeleton />}
         {isError && <p>Error!</p>}
         {sortedEchoBoards?.map((echoBoard, index) => (
           <EchoBoardCard

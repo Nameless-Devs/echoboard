@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CommentToPost, UserResponseData } from "@/service/Types";
 import { Avatar, Box, Dialog, DialogContentText } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postComment } from "@/service/Functions";
+import { postComment, postingCommentOnComment } from "@/service/Functions";
 import { CommentForm } from "./PostCommentTextField";
 import { StyledBadge } from "./StyledBadge";
 import "../../app/styles/PostComment.css";
@@ -12,16 +12,16 @@ interface CommentProps {
   user: UserResponseData;
 }
 
-export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
+export const PostCommentOnComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation((data: CommentToPost) =>
-    postComment(data, echoBoardId)
+  postingCommentOnComment(data, echoBoardId)
   );
 
-  const handleCommentPost = (content: string) => {
+  const handlePostCommentOnComment = (content: string) => {
     if (!content.trim()) {
       return;
     }
@@ -48,15 +48,8 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
     <>
       {isSuccess && (
         <Dialog open={isSuccess}>
-          <DialogContentText
-            style={{
-              padding: "40px",
-              color: "green",
-              fontSize: "20px",
-              textAlign: "center",
-            }}
-          >
-            Your comment was successfully posted
+          <DialogContentText style={{padding: "40px", color: "green", fontSize: "20px", textAlign: "center"}}>
+          Your comment was successfully posted
           </DialogContentText>
         </Dialog>
       )}
@@ -75,7 +68,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
               />
             </StyledBadge>
           </Box>
-          <CommentForm onCommentSubmit={handleCommentPost} />
+          <CommentForm onCommentSubmit={handlePostCommentOnComment} />
         </Box>
       </form>
     </>

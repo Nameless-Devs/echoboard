@@ -112,7 +112,7 @@ const DeveloperPage = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={3} style={{ padding: '2rem' }}>
-                            <Typography variant="body1">
+                            <Typography variant="body1" align="center">
                                 Welcome to the Developer Page! Here you can find information and resources for developers working on our project.
                             </Typography>
                         </Paper>

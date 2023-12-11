@@ -154,7 +154,7 @@ export default function UserChat() {
   function displayUserChatrooms() {
     return (
       <>
-        <h1 style={{ margin: "1em" }}>ChatRoom</h1>
+        <h2 style={{ margin: "1em" }}>Your chat rooms</h2>
         {chatRooms?.map((chatroom, index) => (
           <ListItemButton
             key={index}
@@ -165,8 +165,8 @@ export default function UserChat() {
             style={{
               borderRadius: "10px",
               padding: "16px",
-              color: "#f1f1f1",
-              backgroundColor: selectedIndex === index ? "#424549" : "",
+              color: "black",
+              backgroundColor: selectedIndex === index ? "#c1c4c7" : "",
               margin: "0 0.5rem 0 0.5rem",
             }}
           >

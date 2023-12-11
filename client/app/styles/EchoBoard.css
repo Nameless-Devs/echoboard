@@ -5,12 +5,13 @@
 }
 
 .echo-board-posts {
+  background-color: violet;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  width: 60%;
+  width: 100%;
   max-width: 800px;
 }
 

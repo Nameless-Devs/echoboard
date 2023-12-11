@@ -4,14 +4,11 @@ import PostEchoBoard from "../components/PostEchoBoard/PostEchoBoard";
 import { EchoBoard } from "@/components/EchoBoard/EchoBoard";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
-import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
-import { AccountMenu } from "@/components/AccountMenu";
-import EchoBoardLogo from "@/components/EchoBoardLogo";
+import { Button } from "@mui/material";
 import "./styles/UserPage.css";
 import { useRouter } from "next/navigation";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import JwtAuth from "@/components/JwtAuth";
-import NavBar from "./home/NavBar";
 import CustomNavBar from "@/components/CustomNavBar";
 
 const buttons = [
@@ -39,23 +36,6 @@ export default function Home() {
         }}
       >
         <CustomNavBar buttons={buttons} user={user} />
-
-        {/* <AppBar className="nav-bar__user-page" position="static">
-          <Toolbar>
-            <Box sx={{ flexGrow: 1 }}>
-              <EchoBoardLogo />
-            </Box>
-            <Stack direction="row" spacing={2}>
-              <Button color="inherit" onClick={() => router.push("/home")}>
-                Starting page
-              </Button>
-              <Button color="inherit" onClick={() => router.push("/chatroom")}>
-                Chat
-              </Button>
-              <AccountMenu {...user} />
-            </Stack>
-          </Toolbar>
-        </AppBar> */}
         <h1 style={{ textAlign: "center" }}>
           {user.name}, welcome to EchoBoard!
         </h1>

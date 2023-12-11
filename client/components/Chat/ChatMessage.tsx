@@ -1,3 +1,4 @@
+import { timeConverter } from "@/service/TimeConverter";
 import { Message } from "@/service/Types";
 import { Avatar, ListItem, ListItemText, Typography } from "@mui/material";
 import React from "react";
@@ -14,7 +15,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg }) => {
       <ListItemText
         primary={
           <Typography variant="body2">
-            {msg.sender}
+            {msg.sender} {timeConverter(msg.timestamp)}
           </Typography>
         }
         secondary={
@@ -22,6 +23,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg }) => {
             {msg.content}
           </Typography>
         }
+        
       ></ListItemText>
     </ListItem>
   );

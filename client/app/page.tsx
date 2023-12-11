@@ -11,6 +11,13 @@ import "./styles/UserPage.css";
 import { useRouter } from "next/navigation";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import JwtAuth from "@/components/JwtAuth";
+import NavBar from "./home/NavBar";
+import CustomNavBar from "@/components/CustomNavBar";
+
+const buttons = [
+  {label: 'Starting page', link: '/home'},
+  {label: 'Chat', link: '/chatroom'}
+];
 
 export default function Home() {
   const { data: user, isLoading, error } = useQuery(["userInfo"], getUserInfo);
@@ -31,7 +38,9 @@ export default function Home() {
           backgroundColor: "#FAF9F6",
         }}
       >
-        <AppBar className="nav-bar__user-page" position="static">
+        <CustomNavBar buttons={buttons} user={user} />
+
+        {/* <AppBar className="nav-bar__user-page" position="static">
           <Toolbar>
             <Box sx={{ flexGrow: 1 }}>
               <EchoBoardLogo />
@@ -46,7 +55,7 @@ export default function Home() {
               <AccountMenu {...user} />
             </Stack>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
         <h1 style={{ textAlign: "center" }}>
           {user.name}, welcome to EchoBoard!
         </h1>

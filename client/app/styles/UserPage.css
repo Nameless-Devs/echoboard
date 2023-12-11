@@ -18,8 +18,11 @@
   max-Width: 300px;
   margin: 15px auto;
 }
+
+
 @media (max-width: 600px) {
   main {
+    font-family: "Gill Sans", sans-serif;
     width: 100%;
     overflow-x: hidden; /* Prevent horizontal scrolling */
     display: flex;
@@ -46,11 +49,13 @@
     margin: 10px auto;
   }
   .nav-bar__user-page Button:nth-child(1) {
+    font-family: "Gill Sans", sans-serif;
     font-size: 12px; 
     margin-left: 60px;
     margin-right: 55px;
   }
   .nav-bar__user-page Button:nth-child(2) {
+    font-family: "Gill Sans", sans-serif;
     font-size: 12px; 
     margin-left: 0px;
     margin-right: 0px; 
@@ -79,11 +84,32 @@
   .share-your-problem-button {
     width: 30%;
     height: 10%;
-    background-color: rgb(219, 214, 214);
-    margin-bottom: 70px;
+    font-family: "Gill Sans", sans-serif;
+    color: #ffffff;
+   background: rgb(6, 37, 79);
+  background: linear-gradient(
+    90deg,
+    rgba(6, 37, 79, 1) 5%,
+    rgba(28, 84, 112, 1) 52%,
+    rgba(4, 39, 88, 1) 97%
+  );
+    margin-bottom: 60px;
+    margin-top: 30px;
+    box-shadow: rgba(0, 0, 0, 0.3)
+     0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   }
 
   .sort-button {
-    background-color: rgb(219, 214, 214);
+    font-family: "Gill Sans", sans-serif;
+    color: #ffffff;
+   background: rgb(6, 37, 79);
+  background: linear-gradient(
+    90deg,
+    rgba(6, 37, 79, 1) 5%,
+    rgba(28, 84, 112, 1) 52%,
+    rgba(4, 39, 88, 1) 97%
+  );
+  box-shadow: rgba(0, 0, 0, 0.3)
+  0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   }
 }

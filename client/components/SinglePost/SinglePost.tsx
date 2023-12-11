@@ -23,10 +23,10 @@ export const SinglePost: React.FC<SinglePostProps> = ({ echoBoard, user }) => {
       >
         <Avatar src={echoBoard.anonymous ? " " : echoBoard.echoBoardUser.picture} />
         <Box>
-          <Typography variant="subtitle1" style={{ marginBottom: "-5px" }}>
+          <Typography className="card-user-name" variant="subtitle1" style={{ marginBottom: "-5px" }}>
             {echoBoard.anonymous ? "Anonymous" : echoBoard.echoBoardUser.name}
           </Typography>
-          <Typography variant="caption" style={{ color: "gray" }}>
+          <Typography className="post-date-and-time" variant="caption" style={{ color: "gray" }}>
             {convertedTime}
           </Typography>
         </Box>
@@ -36,6 +36,7 @@ export const SinglePost: React.FC<SinglePostProps> = ({ echoBoard, user }) => {
         variant="h5"
         component="div"
         style={{ margin: "10px 0px 4px" }}
+        className="post-title"
       >
         {echoBoard.title}
       </Typography>
@@ -43,6 +44,7 @@ export const SinglePost: React.FC<SinglePostProps> = ({ echoBoard, user }) => {
         variant="body1"
         color="text.secondary"
         style={{ margin: "0px" }}
+        className="post-content"
       >
         {echoBoard.content}
       </Typography>

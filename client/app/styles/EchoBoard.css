@@ -6,22 +6,79 @@
   }
 
   .echo-board-card {
-    margin: 15px 0;
+    margin: 1px 0 1px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* width: 120%; */
+    box-shadow: rgba(50, 50, 93, 0.25)
+     0px 50px 100px -20px, rgba(0, 0, 0, 0.3)
+     0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  }
 
+  .echo-board-posts {
+    background-color: brown;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 800px;
   }
 
   .echo-board-solution-btn {
-    margin-right: 15px;
-    margin-left: 95px;
-    width: 10px;
+    font-family: "Gill Sans", sans-serif;
+    margin-right: 90px;
+    margin-left: 30px;
+    width: 400px;
     height: 60px;
 
   }
 
+  .card-user-name{
+    font-family: "cursive";
+    font-weight: bold;
+  }
+
+  .post-date-and-time{
+    font-family: "cursive";
+    /* font-weight: bold; */
+  }
+
+  .post-title{
+    font-family: "cursive";
+    width: 300px;
+    /* font-weight: bold; */
+  }
+
+  .post-content{
+    font-family: "cursive";
+    
+  }
+
+  .echo-board-card-content {
+    font-family: "cursive";
+    flex: 1 1 auto;
+    padding-bottom: 0;
+  }
+
+  .post-comment__avatar{
+    margin-right: 10px;
+  }
+
+  .post-comment__comment{
+    width: 90%; /* Set the desired width for your form */
+    height: 20%;
+    margin: 0 auto; /* Center the form horizontally */
+    /* padding: 15px; Add padding as needed */
+    /* border: 1px solid #ccc; /* Add border styling as needed */
+    /* border-radius: 20px;  */
+  }
+
 }
+
+
 
 .echo-board-main {
   display: flex;
@@ -47,6 +104,7 @@
 }
 
 .echo-board-card-content {
+  font-family: system-ui;
   flex: 1 1 auto;
   padding-bottom: 0;
 }

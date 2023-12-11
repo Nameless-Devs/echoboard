@@ -67,7 +67,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
                 src={user.picture}
               />
             </StyledBadge>
-          </Box>
+          </Box >
           <CommentForm onCommentSubmit={handleCommentPost} />
         </Box>
       </form>

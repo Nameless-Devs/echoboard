@@ -99,10 +99,10 @@ export default function UserChat() {
       style={{ position: "absolute", height: "100%", width: "100%" }}
     >
       {/*Left Grid*/}
-      <Grid item xs={2} sx={{ height: "100%", backgroundColor: "#292b2f" }}>
+      <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#f5f5f6", borderRight: "3px solid #c1c4c7" }}>
         {displayUserChatrooms()}
       </Grid>
-      <Grid item xs={10} sx={{ height: "100%", backgroundColor: "rgb(250, 249, 246)" }}>
+      <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#F8F9FA" }}>
         {/*Top Right*/}
         <Grid item xs={12} sx={{ height: "90%", overflowY: "scroll" }}>
           {messages.map((msg, index) => (

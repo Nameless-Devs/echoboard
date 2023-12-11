@@ -81,6 +81,7 @@ export interface Message {
   sender: string;
   picture: string;
   content: string;
+  timestamp: string;
 }
 
 export type EchoBoardPreviewResponseData = {

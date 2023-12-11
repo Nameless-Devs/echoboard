@@ -14,6 +14,12 @@ import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
 import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
 import { LoadingPage } from "@/components/Shared/LoadingPage/LoadingPage";
+import CustomNavBar from "@/components/CustomNavBar";
+
+const buttons = [
+  {label: 'Starting page', link: '/home'},
+  {label: 'Chat', link: '/chatroom'}
+];
 
 export default function UserChat() {
   const { data: chatRooms } = useQuery(["chatRooms"], getUserChatRooms);
@@ -94,61 +100,68 @@ export default function UserChat() {
   };
 
   return (
-    <Grid
-      container
-      style={{ position: "absolute", height: "100%", width: "100%" }}
-    >
-      {/*Left Grid*/}
-      <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#f5f5f6", borderRight: "3px solid #c1c4c7" }}>
-        {displayUserChatrooms()}
-      </Grid>
-      <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#F8F9FA" }}>
-        {/*Top Right*/}
-        <Grid item xs={12} sx={{ height: "90%", overflowY: "scroll" }}>
-          {messages.map((msg, index) => (
-            <div key={index}>
-              <ChatMessage index={index} msg={msg} />
-            </div>
-          ))}
-          <div ref={scrollToLatestMessage} />
+    <>
+      {user && 
+      <>
+      <CustomNavBar buttons={buttons} user={user} />
+      <Grid
+        container
+        style={{ position: "absolute", height: "100%", width: "100%" }}
+      >
+        {/*Left Grid*/}
+        <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#f5f5f6", borderRight: "3px solid #c1c4c7" }}>
+          {displayUserChatrooms()}
         </Grid>
-        {/*Bottom Right*/}
-        <Grid
-          item
-          xs={12}
-          sx={{
-            height: "10%",
-            outline: "10px blue",
-            backgroundColor: "rgb(250, 249, 246)",
-            padding: "1rem",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+        <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#F8F9FA" }}>
+          {/*Top Right*/}
+          <Grid item xs={12} sx={{ height: "90%", overflowY: "scroll" }}>
+            {messages.map((msg, index) => (
+              <div key={index}>
+                <ChatMessage index={index} msg={msg} />
+              </div>
+            ))}
+            <div ref={scrollToLatestMessage} />
+          </Grid>
+          {/*Bottom Right*/}
+          <Grid
+            item
+            xs={12}
+            sx={{
+              height: "10%",
+              outline: "10px blue",
+              backgroundColor: "rgb(250, 249, 246)",
               padding: "1rem",
-              backgroundColor: "#4a4c51",
-              borderRadius: "5px",
             }}
           >
-            <Input
-              sx={{
-                width: "80%",
-                color: "#f1f1f1",
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                padding: "1rem",
+                backgroundColor: "#4a4c51",
+                borderRadius: "5px",
               }}
-              type="text"
-              placeholder="Enter a message"
-              value={input}
-              disableUnderline={true}
-              onChange={handleMessageInput}
-            />
-            <Button onClick={handleSendMessage}>Send</Button>
-          </div>
+            >
+              <Input
+                sx={{
+                  width: "80%",
+                  color: "#f1f1f1",
+                }}
+                type="text"
+                placeholder="Enter a message"
+                value={input}
+                disableUnderline={true}
+                onChange={handleMessageInput}
+              />
+              <Button onClick={handleSendMessage}>Send</Button>
+            </div>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+      </>
+      }
+    </>
   );
 
   function displayUserChatrooms() {

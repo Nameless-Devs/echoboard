@@ -1,29 +1,30 @@
-function formatTimestamp(timestamp: string): string {
+export function formatTimestamp(timestamp: string): string {
     const date = new Date(timestamp);
-  
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
   
-    const diffInDays = Math.floor((currentDate.getTime() - date.getTime()) / (24 * 60 * 60 * 1000));
+    const dateToCompare = new Date(date.getTime());
+    dateToCompare.setHours(0, 0, 0, 0);
+  
+    const diffInDays = Math.floor((currentDate.getTime() - dateToCompare.getTime()) / (24 * 60 * 60 * 1000));
   
     if (diffInDays === 0) {
+      // Today
       return `${formatTime(date)}, Today`;
     } else if (diffInDays === 1) {
+      // Yesterday
       return `${formatTime(date)}, Yesterday`;
     } else {
+      // Other days
       return `${formatTime(date)}, ${formatDate(date)}`;
     }
   }
   
   function formatTime(date: Date): string {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
+    return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false });
   }
   
   function formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-    return `${day}.${month}.${year}`;
+    return date.toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
   }
+  

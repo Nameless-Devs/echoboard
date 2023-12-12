@@ -9,10 +9,7 @@ import {
     Card,
     CardContent,
     Avatar,
-    AppBar,
-    Toolbar,
-    Stack,
-    Button, IconButton
+    IconButton
 } from '@mui/material';
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';

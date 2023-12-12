@@ -14,6 +14,7 @@ interface CommentProps {
 
 export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -53,6 +54,16 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           </DialogContentText>
         </Dialog>
       )}
+
+       {/* Display the button when the form is not visible */}
+       {!isFormVisible && (
+        <button className="leave-a-comment-button" onClick={() => setIsFormVisible(true)}>
+          Leave a comment
+        </button>
+      )}
+
+      {/* Display the form when the form is visible */}
+      {isFormVisible && (
       <form className="post-comment__form" onSubmit={(e) => e.preventDefault()}>
         <Box className="post-comment__box">
           <Box>
@@ -71,6 +82,9 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           <CommentForm onCommentSubmit={handleCommentPost} />
         </Box>
       </form>
+      )}
+       {/* Hide the button when the form is visible */}
+       {isFormVisible && <div style={{ height: "32px" }}></div>}
     </>
   );
 };

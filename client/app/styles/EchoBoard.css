@@ -39,7 +39,7 @@
   }
 
   .echo-board-card {
-    margin: 1px 0 1px;
+    /* margin: 1px 0px 1px; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -50,7 +50,6 @@
   }
 
   .echo-board-posts {
-    background-color: brown;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -60,10 +59,26 @@
     max-width: 800px;
   }
 
+  .leave-a-comment-button{
+    width: 60%;
+    height: 20%;
+    font-family: "Gill Sans", sans-serif;
+    color: #ffffff;
+   background: rgb(6, 37, 79);
+  background: linear-gradient(
+    90deg,
+    rgba(6, 37, 79, 1) 5%,
+    rgba(28, 84, 112, 1) 52%,
+    rgba(4, 39, 88, 1) 97%
+  );
+  box-shadow: rgba(0, 0, 0, 0.3)
+  0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  }
+
   .echo-board-solution-btn {
     font-family: "Gill Sans", sans-serif;
     margin-right: 90px;
-    margin-left: 30px;
+    margin-left: 110px;
     width: 400px;
     height: 60px;
 

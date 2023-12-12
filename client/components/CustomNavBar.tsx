@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import EchoBoardLogo from './EchoBoardLogo';
 import { UserResponseData } from '@/service/Types';
 import { AccountMenu } from './AccountMenu';
+import "../app/styles/UserPage.css"
 
 type ButtonInfo = {
   label: string;

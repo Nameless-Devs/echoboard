@@ -139,8 +139,9 @@ export default function UserChat() {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 padding: "1rem",
-                backgroundColor: "#4a4c51",
                 borderRadius: "5px",
+                border: "2px solid #c1c4c7",
+                backgroundColor: "#c1c4c7",
               }}
             >
               <Input
@@ -159,7 +160,7 @@ export default function UserChat() {
           </Grid>
         </Grid>
       </Grid>
-      </>
+      </Box>
       }
     </>
   );

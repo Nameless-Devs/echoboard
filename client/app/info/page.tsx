@@ -34,7 +34,7 @@ const buttons = [
 
 const DeveloperCard: React.FC<DeveloperCardProps> = ({ name, role, avatar, info,linkedin, github}) => (
     <Card elevation={3} style={{ height: '100%', borderRadius: '15px' }}>
-        <Avatar src={avatar} alt={name} sx={{ width: 120, height: 120, margin: 'auto', marginTop: '2rem' }} />
+        <Avatar src={"/Devs_avatars/" + avatar } alt={name + "avatar picture"} sx={{ width: 120, height: 120, margin: 'auto', marginTop: '2rem' }} />
         <CardContent>
             <Typography variant="h6" align="center">
                 <p>{name}</p>

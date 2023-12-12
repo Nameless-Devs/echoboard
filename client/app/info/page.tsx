@@ -19,6 +19,7 @@ import EchoBoardLogo from "@/components/EchoBoardLogo";
 import {useRouter} from "next/navigation";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import "../styles/UserPage.css"
 
 interface DeveloperCardProps {
     name: string;
@@ -91,7 +92,7 @@ const DeveloperPage = () => {
 
     return (
         <>
-            <AppBar className="nav-bar__user-page" position="static">
+           <AppBar className="nav-bar__user-page" position="static">
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }} >
                         <EchoBoardLogo />

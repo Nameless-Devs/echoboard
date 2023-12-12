@@ -4,13 +4,15 @@ import PostEchoBoard from "../components/PostEchoBoard/PostEchoBoard";
 import { EchoBoard } from "@/components/EchoBoard/EchoBoard";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
-import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
-import { AccountMenu } from "@/components/AccountMenu";
-import EchoBoardLogo from "@/components/EchoBoardLogo";
-import "./styles/UserPage.css";
-import { useRouter } from "next/navigation";
+import { Button, Typography } from "@mui/material";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import JwtAuth from "@/components/JwtAuth";
+import CustomNavBar from "@/components/CustomNavBar";
+
+const buttons = [
+  {label: 'Starting page', link: '/home'},
+  {label: 'Chat', link: '/chatroom'}
+];
 
 export default function Home() {
   const { data: user, isLoading, error } = useQuery(["userInfo"], getUserInfo);
@@ -19,8 +21,6 @@ export default function Home() {
   const handleClick = () => {
     setIsVisiblePostEcho(!isVisiblePostEcho);
   };
-
-  const router = useRouter();
 
   if (user) {
     return (
@@ -31,25 +31,10 @@ export default function Home() {
           backgroundColor: "#FAF9F6",
         }}
       >
-        <AppBar className="nav-bar__user-page" position="static">
-          <Toolbar>
-            <Box sx={{ flexGrow: 1 }}>
-              <EchoBoardLogo />
-            </Box>
-            <Stack direction="row" spacing={2}>
-              <Button color="inherit" onClick={() => router.push("/home")}>
-                Starting page
-              </Button>
-              <Button color="inherit" onClick={() => router.push("/chatroom")}>
-                Chat
-              </Button>
-              <AccountMenu {...user} />
-            </Stack>
-          </Toolbar>
-        </AppBar>
-        <h1 style={{ textAlign: "center" }}>
+        <CustomNavBar buttons={buttons} user={user} />
+        <Typography variant="h4" sx={{ textAlign: "center", marginTop: "1rem" }}>
           {user.name}, welcome to EchoBoard!
-        </h1>
+        </Typography>
         <Button
           onClick={handleClick}
           variant="outlined"

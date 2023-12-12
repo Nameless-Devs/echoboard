@@ -21,7 +21,7 @@ const CustomNavBar: React.FC<CustomAppBarProps> = ({ buttons, user }) => {
 
   return (
     <AppBar className="nav-bar__user-page" position="static">
-      <Toolbar>
+      <Toolbar className="tool-bar__user-page">
         <Box sx={{ flexGrow: 1 }}>
           <EchoBoardLogo />
         </Box>

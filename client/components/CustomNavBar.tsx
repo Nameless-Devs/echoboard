@@ -13,7 +13,7 @@ type ButtonInfo = {
 
 type CustomAppBarProps = {
   buttons: ButtonInfo[];
-  user: UserResponseData;
+  user?: UserResponseData;
 };
 
 const CustomNavBar: React.FC<CustomAppBarProps> = ({ buttons, user }) => {
@@ -31,7 +31,7 @@ const CustomNavBar: React.FC<CustomAppBarProps> = ({ buttons, user }) => {
               {button.label}
             </Button>
           ))}
-          <AccountMenu {...user} />
+          {user && <AccountMenu {...user} />}
         </Stack>
       </Toolbar>
     </AppBar>

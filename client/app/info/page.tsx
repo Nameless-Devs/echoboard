@@ -123,6 +123,7 @@ const DeveloperPage = () => {
                     </Grid>
                 </Grid>
             </Container>
+            <Footer />
         </>
     );
 };

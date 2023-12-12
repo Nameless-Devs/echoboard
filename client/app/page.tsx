@@ -5,8 +5,6 @@ import { EchoBoard } from "@/components/EchoBoard/EchoBoard";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
 import { Button, Typography } from "@mui/material";
-import "./styles/UserPage.css";
-import { useRouter } from "next/navigation";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import JwtAuth from "@/components/JwtAuth";
 import CustomNavBar from "@/components/CustomNavBar";
@@ -23,8 +21,6 @@ export default function Home() {
   const handleClick = () => {
     setIsVisiblePostEcho(!isVisiblePostEcho);
   };
-
-  const router = useRouter();
 
   if (user) {
     return (

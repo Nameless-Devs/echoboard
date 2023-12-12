@@ -31,6 +31,11 @@ interface DeveloperCardProps {
 
 }
 
+const buttons = [
+    {label: 'Starting Page', link: '/home'},
+    {label: 'Home', link: '/'}
+  ];
+
 const developers = [
     { name: 'Anastasia Kurayshevich', role: 'Full-stack Developer',
         avatar: 'https://media.licdn.com/dms/image/D4D03AQHI1MQPvVOh2g/profile-displayphoto-shrink_200_200/0/1694881637326?e=1707350400&v=beta&t=hq4KuZHf46BIZ29rg95Qq4w8R4iwrI-F1bNJaDvlf54',
@@ -92,19 +97,8 @@ const DeveloperPage = () => {
 
     return (
         <>
-           <AppBar className="nav-bar__user-page" position="static">
-                <Toolbar>
-                    <Box sx={{ flexGrow: 1 }} >
-                        <EchoBoardLogo />
-                    </Box>
-                    <Stack direction="row" spacing={2}>
-                        <Button color="inherit" onClick={() => router.push('/')}>Home</Button>
-                        <Button color="inherit" onClick={() => router.push('/chatroom')}>Chat</Button>
-                    </Stack>
-                </Toolbar>
-            </AppBar>
-
-            <Container maxWidth="lg" sx={{ marginTop: '2rem' }}>
+        <CustomNavBar buttons={buttons} />
+            <Container maxWidth="lg" sx={{ margin: '2rem auto 4rem' }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Typography variant="h3" gutterBottom align="center">

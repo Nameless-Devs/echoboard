@@ -7,7 +7,7 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { Message } from "@/service/Types";
-import { Box, Button, Grid, Input, ListItemButton } from "@mui/material";
+import { Box, Grid, IconButton, ListItemButton, TextField } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
@@ -15,6 +15,7 @@ import { WEBSOCKET } from "@/service/config";
 import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
 import { LoadingPage } from "@/components/Shared/LoadingPage/LoadingPage";
 import CustomNavBar from "@/components/CustomNavBar";
+import SendIcon from "@mui/icons-material/Send";
 
 const buttons = [
   {label: 'Home', link: '/'},
@@ -114,7 +115,7 @@ export default function UserChat() {
         </Grid>
         <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
           {/*Top Right*/}
-          <Grid item xs={12} sx={{ height: "87%", overflowY: "scroll" }}>
+          <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
             {messages.map((msg, index) => (
               <div key={index}>
                 <ChatMessage index={index} msg={msg} />
@@ -127,36 +128,38 @@ export default function UserChat() {
             item
             xs={12}
             sx={{
-              height: "10%",
+              height: "15%",
               outline: "10px blue",
               backgroundColor: "rgb(250, 249, 246)",
               padding: "1rem",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                padding: "1rem",
-                borderRadius: "5px",
-                border: "2px solid #c1c4c7",
-                backgroundColor: "#c1c4c7",
-              }}
-            >
-              <Input
+              <TextField
+              label="Enter a message"
+              variant="outlined"
+              name="message"
+              multiline
+              rows="2"
                 sx={{
-                  width: "80%",
-                  color: "#f1f1f1",
+                  width: "100%",
+                  backgroundColor: "#F0F2F5"
                 }}
                 type="text"
                 placeholder="Enter a message"
                 value={input}
-                disableUnderline={true}
                 onChange={handleMessageInput}
+                InputProps={{
+                  endAdornment: 
+                    <IconButton
+                      type="submit"
+                      style={{ position: "absolute", bottom: "0", right: "0" }}
+                      color="primary"
+                      onClick={() => handleSendMessage()}
+                    >
+                      <SendIcon />
+                    </IconButton>
+                }}
               />
-              <Button onClick={handleSendMessage}>Send</Button>
-            </div>
           </Grid>
         </Grid>
       </Grid>

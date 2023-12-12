@@ -100,6 +100,13 @@ export default function UserChat() {
     setSelectedChatRoomId(chatRoomId);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   return (
     <>
       {user && 
@@ -147,6 +154,7 @@ export default function UserChat() {
                 type="text"
                 placeholder="Enter a message"
                 value={input}
+                onKeyDown={handleKeyPress}
                 onChange={handleMessageInput}
                 InputProps={{
                   endAdornment: 

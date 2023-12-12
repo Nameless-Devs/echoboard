@@ -1,11 +1,14 @@
+"use client"
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const router = useRouter();
   return (
     <Grid id="contact" item xs={12} md={4} style={{ width: "100%" }}>
       <Box sx={{ p: 2, bgcolor: "#c3c3c3" }}>
@@ -17,7 +20,9 @@ export default function Footer() {
           }}
         >
           <Box>
-            <Typography>&copy; 2023</Typography>
+            <Button variant="outlined" color="inherit" onClick={() => router.push("/info")}>
+             About developers
+            </Button> 
           </Box>
           <Box
             sx={{

@@ -102,11 +102,11 @@ export default function UserChat() {
   return (
     <>
       {user && 
-      <>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: "100vh"}}>
       <CustomNavBar buttons={buttons} user={user} />
       <Grid
         container
-        style={{ position: "absolute", height: "100%", width: "100%" }}
+        style={{ flex: 1, width: '100%' }}
       >
         {/*Left Grid*/}
         <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#f5f5f6", borderRight: "3px solid #c1c4c7" }}>
@@ -114,7 +114,7 @@ export default function UserChat() {
         </Grid>
         <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#F8F9FA" }}>
           {/*Top Right*/}
-          <Grid item xs={12} sx={{ height: "90%", overflowY: "scroll" }}>
+          <Grid item xs={12} sx={{ height: "87%", overflowY: "scroll" }}>
             {messages.map((msg, index) => (
               <div key={index}>
                 <ChatMessage index={index} msg={msg} />

@@ -14,12 +14,10 @@ import {
     Stack,
     Button, IconButton
 } from '@mui/material';
-import Box from "@mui/material/Box";
-import EchoBoardLogo from "@/components/EchoBoardLogo";
-import {useRouter} from "next/navigation";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import "../styles/UserPage.css"
+import CustomNavBar from '@/components/CustomNavBar';
+import Footer from '../home/Footer';
 
 interface DeveloperCardProps {
     name: string;
@@ -93,7 +91,6 @@ const DeveloperCard: React.FC<DeveloperCardProps> = ({ name, role, avatar, info,
 );
 
 const DeveloperPage = () => {
-    const router = useRouter();
 
     return (
         <>

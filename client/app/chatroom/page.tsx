@@ -17,7 +17,7 @@ import { LoadingPage } from "@/components/Shared/LoadingPage/LoadingPage";
 import CustomNavBar from "@/components/CustomNavBar";
 
 const buttons = [
-  {label: 'Starting page', link: '/home'},
+  {label: 'Home', link: '/'},
   {label: 'Chat', link: '/chatroom'}
 ];
 

@@ -7,7 +7,7 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { Message } from "@/service/Types";
-import { Button, Grid, Input, ListItemButton } from "@mui/material";
+import { Box, Button, Grid, Input, ListItemButton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
@@ -109,10 +109,10 @@ export default function UserChat() {
         style={{ flex: 1, width: '100%' }}
       >
         {/*Left Grid*/}
-        <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#f5f5f6", borderRight: "3px solid #c1c4c7" }}>
+        <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
           {displayUserChatrooms()}
         </Grid>
-        <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#F8F9FA" }}>
+        <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
           {/*Top Right*/}
           <Grid item xs={12} sx={{ height: "87%", overflowY: "scroll" }}>
             {messages.map((msg, index) => (

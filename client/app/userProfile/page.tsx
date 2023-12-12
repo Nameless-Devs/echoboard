@@ -9,6 +9,12 @@ import "../styles/UserPage.css";
 import EchoBoardLogo from "@/components/EchoBoardLogo";
 import { useRouter } from "next/navigation";
 import { LoadingLogo } from "@/components/LoadingLogo";
+import CustomNavBar from "@/components/CustomNavBar";
+
+const buttons = [
+  { label: 'Home', link: '/' },
+  { label: 'Chat', link: '/chatroom' }
+];
 
 export default function UserProfile() {
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
@@ -32,24 +38,7 @@ export default function UserProfile() {
           height: "100vh",
         }}
       >
-        {/* Nav Bar */}
-        <AppBar className="nav-bar__user-page" position="static">
-          <Toolbar>
-            <Box sx={{ flexGrow: 1 }}>
-              <EchoBoardLogo />
-            </Box>
-            <Stack direction="row" spacing={2}>
-              <Button color="inherit" onClick={() => router.push("/")}>
-                Home
-              </Button>
-              <Button color="inherit" onClick={() => router.push("/chatroom")}>
-                Chat
-              </Button>
-            </Stack>
-          </Toolbar>
-        </AppBar>
-
-        {/* Main */}
+        <CustomNavBar buttons={buttons} user={user} />
         <Box sx={{ flexGrow: 1, backgroundColor: "#FAF9F6", overflow: "auto" }}>
           <UserPage user={user} />
         </Box>

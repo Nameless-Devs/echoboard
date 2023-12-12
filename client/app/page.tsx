@@ -4,7 +4,7 @@ import PostEchoBoard from "../components/PostEchoBoard/PostEchoBoard";
 import { EchoBoard } from "@/components/EchoBoard/EchoBoard";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/service/Functions";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import "./styles/UserPage.css";
 import { useRouter } from "next/navigation";
 import { LoadingLogo } from "@/components/LoadingLogo";
@@ -36,9 +36,9 @@ export default function Home() {
         }}
       >
         <CustomNavBar buttons={buttons} user={user} />
-        <h1 style={{ textAlign: "center" }}>
+        <Typography variant="h4" sx={{ textAlign: "center", marginTop: "1rem" }}>
           {user.name}, welcome to EchoBoard!
-        </h1>
+        </Typography>
         <Button
           onClick={handleClick}
           variant="outlined"

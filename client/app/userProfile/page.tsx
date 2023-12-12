@@ -1,13 +1,10 @@
 "use client";
 import { UserPage } from "@/components/UserPage/UserPage";
 import { getUserInfo } from "@/service/Functions";
-import { AppBar, Button, Stack, Toolbar } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import React from "react";
 import "../styles/UserPage.css";
-import EchoBoardLogo from "@/components/EchoBoardLogo";
-import { useRouter } from "next/navigation";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import CustomNavBar from "@/components/CustomNavBar";
 
@@ -18,8 +15,6 @@ const buttons = [
 
 export default function UserProfile() {
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
-
-  const router = useRouter();
 
   if (isLoading) {
     return <LoadingLogo />;

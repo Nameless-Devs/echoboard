@@ -13,7 +13,6 @@ import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
 import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
-import { LoadingPage } from "@/components/Shared/LoadingPage/LoadingPage";
 import CustomNavBar from "@/components/CustomNavBar";
 import SendIcon from "@mui/icons-material/Send";
 import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";

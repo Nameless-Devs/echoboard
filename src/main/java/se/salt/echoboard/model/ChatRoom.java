@@ -1,6 +1,5 @@
 package se.salt.echoboard.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -26,13 +25,10 @@ public class ChatRoom {
     private List<Message> messages = new ArrayList<>();
 
     @OneToOne
-   // @JsonBackReference
     @JsonIgnoreProperties({"anonymous", "status", "volunteers", "pendingVolunteers", "upvote", "chatRoom"})
     private EchoBoardSolution echoBoardSolution;
 
     private String title;
-
-//    private String description;
 
     public ChatRoom setEchoBoardSolution(EchoBoardSolution echoBoardSolution) {
         this.echoBoardSolution = echoBoardSolution;

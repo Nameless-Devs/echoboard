@@ -40,6 +40,13 @@ export class PostSolutionError extends Error {
   }
 }
 
+export class GettingUserInfoError extends Error {
+  constructor(message = "Error Fetching User Info.") {
+    super(message);
+    this.name = "GettingUserInfoError";
+  }
+}
+
 
 
 

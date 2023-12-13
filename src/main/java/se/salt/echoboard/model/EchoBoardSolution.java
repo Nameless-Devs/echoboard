@@ -1,7 +1,6 @@
 package se.salt.echoboard.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,8 +50,7 @@ public class EchoBoardSolution {
     private EchoBoardUser echoBoardUser;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    @JsonIgnoreProperties({"messages"})
+    @JsonIgnoreProperties({"messages", "echoBoardSolution"})
     private ChatRoom chatRoom;
 
     public EchoBoardSolution addUpvote(String userSubject) {

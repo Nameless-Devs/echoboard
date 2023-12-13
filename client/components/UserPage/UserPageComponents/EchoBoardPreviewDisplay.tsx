@@ -11,6 +11,7 @@ export const EchoBoardPreviewDisplay: React.FC<
   EchoBoardPreviewDisplayProps
 > = ({ isLoading, data }) => (
   <>
+  <Grid container>
     <Grid item xs={12} md="auto">
       {isLoading ? (
         <Skeleton variant="rectangular" width={200} height={24} />
@@ -40,6 +41,7 @@ export const EchoBoardPreviewDisplay: React.FC<
           </Typography>
         )
       )}
+    </Grid>
     </Grid>
   </>
 );

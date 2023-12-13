@@ -47,6 +47,13 @@ export class GettingUserInfoError extends Error {
   }
 }
 
+export class VolunteerForSolutionError extends Error {
+  constructor(message = "Error Volunteer For Solution.") {
+    super(message);
+    this.name = "VolunteerForSolutionError";
+  }
+}
+
 
 
 

@@ -112,70 +112,94 @@ export default function UserChat() {
 
   return (
     <>
-      {user && 
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: "100vh"}}>
-      <CustomNavBar buttons={buttons} user={user} />
-      <Grid
-        container
-        style={{ flex: 1, width: '100%' }}
-      >
-        {/*Left Grid*/}
-        <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
-          {displayUserChatrooms()}
-        </Grid>
-        <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
-          {/*Top Right*/}
-          <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
-          { solution && <ChatSolutionInfo solution={solution} />}
-            {messages.map((msg, index) => (
-              <div key={index}>
-                <ChatMessage index={index} msg={msg} />
-              </div>
-            ))}
-            <div ref={scrollToLatestMessage} />
-          </Grid>
-          {/*Bottom Right*/}
+      {user &&
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: "100vh" }}>
+          <CustomNavBar buttons={buttons} user={user} />
           <Grid
-            item
-            xs={12}
-            sx={{
-              height: "15%",
-              outline: "10px blue",
-              backgroundColor: "rgb(250, 249, 246)",
-              padding: "1rem",
-            }}
+            container
+            style={{ flex: 1, width: '100%' }}
           >
-              <TextField
-              label="Enter a message"
-              variant="outlined"
-              name="message"
-              multiline
-              rows="2"
+            {/*Left Grid*/}
+            <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
+              {displayUserChatrooms()}
+              {chatRooms?.length === 0 ?
+                <Box 
                 sx={{
-                  width: "100%",
-                  backgroundColor: "#F0F2F5"
+                  padding: "1rem",
+                  textAlign: "center"
+                  }}>
+                  <Typography variant="subtitle1" color="textSecondary" mb={"1rem"} >You have not been assigned to any chatrooms so far.</Typography>
+                  <Typography variant="subtitle1" color="textSecondary">In order to get an access to a chat room, sign up as a volunteer and get accepted for solution testing.</Typography>
+                </Box>
+                : <></>
+              }
+            </Grid>
+            <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
+              {/*Top Right*/}
+              <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
+                {!selectedChatRoomId &&
+                  <Box sx={{
+                    textAlign: "center",
+                    padding: "2rem 1rem",
+                  }}>
+                    <Typography variant="h6" color="textSecondary">
+                      Welcom to the Chat page where you can discuss the solution implementations with you fellow volunteers.
+                    </Typography>
+                    <Typography variant="h6" color="textSecondary">
+                      Select the chat room and start talking!
+                    </Typography>
+                  </Box>
+                }
+                {solution && <ChatSolutionInfo solution={solution} />}
+                {messages.map((msg, index) => (
+                  <div key={index}>
+                    <ChatMessage index={index} msg={msg} />
+                  </div>
+                ))}
+                <div ref={scrollToLatestMessage} />
+              </Grid>
+              {/*Bottom Right*/}
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  height: "15%",
+                  outline: "10px blue",
+                  backgroundColor: "rgb(250, 249, 246)",
+                  padding: "1rem",
                 }}
-                type="text"
-                placeholder="Enter a message"
-                value={input}
-                onKeyDown={handleKeyPress}
-                onChange={handleMessageInput}
-                InputProps={{
-                  endAdornment: 
-                    <IconButton
-                      type="submit"
-                      style={{ position: "absolute", bottom: "0", right: "0" }}
-                      color="primary"
-                      onClick={() => handleSendMessage()}
-                    >
-                      <SendIcon />
-                    </IconButton>
-                }}
-              />
+              >
+                {selectedChatRoomId && <TextField
+                  label="Enter a message"
+                  variant="outlined"
+                  name="message"
+                  multiline
+                  rows="2"
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "#F0F2F5"
+                  }}
+                  type="text"
+                  placeholder="Enter a message"
+                  value={input}
+                  onKeyDown={handleKeyPress}
+                  onChange={handleMessageInput}
+                  InputProps={{
+                    endAdornment:
+                      <IconButton
+                        type="submit"
+                        style={{ position: "absolute", bottom: "0", right: "0" }}
+                        color="primary"
+                        onClick={() => handleSendMessage()}
+                      >
+                        <SendIcon />
+                      </IconButton>
+                  }}
+                />}
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-      </Box>
+        </Box>
       }
     </>
   );

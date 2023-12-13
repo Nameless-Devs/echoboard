@@ -6,7 +6,7 @@ import {
   getUserChatRooms,
   getUserInfo,
 } from "@/service/Functions";
-import { Message } from "@/service/Types";
+import { ChatRoomResponse, Message, SolutionResponseData } from "@/service/Types";
 import { Box, Grid, IconButton, ListItemButton, TextField } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
@@ -97,8 +97,9 @@ export default function UserChat() {
     setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
   };
 
-  const handleChatRoomChange = (chatRoomId: number) => {
-    setSelectedChatRoomId(chatRoomId);
+  const handleChatRoomChange = (chatRoom: ChatRoomResponse) => {
+    setSelectedChatRoomId(chatRoom.id);
+    setSolution(chatRoom.echoBoardSolution);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -185,7 +186,7 @@ export default function UserChat() {
           <ListItemButton
             key={index}
             onClick={() => {
-              handleChatRoomChange(chatroom.id);
+              handleChatRoomChange(chatroom);
               setSelectedIndex(index);
             }}
             style={{

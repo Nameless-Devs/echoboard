@@ -33,6 +33,13 @@ export class PostCommentError extends Error {
   }
 }
 
+export class PostSolutionError extends Error {
+  constructor(message = "Error posting solution.") {
+    super(message);
+    this.name = "PostSolutionError";
+  }
+}
+
 
 
 

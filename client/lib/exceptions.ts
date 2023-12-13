@@ -62,6 +62,13 @@ export class FetchChatRoomHistoryError extends Error {
 }
 
 
+export class DeletingEchoBoardError extends Error {
+  constructor(message = "Error deleting Echo.") {
+    super(message);
+    this.name = "DeletingEchoBoardError";
+  }
+}
+
 
 
 

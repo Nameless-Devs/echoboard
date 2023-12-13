@@ -26,6 +26,13 @@ export class FetchEchoBoardByIdError extends Error {
   }
 }
 
+export class PostCommentError extends Error {
+  constructor(message = "Error posting comment.") {
+    super(message);
+    this.name = "PostCommentError";
+  }
+}
+
 
 
 

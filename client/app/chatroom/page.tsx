@@ -143,7 +143,7 @@ export default function UserChat() {
                     padding: "2rem 1rem",
                   }}>
                     <Typography variant="h6" color="textSecondary">
-                      Welcom to the Chat page where you can discuss the solution implementations with you fellow volunteers.
+                      Welcom to the Chat page where you can discuss the solution implementations with your fellow volunteers.
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
                       Select the chat room and start talking!

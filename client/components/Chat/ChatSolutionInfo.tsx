@@ -23,69 +23,42 @@ export const ChatSolutionInfo: React.FC<ChatSolutionInfoProps> = ({ solution }) 
         }
       );
 
-  return (
-      <Grid
-        container
-        sx={{
-          border: "solid black 1px",
-          padding: "1rem",
-          margin: "1rem 0",
-          borderRadius: "1rem",
-          backgroundColor: "white",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
-        >
-          <Box sx={{ marginLeft: "auto", width: "100%" }}>
-            <EchoBoardPreviewDisplay
-              isLoading={previewLoading}
-              data={echoBoardPreview}
-            />
-          </Box>
-        </Box>
-        <Grid item xs={12}>
-          <Box
+    return (
+        <Grid
+            container
             sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              margin: "0.2rem 0.5rem 0 0 ",
+                borderBottom: "3px solid #c1c4c7",
+                padding: "1rem",
+                backgroundColor: "white",
             }}
-          >
-          </Box>
-        </Grid>
-        <ItemHeader
-          pictureUrl={solution.echoBoardUser.picture}
-          userName={solution.echoBoardUser.name}
-          created={solution.created}
-        />
-           <>
-      <Grid item xs={2} md={1}></Grid>
-      <Grid item xs={10} md={11}>
-        <Typography
-          variant="body1"
-          color="textPrimary"
-          sx={{ margin: "0.5rem 2rem 0.5rem 0" }}
         >
-          {solution.content}
-        </Typography>
-      </Grid>
-      <Grid item xs={2} md={1}></Grid>
-    </>
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-          </Box>
+            <Grid item xs={12} sx={{ mb: "1rem"}}>
+                <EchoBoardPreviewDisplay isLoading={previewLoading} data={echoBoardPreview} />
+            </Grid>
+            <Grid item xs={2} md={2} sx={{ marginTop: "-0.5rem" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "right",
+                        alignItems: "center",
+                        mr: "1rem",
+                    }}
+                >
+                    <Avatar src={solution.echoBoardUser.picture} />
+                </Box>
+            </Grid>
+            <Grid item xs={10} md={10} >
+                <Typography>{solution.echoBoardUser.name}</Typography>
+            </Grid>
+            <Grid item xs={2} md={2}></Grid>
+            <Grid item xs={10} md={10}>
+                <Typography
+                    variant="body1"
+                    color="textPrimary"
+                >
+                    {solution.content}
+                </Typography>
+            </Grid>
         </Grid>
-      </Grid>
-  )
+    )
 }

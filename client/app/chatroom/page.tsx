@@ -7,7 +7,7 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { ChatRoomResponse, Message, SolutionResponseData } from "@/service/Types";
-import { Box, Grid, IconButton, ListItemButton, TextField } from "@mui/material";
+import { Box, Grid, IconButton, ListItemButton, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
@@ -19,8 +19,8 @@ import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
 
 const buttons = [
-  {label: 'Home', link: '/'},
-  {label: 'Chat', link: '/chatroom'}
+  { label: 'Home', link: '/' },
+  { label: 'Chat', link: '/chatroom' }
 ];
 
 export default function UserChat() {

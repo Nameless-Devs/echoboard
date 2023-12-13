@@ -76,6 +76,13 @@ export class EditingEchoBoardError extends Error {
   }
 }
 
+export class PendingError extends Error {
+  constructor(message = "Error Accessing pending error.") {
+    super(message);
+    this.name = "PendingError";
+  }
+}
+
 
 
 

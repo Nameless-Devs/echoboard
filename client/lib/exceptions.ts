@@ -12,6 +12,19 @@ export class FetchEchoBoardsError extends Error {
   }
 }
 
+export class UpvoteError extends Error {
+  constructor(message = "Error Upvoting.") {
+    super(message);
+    this.name = "UpvotePostError";
+  }
+}
+
+export class FetchEchoBoardByIdError extends Error {
+  constructor(message = "Error fetching users Echos.") {
+    super(message);
+    this.name = "FetchEchoBoardByIdError";
+  }
+}
 
 
 

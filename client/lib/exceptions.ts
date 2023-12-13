@@ -69,6 +69,13 @@ export class DeletingEchoBoardError extends Error {
   }
 }
 
+export class EditingEchoBoardError extends Error {
+  constructor(message = "Error editing Echo.") {
+    super(message);
+    this.name = "EditingEchoBoardError";
+  }
+}
+
 
 
 

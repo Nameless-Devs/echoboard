@@ -1,6 +1,5 @@
-import { Grid, Box, Typography } from '@mui/material'
+import { Grid, Box, Typography, Avatar } from '@mui/material'
 import React from 'react'
-import { ItemHeader } from '../CommentModal/commentModalComponents/ItemHeader'
 import { EchoBoardPreviewDisplay } from '../UserPage/UserPageComponents/EchoBoardPreviewDisplay'
 import { EchoBoardPreviewResponseData, SolutionResponseData } from '@/service/Types'
 import { useQuery } from '@tanstack/react-query'
@@ -16,12 +15,12 @@ export const ChatSolutionInfo: React.FC<ChatSolutionInfoProps> = ({ solution }) 
         data: echoBoardPreview,
         isLoading: previewLoading,
         isError: previewError,
-      } = useQuery<EchoBoardPreviewResponseData>(
+    } = useQuery<EchoBoardPreviewResponseData>(
         ["echoBoardPreviewChatRoom", solution.id],
         async () => {
-          return await fetchEchoBoardBySolutionId(solution.id);
+            return await fetchEchoBoardBySolutionId(solution.id);
         }
-      );
+    );
 
     return (
         <Grid

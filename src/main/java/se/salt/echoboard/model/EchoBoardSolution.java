@@ -51,8 +51,8 @@ public class EchoBoardSolution {
     private EchoBoardUser echoBoardUser;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    @JsonIgnoreProperties({"messages"})
+    //@JsonManagedReference
+    @JsonIgnoreProperties({"messages", "echoBoardSolution"})
     private ChatRoom chatRoom;
 
     public EchoBoardSolution addUpvote(String userSubject) {

@@ -30,6 +30,7 @@ export default function UserChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [solution, setSolution] = useState<SolutionResponseData>();
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
 

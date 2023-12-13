@@ -100,4 +100,5 @@ export type SolutionVolunteersResponseData = {
 export type ChatRoomResponse = {
   id: number;
   title: string;
+  solution: SolutionResponseData;
 };

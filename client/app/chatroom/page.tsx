@@ -16,6 +16,7 @@ import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
 import { LoadingPage } from "@/components/Shared/LoadingPage/LoadingPage";
 import CustomNavBar from "@/components/CustomNavBar";
 import SendIcon from "@mui/icons-material/Send";
+import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 
 const buttons = [
   {label: 'Home', link: '/'},
@@ -125,6 +126,7 @@ export default function UserChat() {
         <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
           {/*Top Right*/}
           <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
+          { solution && <ChatSolutionInfo solution={solution} />}
             {messages.map((msg, index) => (
               <div key={index}>
                 <ChatMessage index={index} msg={msg} />

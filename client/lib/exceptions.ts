@@ -54,6 +54,13 @@ export class VolunteerForSolutionError extends Error {
   }
 }
 
+export class FetchChatRoomHistoryError extends Error {
+  constructor(message = "Error fetching chatroom history.") {
+    super(message);
+    this.name = "FetchChatRoomHistoryError";
+  }
+}
+
 
 
 

@@ -17,6 +17,7 @@ import { LoadingPage } from "@/components/Shared/LoadingPage/LoadingPage";
 import CustomNavBar from "@/components/CustomNavBar";
 import SendIcon from "@mui/icons-material/Send";
 import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
+import { LoadingLogo } from "@/components/LoadingLogo";
 
 const buttons = [
   {label: 'Home', link: '/'},
@@ -70,7 +71,7 @@ export default function UserChat() {
 
   const scrollToLatestMessage = useScrollToLatestMessage(messages);
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading) return <LoadingLogo />;
 
   if (error) return <div>Error</div>;
 

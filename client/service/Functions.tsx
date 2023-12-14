@@ -93,7 +93,7 @@ export async function upvoteComment(echoBoardId: string, commentId: string) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 

@@ -13,18 +13,23 @@ type ChatMessageProps = {
 const TIME_LIMIT = 3 * 60 * 1000; // 3 minutes in milliseconds
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }) => {
-  const isWithinTimeLimit =
-    index > 0 &&
-    new Date(msg.timestamp).getTime() - new Date(messages[index - 1].timestamp).getTime() <= TIME_LIMIT;
+  // Check if the time difference between consecutive messages is within the time limit
+  const currentTimestamp = new Date(msg.timestamp).getTime();
+  const previousTimestamp = index > 0 ? new Date(messages[index - 1].timestamp).getTime() : 0;
+  const timeDifference = currentTimestamp - previousTimestamp;
+  const isWithinTimeLimit = index > 0 && timeDifference <= TIME_LIMIT;
+
+  const isFirstMessage = !isWithinTimeLimit || index === 0;
+  const isLastMessage = index === messages.length - 1 || !isWithinTimeLimit;
 
   return (
     <ListItem key={index} className={`message-display ${isWithinTimeLimit ? 'consecutive-message' : ''}`}>
-      {!isWithinTimeLimit && <Avatar src={msg.picture} style={{ marginRight: "15px" }} />}
+      {/* {isFirstMessage && <Avatar src={msg.picture} style={{ marginRight: "15px" }} />} */}
 
       <ListItemText
         primary={
           <Typography variant="body2">
-            {!isWithinTimeLimit && msg.sender} {formatTimestamp(msg.timestamp)}
+            {isFirstMessage && msg.sender}
           </Typography>
         }
         secondary={
@@ -33,6 +38,12 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
           </Typography>
         }
       />
+
+      {isLastMessage &&
+        <>
+          <Typography>{formatTimestamp(msg.timestamp)}</Typography>
+          <Avatar src={msg.picture} />
+        </>}
     </ListItem>
   );
 };

@@ -353,7 +353,7 @@ export async function fetchEchoBoardByCommentId(commentId: string) {
     const data: EchoBoardPreviewResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new GettingUserInfoError();
   }
 }
 

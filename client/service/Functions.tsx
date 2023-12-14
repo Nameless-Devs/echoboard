@@ -450,6 +450,11 @@ export async function editComment(
       body: JSON.stringify(comment),
       credentials: "include",
     });
+    if (response.ok) {
+      return response;
+    } else {
+      throw new EditingEchoBoardError(`HTTP Error! Status: ${response.status}`);
+    }
   } catch (error) {
     throw new EditingEchoBoardError();
   }

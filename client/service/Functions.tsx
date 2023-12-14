@@ -466,6 +466,6 @@ export async function deleteComment(commentId: string) {
       },
     });
   } catch (error) {
-    console.error("An error occurred while deleting the comment:", error);
+    throw new DeletingEchoBoardError();
   }
 }

@@ -125,12 +125,8 @@ export async function postComment(
       body: JSON.stringify(commentToPost),
       credentials: "include",
     });
-    if (response.ok) {
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostCommentError();
   }
 }
 

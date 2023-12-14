@@ -279,7 +279,7 @@ export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
       },
     });
   } catch (error) {
-    console.error("An error occurred while deleting the echo board:", error);
+    throw new DeletingEchoBoardError();
   }
 }
 

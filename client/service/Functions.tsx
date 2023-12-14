@@ -298,14 +298,8 @@ export async function editEchoBoard(
       body: JSON.stringify(echoBoard),
       credentials: "include",
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new EditingEchoBoardError();
   }
 }
 

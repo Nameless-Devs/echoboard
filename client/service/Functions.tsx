@@ -396,7 +396,7 @@ export async function denyPendingVolunteer(
       credentials: "include",
     });
   } catch (error) {
-    console.error("An error occurred while deleting volunteer:", error);
+    throw new PendingError();
   }
 }
 

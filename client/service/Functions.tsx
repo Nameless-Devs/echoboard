@@ -208,7 +208,7 @@ export async function getUserChatRooms(): Promise<ChatRoomResponse[]> {
     });
     return await response.json();
   } catch (error) {
-    return [];
+    throw new GettingUserInfoError();
   }
 }
 

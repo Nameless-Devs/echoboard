@@ -334,7 +334,7 @@ export async function fetchEchoBoardBySolutionId(solutionId: string) {
     const data: EchoBoardPreviewResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new GettingUserInfoError();
   }
 }
 

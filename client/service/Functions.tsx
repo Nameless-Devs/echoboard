@@ -37,13 +37,8 @@ export async function postEcho(problemPostToSend: PostEchoBoardData) {
       body: JSON.stringify(problemPostToSend),
       credentials: "include",
     });
-
-    if (response.ok) {
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostEchoError();
   }
 }
 

@@ -207,7 +207,7 @@ export default function UserChat() {
   function displayUserChatrooms() {
     return (
       <>
-        <h2 style={{ margin: "1em", textAlign: "center" }}>Your chat rooms</h2>
+        <h2 style={{ margin: "1em", textAlign: "center", color: "#424242" }}>Your chat rooms</h2>
         {chatRooms?.slice().reverse().map((chatroom, index) => (
           <ListItemButton
             key={index}

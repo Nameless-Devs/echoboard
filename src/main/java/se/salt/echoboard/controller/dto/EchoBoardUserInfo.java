@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record EchoBoardUserInfo(String name, String picture,
+public record EchoBoardUserInfo(String name, String picture, String subject,
                                 List<EchoBoardCommentResponse> echoBoardComments,
                                 List<EchoBoardSolutionResponse> echoBoardSolutions,
                                 List<EchoBoardSolutionResponse> pendingVolunteeredSolutions,

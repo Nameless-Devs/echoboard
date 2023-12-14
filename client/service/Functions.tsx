@@ -415,14 +415,8 @@ export async function editSolution(
       body: JSON.stringify(solution),
       credentials: "include",
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new EditingEchoBoardError("Fetch error: " + error);
   }
 }
 

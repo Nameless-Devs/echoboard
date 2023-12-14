@@ -374,15 +374,8 @@ export async function acceptPendingVolunteer(
       body: volunteerId,
       credentials: "include",
     });
-
-    if (response.ok) {
-      const data: SolutionVolunteersResponseData = await response.json();
-      return data;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PendingError();
   }
 }
 

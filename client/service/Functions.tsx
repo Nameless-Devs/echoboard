@@ -47,13 +47,10 @@ export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
     const response = await fetch(ENDPOINTS.ECHOBOARD_POST, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: EchoBoardResponseData[] = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new FetchEchoBoardsError();
   }
 }
 

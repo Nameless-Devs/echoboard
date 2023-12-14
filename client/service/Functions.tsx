@@ -12,6 +12,20 @@ import {
   CommentOrSolutionType,
   ChatRoomResponse,
 } from "./Types";
+import {
+  DeletingEchoBoardError,
+  EditingEchoBoardError,
+  FetchChatRoomHistoryError,
+  FetchEchoBoardByIdError,
+  FetchEchoBoardsError,
+  GettingUserInfoError,
+  PendingError,
+  PostCommentError,
+  PostEchoError,
+  PostSolutionError,
+  UpvoteError,
+  VolunteerForSolutionError,
+} from "@/lib/exceptions";
 
 export async function postEcho(problemPostToSend: PostEchoBoardData) {
   try {

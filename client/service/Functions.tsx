@@ -194,14 +194,10 @@ export async function getUserInfo() {
     const response = await fetch(ENDPOINTS.USER, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-
     const data: UserResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new GettingUserInfoError();
   }
 }
 

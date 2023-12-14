@@ -221,6 +221,8 @@ export default function UserChat() {
               color: "black",
               backgroundColor: selectedIndex === index ? "#c1c4c7" : "",
               margin: "0 0.5rem 0 0.5rem",
+              border: "2px solid #c1c4c7",
+              marginBottom: "0.3rem",
             }}
           >
             {chatroom.title}

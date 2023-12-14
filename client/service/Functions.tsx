@@ -431,7 +431,7 @@ export async function deleteSolution(solutionId: string) {
       },
     });
   } catch (error) {
-    console.error("An error occurred while deleting the solution:", error);
+    throw new DeletingEchoBoardError();
   }
 }
 

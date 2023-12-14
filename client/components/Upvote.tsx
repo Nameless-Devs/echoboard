@@ -27,7 +27,7 @@ export const Upvote: React.FC<UpvoteProps> = ({ upvote, echoBoardId }) => {
         {upvoteCount}
       </Button>
       {mutation.isError ? (
-        <div>Error: {(mutation.error as Error).message}</div>
+        <div>{(mutation.error as Error).message}</div>
       ) : null}
     </div>
   );

@@ -8,6 +8,7 @@ import { PostSolution } from "../PostSolution";
 import "../../app/styles/EchoBoard.css";
 import EchoBoardCard from "./EchoBoardCard";
 import { SinglePostSkeleton } from "./SinglePostSkeleton";
+import ErrorComponent from "@/app/error";
 
 export const EchoBoard: React.FC<UserResponseData> = (
   user: UserResponseData
@@ -16,6 +17,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
     data: echoBoards,
     isLoading,
     isError,
+    error,
+    refetch,
   } = useQuery<EchoBoardResponseData[]>(["echoBoards"], () =>
     fetchEchoBoards()
   );
@@ -92,7 +95,11 @@ export const EchoBoard: React.FC<UserResponseData> = (
       )}
       <div className="echo-board-posts">
         {isLoading && <SinglePostSkeleton />}
-        {isError && <p>Error!</p>}
+
+        {isError && error instanceof Error && (
+          <ErrorComponent error={error} reset={refetch} />
+        )}
+
         {sortedEchoBoards?.map((echoBoard, index) => (
           <EchoBoardCard
             key={index}

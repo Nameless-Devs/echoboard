@@ -12,6 +12,20 @@ import {
   CommentOrSolutionType,
   ChatRoomResponse,
 } from "./Types";
+import {
+  DeletingEchoBoardError,
+  EditingEchoBoardError,
+  FetchChatRoomHistoryError,
+  FetchEchoBoardByIdError,
+  FetchEchoBoardsError,
+  GettingUserInfoError,
+  PendingError,
+  PostCommentError,
+  PostEchoError,
+  PostSolutionError,
+  UpvoteError,
+  VolunteerForSolutionError,
+} from "@/lib/exceptions";
 
 export async function postEcho(problemPostToSend: PostEchoBoardData) {
   try {
@@ -23,13 +37,8 @@ export async function postEcho(problemPostToSend: PostEchoBoardData) {
       body: JSON.stringify(problemPostToSend),
       credentials: "include",
     });
-
-    if (response.ok) {
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostEchoError();
   }
 }
 
@@ -38,13 +47,10 @@ export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
     const response = await fetch(ENDPOINTS.ECHOBOARD_POST, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: EchoBoardResponseData[] = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new FetchEchoBoardsError();
   }
 }
 
@@ -61,14 +67,8 @@ export async function upvotePost(echoBoardId: string) {
       },
       credentials: "include",
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 
@@ -93,7 +93,7 @@ export async function upvoteComment(echoBoardId: string, commentId: string) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 
@@ -104,13 +104,10 @@ export async function fetchEchoBoardById(echoBoardId: string) {
     const response = await fetch(endpoint, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: EchoBoardResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new FetchEchoBoardByIdError();
   }
 }
 
@@ -128,21 +125,19 @@ export async function postComment(
       body: JSON.stringify(commentToPost),
       credentials: "include",
     });
-    if (response.ok) {
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostCommentError();
   }
 }
 
 export async function postingCommentOnComment(
   commentToPost: CommentToPost,
-  commentId: string,
+  commentId: string
 ) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST_COMMENT, { commentId });
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST_COMMENT, {
+      commentId,
+    });
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -151,9 +146,8 @@ export async function postingCommentOnComment(
       body: JSON.stringify(commentToPost),
       credentials: "include",
     });
-
   } catch (error) {
-    console.log(error)
+    throw new PostCommentError();
   }
 }
 
@@ -172,12 +166,8 @@ export async function postSolution(
       body: JSON.stringify(solutionToPost),
       credentials: "include",
     });
-    if (response.ok) {
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostSolutionError();
   }
 }
 
@@ -194,14 +184,8 @@ export async function upvoteSolution(echoBoardId: string, solutionId: string) {
       },
       credentials: "include",
     });
-    if (response.ok) {
-      response;
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 
@@ -210,14 +194,10 @@ export async function getUserInfo() {
     const response = await fetch(ENDPOINTS.USER, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-
     const data: UserResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new GettingUserInfoError();
   }
 }
 
@@ -228,7 +208,7 @@ export async function getUserChatRooms(): Promise<ChatRoomResponse[]> {
     });
     return await response.json();
   } catch (error) {
-    return [];
+    throw new GettingUserInfoError();
   }
 }
 
@@ -246,14 +226,8 @@ export async function changeSolutionStatus(solutionId: string, status: string) {
       },
       credentials: "include",
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new GettingUserInfoError();
   }
 }
 
@@ -268,15 +242,10 @@ export async function volunteerForSolution(solutionId: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify(solutionToPost),
       credentials: "include",
     });
-    if (response.ok) {
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new VolunteerForSolutionError();
   }
 }
 
@@ -290,13 +259,10 @@ export async function fetchChatRoomHistory(
     const response = await fetch(endpoint, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: Message[] = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new FetchChatRoomHistoryError();
   }
 }
 
@@ -313,7 +279,7 @@ export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
       },
     });
   } catch (error) {
-    console.error("An error occurred while deleting the echo board:", error);
+    throw new DeletingEchoBoardError();
   }
 }
 
@@ -332,14 +298,8 @@ export async function editEchoBoard(
       body: JSON.stringify(echoBoard),
       credentials: "include",
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new EditingEchoBoardError();
   }
 }
 
@@ -352,32 +312,12 @@ export async function getAllPendingVolunteers(solutionId: string) {
     const response = await fetch(endpoint, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: SolutionVolunteersResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PendingError();
   }
 }
-// Made by mistake, maybe will be useful in future?
-// export async function fetchSolutionById(solutionId: string) {
-//   try {
-//     const endpoint = formatEndpoint(ENDPOINTS.SOLUTION, { solutionId });
-
-//     const response = await fetch(endpoint, {
-//       credentials: "include",
-//     });
-//     if (!response.ok) {
-//       throw new Error(`HTTP Error! Status: ${response.status}`);
-//     }
-//     const data: SolutionResponseData = await response.json();
-//     return data;
-//   } catch (error) {
-//     throw new Error("Error fetching data: " + error);
-//   }
-// }
 
 export async function fetchEchoBoardBySolutionId(solutionId: string) {
   try {
@@ -394,7 +334,7 @@ export async function fetchEchoBoardBySolutionId(solutionId: string) {
     const data: EchoBoardPreviewResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new GettingUserInfoError();
   }
 }
 
@@ -413,7 +353,7 @@ export async function fetchEchoBoardByCommentId(commentId: string) {
     const data: EchoBoardPreviewResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new GettingUserInfoError();
   }
 }
 
@@ -434,15 +374,8 @@ export async function acceptPendingVolunteer(
       body: volunteerId,
       credentials: "include",
     });
-
-    if (response.ok) {
-      const data: SolutionVolunteersResponseData = await response.json();
-      return data;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PendingError();
   }
 }
 
@@ -463,7 +396,7 @@ export async function denyPendingVolunteer(
       credentials: "include",
     });
   } catch (error) {
-    console.error("An error occurred while deleting volunteer:", error);
+    throw new PendingError();
   }
 }
 
@@ -482,14 +415,13 @@ export async function editSolution(
       body: JSON.stringify(solution),
       credentials: "include",
     });
-
     if (response.ok) {
       return response;
     } else {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new EditingEchoBoardError("Fetch error: " + error);
   }
 }
 
@@ -504,7 +436,7 @@ export async function deleteSolution(solutionId: string) {
       },
     });
   } catch (error) {
-    console.error("An error occurred while deleting the solution:", error);
+    throw new DeletingEchoBoardError();
   }
 }
 
@@ -523,14 +455,13 @@ export async function editComment(
       body: JSON.stringify(comment),
       credentials: "include",
     });
-
     if (response.ok) {
       return response;
     } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
+      throw new EditingEchoBoardError(`HTTP Error! Status: ${response.status}`);
     }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new EditingEchoBoardError();
   }
 }
 
@@ -545,6 +476,6 @@ export async function deleteComment(commentId: string) {
       },
     });
   } catch (error) {
-    console.error("An error occurred while deleting the comment:", error);
+    throw new DeletingEchoBoardError();
   }
 }

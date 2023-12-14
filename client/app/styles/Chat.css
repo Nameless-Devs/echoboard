@@ -1,0 +1,13 @@
+/* Add these styles to your CSS file */
+
+.message-display {
+    /* Add any common styles for messages here */
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .consecutive-message {
+    /* Add styles for consecutive messages here */
+    background-color: #f0f0f0; /* Light gray background */
+  }
+  

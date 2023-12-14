@@ -132,10 +132,12 @@ export async function postComment(
 
 export async function postingCommentOnComment(
   commentToPost: CommentToPost,
-  commentId: string,
+  commentId: string
 ) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST_COMMENT, { commentId });
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST_COMMENT, {
+      commentId,
+    });
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -144,9 +146,8 @@ export async function postingCommentOnComment(
       body: JSON.stringify(commentToPost),
       credentials: "include",
     });
-
   } catch (error) {
-    console.log(error)
+    throw new PostCommentError();
   }
 }
 

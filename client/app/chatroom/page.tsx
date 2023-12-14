@@ -125,10 +125,10 @@ export default function UserChat() {
             <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
               {displayUserChatrooms()}
               {chatRooms?.length === 0 ?
-                <Box 
-                sx={{
-                  padding: "1rem",
-                  textAlign: "center"
+                <Box
+                  sx={{
+                    padding: "1rem",
+                    textAlign: "center"
                   }}>
                   <Typography variant="subtitle1" color="textSecondary" mb={"1rem"} >You have not been assigned to any chatrooms so far.</Typography>
                   <Typography variant="subtitle1" color="textSecondary">In order to get an access to a chat room, sign up as a volunteer and get accepted for solution testing.</Typography>
@@ -154,9 +154,16 @@ export default function UserChat() {
                 }
                 {solution && <ChatSolutionInfo solution={solution} />}
                 {messages.map((msg, index) => (
-                  <div key={index}>
-                    <ChatMessage index={index} msg={msg} />
-                  </div>
+                  msg.subject === user.subject ? (
+                    <Box key={index}>
+                      <ChatMessageByUser index={index} msg={msg} />
+                    </Box>
+                  ) : (
+                    <Box key={index}>
+                      <Typography>{msg.subject} +++ {user.subject}</Typography>
+                      <ChatMessage index={index} msg={msg} />
+                    </Box>
+                  )
                 ))}
                 <div ref={scrollToLatestMessage} />
               </Grid>

@@ -154,16 +154,17 @@ export default function UserChat() {
                 }
                 {solution && <ChatSolutionInfo solution={solution} />}
                 {messages.map((msg, index) => (
-                  msg.subject === user.subject ? (
-                    <Box key={index}>
-                      <ChatMessageByUser index={index} msg={msg} />
-                    </Box>
-                  ) : (
-                    <Box key={index}>
-                      <Typography>{msg.subject} +++ {user.subject}</Typography>
-                      <ChatMessage index={index} msg={msg} />
-                    </Box>
-                  )
+                  // msg.subject === user.subject ? (
+                  //   <Box key={index}>
+                  //     <ChatMessageByUser index={index} msg={msg} />
+                  //   </Box>
+                  // ) : (
+                  //   <Box key={index}>
+                  //     <Typography>{msg.subject} +++ {user.subject}</Typography>
+                  //     <ChatMessage index={index} msg={msg} messages={messages} />
+                  //   </Box>
+                  // )
+                  <ChatMessage index={index} msg={msg} messages={messages} />
                 ))}
                 <div ref={scrollToLatestMessage} />
               </Grid>

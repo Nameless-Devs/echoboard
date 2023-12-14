@@ -17,6 +17,8 @@ import CustomNavBar from "@/components/CustomNavBar";
 import SendIcon from "@mui/icons-material/Send";
 import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
+import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
+import QuestionAnswerRoundedIcon from '@mui/icons-material/QuestionAnswerRounded';
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -207,7 +209,10 @@ export default function UserChat() {
   function displayUserChatrooms() {
     return (
       <>
-        <h2 style={{ margin: "1em", textAlign: "center", color: "#424242" }}>Your chat rooms</h2>
+        <Box sx={{display: 'flex', flexDirection: "row", alignItems: "center", margin: "0 1rem" }} >
+          <QuestionAnswerRoundedIcon sx={{color: "#424242", mr: ".3rem"}}/>
+          <h2 style={{ margin: "1em 0 ", color: "#424242" }}>Your chat rooms</h2>
+        </Box>
         {chatRooms?.slice().reverse().map((chatroom, index) => (
           <ListItemButton
             key={index}

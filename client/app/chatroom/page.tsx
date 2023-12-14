@@ -208,7 +208,7 @@ export default function UserChat() {
     return (
       <>
         <h2 style={{ margin: "1em", textAlign: "center" }}>Your chat rooms</h2>
-        {chatRooms?.map((chatroom, index) => (
+        {chatRooms?.slice().reverse().map((chatroom, index) => (
           <ListItemButton
             key={index}
             onClick={() => {

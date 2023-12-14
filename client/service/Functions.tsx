@@ -184,14 +184,8 @@ export async function upvoteSolution(echoBoardId: string, solutionId: string) {
       },
       credentials: "include",
     });
-    if (response.ok) {
-      response;
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 

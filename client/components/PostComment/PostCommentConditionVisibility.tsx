@@ -10,9 +10,10 @@ import "../../app/styles/PostComment.css";
 interface CommentProps {
   echoBoardId: string;
   user: UserResponseData;
+  isFormVisible: boolean;
 }
 
-export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
+export const PostCommentConditionVisibility: React.FC<CommentProps> = ({ echoBoardId, user, isFormVisible }) => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const queryClient = useQueryClient();
@@ -53,6 +54,7 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           </DialogContentText>
         </Dialog>
       )}
+      {isFormVisible && (
       <form className="post-comment__form" onSubmit={(e) => e.preventDefault()}>
         <Box className="post-comment__box">
           <Box>
@@ -71,6 +73,9 @@ export const PostComment: React.FC<CommentProps> = ({ echoBoardId, user }) => {
           <CommentForm onCommentSubmit={handleCommentPost} />
         </Box>
       </form>
+      )}
+       {/* Hide the button when the form is visible */}
+       {isFormVisible && <div style={{ height: "32px" }}></div>}
     </>
   );
 };

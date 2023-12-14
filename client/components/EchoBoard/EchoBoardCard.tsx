@@ -6,6 +6,7 @@ import { Upvote } from '../Upvote';
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import { PostComment } from '../PostComment/PostComment';
+import { PostCommentConditionVisibility } from '../PostComment/PostCommentConditionVisibility';
 
 type EchoBoardCardPros = {
   echoBoard: EchoBoardResponseData;
@@ -53,8 +54,19 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
           <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
         </Button>
       </CardActions>
-      <PostComment echoBoardId={echoBoard.id} user={user} isFormVisible={isFormVisible} />
-      <Box sx={{display: 'flex', flexDirection: "row"}}>
+      <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <PostComment echoBoardId={echoBoard.id} user={user} />
+        <Button
+          size="medium"
+          onClick={() => handleOpenSolutionForm(echoBoard)}
+          className="echo-board-solution-btn"
+        >
+          Suggest solution
+        </Button>
+      </Box>
+      <Box sx={{ display: { xs: "block", md: "none" } }}>
+        <PostCommentConditionVisibility echoBoardId={echoBoard.id} user={user} isFormVisible={isFormVisible} />
+        <Box sx={{ display: 'flex', flexDirection: "row" }}>
         {!isFormVisible && <Button className="leave-a-comment-button" onClick={() => setIsFormVisible(true)}>
           Leave a comment
         </Button>}
@@ -66,6 +78,8 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
           Suggest solution
         </Button>
       </Box>
+      </Box>
+      
     </Card>
   )
 }

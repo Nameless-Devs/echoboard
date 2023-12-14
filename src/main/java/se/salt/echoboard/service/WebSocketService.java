@@ -37,6 +37,7 @@ public class WebSocketService {
         return messageRepository.save(message
                         .setPicture(echoboardUser.getPicture())
                         .setSender(echoboardUser.getName())
+                        .setSubject(echoboardUser.getSubject())
                 .setChatRoom(chatRoom));
     }
 

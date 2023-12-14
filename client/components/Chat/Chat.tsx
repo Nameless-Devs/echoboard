@@ -76,7 +76,7 @@ const Chat: React.FC<ChatProps> = ({ user }) => {
       <div>
         {messages.map((msg, index) => (
           <div key={index}>
-            <ChatMessage index={index} msg={msg} />
+            <ChatMessage index={index} msg={msg} messages={messages}/>
           </div>
         ))}
       </div>

@@ -6,6 +6,7 @@ import React from "react";
 type ChatMessageProps = {
   index: number;
   msg: Message;
+  messages: Message[];
 };
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg }) => {
@@ -28,3 +29,6 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg }) => {
     </ListItem>
   );
 };
+
+
+

@@ -312,32 +312,12 @@ export async function getAllPendingVolunteers(solutionId: string) {
     const response = await fetch(endpoint, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: SolutionVolunteersResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PendingError();
   }
 }
-// Made by mistake, maybe will be useful in future?
-// export async function fetchSolutionById(solutionId: string) {
-//   try {
-//     const endpoint = formatEndpoint(ENDPOINTS.SOLUTION, { solutionId });
-
-//     const response = await fetch(endpoint, {
-//       credentials: "include",
-//     });
-//     if (!response.ok) {
-//       throw new Error(`HTTP Error! Status: ${response.status}`);
-//     }
-//     const data: SolutionResponseData = await response.json();
-//     return data;
-//   } catch (error) {
-//     throw new Error("Error fetching data: " + error);
-//   }
-// }
 
 export async function fetchEchoBoardBySolutionId(solutionId: string) {
   try {

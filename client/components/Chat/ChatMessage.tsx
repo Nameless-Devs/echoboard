@@ -1,6 +1,6 @@
 import { formatTimestamp } from "@/service/TimeConverterForMessages";
 import { Message } from "@/service/Types";
-import { Avatar, ListItem, ListItemText, Typography } from "@mui/material";
+import { Avatar, Grid, ListItem, Typography } from "@mui/material";
 import React from "react";
 import "../../app/styles/Chat.css";
 
@@ -12,8 +12,9 @@ type ChatMessageProps = {
 
 const TIME_LIMIT = 3 * 60 * 1000; // 3 minutes in milliseconds
 
+// ... (imports and other code)
+
 export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }) => {
-  // Check if the time difference between consecutive messages is within the time limit
   const currentTimestamp = new Date(msg.timestamp).getTime();
   const previousTimestamp = index > 0 ? new Date(messages[index - 1].timestamp).getTime() : 0;
   const timeDifference = currentTimestamp - previousTimestamp;
@@ -26,29 +27,38 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
 
   return (
     <ListItem key={index} className={`message-display ${isWithinTimeLimit ? 'consecutive-message' : ''}`}>
-      {/* {isFirstMessage && <Avatar src={msg.picture} style={{ marginRight: "15px" }} />} */}
+      <Grid container>
+        <Grid item xs={1}>
+        {(isLastMessage || (messages.length === 1 && isFirstMessage)) && <Avatar src={msg.picture} />}
+        </Grid>
+        <Grid item xs={11}>
+          {isFirstMessage && (
+            <>
+              <Typography variant="body2">
+                {msg.sender}
+              </Typography>
+              <Typography variant="body1">
+                {msg.content}
+              </Typography>
+            </>
+          )}
 
-      <ListItemText
-        primary={
-          <Typography variant="body2">
-            {isFirstMessage && msg.sender}
-          </Typography>
-        }
-        secondary={
-          <Typography variant="body1">
-            {msg.content}
-          </Typography>
-        }
-      />
+          {!isFirstMessage && !isLastMessage && (
+            <Typography variant="body1">
+              {msg.content}
+            </Typography>
+          )}
 
-      {isLastMessage &&
-        <>
-          <Typography>{formatTimestamp(msg.timestamp)}</Typography>
-          <Avatar src={msg.picture} />
-        </>}
+          {isLastMessage && (
+            <>
+             <Typography variant="body1">
+              {msg.content}
+            </Typography>
+              <Typography>{formatTimestamp(msg.timestamp)}</Typography>
+            </>
+          )}
+        </Grid>
+      </Grid>
     </ListItem>
   );
 };
-
-
-

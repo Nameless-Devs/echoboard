@@ -123,7 +123,7 @@ export default function UserChat() {
           >
             {/*Left Grid*/}
            
-          <Grid item xs={3} sx={{ position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
+          <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
               {displayUserChatrooms()}
               {chatRooms?.length === 0 ?
                 <Box

@@ -10,9 +10,7 @@ type ChatMessageProps = {
   messages: Message[];
 };
 
-const TIME_LIMIT = 3 * 60 * 1000; // 3 minutes in milliseconds
-
-// ... (imports and other code)
+const TIME_LIMIT = 2 * 60 * 1000; // 2 minutes in milliseconds
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }) => {
   const currentTimestamp = new Date(msg.timestamp).getTime();

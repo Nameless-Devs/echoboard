@@ -122,7 +122,8 @@ export default function UserChat() {
             style={{ flex: 1, width: '100%' }}
           >
             {/*Left Grid*/}
-            <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
+           
+          <Grid item xs={3} sx={{ position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
               {displayUserChatrooms()}
               {chatRooms?.length === 0 ?
                 <Box
@@ -136,6 +137,7 @@ export default function UserChat() {
                 : <></>
               }
             </Grid>
+          
             <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
               {/*Top Right*/}
               <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>

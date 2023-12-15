@@ -20,7 +20,9 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
   const isWithinTimeLimit = index > 0 && timeDifference <= TIME_LIMIT;
 
   const isFirstMessage = !isWithinTimeLimit || index === 0;
-  const isLastMessage = index === messages.length - 1 || !isWithinTimeLimit;
+  const isLastMessage =
+  (index === messages.length - 1 && isWithinTimeLimit) || (!isWithinTimeLimit && index > 0);
+
 
   return (
     <ListItem key={index} className={`message-display ${isWithinTimeLimit ? 'consecutive-message' : ''}`}>

@@ -13,7 +13,7 @@ type ChatMessageProps = {
 export const ChatMessageByUser: React.FC<ChatMessageProps> = ({ index, msg }) => {
 
   return (
-    <ListItem key={index} sx={{margin: "0.2rem ", ml: "auto", padding: ".3rem 0", alignItems: "right", width: "70%"}}>
+    <ListItem key={index} sx={{margin: ".1rem .5rem", ml: "auto", padding: ".3rem 0", alignItems: "right", width: "70%"}}>
             <>
               <Box sx={{
                 backgroundColor: "#bfe4f6",
@@ -28,7 +28,7 @@ export const ChatMessageByUser: React.FC<ChatMessageProps> = ({ index, msg }) =>
                   <Typography variant="body1">
                     {msg.content}
                   </Typography>
-                  <Typography variant="caption" sx={{minWidth: "fit-content"}}>
+                  <Typography variant="caption" color="textSecondary" sx={{minWidth: "fit-content"}}>
                     {formatTimestamp(msg.timestamp)}
                   </Typography>
                 </Box>

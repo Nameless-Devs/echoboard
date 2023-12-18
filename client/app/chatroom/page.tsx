@@ -223,7 +223,7 @@ export default function UserChat() {
           <QuestionAnswerRoundedIcon sx={{color: "#424242", mr: ".3rem"}}/>
           <h2 style={{ margin: "1em 0 ", color: "#424242" }}>Your chat rooms</h2>
         </Box>
-        {chatRooms?.slice().reverse().map((chatroom, index) => (
+        {chatRooms && chatRooms?.slice().reverse().map((chatroom, index) => (
           <ListItemButton
             key={index}
             onClick={() => {

@@ -17,6 +17,8 @@ import CustomNavBar from "@/components/CustomNavBar";
 import SendIcon from "@mui/icons-material/Send";
 import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
+import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
+import QuestionAnswerRoundedIcon from '@mui/icons-material/QuestionAnswerRounded';
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -120,13 +122,14 @@ export default function UserChat() {
             style={{ flex: 1, width: '100%' }}
           >
             {/*Left Grid*/}
-            <Grid item xs={3} sx={{ height: "100%", backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
+           
+          <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
               {displayUserChatrooms()}
               {chatRooms?.length === 0 ?
-                <Box 
-                sx={{
-                  padding: "1rem",
-                  textAlign: "center"
+                <Box
+                  sx={{
+                    padding: "1rem",
+                    textAlign: "center"
                   }}>
                   <Typography variant="subtitle1" color="textSecondary" mb={"1rem"} >You have not been assigned to any chatrooms so far.</Typography>
                   <Typography variant="subtitle1" color="textSecondary">In order to get an access to a chat room, sign up as a volunteer and get accepted for solution testing.</Typography>
@@ -134,6 +137,7 @@ export default function UserChat() {
                 : <></>
               }
             </Grid>
+          
             <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
               {/*Top Right*/}
               <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
@@ -143,7 +147,7 @@ export default function UserChat() {
                     padding: "2rem 1rem",
                   }}>
                     <Typography variant="h6" color="textSecondary">
-                      Welcom to the Chat page where you can discuss the solution implementations with you fellow volunteers.
+                      Welcom to the Chat page where you can discuss the solution implementations with your fellow volunteers.
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
                       Select the chat room and start talking!
@@ -152,10 +156,17 @@ export default function UserChat() {
                 }
                 {solution && <ChatSolutionInfo solution={solution} />}
                 {messages.map((msg, index) => (
-                  <div key={index}>
-                    <ChatMessage index={index} msg={msg} />
-                  </div>
-                ))}
+                  msg.subject === user.subject ? (
+                    <Box key={index}>
+                      <ChatMessageByUser index={index} msg={msg} />
+                    </Box>
+                  ) : (
+                    <Box key={index}>
+                      <ChatMessage index={index} msg={msg} messages={messages} />
+                    </Box>
+                  )
+                //   <ChatMessage index={index} msg={msg} messages={messages} />
+                 ))}
                 <div ref={scrollToLatestMessage} />
               </Grid>
               {/*Bottom Right*/}
@@ -207,8 +218,11 @@ export default function UserChat() {
   function displayUserChatrooms() {
     return (
       <>
-        <h2 style={{ margin: "1em", textAlign: "center" }}>Your chat rooms</h2>
-        {chatRooms?.map((chatroom, index) => (
+        <Box sx={{display: 'flex', flexDirection: "row", alignItems: "center", margin: "0 1rem" }} >
+          <QuestionAnswerRoundedIcon sx={{color: "#424242", mr: ".3rem"}}/>
+          <h2 style={{ margin: "1em 0 ", color: "#424242" }}>Your chat rooms</h2>
+        </Box>
+        {chatRooms && chatRooms?.slice().reverse().map((chatroom, index) => (
           <ListItemButton
             key={index}
             onClick={() => {
@@ -221,6 +235,8 @@ export default function UserChat() {
               color: "black",
               backgroundColor: selectedIndex === index ? "#c1c4c7" : "",
               margin: "0 0.5rem 0 0.5rem",
+              border: "2px solid #c1c4c7",
+              marginBottom: "0.3rem",
             }}
           >
             {chatroom.title}

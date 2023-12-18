@@ -21,7 +21,7 @@ function ChatRoomHistory({ chatRoomId }: ChatRoomHistoryProp) {
       <div>
         {chatHistory.map((message, index) => (
           <div key={index}>
-            <ChatMessage index={index} msg={message} />
+            <ChatMessage index={index} msg={message} messages={chatHistory} />
           </div>
         ))}
       </div>

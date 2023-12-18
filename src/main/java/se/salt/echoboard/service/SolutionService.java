@@ -104,20 +104,15 @@ public class SolutionService {
                 .equals(EchoBoardSolution.SolutionStatus.VOLUNTEERS_REQUIRED)) return echoBoardSolution;
         StringBuilder title = new StringBuilder();
         var chatroom = new ChatRoom();
-        if (echoBoardSolution.getContent().split(" ").length > 3) {
-            for (int i = 0; i < 3; i++) {
-                title.append(echoBoardSolution.getContent().split(" ")[i]);
-                title.append(" ");
+        String content = echoBoardSolution.getContent();
 
-
-            }
+        if (content.length() > 36) {
+            title.append(content, 0, 36);
             title.append("...");
             chatroom.setTitle(title.toString());
         } else {
-            chatroom.setTitle(echoBoardSolution.getContent());
-
+            chatroom.setTitle(content);
         }
-
         chatroom.setEchoBoardSolution(echoBoardSolution);
         return echoBoardSolution
                 .setChatRoom(chatRoomRepository.save(chatroom));

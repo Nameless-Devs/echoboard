@@ -23,6 +23,9 @@ public class Message {
     @Column(name = "sender", nullable = false)
     private String sender;
 
+    @Column(name = "subject", nullable = false)
+    private String subject;
+
     @Column(name = "content", nullable = false)
     private String content;
 
@@ -49,6 +52,11 @@ public class Message {
 
     public Message setPicture(String picture) {
         this.picture = picture;
+        return this;
+    }
+
+    public Message setSubject(String subject) {
+        this.subject = subject;
         return this;
     }
 }

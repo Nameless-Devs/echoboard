@@ -21,7 +21,8 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
   const isFirstMessage = !isWithinTimeLimit || index === 0;
 
   return (
-      <Grid container key={index} sx={{margin: ".2rem 0", padding: ".3rem 0"}}>
+    <ListItem key={index} sx={{margin: "0.2rem 0", padding: ".3rem 0"}}>
+      <Grid container >
         <Grid item xs={1}>
           {isFirstMessage && <Avatar src={msg.picture} />}
         </Grid>
@@ -53,5 +54,6 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
             </>
         </Grid>
       </Grid>
+    </ListItem>
   );
 };

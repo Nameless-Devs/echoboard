@@ -32,23 +32,28 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
               <Box sx={{
                 backgroundColor: "#c1c4c7",
                 width: "fit-content",
+                maxWidth: "60%",
                 blockSize: "fit-content",
                 display: "block",
                 padding: ".3rem 1rem",
                 borderRadius: "1.5rem"
               }}>
-                <Typography variant="body2">
+                <Typography variant="body1">
                   {msg.sender}
                 </Typography>
-                <Typography variant="body1">
-                  {msg.content}
-                </Typography>
-                <Typography>{formatTimestamp(msg.timestamp)} i am here</Typography>
+                <Box sx={{ display: "flex", alignItems: "baseline", gap: "1rem" }} >
+                  <Typography variant="body1">
+                    {msg.content}
+                  </Typography>
+                  <Typography variant="caption">
+                    {formatTimestamp(msg.timestamp)}
+                  </Typography>
+                </Box>
               </Box>
             </>
           )}
 
-          {!isFirstMessage  && (
+          {!isFirstMessage && (
             <Typography variant="body1">
               {msg.content}
             </Typography>

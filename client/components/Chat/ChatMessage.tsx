@@ -21,13 +21,13 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
   const isFirstMessage = !isWithinTimeLimit || index === 0;
 
   return (
-    <ListItem key={index} className={`message-display ${isWithinTimeLimit ? 'consecutive-message' : ''}`}>
+    <ListItem key={index} >
       <Grid container>
         <Grid item xs={1}>
           {isFirstMessage && <Avatar src={msg.picture} />}
         </Grid>
         <Grid item xs={11}>
-          {isFirstMessage && (
+          
             <>
               <Box sx={{
                 backgroundColor: "#c1c4c7",
@@ -38,9 +38,11 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
                 padding: ".3rem 1rem",
                 borderRadius: "1.5rem"
               }}>
+                {isFirstMessage && (
                 <Typography variant="body1">
                   {msg.sender}
                 </Typography>
+                )}
                 <Box sx={{ display: "flex", alignItems: "baseline", gap: "1rem" }} >
                   <Typography variant="body1">
                     {msg.content}
@@ -51,14 +53,6 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
                 </Box>
               </Box>
             </>
-          )}
-
-          {!isFirstMessage && (
-            <Typography variant="body1">
-              {msg.content}
-            </Typography>
-          )}
-
         </Grid>
       </Grid>
     </ListItem>

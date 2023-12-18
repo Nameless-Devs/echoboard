@@ -66,7 +66,7 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
       </Box>
       <Box sx={{ display: { xs: "block", md: "none" } }}>
         <PostCommentConditionVisibility echoBoardId={echoBoard.id} user={user} isFormVisible={isFormVisible} />
-        <Box sx={{ display: 'flex', flexDirection: "row" }}>
+        <Box className="leave-a-comment-button-container" sx={{ display: 'flex', flexDirection: "row", justifyContent: "center", alignItems: "center"  }}>
         {!isFormVisible && <Button className="leave-a-comment-button" onClick={() => setIsFormVisible(true)}>
           Leave a comment
         </Button>}

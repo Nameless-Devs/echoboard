@@ -6,14 +6,24 @@ import {
   getUserChatRooms,
   getUserInfo,
 } from "@/service/Functions";
-import { Message } from "@/service/Types";
-import { Button, Grid, Input, ListItemButton } from "@mui/material";
+import { ChatRoomResponse, Message, SolutionResponseData } from "@/service/Types";
+import { Box, Grid, IconButton, ListItemButton, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
-import {useScrollToLatestMessage} from "@/hooks/useScrollToLatestMessage";
-import {LoadingPage} from "@/components/Shared/LoadingPage/LoadingPage";
+import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
+import CustomNavBar from "@/components/CustomNavBar";
+import SendIcon from "@mui/icons-material/Send";
+import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
+import { LoadingLogo } from "@/components/LoadingLogo";
+import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
+import QuestionAnswerRoundedIcon from '@mui/icons-material/QuestionAnswerRounded';
+
+const buttons = [
+  { label: 'Home', link: '/' },
+  { label: 'Chat', link: '/chatroom' }
+];
 
 export default function UserChat() {
   const { data: chatRooms } = useQuery(["chatRooms"], getUserChatRooms);
@@ -23,6 +33,7 @@ export default function UserChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [solution, setSolution] = useState<SolutionResponseData>();
 
   const { data: user, error, isLoading } = useQuery(["userInfo"], getUserInfo);
 
@@ -44,7 +55,7 @@ export default function UserChat() {
     };
     newClient.onConnect = () => {
       if (chatRooms) {
-        const chatRoomIds = chatRooms.map((chatRoom) => chatRoom.id)
+        const chatRoomIds = chatRooms.map((chatRoom) => chatRoom.id);
         subscribeToUserChatRooms(newClient, chatRoomIds, onMessageReceived);
       }
     };
@@ -61,11 +72,9 @@ export default function UserChat() {
 
   const scrollToLatestMessage = useScrollToLatestMessage(messages);
 
-  if (isLoading) return (<LoadingPage/>);
+  if (isLoading) return <LoadingLogo />;
 
-
-  if (error) return (<div>Error</div>)
-
+  if (error) return <div>Error</div>;
 
   const handleMessageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
@@ -91,89 +100,149 @@ export default function UserChat() {
     setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
   };
 
-  const handleChatRoomChange = (chatRoomId: number) => {
-    setSelectedChatRoomId(chatRoomId);
+  const handleChatRoomChange = (chatRoom: ChatRoomResponse) => {
+    setSelectedChatRoomId(chatRoom.id);
+    setSolution(chatRoom.echoBoardSolution);
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSendMessage();
+    }
   };
 
   return (
-    <Grid
-        container
-        style={{position: "absolute", height: "100%", width: "100%"}}
-    >
-      {/*Left Grid*/}
-      <Grid item xs={2} sx={{height: "100%", backgroundColor: "#292b2f"}}>
-        {displayUserChatrooms()}
-      </Grid>
-      <Grid item xs={10} sx={{height: "100%", backgroundColor: "#424549"}}>
-        {/*Top Right*/}
-        <Grid item xs={12} sx={{height: "90%", overflowY: "scroll"}} >
-          {messages.map((msg, index) => (
-              <div key={index}>
-                <ChatMessage index={index} msg={msg}/>
-              </div>
-          ))}
-          <div ref={scrollToLatestMessage} />
-        </Grid>
-        {/*Bottom Right*/}
-        <Grid
-            item
-            xs={12}
-            sx={{
-              height: "10%",
-              outline: "10px blue",
-              backgroundColor: "#424549",
-              padding: "1rem",
-            }}
-        >
-          <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                padding: "1rem",
-                backgroundColor: "#4a4c51",
-                borderRadius: "5px",
-              }}
+    <>
+      {user &&
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: "100vh" }}>
+          <CustomNavBar buttons={buttons} user={user} />
+          <Grid
+            container
+            style={{ flex: 1, width: '100%' }}
           >
-            <Input
+            {/*Left Grid*/}
+           
+          <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
+              {displayUserChatrooms()}
+              {chatRooms?.length === 0 ?
+                <Box
+                  sx={{
+                    padding: "1rem",
+                    textAlign: "center"
+                  }}>
+                  <Typography variant="subtitle1" color="textSecondary" mb={"1rem"} >You have not been assigned to any chatrooms so far.</Typography>
+                  <Typography variant="subtitle1" color="textSecondary">In order to get an access to a chat room, sign up as a volunteer and get accepted for solution testing.</Typography>
+                </Box>
+                : <></>
+              }
+            </Grid>
+          
+            <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
+              {/*Top Right*/}
+              <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
+                {!selectedChatRoomId &&
+                  <Box sx={{
+                    textAlign: "center",
+                    padding: "2rem 1rem",
+                  }}>
+                    <Typography variant="h6" color="textSecondary">
+                      Welcom to the Chat page where you can discuss the solution implementations with your fellow volunteers.
+                    </Typography>
+                    <Typography variant="h6" color="textSecondary">
+                      Select the chat room and start talking!
+                    </Typography>
+                  </Box>
+                }
+                {solution && <ChatSolutionInfo solution={solution} />}
+                {messages.map((msg, index) => (
+                  msg.subject === user.subject ? (
+                    <Box key={index}>
+                      <ChatMessageByUser index={index} msg={msg} />
+                    </Box>
+                  ) : (
+                    <Box key={index}>
+                      <ChatMessage index={index} msg={msg} messages={messages} />
+                    </Box>
+                  )
+                //   <ChatMessage index={index} msg={msg} messages={messages} />
+                 ))}
+                <div ref={scrollToLatestMessage} />
+              </Grid>
+              {/*Bottom Right*/}
+              <Grid
+                item
+                xs={12}
                 sx={{
-                  width: "80%",
-                  color: "#f1f1f1",
+                  height: "15%",
+                  outline: "10px blue",
+                  backgroundColor: "rgb(250, 249, 246)",
+                  padding: "1rem",
                 }}
-                type="text"
-                placeholder="Enter a message"
-                value={input}
-                disableUnderline={true}
-                onChange={handleMessageInput}
-            />
-            <Button onClick={handleSendMessage}>Send</Button>
-          </div>
-        </Grid>
-      </Grid>
-    </Grid>
+              >
+                {selectedChatRoomId && <TextField
+                  label="Enter a message"
+                  variant="outlined"
+                  name="message"
+                  multiline
+                  rows="2"
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "#F0F2F5"
+                  }}
+                  type="text"
+                  placeholder="Enter a message"
+                  value={input}
+                  onKeyDown={handleKeyPress}
+                  onChange={handleMessageInput}
+                  InputProps={{
+                    endAdornment:
+                      <IconButton
+                        type="submit"
+                        style={{ position: "absolute", bottom: "0", right: "0" }}
+                        color="primary"
+                        onClick={() => handleSendMessage()}
+                      >
+                        <SendIcon />
+                      </IconButton>
+                  }}
+                />}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Box>
+      }
+    </>
   );
 
   function displayUserChatrooms() {
-    return <>
-      <h1 style={{margin: "1em"}}>ChatRoom</h1>
-      {chatRooms?.map((chatroom, index) => (
+    return (
+      <>
+        <Box sx={{display: 'flex', flexDirection: "row", alignItems: "center", margin: "0 1rem" }} >
+          <QuestionAnswerRoundedIcon sx={{color: "#424242", mr: ".3rem"}}/>
+          <h2 style={{ margin: "1em 0 ", color: "#424242" }}>Your chat rooms</h2>
+        </Box>
+        {chatRooms && chatRooms?.slice().reverse().map((chatroom, index) => (
           <ListItemButton
-              key={index}
-              onClick={() => {
-                handleChatRoomChange(chatroom.id);
-                setSelectedIndex(index);
-              }}
-              style={{
-                borderRadius: "10px",
-                padding: "16px",
-                color: "#f1f1f1",
-                backgroundColor: selectedIndex === index ? "#424549" : "",
-                margin: "0 0.5rem 0 0.5rem",
-              }}
+            key={index}
+            onClick={() => {
+              handleChatRoomChange(chatroom);
+              setSelectedIndex(index);
+            }}
+            style={{
+              borderRadius: "10px",
+              padding: "16px",
+              color: "black",
+              backgroundColor: selectedIndex === index ? "#c1c4c7" : "",
+              margin: "0 0.5rem 0 0.5rem",
+              border: "2px solid #c1c4c7",
+              marginBottom: "0.3rem",
+            }}
           >
             {chatroom.title}
           </ListItemButton>
-      ))}
-    </>;
+        ))}
+      </>
+    );
   }
 }

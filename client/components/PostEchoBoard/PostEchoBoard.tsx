@@ -15,9 +15,7 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation((data: PostEchoBoardData) =>
-    postEcho(data)
-  );
+  const mutation = useMutation((data: PostEchoBoardData) => postEcho(data));
 
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {
     setIfAnonymous(event.target.checked);
@@ -54,7 +52,6 @@ const PostEchoBoard: React.FC<UserResponseData> = (user: UserResponseData) => {
   };
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && event.shiftKey === false) {
-
       event.preventDefault();
       handleProblemPost();
     }

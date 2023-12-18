@@ -8,12 +8,12 @@ export type PostEchoBoardData = {
 export type EchoBoardUser = {
   name: string;
   picture: string;
-}
+};
 
 export type CommentOrSolutionType = {
   id: string;
   content: string;
-}
+};
 
 export type EchoBoardResponseData = {
   id: string;
@@ -33,6 +33,7 @@ export type CommentResponseData = {
   upvote: string[];
   created: string;
   echoBoardUser: EchoBoardUser;
+  echoBoardComments?: CommentResponseData[];
 };
 
 export type UpvoteProps = {
@@ -43,12 +44,12 @@ export type UpvoteProps = {
 export type CommentToPost = {
   author: string;
   content: string;
-}
+};
 
 export type SolutionToPost = {
   author: string;
   content: string;
-}
+};
 
 export type SolutionResponseData = {
   id: string;
@@ -68,18 +69,20 @@ export type UserResponseData = {
   echoBoards: EchoBoardResponseData[];
   pendingVolunteeredSolutions: SolutionResponseData[];
   volunteeredSolutions: SolutionResponseData[];
-}
+};
 
 export type StatusInfo = {
   formattedStatus: string;
   color: string;
-}
+};
 
 export interface Message {
   id?: number;
   sender: string;
+  subject: string;
   picture: string;
   content: string;
+  timestamp: string;
 }
 
 export type EchoBoardPreviewResponseData = {
@@ -87,15 +90,16 @@ export type EchoBoardPreviewResponseData = {
   title: string;
   anonymous: boolean;
   echoBoardUser: EchoBoardUser;
-}
+};
 
 export type SolutionVolunteersResponseData = {
-  id: string; 
+  id: string;
   volunteers: UserResponseData[];
   pendingVolunteers: UserResponseData[];
-}
+};
 
 export type ChatRoomResponse = {
   id: number;
   title: string;
-}
+  echoBoardSolution: SolutionResponseData;
+};

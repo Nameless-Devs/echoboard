@@ -7,8 +7,6 @@ type UserInfoProp = {
   convertedTime: string;
 };
 
-// Working in progress #Nate
-
 export const SinglePostUserInfo: React.FC<UserInfoProp> = ({
   anonymous,
   user,

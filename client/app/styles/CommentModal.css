@@ -13,7 +13,7 @@
 }
 
 .tabs-divider {
-  border-bottom: 1px solid #D3D3D3;
+  border-bottom: 1px solid #d3d3d3;
 }
 
 .comment-display {
@@ -22,7 +22,6 @@
   width: auto;
   margin: 15px 25px 0 0;
   overflow-y: scroll;
-  
 }
 
 .comment-display__individual-comment {

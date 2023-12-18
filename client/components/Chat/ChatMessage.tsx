@@ -1,28 +1,58 @@
-import { Message } from '@/service/Types';
-import { Avatar, ListItem, ListItemText, Typography } from '@mui/material'
-import React from 'react'
+import { formatTimestamp } from "@/service/TimeConverterForMessages";
+import { Message } from "@/service/Types";
+import { Avatar, Box, Grid, ListItem, Typography } from "@mui/material";
+import React from "react";
+import "../../app/styles/Chat.css";
 
 type ChatMessageProps = {
-    index: number; 
-    msg: Message; 
-}
+  index: number;
+  msg: Message;
+  messages: Message[];
+};
 
-export const ChatMessage: React.FC<ChatMessageProps> = ({index, msg}) => {
-    return (
-        <ListItem key={index} className="message-display">
-            <Avatar src={msg.picture} style={{ marginRight: "15px" }} />
-            <ListItemText
-                primary={
-                    <Typography variant="body2" color="#f1f1f1">
-                        {msg.sender}
-                    </Typography>
-                }
-                secondary={
-                    <Typography variant="body1" color="#f1f1f1">
-                        {msg.content}
-                    </Typography>
-                }
-            ></ListItemText>
-        </ListItem>
-    )
-}
+const TIME_LIMIT = 2 * 60 * 1000; // 2 minutes in milliseconds
+
+export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }) => {
+  const currentTimestamp = new Date(msg.timestamp).getTime();
+  const previousTimestamp = index > 0 ? new Date(messages[index - 1].timestamp).getTime() : 0;
+  const timeDifference = currentTimestamp - previousTimestamp;
+  const isWithinTimeLimit = index > 0 && timeDifference <= TIME_LIMIT;
+
+  const isFirstMessage = !isWithinTimeLimit || index === 0;
+
+  return (
+    <ListItem key={index} sx={{margin: "0.1rem 0", padding: ".3rem 0"}}>
+      <Grid container sx={{ maxWidth: "70%"}}>
+        <Grid item xs={1}>
+          {isFirstMessage && <Avatar src={msg.picture} sx={{margin: ".3rem auto"}}/>}
+        </Grid>
+        <Grid item xs={11}>
+            <>
+              <Box sx={{
+                backgroundColor: "#c1c4c7",
+                width: "fit-content",
+                blockSize: "fit-content",
+                display: "block",
+                padding: ".3rem 1rem",
+                borderRadius: "1.5rem",
+              }}>
+                {isFirstMessage && (
+                <Typography variant="body1" sx={{marginTop: ".2rem"}}>
+                  {msg.sender}
+                </Typography>
+                )}
+                <Box sx={{ display: "flex", alignItems: "flex-end", gap: "1rem" }} >
+                  <Typography variant="body1">
+                    {msg.content}
+                  </Typography>
+                  <Typography variant="caption" color="textSecondary" sx={{minWidth: "fit-content"}}>
+                    {formatTimestamp(msg.timestamp)}
+                  </Typography>
+                </Box>
+              </Box>
+            </>
+        </Grid>
+      </Grid>
+    </ListItem>
+  );
+};

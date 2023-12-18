@@ -10,6 +10,7 @@ export const ENDPOINTS = {
   COMMENT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}`,
   COMMENT_UPVOTE: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}/upvote`,
   COMMENT_POST: `${process.env.NEXT_PUBLIC_API_BASE_URL}/echoes/{echoBoardId}/comments`,
+  COMMENT_POST_COMMENT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/{commentId}`,
 
   SOLUTION: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}`,
   SOLUTION_EDIT: `${process.env.NEXT_PUBLIC_API_BASE_URL}/solutions/{solutionId}/edit`,
@@ -26,14 +27,13 @@ export const ENDPOINTS = {
   LOGOUT: `${process.env.NEXT_PUBLIC_BASE_URL}/logout`,
 };
 
-export const WEBSOCKET = { 
+export const WEBSOCKET = {
   BASE_URL: `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`,
+};
 
-}
-
-export const YOUTUBE_LINK = "https://youtu.be/KNVRhe1BvEw"; 
+export const YOUTUBE_LINK = "https://youtu.be/KNVRhe1BvEw";
 
 // example from Marcus
 // if(process.env.NEXT_PUBLIC_FF_MY_FEATURE === "ON"){
 // alert("WIP");
-// } 
+// }

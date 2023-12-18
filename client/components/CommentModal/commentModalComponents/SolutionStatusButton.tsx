@@ -32,8 +32,8 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [isClickble, setIsClickble] = useState(status == "VOLUNTEERS_REQUIRED");
-    const [formatedStatus, setFormatedStatus] = useState(getStatusInfo(status));
+    const [isClickable, setIsClickable] = useState(status == "VOLUNTEERS_REQUIRED");
+    const [formateStatus, setFormateStatus] = useState(getStatusInfo(status));
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
@@ -45,6 +45,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(['status', solutionId]);
+                queryClient.refetchQueries(["echoBoardSinglePost"]);
                 queryClient.refetchQueries(['echoBoards']);
                 queryClient.refetchQueries(['comments']);
             },
@@ -57,7 +58,7 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
 
 
     const handleClick = () => {
-        if (formatedStatus.formattedStatus == "Volunteers required") {
+        if (formateStatus.formattedStatus == "Volunteers required") {
             setIsConfirmationModalOpen(true);
         }
 
@@ -79,12 +80,12 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
         setSelectedIndex(index);
         setOpen(false);
         const newStatus = options[index][0];
-        setFormatedStatus(getStatusInfo(newStatus));
+        setFormateStatus(getStatusInfo(newStatus));
         mutation.mutate(newStatus);
         if (newStatus == "VOLUNTEERS_REQUIRED") {
-            setIsClickble(true);
+            setIsClickable(true);
         }
-        else setIsClickble(false);
+        else setIsClickable(false);
     };
 
     const handleToggle = () => {
@@ -126,19 +127,19 @@ export const SolutionStatusButton: React.FC<SolutionStatusProps> = ({ status, so
             >
                 <Button
                     size='small'
-                    color={formatedStatus.color as ButtonProps['color']}
+                    color={formateStatus.color as ButtonProps['color']}
                     onClick={handleClick}
                     style={{
                         borderTopLeftRadius: "30px",
                         borderBottomLeftRadius: "30px",
-                        pointerEvents: isClickble ? "auto" : "none",
+                        pointerEvents: isClickable ? "auto" : "none",
                     }}
                 >
-                    {formatedStatus.formattedStatus}
+                    {formateStatus.formattedStatus}
                 </Button>
                 <Button
                     size="small"
-                    color={formatedStatus.color as ButtonProps['color']}
+                    color={formateStatus.color as ButtonProps['color']}
                     aria-controls={open ? 'split-button-menu' : undefined}
                     aria-expanded={open ? 'true' : undefined}
                     aria-haspopup="menu"

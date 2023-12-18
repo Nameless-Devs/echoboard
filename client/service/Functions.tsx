@@ -12,10 +12,22 @@ import {
   CommentOrSolutionType,
   ChatRoomResponse,
 } from "./Types";
+import {
+  DeletingEchoBoardError,
+  EditingEchoBoardError,
+  FetchChatRoomHistoryError,
+  FetchEchoBoardByIdError,
+  FetchEchoBoardsError,
+  GettingUserInfoError,
+  PendingError,
+  PostCommentError,
+  PostEchoError,
+  PostSolutionError,
+  UpvoteError,
+  VolunteerForSolutionError,
+} from "@/lib/exceptions";
 
-export async function postEcho(
-  problemPostToSend: PostEchoBoardData,
-) {
+export async function postEcho(problemPostToSend: PostEchoBoardData) {
   try {
     const response = await fetch(ENDPOINTS.ECHOBOARD_POST, {
       method: "POST",
@@ -25,36 +37,28 @@ export async function postEcho(
       body: JSON.stringify(problemPostToSend),
       credentials: "include",
     });
-
-    if (response.ok) {
-      console.log(response);
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostEchoError();
   }
 }
 
-export async function fetchEchoBoards(
-): Promise<EchoBoardResponseData[]> {
+export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
   try {
     const response = await fetch(ENDPOINTS.ECHOBOARD_POST, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: EchoBoardResponseData[] = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new FetchEchoBoardsError();
   }
 }
 
 export async function upvotePost(echoBoardId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_UPVOTE, { echoBoardId });
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_UPVOTE, {
+      echoBoardId,
+    });
 
     const response = await fetch(endpoint, {
       method: "PATCH",
@@ -63,21 +67,12 @@ export async function upvotePost(echoBoardId: string) {
       },
       credentials: "include",
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 
-export async function upvoteComment(
-  echoBoardId: string,
-  commentId: string,
-) {
+export async function upvoteComment(echoBoardId: string, commentId: string) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.COMMENT_UPVOTE, {
       echoBoardId,
@@ -93,13 +88,12 @@ export async function upvoteComment(
     });
 
     if (response.ok) {
-      console.log(response);
       return response;
     } else {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 
@@ -110,19 +104,16 @@ export async function fetchEchoBoardById(echoBoardId: string) {
     const response = await fetch(endpoint, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: EchoBoardResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new FetchEchoBoardByIdError();
   }
 }
 
 export async function postComment(
   commentToPost: CommentToPost,
-  echoBoardId: string,
+  echoBoardId: string
 ) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST, { echoBoardId });
@@ -134,19 +125,35 @@ export async function postComment(
       body: JSON.stringify(commentToPost),
       credentials: "include",
     });
-    if (response.ok) {
-      console.log(response);
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostCommentError();
+  }
+}
+
+export async function postingCommentOnComment(
+  commentToPost: CommentToPost,
+  commentId: string
+) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT_POST_COMMENT, {
+      commentId,
+    });
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentToPost),
+      credentials: "include",
+    });
+  } catch (error) {
+    throw new PostCommentError();
   }
 }
 
 export async function postSolution(
   solutionToPost: SolutionToPost,
-  echoBoardId: string,
+  echoBoardId: string
 ) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_POST, { echoBoardId });
@@ -154,25 +161,17 @@ export async function postSolution(
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",  
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(solutionToPost),
       credentials: "include",
     });
-    if (response.ok) {
-      console.log(response);
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new PostSolutionError();
   }
 }
 
-export async function upvoteSolution(
-  echoBoardId: string,
-  solutionId: string,
-) {
+export async function upvoteSolution(echoBoardId: string, solutionId: string) {
   try {
     const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_UPVOTE, {
       echoBoardId,
@@ -185,42 +184,31 @@ export async function upvoteSolution(
       },
       credentials: "include",
     });
-    if (response.ok) {
-      console.log(response);
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new UpvoteError();
   }
 }
 
 export async function getUserInfo() {
   try {
-    const response = await fetch( ENDPOINTS.USER, {
+    const response = await fetch(ENDPOINTS.USER, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-   
     const data: UserResponseData = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new GettingUserInfoError();
   }
 }
 
 export async function getUserChatRooms(): Promise<ChatRoomResponse[]> {
   try {
-    const response = await fetch( ENDPOINTS.USER_CHATROOMS, {
+    const response = await fetch(ENDPOINTS.USER_CHATROOMS, {
       credentials: "include",
     });
     return await response.json();
   } catch (error) {
-    console.log(error)
-    return [];
+    throw new GettingUserInfoError();
   }
 }
 
@@ -238,81 +226,69 @@ export async function changeSolutionStatus(solutionId: string, status: string) {
       },
       credentials: "include",
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new GettingUserInfoError();
   }
 }
 
 export async function volunteerForSolution(solutionId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, { solutionId });
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {
+      solutionId,
+    });
 
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify(solutionToPost),
       credentials: "include",
     });
-    if (response.ok) {
-      console.log(response);
-    } else {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new VolunteerForSolutionError();
   }
 }
 
-export async function fetchChatRoomHistory(chatRoomId: number): Promise<Message[]> {
+export async function fetchChatRoomHistory(
+  chatRoomId: number
+): Promise<Message[]> {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.CHAT_HISTORY,
-        { chatRoomId: chatRoomId.toString() });
+    const endpoint = formatEndpoint(ENDPOINTS.CHAT_HISTORY, {
+      chatRoomId: chatRoomId.toString(),
+    });
     const response = await fetch(endpoint, {
       credentials: "include",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
     const data: Message[] = await response.json();
     return data;
   } catch (error) {
-    throw new Error("Error fetching data: " + error);
+    throw new FetchChatRoomHistoryError();
   }
 }
 
 export async function deleteEchoBoard(echoBoardId: string): Promise<void> {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_DELETE,
-      { echoBoardId });
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_DELETE, {
+      echoBoardId,
+    });
     const response = await fetch(endpoint, {
       credentials: "include",
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json', 
+        "Content-Type": "application/json",
       },
     });
-
-    if (response.status === 204) {
-      console.log('Echo board deleted successfully');
-    } else {
-      console.error('Failed to delete echo board');
-    }
   } catch (error) {
-    console.error('An error occurred while deleting the echo board:', error);
+    throw new DeletingEchoBoardError();
   }
 }
 
-export async function editEchoBoard( echoBoardId: string, echoBoard: EchoBoardResponseData) { 
-   try {
-    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_EDIT, {echoBoardId});
+export async function editEchoBoard(
+  echoBoardId: string,
+  echoBoard: EchoBoardResponseData
+) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_EDIT, { echoBoardId });
 
     const response = await fetch(endpoint, {
       method: "PATCH",
@@ -322,218 +298,184 @@ export async function editEchoBoard( echoBoardId: string, echoBoard: EchoBoardRe
       body: JSON.stringify(echoBoard),
       credentials: "include",
     });
+  } catch (error) {
+    throw new EditingEchoBoardError();
+  }
+}
 
+export async function getAllPendingVolunteers(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {
+      solutionId,
+    });
+
+    const response = await fetch(endpoint, {
+      credentials: "include",
+    });
+    const data: SolutionVolunteersResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new PendingError();
+  }
+}
+
+export async function fetchEchoBoardBySolutionId(solutionId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_BY_SOLUTION, {
+      solutionId,
+    });
+
+    const response = await fetch(endpoint, {
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: EchoBoardPreviewResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new GettingUserInfoError();
+  }
+}
+
+export async function fetchEchoBoardByCommentId(commentId: string) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_BY_COMMENT, {
+      commentId,
+    });
+
+    const response = await fetch(endpoint, {
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    const data: EchoBoardPreviewResponseData = await response.json();
+    return data;
+  } catch (error) {
+    throw new GettingUserInfoError();
+  }
+}
+
+export async function acceptPendingVolunteer(
+  solutionId: string,
+  volunteerId: string
+) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {
+      solutionId,
+    });
+
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: volunteerId,
+      credentials: "include",
+    });
+  } catch (error) {
+    throw new PendingError();
+  }
+}
+
+export async function denyPendingVolunteer(
+  solutionId: string,
+  volunteerId: string
+) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {
+      solutionId,
+    });
+    const response = await fetch(endpoint, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: volunteerId,
+      credentials: "include",
+    });
+  } catch (error) {
+    throw new PendingError();
+  }
+}
+
+export async function editSolution(
+  solutionId: string,
+  solution: CommentOrSolutionType
+) {
+  try {
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_EDIT, { solutionId });
+
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(solution),
+      credentials: "include",
+    });
     if (response.ok) {
       return response;
     } else {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
   } catch (error) {
-    throw new Error("Fetch error: " + error);
+    throw new EditingEchoBoardError("Fetch error: " + error);
   }
-}
-
-export async function getAllPendingVolunteers(solutionId: string) {
-  try {
-    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, { solutionId });
-
-    const response = await fetch(endpoint, {
-      credentials: "include",
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-    const data: SolutionVolunteersResponseData = await response.json();
-    return data;
-
-  } catch (error) {
-    throw new Error("Fetch error: " + error);
-  }
-}
-// Made by mistake, maybe will be useful in future? 
-// export async function fetchSolutionById(solutionId: string) {
-//   try {
-//     const endpoint = formatEndpoint(ENDPOINTS.SOLUTION, { solutionId });
-
-//     const response = await fetch(endpoint, {
-//       credentials: "include",
-//     });
-//     if (!response.ok) {
-//       throw new Error(`HTTP Error! Status: ${response.status}`);
-//     }
-//     const data: SolutionResponseData = await response.json();
-//     return data;
-//   } catch (error) {
-//     throw new Error("Error fetching data: " + error);
-//   }
-// }
-
-export async function fetchEchoBoardBySolutionId(solutionId: string) {
-  try {
-    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_BY_SOLUTION, { solutionId });
-
-    const response = await fetch(endpoint, {
-      credentials: "include",
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-    const data: EchoBoardPreviewResponseData = await response.json();
-    return data;
-  } catch (error) {
-    throw new Error("Error fetching data: " + error);
-  }
-}
-
-export async function fetchEchoBoardByCommentId(commentId: string) {
-  try {
-    const endpoint = formatEndpoint(ENDPOINTS.ECHOBOARD_BY_COMMENT, { commentId });
-
-    const response = await fetch(endpoint, {
-      credentials: "include",
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-    const data: EchoBoardPreviewResponseData = await response.json();
-    return data;
-  } catch (error) {
-    throw new Error("Error fetching data: " + error);
-  }
-}
-
-export async function acceptPendingVolunteer(solutionId: string, volunteerId: string) { 
-  try {
-   const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {solutionId});
-
-   const response = await fetch(endpoint, {
-     method: "PATCH",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: volunteerId,
-     credentials: "include",
-   });
-
-   if (response.ok) {
-    const data: SolutionVolunteersResponseData = await response.json();
-    return data; 
-   } else {
-     throw new Error(`HTTP Error! Status: ${response.status}`);
-   }
- } catch (error) {
-   throw new Error("Fetch error: " + error);
- }
-}
-
-export async function denyPendingVolunteer(solutionId: string, volunteerId: string) {
-  try {
-    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_VOLUNTEER, {solutionId});
-    const response = await fetch(endpoint, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json', 
-      },
-      body: volunteerId,
-      credentials: "include",
-    });
-
-    if (response.status === 204) {
-      console.log('Deleted from pending volunteer list successfully');
-    } else {
-      console.error('Failed to delete volunteer');
-    }
-  } catch (error) {
-    console.error('An error occurred while deleting volunteer:', error);
-  }
-}
-
-export async function editSolution( solutionId: string, solution: CommentOrSolutionType) { 
-  try {
-   const endpoint = formatEndpoint(ENDPOINTS.SOLUTION_EDIT, {solutionId});
-
-   const response = await fetch(endpoint, {
-     method: "PATCH",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(solution),
-     credentials: "include",
-   });
-
-   if (response.ok) {
-     return response;
-   } else {
-     throw new Error(`HTTP Error! Status: ${response.status}`);
-   }
- } catch (error) {
-   throw new Error("Fetch error: " + error);
- }
 }
 
 export async function deleteSolution(solutionId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION,
-      { solutionId });
+    const endpoint = formatEndpoint(ENDPOINTS.SOLUTION, { solutionId });
     const response = await fetch(endpoint, {
       credentials: "include",
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json', 
+        "Content-Type": "application/json",
       },
     });
-
-    if (response.status === 204) {
-      console.log('Solution deleted successfully');
-    } else {
-      console.error('Failed to delete solution with id ' + solutionId );
-    }
   } catch (error) {
-    console.error('An error occurred while deleting the solution:', error);
+    throw new DeletingEchoBoardError();
   }
 }
 
-export async function editComment( commentId: string, comment: CommentOrSolutionType) { 
+export async function editComment(
+  commentId: string,
+  comment: CommentOrSolutionType
+) {
   try {
-   const endpoint = formatEndpoint(ENDPOINTS.COMMENT, {commentId});
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT, { commentId });
 
-   const response = await fetch(endpoint, {
-     method: "PATCH",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(comment),
-     credentials: "include",
-   });
-
-   if (response.ok) {
-     return response;
-   } else {
-     throw new Error(`HTTP Error! Status: ${response.status}`);
-   }
- } catch (error) {
-   throw new Error("Fetch error: " + error);
- }
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+      credentials: "include",
+    });
+    if (response.ok) {
+      return response;
+    } else {
+      throw new EditingEchoBoardError(`HTTP Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new EditingEchoBoardError();
+  }
 }
 
 export async function deleteComment(commentId: string) {
   try {
-    const endpoint = formatEndpoint(ENDPOINTS.COMMENT,
-      { commentId });
+    const endpoint = formatEndpoint(ENDPOINTS.COMMENT, { commentId });
     const response = await fetch(endpoint, {
       credentials: "include",
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json', 
+        "Content-Type": "application/json",
       },
     });
-
-    if (response.status === 204) {
-      console.log('Comment deleted successfully');
-    } else {
-      console.error('Failed to delete comment with id ' + commentId );
-    }
   } catch (error) {
-    console.error('An error occurred while deleting the comment:', error);
+    throw new DeletingEchoBoardError();
   }
 }

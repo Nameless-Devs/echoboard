@@ -22,16 +22,15 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
 
   return (
     <ListItem key={index} sx={{margin: "0.2rem 0", padding: ".3rem 0"}}>
-      <Grid container >
+      <Grid container sx={{ maxWidth: "70%"}}>
         <Grid item xs={1}>
-          {isFirstMessage && <Avatar src={msg.picture} />}
+          {isFirstMessage && <Avatar src={msg.picture} sx={{margin: ".3rem auto"}}/>}
         </Grid>
         <Grid item xs={11}>
             <>
               <Box sx={{
                 backgroundColor: "#c1c4c7",
                 width: "fit-content",
-                maxWidth: "60%",
                 blockSize: "fit-content",
                 display: "block",
                 padding: ".3rem 1rem",
@@ -42,11 +41,11 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
                   {msg.sender}
                 </Typography>
                 )}
-                <Box sx={{ display: "flex", alignItems: "baseline", gap: "1rem" }} >
+                <Box sx={{ display: "flex", alignItems: "flex-end", gap: "1rem" }} >
                   <Typography variant="body1">
                     {msg.content}
                   </Typography>
-                  <Typography variant="caption">
+                  <Typography variant="caption" sx={{minWidth: "fit-content"}}>
                     {formatTimestamp(msg.timestamp)}
                   </Typography>
                 </Box>

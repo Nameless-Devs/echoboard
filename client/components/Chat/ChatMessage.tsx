@@ -18,26 +18,28 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
   const timeDifference = currentTimestamp - previousTimestamp;
   const isWithinTimeLimit = index > 0 && timeDifference <= TIME_LIMIT;
 
-  const isFirstMessage = !isWithinTimeLimit || index === 0;
+  const isFirstMessage = !isWithinTimeLimit || index === 0 || (index > 0 && msg.sender !== messages[index - 1].sender) ;
 
   return (
-    <ListItem key={index} sx={{margin: "0.1rem 0", padding: ".3rem 0"}}>
+    <ListItem key={index} sx={{ margin: "0.1rem 0", padding: ".3rem 0" }}>
       <Grid container sx={{ maxWidth: "70%"}}>
-        <Grid item xs={1}>
-          {isFirstMessage && <Avatar src={msg.picture} sx={{margin: ".3rem auto"}}/>}
+        <Grid item xs={1} sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+          {isFirstMessage && 
+            <Avatar src={msg.picture} />
+         }
         </Grid>
         <Grid item xs={11}>
             <>
-              <Box sx={{
-                backgroundColor: "#c1c4c7",
+              <Box className={ isFirstMessage ? "first": "middle" }
+               sx={{
+                backgroundColor: "#d9dbdd",
                 width: "fit-content",
                 blockSize: "fit-content",
                 display: "block",
                 padding: ".3rem 1rem",
-                borderRadius: "1.5rem",
               }}>
                 {isFirstMessage && (
-                <Typography variant="body1" sx={{marginTop: ".2rem"}}>
+                <Typography variant="body2" sx={{ marginTop: ".2rem", fontSize: "1rem", fontWeight: "600", color: "#424242" }}>
                   {msg.sender}
                 </Typography>
                 )}
@@ -45,7 +47,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
                   <Typography variant="body1">
                     {msg.content}
                   </Typography>
-                  <Typography variant="caption" color="textSecondary" sx={{minWidth: "fit-content"}}>
+                  <Typography variant="caption" color="textSecondary" sx={{ minWidth: "fit-content" }}>
                     {formatTimestamp(msg.timestamp)}
                   </Typography>
                 </Box>

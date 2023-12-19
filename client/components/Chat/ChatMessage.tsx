@@ -18,7 +18,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
   const timeDifference = currentTimestamp - previousTimestamp;
   const isWithinTimeLimit = index > 0 && timeDifference <= TIME_LIMIT;
 
-  const isFirstMessage = !isWithinTimeLimit || index === 0;
+  const isFirstMessage = !isWithinTimeLimit || index === 0 || (index > 0 && msg.sender !== messages[index - 1].sender) ;
 
   return (
     <ListItem key={index} sx={{margin: "0.1rem 0", padding: ".3rem 0"}}>

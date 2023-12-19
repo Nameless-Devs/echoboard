@@ -6,7 +6,6 @@ import { ChatRoomResponse } from "@/service/Types";
 
 type ChatRoomListProps = {
     chatRooms: ChatRoomResponse[];
-    index: number;
     selectedIndex: number;
     onSelectChatRoom: (chatroom: ChatRoomResponse) => void;
     setSelectedIndex: (index: number) => void;

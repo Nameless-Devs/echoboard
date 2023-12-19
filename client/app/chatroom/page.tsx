@@ -140,7 +140,7 @@ export default function UserChat() {
 
             <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
               {/*Top Right*/}
-              <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
+              <Grid item xs={12} sx={{ height: "85%" }}>
                 {!selectedChatRoomId &&
                   <Box sx={{
                     textAlign: "center",
@@ -157,7 +157,7 @@ export default function UserChat() {
                 <Grid item xs={12}>
                 {solution && <ChatSolutionInfo solution={solution} />}
                 </Grid>
-                <Grid item xs={12} sx={{ maxHeight: "61vh", overflow: "auto" }}>
+                <Grid item xs={12} sx={{ maxHeight: "62vh", overflow: "auto" }}>
                 <Box >
                   {messages.map((msg, index) => (
                     msg.subject === user.subject ? (
@@ -235,7 +235,7 @@ export default function UserChat() {
               borderRadius: "10px",
               padding: "16px",
               color: "black",
-              backgroundColor: selectedIndex === index ? "#c1c4c7" : "",
+              backgroundColor: selectedIndex === index ? "#d9dbdd" : "",
               margin: "0 0.5rem 0 0.5rem",
               border: "2px solid #c1c4c7",
               marginBottom: "0.3rem",

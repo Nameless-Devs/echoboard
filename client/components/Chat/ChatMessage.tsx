@@ -29,7 +29,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
         <Grid item xs={11}>
             <>
               <Box sx={{
-                backgroundColor: "#c1c4c7",
+                backgroundColor: "#d9dbdd",
                 width: "fit-content",
                 blockSize: "fit-content",
                 display: "block",

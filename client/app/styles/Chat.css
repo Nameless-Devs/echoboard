@@ -1,13 +1,10 @@
-/* Add these styles to your CSS file */
+.first { 
+    border-bottom-right-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    border-top-left-radius: 1.5rem;
+}
 
-.message-display {
-    /* Add any common styles for messages here */
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .consecutive-message {
-    /* Add styles for consecutive messages here */
-    background-color: #f0f0f0; /* Light gray background */
-  }
+.middle { 
+    border-radius: 1.5rem;
+}
   

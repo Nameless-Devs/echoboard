@@ -28,13 +28,13 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
         </Grid>
         <Grid item xs={11}>
             <>
-              <Box sx={{
+              <Box className={isFirstMessage? "first": "middle" }
+               sx={{
                 backgroundColor: "#d9dbdd",
                 width: "fit-content",
                 blockSize: "fit-content",
                 display: "block",
                 padding: ".3rem 1rem",
-                borderRadius: "1.5rem",
               }}>
                 {isFirstMessage && (
                 <Typography variant="body1" sx={{marginTop: ".2rem"}}>

@@ -124,7 +124,7 @@ export default function UserChat() {
             {/*Left Grid*/}
 
             <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
-              {displayUserChatrooms()}
+            {chatRooms && <ChatRoomList chatRooms={chatRooms} selectedIndex={selectedIndex} onSelectChatRoom={handleChatRoomChange} setSelectedIndex={setSelectedIndex} />}
               {chatRooms?.length === 0 ?
                 <Box
                   sx={{

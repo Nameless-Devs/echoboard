@@ -7,7 +7,7 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { ChatRoomResponse, Message, SolutionResponseData } from "@/service/Types";
-import { Box, Grid, IconButton, ListItemButton, TextField, Typography } from "@mui/material";
+import { Box, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
@@ -18,7 +18,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
-import QuestionAnswerRoundedIcon from '@mui/icons-material/QuestionAnswerRounded';
+import ChatRoomList from "@/components/Chat/ChatRoomList";
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -216,35 +216,4 @@ export default function UserChat() {
       }
     </>
   );
-
-  function displayUserChatrooms() {
-    return (
-      <>
-        <Box sx={{ display: 'flex', flexDirection: "row", alignItems: "center", margin: "0 1rem" }} >
-          <QuestionAnswerRoundedIcon sx={{ color: "#424242", mr: ".3rem" }} />
-          <h2 style={{ margin: "1em 0 ", color: "#424242" }}>Your chat rooms</h2>
-        </Box>
-        {chatRooms && chatRooms?.slice().reverse().map((chatroom, index) => (
-          <ListItemButton
-            key={index}
-            onClick={() => {
-              handleChatRoomChange(chatroom);
-              setSelectedIndex(index);
-            }}
-            style={{
-              borderRadius: "10px",
-              padding: "16px",
-              color: "black",
-              backgroundColor: selectedIndex === index ? "#d9dbdd" : "",
-              margin: "0 0.5rem 0 0.5rem",
-              border: "2px solid #c1c4c7",
-              marginBottom: "0.3rem",
-            }}
-          >
-            {chatroom.title}
-          </ListItemButton>
-        ))}
-      </>
-    );
-  }
 }

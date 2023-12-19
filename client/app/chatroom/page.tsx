@@ -122,8 +122,8 @@ export default function UserChat() {
             style={{ flex: 1, width: '100%' }}
           >
             {/*Left Grid*/}
-           
-          <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
+
+            <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
               {displayUserChatrooms()}
               {chatRooms?.length === 0 ?
                 <Box
@@ -137,7 +137,7 @@ export default function UserChat() {
                 : <></>
               }
             </Grid>
-          
+
             <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
               {/*Top Right*/}
               <Grid item xs={12} sx={{ height: "85%", overflowY: "scroll" }}>
@@ -153,21 +153,23 @@ export default function UserChat() {
                       Select the chat room and start talking!
                     </Typography>
                   </Box>
-                }
+                } 
+                <Grid item xs={12}>
                 {solution && <ChatSolutionInfo solution={solution} />}
-                {messages.map((msg, index) => (
-                  msg.subject === user.subject ? (
-                    <Box key={index}>
-                      <ChatMessageByUser index={index} msg={msg} />
-                    </Box>
-                  ) : (
-                    <Box key={index}>
-                      <ChatMessage index={index} msg={msg} messages={messages} />
-                    </Box>
-                  )
-                //   <ChatMessage index={index} msg={msg} messages={messages} />
-                 ))}
-                <div ref={scrollToLatestMessage} />
+                </Grid>
+                <Grid item xs={12} sx={{ maxHeight: "61vh", overflow: "auto" }}>
+                <Box >
+                  {messages.map((msg, index) => (
+                    msg.subject === user.subject ? (
+                      <ChatMessageByUser key={index} index={index} msg={msg} />
+                    ) : (
+                      <ChatMessage key={index} index={index} msg={msg} messages={messages} />
+                    )
+                  ))}
+                  <div ref={scrollToLatestMessage} />
+                </Box>
+                </Grid>
+
               </Grid>
               {/*Bottom Right*/}
               <Grid
@@ -218,8 +220,8 @@ export default function UserChat() {
   function displayUserChatrooms() {
     return (
       <>
-        <Box sx={{display: 'flex', flexDirection: "row", alignItems: "center", margin: "0 1rem" }} >
-          <QuestionAnswerRoundedIcon sx={{color: "#424242", mr: ".3rem"}}/>
+        <Box sx={{ display: 'flex', flexDirection: "row", alignItems: "center", margin: "0 1rem" }} >
+          <QuestionAnswerRoundedIcon sx={{ color: "#424242", mr: ".3rem" }} />
           <h2 style={{ margin: "1em 0 ", color: "#424242" }}>Your chat rooms</h2>
         </Box>
         {chatRooms && chatRooms?.slice().reverse().map((chatroom, index) => (

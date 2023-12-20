@@ -1,5 +1,4 @@
 "use client";
-import { ChatMessage } from "@/components/Chat/ChatMessage";
 import { Client, IMessage, Stomp } from "@stomp/stompjs";
 import {
   fetchChatRoomHistory,
@@ -7,18 +6,15 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { ChatRoomResponse, Message, SolutionResponseData } from "@/service/Types";
-import { Box, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
-import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
 import CustomNavBar from "@/components/CustomNavBar";
-import SendIcon from "@mui/icons-material/Send";
-import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
-import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
-import ChatRoomList from "@/components/Chat/ChatRoomList";
+import { LeftGrid } from "@/components/Chat/LeftGrid";
+import { RightGrid } from "@/components/Chat/RightGrid";
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -70,10 +66,7 @@ export default function UserChat() {
     };
   }, [chatHistory]);
 
-  const scrollToLatestMessage = useScrollToLatestMessage(messages);
-
   if (isLoading) return <LoadingLogo />;
-
   if (error) return <div>Error</div>;
 
   const handleMessageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +82,7 @@ export default function UserChat() {
         timestamp: new Date(),
       };
       client.publish({
-        destination: "/app/chat/sendMessage/" + selectedChatRoomId,
+        destination: WEBSOCKET.SEND_MESSAGE + selectedChatRoomId,
         body: JSON.stringify(message),
       });
       setInput("");
@@ -121,96 +114,22 @@ export default function UserChat() {
             container
             style={{ flex: 1, width: '100%' }}
           >
-            {/*Left Grid*/}
-
-            <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
-            {chatRooms && <ChatRoomList chatRooms={chatRooms} selectedIndex={selectedIndex} onSelectChatRoom={handleChatRoomChange} setSelectedIndex={setSelectedIndex} />}
-              {chatRooms?.length === 0 ?
-                <Box
-                  sx={{
-                    padding: "1rem",
-                    textAlign: "center"
-                  }}>
-                  <Typography variant="subtitle1" color="textSecondary" mb={"1rem"} >You have not been assigned to any chatrooms so far.</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">In order to get an access to a chat room, sign up as a volunteer and get accepted for solution testing.</Typography>
-                </Box>
-                : <></>
-              }
-            </Grid>
-
-            <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
-              {/*Top Right*/}
-              <Grid item xs={12} sx={{ height: "85%" }}>
-                {!selectedChatRoomId &&
-                  <Box sx={{
-                    textAlign: "center",
-                    padding: "2rem 1rem",
-                  }}>
-                    <Typography variant="h6" color="textSecondary">
-                      Welcom to the Chat page where you can discuss the solution implementations with your fellow volunteers.
-                    </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                      Select the chat room and start talking!
-                    </Typography>
-                  </Box>
-                } 
-                <Grid item xs={12}>
-                {solution && <ChatSolutionInfo solution={solution} />}
-                </Grid>
-                <Grid item xs={12} sx={{ maxHeight: "62vh", overflow: "auto" }}>
-                <Box >
-                  {messages.map((msg, index) => (
-                    msg.subject === user.subject ? (
-                      <ChatMessageByUser key={index} index={index} msg={msg} />
-                    ) : (
-                      <ChatMessage key={index} index={index} msg={msg} messages={messages} />
-                    )
-                  ))}
-                  <div ref={scrollToLatestMessage} />
-                </Box>
-                </Grid>
-
-              </Grid>
-              {/*Bottom Right*/}
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  height: "15%",
-                  outline: "10px blue",
-                  backgroundColor: "rgb(250, 249, 246)",
-                  padding: "1rem",
-                }}
-              >
-                {selectedChatRoomId && <TextField
-                  label="Enter a message"
-                  variant="outlined"
-                  name="message"
-                  multiline
-                  rows="2"
-                  sx={{
-                    width: "100%",
-                    backgroundColor: "#F0F2F5"
-                  }}
-                  type="text"
-                  placeholder="Enter a message"
-                  value={input}
-                  onKeyDown={handleKeyPress}
-                  onChange={handleMessageInput}
-                  InputProps={{
-                    endAdornment:
-                      <IconButton
-                        type="submit"
-                        style={{ position: "absolute", bottom: "0", right: "0" }}
-                        color="primary"
-                        onClick={() => handleSendMessage()}
-                      >
-                        <SendIcon />
-                      </IconButton>
-                  }}
-                />}
-              </Grid>
-            </Grid>
+            <LeftGrid
+              chatRooms={chatRooms}
+              selectedIndex={selectedIndex}
+              handleChatRoomChange={handleChatRoomChange}
+              setSelectedIndex={setSelectedIndex}
+            />
+            <RightGrid
+              selectedChatRoomId={selectedChatRoomId}
+              solution={solution}
+              messages={messages}
+              input={input}
+              handleKeyPress={handleKeyPress}
+              handleMessageInput={handleMessageInput}
+              handleSendMessage={handleSendMessage}
+              user={user}
+            />
           </Grid>
         </Box>
       }

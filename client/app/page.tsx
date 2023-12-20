@@ -12,8 +12,8 @@ import NoUserNavBar from "@/components/NoUserNavBar";
 import {NoUserEchoBoard} from "@/components/EchoBoard/NoUserEchoBoard";
 
 const buttons = [
-  {label: 'Starting page', link: '/home'},
-  {label: 'Chat', link: '/chatroom'}
+  {label: 'Chat', link: '/chatroom'},
+  {label: 'Landing page', link: '/home'}
 ];
 
 export default function Home() {

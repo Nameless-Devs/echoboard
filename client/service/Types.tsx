@@ -103,3 +103,8 @@ export type ChatRoomResponse = {
   title: string;
   echoBoardSolution: SolutionResponseData;
 };
+
+export type ButtonInfo = {
+  label: string;
+  link: string;
+};

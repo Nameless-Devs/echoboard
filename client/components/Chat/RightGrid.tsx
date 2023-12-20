@@ -31,7 +31,11 @@ export const RightGrid: React.FC<RightGridProps> = ({
 }) => {
     const scrollToLatestMessage = useScrollToLatestMessage(messages);
     return (
-        <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
+        <Grid item xs={12} md={9} sx={{ 
+            height: "100%", 
+            backgroundColor: "#FAF9F7",
+            display: selectedChatRoomId !== undefined ? "block" : "none" 
+             }}>
             {/*Top Right*/}
             <Grid item xs={12} sx={{ height: "85%" }}>
                 {!selectedChatRoomId && <ChatPageTextInfo />}

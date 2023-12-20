@@ -189,7 +189,7 @@ export async function upvoteSolution(echoBoardId: string, solutionId: string) {
   }
 }
 
-export async function getUserInfo() {
+export async function getUserInfo(): Promise<UserResponseData> {
   try {
     const response = await fetch(ENDPOINTS.USER, {
       credentials: "include",

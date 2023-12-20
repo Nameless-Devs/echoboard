@@ -1,5 +1,4 @@
 "use client";
-import { ChatMessage } from "@/components/Chat/ChatMessage";
 import { Client, IMessage, Stomp } from "@stomp/stompjs";
 import {
   fetchChatRoomHistory,
@@ -12,14 +11,8 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
-import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
 import CustomNavBar from "@/components/CustomNavBar";
-import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
-import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
-import ChatRoomList from "@/components/Chat/ChatRoomList";
-import { ChatRoomTextInfo } from "@/components/Chat/ChatRoomTextInfo";
-import { SendMessageInputField } from "@/components/Chat/SendMessageInputField";
 import { LeftGrid } from "@/components/Chat/LeftGrid";
 import { RightGrid } from "@/components/Chat/RightGrid";
 
@@ -73,10 +66,7 @@ export default function UserChat() {
     };
   }, [chatHistory]);
 
-  const scrollToLatestMessage = useScrollToLatestMessage(messages);
-
   if (isLoading) return <LoadingLogo />;
-
   if (error) return <div>Error</div>;
 
   const handleMessageInput = (event: React.ChangeEvent<HTMLInputElement>) => {

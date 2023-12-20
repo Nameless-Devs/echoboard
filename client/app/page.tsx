@@ -56,17 +56,10 @@ export default function Home() {
   }
   if (error) {
     return (
-      <>
-        <p>Error fetching data</p>
-      </>
         <>
+          <NoUserNavBar buttons={buttons} />
           <NoUserEchoBoard/>
         </>
     );
   }
-  return (
-    <>
-      <h2>Please log in</h2>
-    </>
-  );
 }

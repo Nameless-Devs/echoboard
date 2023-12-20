@@ -19,6 +19,7 @@ import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
 import ChatRoomList from "@/components/Chat/ChatRoomList";
+import { ChatRoomTextInfo } from "@/components/Chat/ChatRoomTextInfo";
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -122,20 +123,9 @@ export default function UserChat() {
             style={{ flex: 1, width: '100%' }}
           >
             {/*Left Grid*/}
-
             <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
-            {chatRooms && <ChatRoomList chatRooms={chatRooms} selectedIndex={selectedIndex} onSelectChatRoom={handleChatRoomChange} setSelectedIndex={setSelectedIndex} />}
-              {chatRooms?.length === 0 ?
-                <Box
-                  sx={{
-                    padding: "1rem",
-                    textAlign: "center"
-                  }}>
-                  <Typography variant="subtitle1" color="textSecondary" mb={"1rem"} >You have not been assigned to any chatrooms so far.</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">In order to get an access to a chat room, sign up as a volunteer and get accepted for solution testing.</Typography>
-                </Box>
-                : <></>
-              }
+              {chatRooms && <ChatRoomList chatRooms={chatRooms} selectedIndex={selectedIndex} onSelectChatRoom={handleChatRoomChange} setSelectedIndex={setSelectedIndex} />}
+              {chatRooms?.length === 0 ? <ChatRoomTextInfo /> : <></> }
             </Grid>
 
             <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>

@@ -1,6 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Box, Button, Stack } from '@mui/material';
-import { useRouter } from "next/navigation";
+import { AppBar, Toolbar, Box } from '@mui/material';
 import EchoBoardLogo from './EchoBoardLogo';
 import { ButtonInfo, UserResponseData } from '@/service/Types';
 import { AccountMenu } from './AccountMenu';
@@ -13,8 +12,6 @@ type CustomAppBarProps = {
 };
 
 const CustomNavBar: React.FC<CustomAppBarProps> = ({ buttons, user }) => {
-  const router = useRouter();
-
   return (
     <AppBar className="nav-bar__user-page" position="static">
       <Toolbar className="tool-bar__user-page">

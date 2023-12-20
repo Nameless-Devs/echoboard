@@ -21,6 +21,7 @@ import ChatRoomList from "@/components/Chat/ChatRoomList";
 import { ChatRoomTextInfo } from "@/components/Chat/ChatRoomTextInfo";
 import { SendMessageInputField } from "@/components/Chat/SendMessageInputField";
 import { LeftGrid } from "@/components/Chat/LeftGrid";
+import { RightGrid } from "@/components/Chat/RightGrid";
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -127,48 +128,18 @@ export default function UserChat() {
               chatRooms={chatRooms}
               selectedIndex={selectedIndex}
               handleChatRoomChange={handleChatRoomChange}
-              setSelectedIndex={setSelectedIndex} />
-            {/*Right Grid*/}
-            <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
-              {/*Top Right*/}
-              <Grid item xs={12} sx={{ height: "85%" }}>
-                {!selectedChatRoomId && <ChatRoomTextInfo />}
-                <Grid item xs={12}>
-                  {solution && <ChatSolutionInfo solution={solution} />}
-                </Grid>
-                <Grid item xs={12} sx={{ maxHeight: "62vh", overflow: "auto" }}>
-                  <Box>
-                    {messages.map((msg, index) => (
-                      msg.subject === user.subject ? (
-                        <ChatMessageByUser key={index} index={index} msg={msg} />
-                      ) : (
-                        <ChatMessage key={index} index={index} msg={msg} messages={messages} />
-                      )
-                    ))}
-                    <div ref={scrollToLatestMessage} />
-                  </Box>
-                </Grid>
-              </Grid>
-              {/*Bottom Right*/}
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  height: "15%",
-                  outline: "10px blue",
-                  backgroundColor: "rgb(250, 249, 246)",
-                  padding: "1rem",
-                }}
-              >
-                {selectedChatRoomId &&
-                  <SendMessageInputField
-                    input={input}
-                    handleKeyPress={handleKeyPress}
-                    handleMessageInput={handleMessageInput}
-                    handleSendMessage={handleSendMessage}
-                  />}
-              </Grid>
-            </Grid>
+              setSelectedIndex={setSelectedIndex}
+            />
+            <RightGrid
+              selectedChatRoomId={selectedChatRoomId}
+              solution={solution}
+              messages={messages}
+              input={input}
+              handleKeyPress={handleKeyPress}
+              handleMessageInput={handleMessageInput}
+              handleSendMessage={handleSendMessage}
+              user={user}
+            />
           </Grid>
         </Box>
       }

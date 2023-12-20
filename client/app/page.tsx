@@ -41,7 +41,7 @@ export default function Home() {
               <span className="home-button-mobile">Main</span>
               <span className="home-button-desktop">Starting page</span>
               </Button>
-              <Button color="inherit" onClick={() => router.push("/chatroom")}>
+              <Button className="chat-button" color="inherit" onClick={() => router.push("/chatroom")}>
                 Chat
               </Button>
               <AccountMenu {...user} />
@@ -61,6 +61,9 @@ export default function Home() {
         </Button>
         {isVisiblePostEcho && <PostEchoBoard {...user} />}
         <EchoBoard {...user} />
+
+
+
         <JwtAuth />
       </main>
     );

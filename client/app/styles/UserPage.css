@@ -8,7 +8,7 @@
   );
 }
 .home-button-mobile {
-  display: none; /* Hide "Main" text on larger screens */
+  /* display: none; Hide "Main" text on larger screens */
 }
 .home-button-desktop {
   display: inline; /* Display "Starting page" text on larger screens */
@@ -44,6 +44,7 @@
   }
   .home-button-mobile {
     display: inline; /* Display "Home" text on smaller screens */
+    margin-left: 20px;
   }
   
   .home-button-desktop {

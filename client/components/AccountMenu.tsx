@@ -29,6 +29,9 @@ export const AccountMenu: React.FC<UserResponseData> = (
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const isMobileView = window.innerWidth <= 600;
+
   return (
     <>
       <Box className="account-menu__flex-container">
@@ -57,6 +60,23 @@ export const AccountMenu: React.FC<UserResponseData> = (
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "center" }}
         >
+          {isMobileView && ( // Render Main and Chat buttons only in mobile view
+            <>
+              <MenuItem
+                className="account-menu__link"
+                onClick={() => router.push('/home')}
+              >
+                Main
+              </MenuItem>
+              <MenuItem
+                className="account-menu__link"
+                onClick={() => router.push('/chatroom')}
+              >
+                Chat
+              </MenuItem>
+              <Divider />
+            </>
+          )}
           <MenuItem className="account-menu__link" onClick={() => router.push('/userProfile')}>
             <Avatar /> Profile
           </MenuItem>

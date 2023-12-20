@@ -8,6 +8,8 @@ import { Button, Typography } from "@mui/material";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import JwtAuth from "@/components/JwtAuth";
 import CustomNavBar from "@/components/CustomNavBar";
+import NoUserNavBar from "@/components/NoUserNavBar";
+import {NoUserEchoBoard} from "@/components/EchoBoard/NoUserEchoBoard";
 
 const buttons = [
   {label: 'Starting page', link: '/home'},

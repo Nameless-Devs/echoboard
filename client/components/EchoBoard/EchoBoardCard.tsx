@@ -31,7 +31,7 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
       <CardContent className="echo-board-card-content">
         <SinglePost echoBoard={echoBoard} user={user} />
       </CardContent>
-      <CardActions className="echo-board-card-actions">
+        {user?.name && <CardActions className="echo-board-card-actions">
         <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
         <Button
           size="small"

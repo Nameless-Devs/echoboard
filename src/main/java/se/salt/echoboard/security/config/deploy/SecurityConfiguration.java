@@ -15,7 +15,10 @@ import se.salt.echoboard.security.config.CustomLogoutSuccessHandler;
 import se.salt.echoboard.security.config.TenantFilter;
 import se.salt.echoboard.security.config.WebsiteProperties;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.HEAD;
 import static se.salt.echoboard.security.config.EchoBoardCorsConfiguration.withEchoBoardDefaults;
+import static se.salt.echoboard.security.config.JwtValidation.JWT_TOKEN_COOKIE_NAME;
 
 @Configuration
 @EnableWebSecurity

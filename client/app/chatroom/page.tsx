@@ -143,21 +143,21 @@ export default function UserChat() {
                       Select the chat room and start talking!
                     </Typography>
                   </Box>
-                } 
+                }
                 <Grid item xs={12}>
-                {solution && <ChatSolutionInfo solution={solution} />}
+                  {solution && <ChatSolutionInfo solution={solution} />}
                 </Grid>
                 <Grid item xs={12} sx={{ maxHeight: "62vh", overflow: "auto" }}>
-                <Box >
-                  {messages.map((msg, index) => (
-                    msg.subject === user.subject ? (
-                      <ChatMessageByUser key={index} index={index} msg={msg} />
-                    ) : (
-                      <ChatMessage key={index} index={index} msg={msg} messages={messages} />
-                    )
-                  ))}
-                  <div ref={scrollToLatestMessage} />
-                </Box>
+                  <Box >
+                    {messages.map((msg, index) => (
+                      msg.subject === user.subject ? (
+                        <ChatMessageByUser key={index} index={index} msg={msg} />
+                      ) : (
+                        <ChatMessage key={index} index={index} msg={msg} messages={messages} />
+                      )
+                    ))}
+                    <div ref={scrollToLatestMessage} />
+                  </Box>
                 </Grid>
 
               </Grid>

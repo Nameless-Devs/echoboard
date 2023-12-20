@@ -6,10 +6,9 @@ import { timeConverter } from "@/service/TimeConverter";
 
 type SinglePostProps = {
   echoBoard: EchoBoardResponseData;
-  user: UserResponseData;
 };
 
-export const SinglePost: React.FC<SinglePostProps> = ({ echoBoard, user }) => {
+export const SinglePost: React.FC<SinglePostProps> = ({ echoBoard }) => {
   const convertedTime = timeConverter(echoBoard.created);
   return (
     <>

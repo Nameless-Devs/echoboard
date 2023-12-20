@@ -11,7 +11,7 @@ import CustomNavBar from "@/components/CustomNavBar";
 
 const buttons = [
   {label: 'Chat', link: '/chatroom'},
-  {label: 'Starting page', link: '/home'}
+  {label: 'Landing page', link: '/home'}
 ];
 
 export default function Home() {

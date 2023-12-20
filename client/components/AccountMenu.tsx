@@ -14,6 +14,7 @@ import { UserResponseData } from "@/service/Types";
 import "../app/styles/AccountMenu.css";
 import { ENDPOINTS } from "@/service/config";
 import { useRouter } from "next/navigation";
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const AccountMenu: React.FC<UserResponseData> = (
   user: UserResponseData
@@ -41,7 +42,8 @@ export const AccountMenu: React.FC<UserResponseData> = (
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar className="account-menu__avatar" src={user.picture} />
+              <MenuIcon fontSize="large" sx={{ color: "white" }}/>
+              {/* <Avatar className="account-menu__avatar" src={user.picture} /> */}
             </IconButton>
           </Tooltip>
         </Box>

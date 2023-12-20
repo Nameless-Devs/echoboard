@@ -20,6 +20,7 @@ import { LoadingLogo } from "@/components/LoadingLogo";
 import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
 import ChatRoomList from "@/components/Chat/ChatRoomList";
 import { ChatRoomTextInfo } from "@/components/Chat/ChatRoomTextInfo";
+import { SendMessageInputField } from "@/components/Chat/SendMessageInputField";
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -136,7 +137,7 @@ export default function UserChat() {
                   {solution && <ChatSolutionInfo solution={solution} />}
                 </Grid>
                 <Grid item xs={12} sx={{ maxHeight: "62vh", overflow: "auto" }}>
-                  <Box >
+                  <Box>
                     {messages.map((msg, index) => (
                       msg.subject === user.subject ? (
                         <ChatMessageByUser key={index} index={index} msg={msg} />
@@ -147,7 +148,6 @@ export default function UserChat() {
                     <div ref={scrollToLatestMessage} />
                   </Box>
                 </Grid>
-
               </Grid>
               {/*Bottom Right*/}
               <Grid
@@ -160,32 +160,12 @@ export default function UserChat() {
                   padding: "1rem",
                 }}
               >
-                {selectedChatRoomId && <TextField
-                  label="Enter a message"
-                  variant="outlined"
-                  name="message"
-                  multiline
-                  rows="2"
-                  type="text"
-                  placeholder="Enter a message"
-                  value={input}
-                  onKeyDown={handleKeyPress}
-                  onChange={handleMessageInput}
-                  sx={{
-                    width: "100%",
-                    backgroundColor: "#F0F2F5"
-                  }}
-                  InputProps={{
-                    endAdornment:
-                      <IconButton
-                        type="submit"
-                        style={{ position: "absolute", bottom: "0", right: "0" }}
-                        color="primary"
-                        onClick={() => handleSendMessage()}
-                      >
-                        <SendIcon />
-                      </IconButton>
-                  }}
+                {selectedChatRoomId && 
+                <SendMessageInputField 
+                input={input}
+                handleKeyPress={handleKeyPress}
+                handleMessageInput={handleMessageInput}
+                handleSendMessage={handleSendMessage}
                 />}
               </Grid>
             </Grid>

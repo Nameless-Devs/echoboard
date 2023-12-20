@@ -34,14 +34,11 @@ public class SecurityConfiguration {
         return http
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("api/v1/status").permitAll()
-                                .requestMatchers("login").permitAll()
-                                .requestMatchers("chat").permitAll()
-                                .requestMatchers("w").permitAll()
-                                .requestMatchers("error").permitAll()
+                                .requestMatchers(GET, "api/v1/echoes","api/v1/echoes/*").permitAll()
+                                .requestMatchers(HEAD, "api/v1/status").permitAll()
+                                .requestMatchers("login","chat","w","error").permitAll()
                                 .anyRequest().authenticated()
                 )
-
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(withEchoBoardDefaults(websiteProperties.frontend()))
                 .oauth2Login(oauth2 -> oauth2

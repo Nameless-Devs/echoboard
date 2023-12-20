@@ -125,25 +125,13 @@ export default function UserChat() {
             {/*Left Grid*/}
             <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
               {chatRooms && <ChatRoomList chatRooms={chatRooms} selectedIndex={selectedIndex} onSelectChatRoom={handleChatRoomChange} setSelectedIndex={setSelectedIndex} />}
-              {chatRooms?.length === 0 ? <ChatRoomTextInfo /> : <></> }
+              {chatRooms?.length === 0 ? <ChatRoomTextInfo /> : <></>}
             </Grid>
-
+            {/*Right Grid*/}
             <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
               {/*Top Right*/}
               <Grid item xs={12} sx={{ height: "85%" }}>
-                {!selectedChatRoomId &&
-                  <Box sx={{
-                    textAlign: "center",
-                    padding: "2rem 1rem",
-                  }}>
-                    <Typography variant="h6" color="textSecondary">
-                      Welcom to the Chat page where you can discuss the solution implementations with your fellow volunteers.
-                    </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                      Select the chat room and start talking!
-                    </Typography>
-                  </Box>
-                }
+                {!selectedChatRoomId && <ChatRoomTextInfo /> }
                 <Grid item xs={12}>
                   {solution && <ChatSolutionInfo solution={solution} />}
                 </Grid>

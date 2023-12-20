@@ -1,13 +1,35 @@
 import { Grid, Box } from '@mui/material'
-import input from 'postcss/lib/input'
 import React from 'react'
 import { ChatMessage } from './ChatMessage'
 import { ChatMessageByUser } from './ChatMessageByUser'
 import { ChatRoomTextInfo } from './ChatRoomTextInfo'
 import { ChatSolutionInfo } from './ChatSolutionInfo'
 import { SendMessageInputField } from './SendMessageInputField'
+import { Message, SolutionResponseData, UserResponseData } from '@/service/Types'
+import { useScrollToLatestMessage } from '@/hooks/useScrollToLatestMessage'
 
-export const RightGrid = () => {
+type RightGridProps = {
+    selectedChatRoomId: number;
+    solution: SolutionResponseData;
+    messages: Message[];
+    input: string;
+    handleKeyPress: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+    handleMessageInput: (event: React.ChangeEvent<HTMLInputElement>) => void; 
+    handleSendMessage: () => void;
+    user: UserResponseData;
+}
+
+export const RightGrid: React.FC<RightGridProps> = ({
+    selectedChatRoomId,
+    solution,
+    messages,
+    input,
+    handleKeyPress,
+    handleMessageInput,
+    handleSendMessage,
+    user,
+}) => {
+    const scrollToLatestMessage = useScrollToLatestMessage(messages);
     return (
         <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
             {/*Top Right*/}

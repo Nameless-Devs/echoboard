@@ -28,7 +28,7 @@ interface DeveloperCardProps {
 }
 
 const buttons = [
-    {label: 'Starting Page', link: '/home'},
+    {label: 'Landing Page', link: '/home'},
     {label: 'Home', link: '/'}
   ];
 

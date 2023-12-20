@@ -21,14 +21,7 @@ const CustomNavBar: React.FC<CustomAppBarProps> = ({ buttons, user }) => {
         <Box sx={{ flexGrow: 1 }}>
           <EchoBoardLogo />
         </Box>
-        <Stack direction="row" spacing={2}>
-          {buttons.map((button, index) => (
-            <Button key={index} color="inherit" onClick={() => router.push(button.link)}>
-              {button.label}
-            </Button>
-          ))}
           {user && <AccountMenu user={user} buttons={buttons} />}
-        </Stack>
       </Toolbar>
     </AppBar>
   );

@@ -194,8 +194,7 @@ export async function getUserInfo(): Promise<UserResponseData> {
     const response = await fetch(ENDPOINTS.USER, {
       credentials: "include",
     });
-    const data: UserResponseData = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     throw new GettingUserInfoError();
   }

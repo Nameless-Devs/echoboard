@@ -51,9 +51,10 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
         >
           <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
         </Button>
-      </CardActions>
-      <PostComment echoBoardId={echoBoard.id} user={user} />
-      <Button
+      </CardActions>}
+        {user?.name && <PostComment echoBoardId={echoBoard.id} user={user} />}
+        {user?.name &&
+            <Button
         size="medium"
         onClick={() => handleOpenSolutionForm(echoBoard)}
         className="echo-board-solution-btn"

@@ -10,14 +10,21 @@ import {
   Box,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import { UserResponseData } from "@/service/Types";
+import { ButtonInfo, UserResponseData } from "@/service/Types";
 import "../app/styles/AccountMenu.css";
 import { ENDPOINTS } from "@/service/config";
 import { useRouter } from "next/navigation";
 import MenuIcon from '@mui/icons-material/Menu';
 
-export const AccountMenu: React.FC<UserResponseData> = (
+type AccountMenuProps = {
+  buttons: ButtonInfo[];
   user: UserResponseData
+}
+
+export const AccountMenu: React.FC<AccountMenuProps> = ({
+  user, 
+  buttons,
+}
 ) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -43,7 +50,6 @@ export const AccountMenu: React.FC<UserResponseData> = (
               aria-expanded={open ? "true" : undefined}
             >
               <MenuIcon fontSize="large" sx={{ color: "white" }}/>
-              {/* <Avatar className="account-menu__avatar" src={user.picture} /> */}
             </IconButton>
           </Tooltip>
         </Box>

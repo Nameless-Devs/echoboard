@@ -67,12 +67,17 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
         >
           <MenuItem
             className="account-menu__link"
+            sx={{justifyContent: "right"}}
             onClick={() => router.push("/userProfile")}
           >
             <Avatar src={user.picture}/> Profile
           </MenuItem>
           {buttons.map((button, index) => (
-            <MenuItem key={index} color="inherit" onClick={() => router.push(button.link)}>
+            <MenuItem 
+            key={index} 
+            color="inherit" 
+            sx={{justifyContent: "right"}} 
+            onClick={() => router.push(button.link)}>
               {button.label}
             </MenuItem>
           ))}

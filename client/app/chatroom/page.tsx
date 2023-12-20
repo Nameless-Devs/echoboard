@@ -18,7 +18,6 @@ import { RightGrid } from "@/components/Chat/RightGrid";
 
 const buttons = [
   { label: 'Home', link: '/' },
-  { label: 'Chat', link: '/chatroom' }
 ];
 
 export default function UserChat() {

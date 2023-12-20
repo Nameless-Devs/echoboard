@@ -20,6 +20,7 @@ import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";
 import ChatRoomList from "@/components/Chat/ChatRoomList";
 import { ChatRoomTextInfo } from "@/components/Chat/ChatRoomTextInfo";
 import { SendMessageInputField } from "@/components/Chat/SendMessageInputField";
+import { LeftGrid } from "@/components/Chat/LeftGrid";
 
 const buttons = [
   { label: 'Home', link: '/' },
@@ -122,16 +123,16 @@ export default function UserChat() {
             container
             style={{ flex: 1, width: '100%' }}
           >
-            {/*Left Grid*/}
-            <Grid item xs={3} sx={{ height: "92vh", overflowY: 'auto', backgroundColor: "#faf9f6", borderRight: "3px solid #c1c4c7" }}>
-              {chatRooms && <ChatRoomList chatRooms={chatRooms} selectedIndex={selectedIndex} onSelectChatRoom={handleChatRoomChange} setSelectedIndex={setSelectedIndex} />}
-              {chatRooms?.length === 0 ? <ChatRoomTextInfo /> : <></>}
-            </Grid>
+            <LeftGrid
+              chatRooms={chatRooms}
+              selectedIndex={selectedIndex}
+              handleChatRoomChange={handleChatRoomChange}
+              setSelectedIndex={setSelectedIndex} />
             {/*Right Grid*/}
             <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
               {/*Top Right*/}
               <Grid item xs={12} sx={{ height: "85%" }}>
-                {!selectedChatRoomId && <ChatRoomTextInfo /> }
+                {!selectedChatRoomId && <ChatRoomTextInfo />}
                 <Grid item xs={12}>
                   {solution && <ChatSolutionInfo solution={solution} />}
                 </Grid>
@@ -159,13 +160,13 @@ export default function UserChat() {
                   padding: "1rem",
                 }}
               >
-                {selectedChatRoomId && 
-                <SendMessageInputField 
-                input={input}
-                handleKeyPress={handleKeyPress}
-                handleMessageInput={handleMessageInput}
-                handleSendMessage={handleSendMessage}
-                />}
+                {selectedChatRoomId &&
+                  <SendMessageInputField
+                    input={input}
+                    handleKeyPress={handleKeyPress}
+                    handleMessageInput={handleMessageInput}
+                    handleSendMessage={handleSendMessage}
+                  />}
               </Grid>
             </Grid>
           </Grid>

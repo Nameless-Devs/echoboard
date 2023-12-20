@@ -5,7 +5,7 @@ import { ChatRoomTextInfo } from './ChatRoomTextInfo'
 import { ChatRoomResponse } from '@/service/Types'
 
 type LeftGridProps = {
-    chatRooms: ChatRoomResponse[];
+    chatRooms: ChatRoomResponse[] | undefined;
     selectedIndex: number;
     handleChatRoomChange: (chatRoom: ChatRoomResponse) => void; 
     setSelectedIndex: (index: number) => void;

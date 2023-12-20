@@ -62,7 +62,7 @@ export const AccountMenu: React.FC<UserResponseData> = (
             className="account-menu__link"
             onClick={() => router.push("/userProfile")}
           >
-            <Avatar /> Profile
+            <Avatar src={user.picture}/> Profile
           </MenuItem>
           <Divider />
           <MenuItem

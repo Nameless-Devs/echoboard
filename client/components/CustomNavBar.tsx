@@ -2,14 +2,10 @@ import React from 'react';
 import { AppBar, Toolbar, Box, Button, Stack } from '@mui/material';
 import { useRouter } from "next/navigation";
 import EchoBoardLogo from './EchoBoardLogo';
-import { UserResponseData } from '@/service/Types';
+import { ButtonInfo, UserResponseData } from '@/service/Types';
 import { AccountMenu } from './AccountMenu';
 import "../app/styles/UserPage.css"
 
-type ButtonInfo = {
-  label: string;
-  link: string;
-};
 
 type CustomAppBarProps = {
   buttons: ButtonInfo[];
@@ -31,7 +27,7 @@ const CustomNavBar: React.FC<CustomAppBarProps> = ({ buttons, user }) => {
               {button.label}
             </Button>
           ))}
-          {user && <AccountMenu {...user} />}
+          {user && <AccountMenu user={user} buttons={buttons} />}
         </Stack>
       </Toolbar>
     </AppBar>

@@ -29,7 +29,7 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
   return (
     <Card key={index} className="echo-board-card">
       <CardContent className="echo-board-card-content">
-        <SinglePost echoBoard={echoBoard} user={user} />
+           <SinglePost echoBoard={echoBoard}/>
       </CardContent>
         {user?.name && <CardActions className="echo-board-card-actions">
         <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />

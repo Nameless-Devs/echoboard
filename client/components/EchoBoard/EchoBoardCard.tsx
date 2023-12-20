@@ -9,7 +9,7 @@ import { PostComment } from "../PostComment/PostComment";
 
 type EchoBoardCardPros = {
   echoBoard: EchoBoardResponseData;
-  user: UserResponseData;
+  user?: UserResponseData;
   handleOpen: (echoBoard: EchoBoardResponseData) => void;
   handleOpenSolutionForm: (echoBoard: EchoBoardResponseData) => void;
   index: number;

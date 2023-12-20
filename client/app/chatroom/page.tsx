@@ -89,7 +89,7 @@ export default function UserChat() {
         timestamp: new Date(),
       };
       client.publish({
-        destination: "/app/chat/sendMessage/" + selectedChatRoomId,
+        destination: WEBSOCKET.SEND_MESSAGE + selectedChatRoomId,
         body: JSON.stringify(message),
       });
       setInput("");

@@ -57,10 +57,10 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
             <Button
         size="medium"
         onClick={() => handleOpenSolutionForm(echoBoard)}
-        className="echo-board-solution-btn"
-      >
+        className="echo-board-solution-btn">
         Suggest solution
-      </Button>
+            </Button>
+        }
     </Card>
   );
 };

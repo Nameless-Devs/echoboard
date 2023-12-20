@@ -59,6 +59,9 @@ export default function Home() {
       <>
         <p>Error fetching data</p>
       </>
+        <>
+          <NoUserEchoBoard/>
+        </>
     );
   }
   return (

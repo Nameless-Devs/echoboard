@@ -7,14 +7,13 @@ import {
   getUserInfo,
 } from "@/service/Functions";
 import { ChatRoomResponse, Message, SolutionResponseData } from "@/service/Types";
-import { Box, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import subscribeToUserChatRooms from "@/service/chatRoomService";
 import { WEBSOCKET } from "@/service/config";
 import { useScrollToLatestMessage } from "@/hooks/useScrollToLatestMessage";
 import CustomNavBar from "@/components/CustomNavBar";
-import SendIcon from "@mui/icons-material/Send";
 import { ChatSolutionInfo } from "@/components/Chat/ChatSolutionInfo";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import { ChatMessageByUser } from "@/components/Chat/ChatMessageByUser";

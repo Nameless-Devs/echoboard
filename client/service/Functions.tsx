@@ -1,16 +1,16 @@
-import { formatEndpoint } from "@/utils/apiUtils";
-import { ENDPOINTS } from "./config";
+import {formatEndpoint} from "@/utils/apiUtils";
+import {ENDPOINTS} from "./config";
 import {
-  PostEchoBoardData,
-  EchoBoardResponseData,
-  CommentToPost,
-  SolutionToPost,
-  UserResponseData,
-  Message,
-  EchoBoardPreviewResponseData,
-  SolutionVolunteersResponseData,
-  CommentOrSolutionType,
   ChatRoomResponse,
+  CommentOrSolutionType,
+  CommentToPost,
+  EchoBoardPreviewResponseData,
+  EchoBoardResponseData,
+  Message,
+  PostEchoBoardData,
+  SolutionToPost,
+  SolutionVolunteersResponseData,
+  UserResponseData,
 } from "./Types";
 import {
   DeletingEchoBoardError,

@@ -5,8 +5,8 @@ import { Avatar, Box } from "@mui/material";
 import { timeConverter } from "@/service/TimeConverter";
 
 type SinglePostProps = {
-  echoBoard: EchoBoardResponseData;
-  user: UserResponseData;
+    echoBoard: EchoBoardResponseData,
+    user?: UserResponseData
 };
 
 export const SinglePost: React.FC<SinglePostProps> = ({ echoBoard, user }) => {

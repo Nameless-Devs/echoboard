@@ -2,15 +2,15 @@ import { Grid, Box } from '@mui/material'
 import React from 'react'
 import { ChatMessage } from './ChatMessage'
 import { ChatMessageByUser } from './ChatMessageByUser'
-import { ChatRoomTextInfo } from './ChatRoomTextInfo'
 import { ChatSolutionInfo } from './ChatSolutionInfo'
 import { SendMessageInputField } from './SendMessageInputField'
 import { Message, SolutionResponseData, UserResponseData } from '@/service/Types'
 import { useScrollToLatestMessage } from '@/hooks/useScrollToLatestMessage'
+import { ChatPageTextInfo } from './ChatPageTextInfo'
 
 type RightGridProps = {
-    selectedChatRoomId: number;
-    solution: SolutionResponseData;
+    selectedChatRoomId: number | undefined;
+    solution: SolutionResponseData | undefined;
     messages: Message[];
     input: string;
     handleKeyPress: (event: React.KeyboardEvent<HTMLDivElement>) => void;
@@ -34,7 +34,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
         <Grid item xs={9} sx={{ height: "100%", backgroundColor: "#FAF9F7" }}>
             {/*Top Right*/}
             <Grid item xs={12} sx={{ height: "85%" }}>
-                {!selectedChatRoomId && <ChatRoomTextInfo />}
+                {!selectedChatRoomId && <ChatPageTextInfo />}
                 <Grid item xs={12}>
                     {solution && <ChatSolutionInfo solution={solution} />}
                 </Grid>

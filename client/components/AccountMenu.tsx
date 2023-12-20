@@ -8,6 +8,7 @@ import {
   IconButton,
   Tooltip,
   Box,
+  Button,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import { ButtonInfo, UserResponseData } from "@/service/Types";
@@ -70,6 +71,11 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
           >
             <Avatar src={user.picture}/> Profile
           </MenuItem>
+          {buttons.map((button, index) => (
+            <MenuItem key={index} color="inherit" onClick={() => router.push(button.link)}>
+              {button.label}
+            </MenuItem>
+          ))}
           <Divider />
           <MenuItem
             className="account-menu__link"

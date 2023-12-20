@@ -10,8 +10,8 @@ import JwtAuth from "@/components/JwtAuth";
 import CustomNavBar from "@/components/CustomNavBar";
 
 const buttons = [
-  {label: 'Starting page', link: '/home'},
-  {label: 'Chat', link: '/chatroom'}
+  {label: 'Chat', link: '/chatroom'},
+  {label: 'Starting page', link: '/home'}
 ];
 
 export default function Home() {

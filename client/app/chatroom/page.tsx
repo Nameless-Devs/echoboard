@@ -178,15 +178,15 @@ export default function UserChat() {
                   name="message"
                   multiline
                   rows="2"
-                  sx={{
-                    width: "100%",
-                    backgroundColor: "#F0F2F5"
-                  }}
                   type="text"
                   placeholder="Enter a message"
                   value={input}
                   onKeyDown={handleKeyPress}
                   onChange={handleMessageInput}
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "#F0F2F5"
+                  }}
                   InputProps={{
                     endAdornment:
                       <IconButton

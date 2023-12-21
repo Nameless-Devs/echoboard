@@ -22,13 +22,13 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ index, msg, messages }
 
   return (
     <ListItem key={index} sx={{ margin: "0.1rem 0", padding: ".3rem 0" }}>
-      <Grid container sx={{ maxWidth: "70%"}}>
-        <Grid item xs={1} sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+      <Grid container sx={{ maxWidth:  {xs: "90%", md: "70%"} }}>
+        <Grid item xs={2} md={1} sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
           {isFirstMessage && 
             <Avatar src={msg.picture} />
          }
         </Grid>
-        <Grid item xs={11}>
+        <Grid item xs={10} md={11}>
             <>
               <Box className={ isFirstMessage ? "first": "middle" }
                sx={{

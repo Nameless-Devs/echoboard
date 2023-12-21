@@ -34,9 +34,11 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           onUpvote={onUpvote}
           id={comment.id}
         />
-        <Button onClick={() => setIsVisible(!isVisible)}><ReplyIcon /></Button>
-        {isVisible && <PostCommentOnComment echoBoardId={comment.id} user={user} />}
-        {comment.echoBoardComments && comment.echoBoardComments.length > 0 && (
+        <Button onClick={() => setIsVisibleInput(!isVisibleInput)}><ReplyIcon /></Button>
+        {comment.echoBoardComments && comment.echoBoardComments.length > 0 && <Button onClick={() => setIsVisibleInputCommentReplies(!isVisibleCommentReplies)}>
+          {isVisibleCommentReplies ? "hide " : "show "}replies</Button>}
+        {isVisibleInput && <PostCommentOnComment echoBoardId={comment.id} user={user} />}
+        {comment.echoBoardComments && comment.echoBoardComments.length > 0 && isVisibleCommentReplies && (
           <div className="nested-comments">
             {comment.echoBoardComments.map((childComment) => (
               <CommentItem

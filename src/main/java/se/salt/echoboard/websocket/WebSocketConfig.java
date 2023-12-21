@@ -59,8 +59,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                                            @NonNull ServerHttpResponse response,
                                            @NonNull WebSocketHandler wsHandler,
                                            @NonNull Map<String, Object> attributes) {
-                //TODO: change this to TRACE
-                log.info("""
+                log.trace("""
                     --------------------------------------------------------------------------------------------------------
                     HandshakeInterceptor started
                     --------------------------------------------------------------------------------------------------------

@@ -28,7 +28,7 @@ public class HttpJwtTenantResolver implements TenantResolver<HttpServletRequest>
                 log.error("Parsing error occurred: {}", e.getMessage());
             }
         }
-        return "public";
+        return DEFAULT_TENANT_ID;
 
     }
 

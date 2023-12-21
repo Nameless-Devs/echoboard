@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import se.salt.echoboard.multitenancy.context.TenantContext;
 import se.salt.echoboard.security.config.JwtValidation;
 import se.salt.echoboard.security.config.WebsiteProperties;
 import se.salt.echoboard.service.repository.EchoBoardUserRepository;

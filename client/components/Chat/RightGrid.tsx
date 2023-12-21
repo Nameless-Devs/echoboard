@@ -85,7 +85,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
             <Grid item xs={12} md={0} sx={{
                 height: "100%",
                 backgroundColor: "#FAF9F7",
-                display: { xs: selectedChatRoomId !== undefined ? "block" : "none", md: "none" },
+                display: { xs: selectedIndex < 0 ?  "none" : "block", md: "none" },
             }}>
                 {/*Top Right*/}
                 <Grid item xs={12} sx={{ height: "85%" }}>

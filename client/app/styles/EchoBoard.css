@@ -31,6 +31,9 @@
   margin-bottom: 15px;
 }
 
+.home-button-mobile {
+  display: none;
+}
 
 
 @media (max-width: 600px) {

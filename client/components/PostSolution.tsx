@@ -106,7 +106,8 @@ export const PostSolution: React.FC<SolutionProps> = ({
                 }
                 onKeyDown={(event) => handleKeyPress(event)}
               />
-              <Button
+            </form>
+            <Button
                 className="post-comment__button"
                 variant="outlined"
                 type="submit"
@@ -114,7 +115,6 @@ export const PostSolution: React.FC<SolutionProps> = ({
               >
                 Suggest solution
               </Button>
-            </form>
           </>
         )}
       </Box>

@@ -34,7 +34,6 @@ export const LeftGrid: React.FC<LeftGridProps> = ({
             height: "92vh", 
             overflowY: 'auto', 
             backgroundColor: "#faf9f6", 
-            borderRight: "3px solid #c1c4c7",
             display: {xs: selectedIndex > -1 ? "none" : "block", md: "none" }
             }}>
             {chatRooms && <ChatRoomList chatRooms={chatRooms} selectedIndex={selectedIndex} onSelectChatRoom={handleChatRoomChange} setSelectedIndex={setSelectedIndex} />}

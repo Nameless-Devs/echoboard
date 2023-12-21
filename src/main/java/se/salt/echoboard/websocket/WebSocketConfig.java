@@ -19,12 +19,14 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 import org.springframework.web.util.WebUtils;
+import se.salt.echoboard.multitenancy.context.TenantContext;
 import se.salt.echoboard.security.config.WebsiteProperties;
 
 import java.util.Map;
@@ -59,8 +61,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                                            @NonNull ServerHttpResponse response,
                                            @NonNull WebSocketHandler wsHandler,
                                            @NonNull Map<String, Object> attributes) {
-                //TODO: change this to TRACE
-                log.info("""
+                log.trace("""
                     --------------------------------------------------------------------------------------------------------
                     HandshakeInterceptor started
                     --------------------------------------------------------------------------------------------------------
@@ -94,21 +95,18 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
             @Override
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
-                //TODO: change this to TRACE
-                log.info("""
+                log.trace("""
                     --------------------------------------------------------------------------------------------------------
                     Channel interceptor started
                     --------------------------------------------------------------------------------------------------------
                     """);
                 StompHeaderAccessor accessor =
                         MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-//                                TODO: Fix chatroom not found error due to schema not being set
-//                                assert accessor != null;
-//                var user = (OidcUser) accessor.getUser();
-//                assert user != null;
-//                TenantContext.setTenantId(user.getEmail().split("@")[1]);
-                    log.info(String.valueOf(accessor.getUser()));
-
+                assert accessor != null;
+                var user = (OAuth2AuthenticationToken) accessor.getUser();
+                assert user != null;
+                TenantContext.setTenantId(user.getPrincipal().getAttribute("hd"));
+                log.info(String.valueOf(accessor.getUser()));
                 SecurityContextHolder.getContext().setAuthentication((Authentication) accessor.getUser());
 
                 return message;

@@ -95,7 +95,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
                             backgroundColor: "white",
                             borderBottom: "3px solid #c1c4c7",
                         }}>
-                            <Button sx={{ padding: "2.5rem 0px", }}>
+                            <Button sx={{ padding: "2.5rem 0px"}} onClick={ () => setSelectedIndex(-1)}>
                                 <ArrowBackIosIcon />
                             </Button>
                             {solution && <ChatSolutionInfo solution={solution} />}

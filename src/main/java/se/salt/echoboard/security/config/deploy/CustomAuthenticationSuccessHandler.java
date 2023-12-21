@@ -44,6 +44,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 
     private void createUserIfTheyDoNotExist(OidcUser oidcUser) {
+        TenantContext.setTenantId(oidcUser.getEmail().split("@")[1]);
         if (userRepository.getUserBySubject(oidcUser.getSubject()).isEmpty()) {
             userRepository.createUser(oidcUser);
         }

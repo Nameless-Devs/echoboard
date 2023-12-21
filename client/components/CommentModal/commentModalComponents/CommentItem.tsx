@@ -1,9 +1,10 @@
 import { CommentResponseData, UserResponseData } from "@/service/Types";
-import { Grid, ListItem } from "@mui/material";
-import React from "react";
+import { Button, Grid, ListItem } from "@mui/material";
+import React, { useState } from "react";
 import { ItemContent } from "./ItemContent";
 import { ItemHeader } from "./ItemHeader";
 import { PostCommentOnComment } from "@/components/PostComment/PostCommentOnComment";
+import ReplyIcon from '@mui/icons-material/Reply';
 
 type CommentItemProps = {
   comment: CommentResponseData;
@@ -32,7 +33,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           onUpvote={onUpvote}
           id={comment.id}
         />
-        <PostCommentOnComment echoBoardId={comment.id} user={user} />
+        <Button onClick={() => setIsVisible(!isVisible)}><ReplyIcon /></Button>
+        {isVisible && <PostCommentOnComment echoBoardId={comment.id} user={user} />}
         {comment.echoBoardComments && comment.echoBoardComments.length > 0 && (
           <div className="nested-comments">
             {comment.echoBoardComments.map((childComment) => (

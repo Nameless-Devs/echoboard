@@ -17,7 +17,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   onUpvote,
   user,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleInput, setIsVisibleInput] = useState(false);
+  const [isVisibleCommentReplies, setIsVisibleInputCommentReplies] = useState(false);
 
   return (
     <ListItem className="comment-display__individual-comment">

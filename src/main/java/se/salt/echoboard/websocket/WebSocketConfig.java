@@ -93,8 +93,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
             @Override
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
-                //TODO: change this to TRACE
-                log.info("""
+                log.trace("""
                     --------------------------------------------------------------------------------------------------------
                     Channel interceptor started
                     --------------------------------------------------------------------------------------------------------

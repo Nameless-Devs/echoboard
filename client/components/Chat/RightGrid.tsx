@@ -19,6 +19,7 @@ type RightGridProps = {
     handleSendMessage: () => void;
     user: UserResponseData;
     setSelectedIndex: (index: number) => void;
+    selectedIndex: number;
 }
 
 export const RightGrid: React.FC<RightGridProps> = ({
@@ -31,6 +32,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
     handleSendMessage,
     setSelectedIndex,
     user,
+    selectedIndex,
 }) => {
     const scrollToLatestMessage = useScrollToLatestMessage(messages);
     return (

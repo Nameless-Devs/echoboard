@@ -34,8 +34,13 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           onUpvote={onUpvote}
           id={comment.id}
         />
-        <Button onClick={() => setIsVisibleInput(!isVisibleInput)}><ReplyIcon /></Button>
-        {comment.echoBoardComments && comment.echoBoardComments.length > 0 && <Button onClick={() => setIsVisibleInputCommentReplies(!isVisibleCommentReplies)}>
+        <Button 
+        sx={{padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 0"}}
+        onClick={() => setIsVisibleInput(!isVisibleInput)}><ReplyIcon /></Button>
+        {comment.echoBoardComments && comment.echoBoardComments.length > 0 && 
+        <Button 
+        sx={{padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 0"}}
+        onClick={() => setIsVisibleInputCommentReplies(!isVisibleCommentReplies)}>
           {isVisibleCommentReplies ? "hide " : "show "}replies</Button>}
         {isVisibleInput && <PostCommentOnComment echoBoardId={comment.id} user={user} />}
         {comment.echoBoardComments && comment.echoBoardComments.length > 0 && isVisibleCommentReplies && (

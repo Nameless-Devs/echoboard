@@ -18,6 +18,7 @@ type RightGridProps = {
     handleMessageInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleSendMessage: () => void;
     user: UserResponseData;
+    setSelectedIndex: (index: number) => void;
 }
 
 export const RightGrid: React.FC<RightGridProps> = ({
@@ -28,6 +29,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
     handleKeyPress,
     handleMessageInput,
     handleSendMessage,
+    setSelectedIndex,
     user,
 }) => {
     const scrollToLatestMessage = useScrollToLatestMessage(messages);

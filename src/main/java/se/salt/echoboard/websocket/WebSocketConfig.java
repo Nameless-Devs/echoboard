@@ -100,13 +100,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                     """);
                 StompHeaderAccessor accessor =
                         MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-//                                TODO: Fix chatroom not found error due to schema not being set
-//                                assert accessor != null;
-//                var user = (OidcUser) accessor.getUser();
-//                assert user != null;
-//                TenantContext.setTenantId(user.getEmail().split("@")[1]);
-                    log.info(String.valueOf(accessor.getUser()));
-
+                assert accessor != null;
+                var user = (OAuth2AuthenticationToken) accessor.getUser();
+                assert user != null;
+                TenantContext.setTenantId(user.getPrincipal().getAttribute("hd"));
+                log.info(String.valueOf(accessor.getUser()));
                 SecurityContextHolder.getContext().setAuthentication((Authentication) accessor.getUser());
 
                 return message;

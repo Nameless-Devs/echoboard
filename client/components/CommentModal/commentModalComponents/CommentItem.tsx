@@ -16,6 +16,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   onUpvote,
   user,
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <ListItem className="comment-display__individual-comment">
       <Grid container sx={{ marginTop: "1rem" }}>

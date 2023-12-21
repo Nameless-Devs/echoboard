@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 
+import static se.salt.echoboard.multitenancy.context.TenantContext.DEFAULT_TENANT_ID;
 import static se.salt.echoboard.security.config.JwtValidation.getJwtTokenFromRequestCookie;
 
 @Component

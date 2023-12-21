@@ -128,6 +128,7 @@ export default function UserChat() {
               handleMessageInput={handleMessageInput}
               handleSendMessage={handleSendMessage}
               user={user}
+              setSelectedIndex={setSelectedIndex}
             />
           </Grid>
         </Box>

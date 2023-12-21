@@ -34,7 +34,9 @@ export const RightGrid: React.FC<RightGridProps> = ({
     user,
     selectedIndex,
 }) => {
-    const scrollToLatestMessage = useScrollToLatestMessage(messages);
+    // const scrollToLatestMessage = useScrollToLatestMessage(messages);
+    const scrollToLatestMessageDesktop = useScrollToLatestMessage(messages);
+    const scrollToLatestMessageMobile = useScrollToLatestMessage(messages);
     return (
         <>
             <Grid item xs={0} md={9} sx={{
@@ -57,7 +59,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
                                     <ChatMessage key={index} index={index} msg={msg} messages={messages} />
                                 )
                             ))}
-                            <div ref={scrollToLatestMessage} />
+                            <div ref={scrollToLatestMessageDesktop} />
                         </Box>
                     </Grid>
                 </Grid>
@@ -85,7 +87,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
             <Grid item xs={12} md={0} sx={{
                 height: "100%",
                 backgroundColor: "#FAF9F7",
-                display: { xs: selectedIndex < 0 ?  "none" : "block", md: "none" },
+                display: { xs: selectedIndex < 0 ? "none" : "block", md: "none" },
             }}>
                 {/*Top Right*/}
                 <Grid item xs={12} sx={{ height: "85%" }}>
@@ -97,7 +99,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
                             backgroundColor: "white",
                             borderBottom: "3px solid #c1c4c7",
                         }}>
-                            <Button sx={{ padding: "2.5rem 0px"}} onClick={ () => setSelectedIndex(-1)}>
+                            <Button sx={{ padding: "2.5rem 0px" }} onClick={() => setSelectedIndex(-1)}>
                                 <ArrowBackIosIcon />
                             </Button>
                             {solution && <ChatSolutionInfo solution={solution} />}
@@ -112,7 +114,7 @@ export const RightGrid: React.FC<RightGridProps> = ({
                                     <ChatMessage key={index} index={index} msg={msg} messages={messages} />
                                 )
                             ))}
-                            <div ref={scrollToLatestMessage} />
+                            <div ref={scrollToLatestMessageMobile} />
                         </Box>
                     </Grid>
                 </Grid>

@@ -85,7 +85,6 @@ export const EchoBoard: React.FC<UserResponseData> = (
 
   return (
     <main className="echo-board-main">
-      <h2>EchoBoard All Posts</h2>
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
       ) : (

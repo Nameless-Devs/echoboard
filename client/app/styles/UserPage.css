@@ -30,6 +30,14 @@
 }
 
 
+@media (max-width: 900px) {
+  .model-display {
+    margin-left: 15px;
+  }
+
+}
+
+
 @media (max-width: 600px) {
   main {
     font-family: "Gill Sans", sans-serif;
@@ -123,5 +131,9 @@
     margin-top: 10px;
     width: 110px;
     margin: 0 auto;
+  }
+
+  .model-display {
+    margin-left: 15px;
   }
 }

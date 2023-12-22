@@ -19,12 +19,11 @@ export const CommentsList: React.FC<CommentsListProps> = ({ comments, onCommentU
       .sort((a, b) => b.upvote.length - a.upvote.length)
       .map((comment, index) => {
         return (
-          <><CommentItem
+        <CommentItem
             key={index}
             comment={comment}
             onUpvote={() => onCommentUpvote(comment.id)}
-            user={user} /><PostCommentOnComment echoBoardId={comment.id} user={user} /></>  
-
+            user={user} />
         );
       })}
   </List>

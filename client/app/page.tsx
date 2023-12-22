@@ -35,7 +35,7 @@ export default function Home() {
       >
         <CustomNavBar buttons={buttons} user={user} />
         <Typography variant="h4" sx={{ textAlign: "center", marginTop: "1rem" }}>
-          {user.name}, welcome to EchoBoard!
+          {user.name}
         </Typography>
         <Button
           onClick={handleClick}

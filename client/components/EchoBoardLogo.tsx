@@ -13,7 +13,7 @@ export default function EchoBoardLogo() {
           alt="EchoBoard logo white"
           width={40}
           style={{
-            margin: "0 1rem",
+            marginRight: "0.8rem"
           }}
         />
         <Typography

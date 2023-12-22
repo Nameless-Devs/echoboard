@@ -9,6 +9,7 @@ import "../../app/styles/EchoBoard.css";
 import EchoBoardCard from "./EchoBoardCard";
 import { SinglePostSkeleton } from "./SinglePostSkeleton";
 import ErrorComponent from "@/app/error";
+import { Box } from "@mui/material";
 
 export const EchoBoard: React.FC<UserResponseData> = (
   user: UserResponseData
@@ -85,7 +86,8 @@ export const EchoBoard: React.FC<UserResponseData> = (
 
   return (
     <main className="echo-board-main">
-      <h2>EchoBoard All Posts</h2>
+      {/* <h2>EchoBoard All Posts</h2> */}
+      <Box  > 
       {sortByUpvote ? (
         <Button onClick={() => setSortByUpvote(false)}>Default</Button>
       ) : (
@@ -93,6 +95,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
           Sort
         </Button>
       )}
+      </Box>
       <div className="echo-board-posts">
         {isLoading && <SinglePostSkeleton />}
 

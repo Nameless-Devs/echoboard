@@ -95,7 +95,11 @@ export const EchoBoard: React.FC<UserResponseData> = (
         </Button>
       )}
       </Box>
-      <Box className="echo-board-posts">
+      <Box className="echo-board-posts"
+        sx={{
+          width: {xs: "100%", md: "60%"}, 
+          gap: {xs: ".2rem", md: "1rem"}
+      }}>
         {isLoading && <SinglePostSkeleton />}
 
         {isError && error instanceof Error && (

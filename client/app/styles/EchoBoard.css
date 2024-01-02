@@ -9,8 +9,8 @@
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
-  width: 60%;
+  /* gap: 1rem; */
+  /* width: 60%; */
   max-width: 800px;
 }
 

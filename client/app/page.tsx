@@ -34,9 +34,6 @@ export default function Home() {
         }}
       >
         <CustomNavBar buttons={buttons} user={user} />
-        <Typography variant="h4" sx={{ textAlign: "center", marginTop: "1rem" }}>
-          {user.name}
-        </Typography>
         <Button
           onClick={handleClick}
           variant="outlined"

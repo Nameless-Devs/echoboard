@@ -94,7 +94,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
         </Button>
       )}
       </Box>
-      <div className="echo-board-posts">
+      <Box className="echo-board-posts">
         {isLoading && <SinglePostSkeleton />}
 
         {isError && error instanceof Error && (
@@ -113,7 +113,7 @@ export const EchoBoard: React.FC<UserResponseData> = (
             handleOpenSolutionsTab={handleOpenSolutionsTab}
           />
         ))}
-      </div>
+      </Box>
       {selectedPost && (
         <CommentsModal
           post={echoBoardDetail || selectedPost}

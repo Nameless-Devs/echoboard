@@ -44,7 +44,13 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           {isVisibleCommentReplies ? "hide " : "show "}replies</Button>}
         {isVisibleInput && <PostCommentOnComment echoBoardId={comment.id} user={user} />}
         {comment.echoBoardComments && comment.echoBoardComments.length > 0 && isVisibleCommentReplies && (
-          <div className="nested-comments">
+          <Box className="nested-comments"
+          sx={{
+            display: "block",
+            width: "100%", 
+            ml: "2rem",
+        }}
+          >
             {comment.echoBoardComments.map((childComment) => (
               <CommentItem
                 key={childComment.id}
@@ -53,7 +59,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
                 user={user}
               />
             ))}
-          </div>
+          </Box>
         )}
       </Grid>
     </ListItem>

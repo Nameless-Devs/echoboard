@@ -1,5 +1,5 @@
 import { CommentResponseData, UserResponseData } from "@/service/Types";
-import { Button, Grid, ListItem } from "@mui/material";
+import { Box, Button, Grid, ListItem } from "@mui/material";
 import React, { useState } from "react";
 import { ItemContent } from "./ItemContent";
 import { ItemHeader } from "./ItemHeader";
@@ -39,7 +39,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
         onClick={() => setIsVisibleInput(!isVisibleInput)}><ReplyIcon /></Button>
         {comment.echoBoardComments && comment.echoBoardComments.length > 0 && 
         <Button 
-        sx={{padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 0"}}
+        sx={{padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 2rem"}}
         onClick={() => setIsVisibleInputCommentReplies(!isVisibleCommentReplies)}>
           {isVisibleCommentReplies ? "hide " : "show "}replies</Button>}
         {isVisibleInput && <PostCommentOnComment echoBoardId={comment.id} user={user} />}

@@ -34,22 +34,26 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           onUpvote={onUpvote}
           id={comment.id}
         />
-        <Button 
-        sx={{padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 0"}}
-        onClick={() => setIsVisibleInput(!isVisibleInput)}><ReplyIcon /></Button>
-        {comment.echoBoardComments && comment.echoBoardComments.length > 0 && 
-        <Button 
-        sx={{padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 2rem"}}
-        onClick={() => setIsVisibleInputCommentReplies(!isVisibleCommentReplies)}>
-          {isVisibleCommentReplies ? "hide " : "show "}replies</Button>}
-        {isVisibleInput && <PostCommentOnComment echoBoardId={comment.id} user={user} />}
+        <Button
+          sx={{ padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 0" }}
+          onClick={() => setIsVisibleInput(!isVisibleInput)}><ReplyIcon /></Button>
+        {comment.echoBoardComments && comment.echoBoardComments.length > 0 &&
+          <Button
+            sx={{ padding: 0, minWidth: 0, margin: "0.5rem 0 1rem 2rem" }}
+            onClick={() => setIsVisibleInputCommentReplies(!isVisibleCommentReplies)}>
+            {isVisibleCommentReplies ? "hide " : "show "}replies</Button>}
+        {isVisibleInput &&
+          <Box sx={{ width: "100%", ml: "2rem",}}>
+            <PostCommentOnComment echoBoardId={comment.id} user={user} />
+          </Box>
+        }
         {comment.echoBoardComments && comment.echoBoardComments.length > 0 && isVisibleCommentReplies && (
           <Box className="nested-comments"
-          sx={{
-            display: "block",
-            width: "100%", 
-            ml: "2rem",
-        }}
+            sx={{
+              display: "block",
+              width: "100%",
+              ml: "2rem",
+            }}
           >
             {comment.echoBoardComments.map((childComment) => (
               <CommentItem

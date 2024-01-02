@@ -68,7 +68,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 
   return (
     <Modal open={isOpen} onClose={handleClose}>
-      <Box className="model-display" sx={{ width: { xs: "100%", md: "60%" } }}>
+      <Box className="model-display" sx={{ width: { xs: "90%", md: "60%" } }}>
         <Box mb={1}>
           <SinglePost echoBoard={post} user={user} />
           <Upvote upvote={displayPost.upvote} echoBoardId={displayPost.id} />
@@ -81,7 +81,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             defaultTabIndex={defaultTabIndex}
           />
           <CustomTabContent value={value} index={0}>
-            <Box className="comment-display">
+            <Box className="comment-display" sx={{  margin: {xs: ".2rem",  md: "15px 25px 0 0"} }}>
               <CommentsList
                 comments={displayPost.echoBoardComments}
                 onCommentUpvote={(commentId) =>

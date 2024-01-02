@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CommentToPost, UserResponseData } from "@/service/Types";
 import { Avatar, Box, Dialog, DialogContentText } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postComment, postingCommentOnComment } from "@/service/Functions";
+import { postingCommentOnComment } from "@/service/Functions";
 import { CommentForm } from "./PostCommentTextField";
 import { StyledBadge } from "./StyledBadge";
 import "../../app/styles/PostComment.css";

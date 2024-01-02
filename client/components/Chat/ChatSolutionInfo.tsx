@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, Avatar } from '@mui/material'
+import { Grid, Box, Typography, Avatar, Button } from '@mui/material'
 import React from 'react'
 import { EchoBoardPreviewDisplay } from '../UserPage/UserPageComponents/EchoBoardPreviewDisplay'
 import { EchoBoardPreviewResponseData, SolutionResponseData } from '@/service/Types'
@@ -26,11 +26,13 @@ export const ChatSolutionInfo: React.FC<ChatSolutionInfoProps> = ({ solution }) 
         <Grid
             container
             sx={{
-                borderBottom: "3px solid #c1c4c7",
-                padding: "1rem",
+                borderBottom: {xs: "none", md: "3px solid #c1c4c7"},
+                padding: {xs: "1rem 1rem 1rem 0", md: "1rem"},
                 backgroundColor: "white",
             }}
-        >
+        >   
+            <Grid item xs={1} >
+            </Grid>
             <Grid item xs={12} sx={{ mb: "1rem"}}>
                 <EchoBoardPreviewDisplay isLoading={previewLoading} data={echoBoardPreview} />
             </Grid>

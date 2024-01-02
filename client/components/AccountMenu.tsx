@@ -8,15 +8,24 @@ import {
   IconButton,
   Tooltip,
   Box,
+  Button,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import { UserResponseData } from "@/service/Types";
+import { ButtonInfo, UserResponseData } from "@/service/Types";
 import "../app/styles/AccountMenu.css";
 import { ENDPOINTS } from "@/service/config";
 import { useRouter } from "next/navigation";
+import MenuIcon from '@mui/icons-material/Menu';
 
-export const AccountMenu: React.FC<UserResponseData> = (
+type AccountMenuProps = {
+  buttons: ButtonInfo[];
   user: UserResponseData
+}
+
+export const AccountMenu: React.FC<AccountMenuProps> = ({
+  user, 
+  buttons,
+}
 ) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -41,7 +50,7 @@ export const AccountMenu: React.FC<UserResponseData> = (
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar className="account-menu__avatar" src={user.picture} />
+              <MenuIcon fontSize="large" sx={{ color: "white" }}/>
             </IconButton>
           </Tooltip>
         </Box>
@@ -58,10 +67,20 @@ export const AccountMenu: React.FC<UserResponseData> = (
         >
           <MenuItem
             className="account-menu__link"
+            sx={{justifyContent: "right"}}
             onClick={() => router.push("/userProfile")}
           >
-            <Avatar /> Profile
+            <Avatar src={user.picture}/> Profile
           </MenuItem>
+          {buttons.map((button, index) => (
+            <MenuItem 
+            key={index} 
+            color="inherit" 
+            sx={{justifyContent: "right"}} 
+            onClick={() => router.push(button.link)}>
+              {button.label}
+            </MenuItem>
+          ))}
           <Divider />
           <MenuItem
             className="account-menu__link"

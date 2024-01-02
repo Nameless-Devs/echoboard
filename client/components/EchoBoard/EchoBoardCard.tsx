@@ -9,7 +9,7 @@ import { PostComment } from "../PostComment/PostComment";
 
 type EchoBoardCardPros = {
   echoBoard: EchoBoardResponseData;
-  user: UserResponseData;
+  user?: UserResponseData;
   handleOpen: (echoBoard: EchoBoardResponseData) => void;
   handleOpenSolutionForm: (echoBoard: EchoBoardResponseData) => void;
   index: number;
@@ -29,9 +29,9 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
   return (
     <Card key={index} className="echo-board-card">
       <CardContent className="echo-board-card-content">
-        <SinglePost echoBoard={echoBoard} user={user} />
+           <SinglePost echoBoard={echoBoard}/>
       </CardContent>
-      <CardActions className="echo-board-card-actions">
+        {user?.name && <CardActions className="echo-board-card-actions">
         <Upvote upvote={echoBoard.upvote} echoBoardId={echoBoard.id} />
         <Button
           size="small"
@@ -51,15 +51,16 @@ const EchoBoardCard: React.FC<EchoBoardCardPros> = ({
         >
           <LightbulbIcon /> {echoBoard.echoBoardSolutions.length}
         </Button>
-      </CardActions>
-      <PostComment echoBoardId={echoBoard.id} user={user} />
-      <Button
+      </CardActions>}
+        {user?.name && <PostComment echoBoardId={echoBoard.id} user={user} />}
+        {user?.name &&
+            <Button
         size="medium"
         onClick={() => handleOpenSolutionForm(echoBoard)}
-        className="echo-board-solution-btn"
-      >
+        className="echo-board-solution-btn">
         Suggest solution
-      </Button>
+            </Button>
+        }
     </Card>
   );
 };

@@ -1,16 +1,16 @@
-import { formatEndpoint } from "@/utils/apiUtils";
-import { ENDPOINTS } from "./config";
+import {formatEndpoint} from "@/utils/apiUtils";
+import {ENDPOINTS} from "./config";
 import {
-  PostEchoBoardData,
-  EchoBoardResponseData,
-  CommentToPost,
-  SolutionToPost,
-  UserResponseData,
-  Message,
-  EchoBoardPreviewResponseData,
-  SolutionVolunteersResponseData,
-  CommentOrSolutionType,
   ChatRoomResponse,
+  CommentOrSolutionType,
+  CommentToPost,
+  EchoBoardPreviewResponseData,
+  EchoBoardResponseData,
+  Message,
+  PostEchoBoardData,
+  SolutionToPost,
+  SolutionVolunteersResponseData,
+  UserResponseData,
 } from "./Types";
 import {
   DeletingEchoBoardError,
@@ -47,8 +47,7 @@ export async function fetchEchoBoards(): Promise<EchoBoardResponseData[]> {
     const response = await fetch(ENDPOINTS.ECHOBOARD_POST, {
       credentials: "include",
     });
-    const data: EchoBoardResponseData[] = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     throw new FetchEchoBoardsError();
   }
@@ -189,13 +188,12 @@ export async function upvoteSolution(echoBoardId: string, solutionId: string) {
   }
 }
 
-export async function getUserInfo() {
+export async function getUserInfo(): Promise<UserResponseData> {
   try {
     const response = await fetch(ENDPOINTS.USER, {
       credentials: "include",
     });
-    const data: UserResponseData = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     throw new GettingUserInfoError();
   }

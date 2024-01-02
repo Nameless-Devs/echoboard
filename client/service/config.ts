@@ -29,6 +29,7 @@ export const ENDPOINTS = {
 
 export const WEBSOCKET = {
   BASE_URL: `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`,
+  SEND_MESSAGE: "/app/chat/sendMessage/",
 };
 
 export const YOUTUBE_LINK = "https://youtu.be/KNVRhe1BvEw";

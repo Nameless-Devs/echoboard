@@ -8,10 +8,12 @@ import { Button, Typography } from "@mui/material";
 import { LoadingLogo } from "@/components/LoadingLogo";
 import JwtAuth from "@/components/JwtAuth";
 import CustomNavBar from "@/components/CustomNavBar";
+import NoUserNavBar from "@/components/NoUserNavBar";
+import {NoUserEchoBoard} from "@/components/EchoBoard/NoUserEchoBoard";
 
 const buttons = [
-  {label: 'Starting page', link: '/home'},
-  {label: 'Chat', link: '/chatroom'}
+  {label: 'Chat', link: '/chatroom'},
+  {label: 'Landing page', link: '/home'}
 ];
 
 export default function Home() {
@@ -32,9 +34,6 @@ export default function Home() {
         }}
       >
         <CustomNavBar buttons={buttons} user={user} />
-        <Typography variant="h4" sx={{ textAlign: "center", marginTop: "1rem" }}>
-          {user.name}, welcome to EchoBoard!
-        </Typography>
         <Button
           onClick={handleClick}
           variant="outlined"
@@ -54,14 +53,10 @@ export default function Home() {
   }
   if (error) {
     return (
-      <>
-        <p>Error fetching data</p>
-      </>
+        <>
+          <NoUserNavBar buttons={buttons} />
+          <NoUserEchoBoard/>
+        </>
     );
   }
-  return (
-    <>
-      <h2>Please log in</h2>
-    </>
-  );
 }
